@@ -1,0 +1,90 @@
+/*
+    Este ficheiro foi atualizado para remover estilos que estavam a causar conflito
+    com o tema premium definido diretamente no login.hbs.
+    Os estilos para o corpo (body), título (title), logo (loginlogo),
+    e inputs (input, form-group, form-control) foram removidos ou comentados
+    porque já são tratados pelo layout_list.hbs ou pelo estilo inline no login.hbs.
+*/
+
+/* Removido: body background-image, pois o fundo é controlado pelo layout_list.hbs */
+/* body{
+    background-image: url('/images/login.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+} */
+
+/* Removido: .title, pois o estilo é definido no login.hbs */
+/* .title{
+    color: #4a4a4a;
+    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+} */
+
+/* Removido: .loginlogo, pois o estilo é definido no login.hbs */
+/* .loginlogo{
+    margin-top: 50px;
+    width: 260px;
+} */
+
+/* Removido: .input, pois o estilo é definido no login.hbs */
+/* .input{
+    margin-top: 30px;
+} */
+
+
+/* Removido: .loginForm e .loginForm:hover, pois o estilo é definido no login.hbs */
+/* .loginForm{
+    background: rgb(238, 238, 238,0.9);
+    border-style: solid;
+    border-color: rgb(238, 238, 238,0.9);
+    border-width: 2.5px;
+    border-radius: 18px;
+    width: 400px;
+    margin-top: 30px;
+    padding: 35px;
+}
+
+
+.loginForm:hover{
+    background: #eee;
+    border-style: solid;
+    border-color: #eee;
+    border-width: 2.5px;
+    border-radius: 18px;
+    width: 400px;
+    margin-top: 30px;
+    padding: 35px;
+} */
+
+/* Removido: .loginButton, pois o estilo é definido no login.hbs */
+/* .loginButton{
+    margin-top: 30px;
+} */
+
+/* Removido: #l e #l:hover, pois o estilo é definido no login.hbs */
+/* #l{
+    width: 325px;
+    background-color: #3c4349;
+    color: white;
+    border-width: 2px;
+    border-radius: 25px;
+    font-size: 15px;
+}
+
+
+#l:hover{
+    width: 325px;
+    background-color: #262a2e;
+    color: white;
+    border-width: 2px;
+    border-radius: 25px;
+    font-size: 15px;
+} */
+
+
+/* Mantido: .erroralert, pois pode ser útil para mensagens de erro específicas */
+.erroralert{
+    padding-top:5px ;
+    padding-bottom: 5px;
+}

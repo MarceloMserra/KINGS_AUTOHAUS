@@ -1,0 +1,241 @@
+<!-- This file will be rendered inside the {{{body}}} of the layout_list.hbs -->
+
+<style>
+    /* Styles for the add/edit car forms */
+    body {
+        background-color: #000000; /* Ensure body background is black */
+        color: #ffffff; /* Default text color */
+    }
+
+    .container {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .card {
+        background-color: #1a1a1a; /* Darker card background */
+        border: 1px solid #333333; /* Subtle card border */
+        color: #ffffff; /* White text inside cards */
+        border-radius: 10px; /* Rounded card corners */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    h3.form-title {
+        color: #029C4A; /* Green title */
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    hr {
+        border-top: 2px solid #029C4A; /* Green line */
+        width: 80px;
+        margin: 15px auto 30px auto;
+        border-radius: 5px;
+    }
+
+    .form-group label {
+        color: #ffffff; /* White label text */
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        background-color: #0d0d0d; /* Very dark input background */
+        color: #ffffff;
+        border: 1px solid #029C4A; /* Green border */
+        border-radius: 8px; /* Slightly less rounded than login for forms */
+        padding: 10px 15px;
+        font-size: 1rem;
+        box-sizing: border-box;
+    }
+
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .form-control:focus {
+        background-color: #2a2a2a;
+        border-color: #029C4A;
+        box-shadow: 0 0 0 0.2rem rgba(2, 156, 74, 0.25);
+        color: #ffffff;
+        outline: none;
+    }
+
+    textarea.form-control {
+        min-height: 100px; /* Min height for textareas */
+        resize: vertical; /* Allow vertical resizing */
+    }
+
+    .btn-submit-form {
+        background-color: #029C4A; /* Green button */
+        border-color: #029C4A;
+        color: #000000; /* Black text */
+        font-weight: bold;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-submit-form:hover {
+        background-color: #017A3A; /* Darker green on hover */
+        border-color: #017A3A;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(2, 156, 74, 0.4);
+    }
+
+    .btn-cancel-form {
+        background-color: #333333; /* Dark grey button */
+        border-color: #333333;
+        color: #ffffff;
+        font-weight: bold;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-cancel-form:hover {
+        background-color: #555555;
+        border-color: #555555;
+        color: #ffffff;
+    }
+
+    .alert-danger {
+        background-color: rgba(220, 53, 69, 0.8);
+        color: #ffffff;
+        border-color: #dc3545;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="container mt-4 mb-4">
+    <div class="card p-4 shadow-sm">
+        <h3 class="form-title">Add New Car</h3>
+        <hr>
+
+        <!-- Error message (if any) -->
+        {{#if error}}
+        <div class="alert alert-danger text-center" role="alert">
+            {{error}}
+        </div>
+        {{/if}}
+
+        <form action="/admin/addgas" method="POST" enctype="multipart/form-data" autocomplete="off">
+
+            <div class="form-row">
+                <!-- Image Upload Field -->
+                <div class="form-group col-md-12">
+                    <label for="imagesupld">Car Images Upload (max 10)</label>
+                    <input type="file" class="form-control-file" id="imagesupld" name="imagesupld" multiple required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Make (e.g., Ford, BMW)</label>
+                    <input type="text" class="form-control" name="brand" placeholder="e.g., Ford" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Title (e.g., 2019 Ford Mustang)</label>
+                    <input type="text" class="form-control" name="title" placeholder="e.g., 2019 Ford Mustang" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Model Name (e.g., GT350 Coupe)</label>
+                    <input type="text" class="form-control" name="t2" placeholder="e.g., GT350 Coupe" required>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>Year</label>
+                    <input type="number" class="form-control" name="year" placeholder="e.g., 2023" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Price</label>
+                    <input type="number" class="form-control" name="price" placeholder="e.g., 58100" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Formatted Price (e.g., 58,100)</label>
+                    <input type="text" class="form-control" name="priceStr" placeholder="e.g., 58,100" required>
+                </div>
+
+
+                <div class="form-group col-md-2">
+                    <label>Max Speed (mph)</label>
+                    <input type="number" class="form-control" name="topspeed" placeholder="e.g., 185" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>0-60 Time (s)</label>
+                    <input type="number" step="0.1" class="form-control" name="time60" placeholder="e.g., 3.5" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Mileage (mpg)</label>
+                    <input type="number" class="form-control" name="mileage" placeholder="e.g., 19" required>
+                </div>
+
+
+                <div class="form-group col-md-2">
+                    <label>Engine (Liters)</label>
+                    <input type="number" step="0.1" class="form-control" name="engine" placeholder="e.g., 5.0" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Cylinders</label>
+                    <input type="number" class="form-control" name="cyl" placeholder="e.g., 8" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Gearbox</label>
+                    <input type="text" class="form-control" name="gearbox" placeholder="e.g., 6-Speed SelectShift" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Transmission</label>
+                    <input type="text" class="form-control" name="transmission" placeholder="e.g., Automatic" required>
+                </div>
+
+
+                <div class="form-group col-md-3">
+                    <label>Color</label>
+                    <input type="text" class="form-control" name="colour" placeholder="e.g., Twister Orange" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Interior</label>
+                    <input type="text" class="form-control" name="interior" placeholder="e.g., Leather Trimmed" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Body Type (e.g., 2 Door Coupe)</label>
+                    <input type="text" class="form-control" name="body" placeholder="e.g., 2 Door Coupe" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Drivetrain</label>
+                    <input type="text" class="form-control" name="drivetrain" placeholder="e.g., RWD" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Wheel (e.g., 18'' Aluminium)</label>
+                    <input type="text" class="form-control" name="wheel" placeholder="e.g., 18'' Aluminium Wheels" required>
+                </div>
+
+
+                <div class="form-group col-md-12">
+                    <label>Description</label>
+                    <textarea class="form-control" name="description" placeholder="Detailed car description" rows="3" required></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Safety Features</label>
+                    <textarea class="form-control" name="safety" placeholder="Safety information" rows="3" required></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Technology Features</label>
+                    <textarea class="form-control" name="technology" placeholder="Technology information" rows="3" required></textarea>
+                </div>
+
+            </div>
+
+            <div class="form-group d-flex justify-content-between mt-3">
+                <button type="submit" class="btn btn-submit-form">Save Car</button>
+                <a class="btn btn-cancel-form" href="/admin/gas">Back</a>
+            </div>
+        </form>
+    </div>
+</div>

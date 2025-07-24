@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>KINGS AUTOHAUS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Stylesheet -->
+    <link rel="icon" href="/images/auto_favi.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Adicionar um ficheiro CSS personalizado para o tema premium -->
+    <link rel="stylesheet" href="/css/premium-theme.css">
+
+    {{!-- Icons --}}
+    <script src="https://kit.fontawesome.com/f7b393d83e.js" crossorigin="anonymous"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        xintegrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <style>
+        /* Estilos inline temporários para o fundo preto absoluto e navbar.
+           Idealmente, estes deveriam ir para o ficheiro 'premium-theme.css' */
+        body {
+            background-color: #000000; /* Fundo preto absoluto */
+            color: #ffffff; /* Cor do texto padrão para contraste */
+        }
+        #navigation .navbar {
+            background-color: #000000 !important; /* Navbar preta absoluta */
+            border-bottom: 1px solid #1a1a1a; /* Linha subtil para separar */
+        }
+        #navigation .navbar-brand img {
+            height: 60px; /* Aumentar um pouco o tamanho da logo */
+        }
+        #navigation .nav-link {
+            color: #ffffff !important; /* Links da navbar brancos */
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        #navigation .nav-link:hover {
+            color: #00ff00 !important; /* Efeito hover verde para links */
+        }
+        /* Ajustar a cor do ícone do toggler para ser visível no fundo preto */
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <section id="navigation">
+
+        <div class="container-fluid" id="nav-container">
+
+            <nav class="navbar navbar-expand-md">
+                <a class="navbar-brand" href="/">
+                    <!-- Nova Logo KINGS AUTOHAUS -->
+                    <img src="/images/kings_autohaus_logo.jpeg" alt="KINGS AUTOHAUS Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item ml-4 nav-catg">
+                            <a class="nav-link" href="/gas">
+                                <i class="fas fa-car"></i> Cars
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <!-- Botão de Login em vez de Admin -->
+                            <a class="nav-link btn btn-outline-light px-3 py-2 ml-md-3" href="/login" style="border-color: #00ff00; color: #00ff00 !important; border-radius: 5px; font-weight: bold;">
+                                Login
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+
+    </section>
+
+    {{{body}}}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+        xintegrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+    <script src="/javascripts/ev_cars.js"></script> {{!-- Manter se ainda for usar em algum lugar, senão remover --}}
+    <script src="/javascripts/gas_cars.js"></script> {{!-- Manter se ainda for usar em algum lugar, senão remover --}}
+
+</body>
+
+</html>

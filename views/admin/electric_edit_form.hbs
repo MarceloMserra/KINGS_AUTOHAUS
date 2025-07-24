@@ -1,0 +1,122 @@
+<!--
+    Este arquivo será renderizado dentro do {{{body}}} do layout_list.hbs.
+    É o formulário para editar um carro elétrico existente.
+-->
+
+<div class="container mt-4 mb-4">
+    <div class="card p-4 shadow-sm">
+        <h3 class="text-center mb-4">Editar Carro Elétrico</h3>
+        <hr>
+
+        <!-- Mensagem de erro (se houver) -->
+        {{#if error}}
+        <div class="alert alert-danger text-center" role="alert">
+            {{error}}
+        </div>
+        {{/if}}
+
+        <!--
+            O atributo enctype="multipart/form-data" é crucial para o upload de arquivos.
+            O input hidden "_method" é para o method-override, pois formulários HTML só suportam GET/POST.
+        -->
+        <form action="/admin/editelectric/{{electricCar._id}}?_method=PUT" method="POST" enctype="multipart/form-data" autocomplete="off">
+            <input type="hidden" name="_method" value="PUT">
+
+            <div class="form-row">
+                <!-- Campo de Upload de Imagem (para novas imagens) -->
+                <div class="form-group col-md-12">
+                    <label for="imagesupld">Upload de Novas Imagens do Carro (até 10)</label>
+                    <input type="file" class="form-control-file" id="imagesupld" name="imagesupld" multiple>
+                    <small class="form-text text-muted">Selecione novas imagens para substituir as existentes.</small>
+                </div>
+
+                <!-- Exibição das Imagens Atuais -->
+                {{#if electricCar.image.length}}
+                <div class="form-group col-md-12">
+                    <label>Imagens Atuais:</label>
+                    <div class="d-flex flex-wrap">
+                        {{#each electricCar.image}}
+                        <img src="{{this}}" alt="Imagem do carro" style="width: 100px; height: auto; margin: 5px; border-radius: 5px; border: 1px solid #ddd;">
+                        {{/each}}
+                    </div>
+                </div>
+                {{/if}}
+
+                <div class="form-group col-md-4">
+                    <label>Título (Ex: Tesla Model Y Long Range AWD)</label>
+                    <input type="text" class="form-control" name="title" placeholder="Tesla Model Y Long Range AWD" value="{{electricCar.title}}" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>T1 (Ex: 2020 Tesla Model Y)</label>
+                    <input type="text" class="form-control" name="t1" placeholder="2020 Tesla Model Y" value="{{electricCar.t1}}" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Subtítulo (Ex: Long Range AWD Edition)</label>
+                    <input type="text" class="form-control" name="t2" placeholder="Long Range AWD Edition" value="{{electricCar.t2}}" required>
+                </div>
+
+
+                <div class="form-group col-md-2">
+                    <label>Ano</label>
+                    <input type="number" class="form-control" name="year" placeholder="2020" value="{{electricCar.year}}" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Preço</label>
+                    <input type="number" class="form-control" name="price" placeholder="54000" value="{{electricCar.price}}" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Preço Formatado (Ex: 54,000)</label>
+                    <input type="text" class="form-control" name="priceStr" placeholder="54,000" value="{{electricCar.priceStr}}" required>
+                </div>
+
+
+                <div class="form-group col-md-2">
+                    <label>Velocidade Máxima</label>
+                    <input type="text" class="form-control" name="topspeed" placeholder="135" value="{{electricCar.topspeed}}" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Tempo 0-60</label>
+                    <input type="text" class="form-control" name="time60" placeholder="4.8" value="{{electricCar.time60}}" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Autonomia (Milhas/Km)</label>
+                    <input type="text" class="form-control" name="range" placeholder="346" value="{{electricCar.range}}" required>
+                </div>
+
+
+                <div class="form-group col-md-3">
+                    <label>Cor</label>
+                    <input type="text" class="form-control" name="colour" placeholder="Red Metallic Paint" value="{{electricCar.colour}}" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Interior</label>
+                    <input type="text" class="form-control" name="interior" placeholder="Cream Oakwood Interior" value="{{electricCar.interior}}" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Rodas (Ex: 19'' Induction Wheels)</label>
+                    <input type="text" class="form-control" name="wheel" placeholder="19'' Induction Wheels" value="{{electricCar.wheel}}" required>
+                </div>
+
+
+                <div class="form-group col-md-12">
+                    <label>Descrição</label>
+                    <textarea class="form-control" name="description" placeholder="Descrição Detalhada do Carro" rows="3" required>{{electricCar.description}}</textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Segurança</label>
+                    <textarea class="form-control" name="safety" placeholder="Informações de Segurança" rows="3" required>{{electricCar.safety}}</textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Descrição da Autonomia</label>
+                    <textarea class="form-control" name="rangedesc" placeholder="Informações sobre a Autonomia" rows="3" required>{{electricCar.rangedesc}}</textarea>
+                </div>
+
+            </div>
+
+            <div class="form-group d-flex justify-content-between mt-3">
+                <button type="submit" class="btn btn-success"> Salvar Alterações </button>
+                <a class="btn btn-secondary" href="/admin/electric"> Cancelar </a>
+            </div>
+        </form>
+    </div>
+</div>

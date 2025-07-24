@@ -1,0 +1,72 @@
+<!-- This file will be rendered inside the {{{body}}} of the layout_list.hbs -->
+
+<style>
+    /* The background style is kept here to be specific to this page,
+       but ideally, global or layout styles should be in the CSS. */
+    body {
+        background-image: url("/images/admin.jpg");
+        background-size: cover;
+    }
+
+    /* Added style for buttons for better visualization */
+    .admin-nav .btn {
+        margin-bottom: 10px; /* Spacing between buttons */
+        width: 180px; /* Fixed width for uniformity */
+        padding: 10px 0; /* Internal padding */
+    }
+
+    .admin-nav .btn a {
+        color: white; /* Text color of the link inside the button */
+        text-decoration: none; /* Remove underline from links */
+        display: block; /* Make the link fill the button */
+    }
+
+    .admin-nav .btn svg,
+    .admin-nav .btn i {
+        margin-right: 8px; /* Spacing between icon and text */
+    }
+
+    /* Style for the logo image in the admin panel */
+    .admin-nav img {
+        margin-bottom: 30px; /* Spacing below the logo */
+    }
+
+    /* Center the main container */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Occupy full viewport height */
+    }
+
+    .admin-nav {
+        background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for the menu */
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Shadow for emphasis */
+    }
+</style>
+
+<div class="container">
+    <div class="admin-nav text-center">
+
+        <!-- Updated logo and link -->
+        <a href="/admin"><img src="/images/kings_autohaus_logo.jpeg" height="50px" alt="KINGS AUTOHAUS"></a><br>
+
+        <!-- Add New Car button -->
+        <button type="button" class="btn btn-dark">
+            <a href="/admin/addgas">Add New Car</a>
+        </button><br>
+
+        <!-- View All Cars button -->
+        <button type="button" class="btn btn-dark">
+            <a href="/admin/gas">View All Cars</a>
+        </button><br>
+
+        <!-- Logout button -->
+        <button type="button" class="btn btn-danger mt-4">
+            <a href="/logout">Logout</a>
+        </button><br>
+
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<!--
+    Este arquivo agora se comporta como um "body" para ser inserido em um layout.
+    As tags <html>, <head>, <body> e as importações de CSS/JS foram removidas,
+    pois elas serão fornecidas pelo layout (neste caso, layout_list.hbs).
+-->
+
+<div class="container mt-5"> <!-- Adicionado mt-5 para um espaçamento superior -->
+    <div class="card p-4 shadow-sm"> <!-- Usando card para um visual mais limpo -->
+        <h2 class="text-center mb-4">Upload de Imagem</h2>
+        <hr>
+
+        {{#if img.err}}
+        <div class="alert alert-danger text-center" role="alert">
+            {{img.err}}
+        </div>
+        {{/if}}
+
+        <form action="/admin/uploadimage" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="form-label" for="customFile">Selecione uma Imagem:</label>
+                <input name="imageupld" type="file" class="form-control" id="customFile" required />
+            </div>
+            <div class="d-grid gap-2"> <!-- Bootstrap 5 class for full-width buttons, adjust for BS4 if needed -->
+                <button type="submit" class="btn btn-dark btn-block">Upload</button>
+            </div>
+        </form>
+        <br>
+        <div class="d-grid gap-2">
+            <a href="/admin" class="btn btn-secondary btn-block">Voltar ao Painel Admin</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,428 @@
+<!-- This file will be rendered inside the {{{body}}} of the layout.hbs -->
+
+<style>
+    /* Styles for the new Home Page structure */
+    body {
+        background-color: #000000; /* Ensure body background is black */
+        color: #ffffff; /* Default text color for contrast */
+    }
+
+    .hero-section {
+        position: relative;
+        width: 100%;
+        height: 100vh; /* Full viewport height */
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+    }
+
+    .hero-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Slightly darker overlay for premium feel */
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .hero-content {
+        z-index: 2;
+        max-width: 800px;
+        margin-top: -100px; /* Adjust to better center with the filter below */
+    }
+
+    .hero-content h1 {
+        font-size: 4.5rem; /* Slightly larger font */
+        margin-bottom: 1rem;
+        font-weight: bold;
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8); /* Stronger text shadow */
+        color: #ffffff; /* Ensure title is white */
+    }
+
+    .hero-content p {
+        font-size: 1.8rem; /* Slightly larger font */
+        margin-bottom: 2.5rem; /* More space */
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        color: #ffffff; /* Ensure paragraph is white */
+    }
+
+    .filter-bar {
+        background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white for premium */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
+        padding: 30px 40px; /* More padding */
+        border-radius: 15px; /* More rounded corners */
+        box-shadow: 0 8px 30px rgba(2, 156, 74, 0.2); /* Green glow shadow - UPDATED GREEN */
+        z-index: 2;
+        width: 90%;
+        max-width: 900px; /* Wider filter bar */
+        margin-top: 80px; /* More space below hero text */
+        backdrop-filter: blur(5px); /* Frosted glass effect */
+    }
+
+    .filter-bar .form-control {
+        background-color: rgba(0, 0, 0, 0.7); /* Darker input background */
+        color: #ffffff; /* White text in inputs */
+        border: 1px solid #029C4A; /* Green border for inputs - UPDATED GREEN */
+        border-radius: 8px;
+        padding: 10px 15px;
+    }
+    .filter-bar .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.7); /* Lighter placeholder text */
+    }
+    .filter-bar .form-control:focus {
+        background-color: rgba(0, 0, 0, 0.9);
+        border-color: #029C4A; /* UPDATED GREEN */
+        box-shadow: 0 0 0 0.2rem rgba(2, 156, 74, 0.25); /* UPDATED GREEN */
+        color: #ffffff;
+    }
+
+    .filter-bar .btn-primary {
+        background-color: #029C4A; /* Green button - UPDATED GREEN */
+        border-color: #029C4A; /* UPDATED GREEN */
+        color: #000000; /* Black text on green button */
+        font-weight: bold;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        border-radius: 8px;
+        padding: 12px 25px;
+    }
+    .filter-bar .btn-primary:hover {
+        background-color: #017A3A; /* Darker green on hover - UPDATED GREEN */
+        border-color: #017A3A; /* UPDATED GREEN */
+        color: #ffffff; /* White text on hover */
+        transform: translateY(-2px); /* Slight lift effect */
+        box-shadow: 0 5px 15px rgba(2, 156, 74, 0.4); /* UPDATED GREEN */
+    }
+
+    .section-title {
+        font-size: 3rem; /* Larger section titles */
+        font-weight: bold;
+        margin-bottom: 50px; /* More space */
+        position: relative;
+        padding-bottom: 15px;
+        color: #ffffff; /* White text for section titles */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        height: 4px; /* Thicker line */
+        width: 100px; /* Wider line */
+        background-color: #029C4A; /* Green line - UPDATED GREEN */
+        border-radius: 5px;
+    }
+
+    .inventory-card .card {
+        background-color: #1a1a1a; /* Darker card background */
+        border: 1px solid #333333; /* Subtle card border */
+        color: #ffffff; /* White text inside cards */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 10px; /* Rounded card corners */
+    }
+    .inventory-card .card:hover {
+        transform: translateY(-5px); /* Lift effect on hover */
+        box-shadow: 0 15px 30px rgba(2, 156, 74, 0.15); /* Green glow on hover - UPDATED GREEN */
+    }
+    .inventory-card .card-img-top {
+        height: 250px;
+        object-fit: cover;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .inventory-card .card-body {
+        padding: 25px;
+    }
+    .inventory-card .card-title {
+        color: #029C4A; /* Green title for cars - UPDATED GREEN */
+        font-weight: bold;
+        font-size: 1.6rem;
+    }
+    .inventory-card .card-text.text-muted {
+        color: rgba(255, 255, 255, 0.7) !important; /* Lighter grey for muted text */
+    }
+    .inventory-card .card-text.price {
+        color: #029C4A; /* Green price - UPDATED GREEN */
+        font-size: 1.8rem;
+    }
+    .inventory-card .btn-primary {
+        background-color: #029C4A; /* UPDATED GREEN */
+        border-color: #029C4A; /* UPDATED GREEN */
+        color: #000000;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .inventory-card .btn-primary:hover {
+        background-color: #017A3A; /* Darker green on hover - UPDATED GREEN */
+        border-color: #017A3A; /* UPDATED GREEN */
+        color: #ffffff;
+    }
+
+    /* Scroll Reveal Effects (placeholder classes) */
+    .fade-in-up {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in-up.revealed {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    /* Add more delay classes as needed */
+
+    /* About Us Section specific styling */
+    #about-us {
+        position: relative; /* Needed for overlay */
+        background-color: #0a0a0a; /* Fallback background color */
+        color: #ffffff;
+        padding: 50px 0; /* Add some padding */
+        overflow: hidden; /* Hide overflow from parallax */
+    }
+
+    #about-us .background-image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/images/fotocapa2.png'); /* Your background image - UPDATED EXTENSION TO .PNG */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Parallax effect */
+        filter: brightness(0.4) grayscale(0.5); /* Darker and slightly desaturated */
+        z-index: 0;
+    }
+
+    #about-us .content-wrapper {
+        position: relative;
+        z-index: 1; /* Content above the background image */
+        background-color: rgba(0, 0, 0, 0.7); /* Dark overlay for text readability */
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    #about-us .lead, #about-us p {
+        color: rgba(255, 255, 255, 0.9);
+    }
+    #about-us .btn-outline-primary {
+        border-color: #029C4A; /* UPDATED GREEN */
+        color: #029C4A; /* UPDATED GREEN */
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    #about-us .btn-outline-primary:hover {
+        background-color: #029C4A; /* UPDATED GREEN */
+        color: #000000;
+    }
+    /* Removed img styling from here as it's replaced by background-image */
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .hero-content h1 {
+            font-size: 3rem;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+        }
+        .filter-bar {
+            padding: 20px;
+        }
+        .section-title {
+            font-size: 2.2rem;
+        }
+        #about-us .background-image-overlay {
+            background-attachment: scroll; /* Disable parallax on mobile for performance */
+        }
+    }
+</style>
+
+<!-- Hero Section with Filters -->
+<section class="hero-section">
+    <video autoplay muted loop id="homeVideo" class="hero-video">
+        <source src="/images/tesla.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+    <div class="hero-overlay">
+        <div class="hero-content fade-in-up">
+            <h1>KINGS AUTOHAUS</h1>
+            <p>Your Premier Destination for Luxury and Performance Vehicles</p>
+        </div>
+
+        <div class="filter-bar fade-in-up delay-1">
+            <form action="/gas" method="GET" class="form-row align-items-center justify-content-center">
+                <div class="form-group col-md-4 col-sm-12 mb-md-0">
+                    <label for="makeFilter" class="sr-only">Make</label>
+                    <select class="form-control form-control-lg" id="makeFilter" name="make">
+                        <option value="">Make</option>
+                        {{#each carBrands}}
+                            <option value="{{this.name}}">{{this.name}} ({{this.count}})</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group col-md-4 col-sm-12 mb-md-0">
+                    <label for="modelFilter" class="sr-only">Model</label>
+                    <select class="form-control form-control-lg" id="modelFilter" name="model" disabled>
+                        <option value="">Model</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4 col-sm-12 mb-0">
+                    <button type="submit" class="btn btn-primary btn-lg">Search Cars</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- About Us Section -->
+<section id="about-us" class="fade-in-up delay-2">
+    <div class="background-image-overlay"></div> <!-- New div for background image -->
+    <div class="container content-wrapper">
+        <h2 class="section-title text-center">About KINGS AUTOHAUS</h2>
+        <div class="row align-items-center">
+            <div class="col-md-12"> <!-- Changed to col-md-12 as image is now background -->
+                <p class="lead">Welcome to KINGS AUTOHAUS, your trusted dealership for luxury and high-performance cars. With years of experience in the market, we are dedicated to offering an impeccable selection of vehicles that combine elegance, technology, and performance.</p>
+                <p>Our mission is to provide an exceptional buying experience, with personalized and transparent service. We believe that finding your dream car should be an exciting and straightforward journey.</p>
+            </div>
+            <!-- Removed img tag as it's now a background -->
+        </div>
+        <div class="text-center mt-4">
+            <a href="/about" class="btn btn-outline-primary btn-lg">Learn More About Us</a>
+        </div>
+    </div>
+</section>
+
+<!-- Our Inventory / Latest Arrivals Section -->
+<section id="our-inventory" class="py-5 fade-in-up delay-3">
+    <div class="container">
+        <h2 class="section-title text-center">Latest Arrivals</h2>
+        {{#if latestCars.length}}
+        <div class="row">
+            {{#each latestCars}}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 inventory-card shadow-sm">
+                    {{#if this.image.length}}
+                        <div class="card-img-top-wrapper position-relative">
+                            <img src="{{this.image.[0]}}" class="card-img-top" alt="{{this.title}}">
+                            {{#if (gt this.image.length 1)}}
+                                <span class="badge badge-secondary position-absolute" style="top: 10px; right: 10px; background-color: #029C4A; color: #000000;">
+                                    {{this.image.length}} photos
+                                </span>
+                            {{/if}}
+                        </div>
+                    {{else}}
+                        <img src="https://placehold.co/600x400/0a0a0a/029C4A?text=No+Image" class="card-img-top" alt="No Image">
+                    {{/if}}
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.brand}} {{this.t2}}</h5>
+                        <p class="card-text text-muted">{{this.year}}</p>
+                        <p class="card-text price">R$ {{this.price}}</p>
+                        <a href="/gas/details/{{this._id}}" class="btn btn-primary btn-block">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        {{else}}
+        <div class="alert alert-info text-center" role="alert" style="background-color: #1a1a1a; color: #ffffff; border-color: #333333;">
+            No new cars in stock at the moment.
+        </div>
+        {{/if}}
+    </div>
+</section>
+
+<!-- JavaScript for dynamic Model filter -->
+<script>
+    // Converts the JSON string of modelsByBrand back to a JavaScript object
+    let modelsByBrand = {};
+    try {
+        const modelsByBrandString = '{{{modelsByBrand}}}';
+        modelsByBrand = JSON.parse(modelsByBrandString || '{}');
+    } catch (e) {
+        console.error("Error parsing models by brand JSON:", e);
+        modelsByBrand = {};
+    }
+
+    const makeFilter = document.getElementById('makeFilter');
+    const modelFilter = document.getElementById('modelFilter');
+
+    // Function to populate the model dropdown
+    function populateModelFilter(selectedBrand) {
+        modelFilter.innerHTML = '<option value="">Model</option>'; // Clear previous options
+        modelFilter.disabled = true; // Disable model filter by default
+
+        if (selectedBrand && modelsByBrand[selectedBrand]) {
+            modelsByBrand[selectedBrand].forEach(model => {
+                const option = document.createElement('option');
+                option.value = model;
+                option.textContent = model;
+                modelFilter.appendChild(option);
+            });
+            modelFilter.disabled = false; // Enable if models exist
+        }
+    }
+
+    // Event listener for the make filter
+    makeFilter.addEventListener('change', function() {
+        populateModelFilter(this.value);
+    });
+
+    // Logic to pre-select filters if there are URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialMake = urlParams.get('make');
+    const initialModel = urlParams.get('model');
+
+    if (initialMake) {
+        makeFilter.value = initialMake;
+        populateModelFilter(initialMake);
+
+        if (initialModel) {
+            setTimeout(() => {
+                modelFilter.value = initialModel;
+            }, 100);
+        }
+    }
+
+    // Scroll Reveal Effect JavaScript (simple implementation)
+    // This can be replaced by a more robust library like ScrollReveal.js if needed.
+    const fadeInElements = document.querySelectorAll('.fade-in-up');
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target); // Stop observing once revealed
+            }
+        });
+    }, {
+        threshold: 0.1 // Trigger when 10% of the element is visible
+    });
+
+    fadeInElements.forEach(element => {
+        observer.observe(element);
+    });
+</script>

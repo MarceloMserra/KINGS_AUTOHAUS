@@ -1,0 +1,105 @@
+<!--
+    Este arquivo será renderizado dentro do {{{body}}} do layout_list.hbs.
+    É o formulário para ADICIONAR um novo carro elétrico.
+-->
+
+<div class="container mt-4 mb-4">
+    <div class="card p-4 shadow-sm">
+        <h3 class="text-center mb-4">Adicionar Carro Elétrico</h3>
+        <hr>
+
+        <!-- Mensagem de erro (se houver) -->
+        {{#if error}}
+        <div class="alert alert-danger text-center" role="alert">
+            {{error}}
+        </div>
+        {{/if}}
+
+        <!-- O atributo enctype="multipart/form-data" é crucial para o upload de arquivos -->
+        <form action="/admin/addelectric" method="POST" enctype="multipart/form-data" autocomplete="off">
+
+            <div class="form-row">
+                <!-- Campo de Upload de Imagem (com atributo 'multiple') -->
+                <div class="form-group col-md-12">
+                    <label for="imagesupld">Upload de Imagens do Carro (até 10)</label>
+                    <input type="file" class="form-control-file" id="imagesupld" name="imagesupld" multiple required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Título (Ex: Tesla Model Y Long Range AWD)</label>
+                    <input type="text" class="form-control" name="title" placeholder="Tesla Model Y Long Range AWD" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>T1 (Ex: 2020 Tesla Model Y)</label>
+                    <input type="text" class="form-control" name="t1" placeholder="2020 Tesla Model Y" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Subtítulo (Ex: Long Range AWD Edition)</label>
+                    <input type="text" class="form-control" name="t2" placeholder="Long Range AWD Edition" required>
+                </div>
+
+
+                <div class="form-group col-md-2">
+                    <label>Ano</label>
+                    <input type="number" class="form-control" name="year" placeholder="2020" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Preço</label>
+                    <input type="number" class="form-control" name="price" placeholder="54000" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Preço Formatado (Ex: 54,000)</label>
+                    <input type="text" class="form-control" name="priceStr" placeholder="54,000" required>
+                </div>
+
+
+                <div class="form-group col-md-2">
+                    <label>Velocidade Máxima</label>
+                    <input type="text" class="form-control" name="topspeed" placeholder="135" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Tempo 0-60</label>
+                    <input type="text" class="form-control" name="time60" placeholder="4.8" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Autonomia (Milhas/Km)</label>
+                    <input type="text" class="form-control" name="range" placeholder="346" required>
+                </div>
+
+
+                <div class="form-group col-md-3">
+                    <label>Cor</label>
+                    <input type="text" class="form-control" name="colour" placeholder="Red Metallic Paint" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Interior</label>
+                    <input type="text" class="form-control" name="interior" placeholder="Cream Oakwood Interior" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Rodas (Ex: 19'' Induction Wheels)</label>
+                    <input type="text" class="form-control" name="wheel" placeholder="19'' Induction Wheels" required>
+                </div>
+
+
+                <div class="form-group col-md-12">
+                    <label>Descrição</label>
+                    <textarea class="form-control" name="description" placeholder="Descrição Detalhada do Carro" rows="3" required></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Segurança</label>
+                    <textarea class="form-control" name="safety" placeholder="Informações de Segurança" rows="3" required></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Descrição da Autonomia</label>
+                    <textarea class="form-control" name="rangedesc" placeholder="Informações sobre a Autonomia" rows="3" required></textarea>
+                </div>
+
+            </div>
+
+            <div class="form-group d-flex justify-content-between mt-3">
+                <button type="submit" class="btn btn-info"> Salvar Carro </button>
+                <a class="btn btn-secondary" href="/admin/electric"> Voltar </a>
+            </div>
+        </form>
+    </div>
+</div>

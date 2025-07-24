@@ -1,0 +1,76 @@
+<!-- Este arquivo será renderizado dentro do {{{body}}} do layout_list.hbs -->
+
+<div class="container mt-4">
+    <h3 class="text-center mb-4">Carros Elétricos</h3>
+    <hr>
+
+    <div class="d-flex justify-content-between mb-3">
+        <a href="/admin/addelectric" class="btn btn-primary">Adicionar Carro Elétrico</a>
+        <a href="/admin" class="btn btn-secondary">Voltar ao Admin</a>
+    </div>
+
+    {{#if list}}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Imagens</th>
+                    <th>Título</th>
+                    <th>T1</th>
+                    <th>Subtítulo</th>
+                    <th>Ano</th>
+                    <th>Preço</th>
+                    <th>Velocidade Máxima</th>
+                    <th>0-60 Tempo</th>
+                    <th>Autonomia</th>
+                    <th>Cor</th>
+                    <th>Interior</th>
+                    <th>Rodas</th>
+                    <th>Descrição</th>
+                    <th>Segurança</th>
+                    <th>Autonomia Desc.</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each list}}
+                <tr>
+                    <td>
+                        {{#if this.image.length}}
+                            <!-- Exibe apenas a primeira imagem -->
+                            <img src="{{this.image.[0]}}" alt="{{this.title}}" style="width: 70px; height: auto; margin: 2px; border-radius: 3px;">
+                            {{#if (gt this.image.length 1)}}
+                                <small class="text-muted d-block mt-1">(+{{subtract this.image.length 1}} fotos)</small>
+                            {{/if}}
+                        {{else}}
+                            <i class="fas fa-car fa-2x text-muted"></i>
+                        {{/if}}
+                    </td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.t1}}</td>
+                    <td>{{this.t2}}</td>
+                    <td>R$ {{this.priceStr}}</td>
+                    <td>{{this.topspeed}} mph</td>
+                    <td>{{this.time60}} s</td>
+                    <td>{{this.range}}</td>
+                    <td>{{this.colour}}</td>
+                    <td>{{this.interior}}</td>
+                    <td>{{this.wheel}}</td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.safety}}</td>
+                    <td>{{this.rangedesc}}</td>
+                    <td>
+                        <a href="/admin/editelectric/{{this._id}}" class="btn btn-info btn-sm mb-1">Editar</a>
+                        <a href="/admin/deleteelectric/{{this._id}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este registro?');">Excluir</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    {{else}}
+    <div class="alert alert-info text-center" role="alert">
+        Nenhum carro elétrico cadastrado ainda.
+    </div>
+    {{/if}}
+</div>
