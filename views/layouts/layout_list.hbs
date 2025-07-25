@@ -43,18 +43,23 @@
         body {
             background-color: #000000; /* Absolute black fallback background */
             color: #ffffff; /* Default text color for contrast */
-            /* Background image for login/admin pages - will be overridden by specific page if needed */
+            /* Background image for login/admin pages */
             background-image: url('/images/login.jpg'); /* Default background for this layout */
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
             background-position: center;
+            /* Use flexbox for body to manage vertical space */
+            display: flex;
+            flex-direction: column; /* Stack header and body content vertically */
+            min-height: 100vh; /* Ensure body takes full viewport height */
         }
         .simple-header {
             background-color: #000000;
             padding: 20px;
             text-align: center;
             border-bottom: 1px solid #1a1a1a; /* Subtle line to separate */
+            flex-shrink: 0; /* Prevent header from shrinking */
         }
         .simple-header img {
             height: 50px; /* Logo size */
@@ -87,7 +92,7 @@
         </a>
     </header>
 
-    {{{body}}}
+    {{{body}}} <!-- This is where the login/admin content is injected -->
 
     <!-- jQuery and Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
