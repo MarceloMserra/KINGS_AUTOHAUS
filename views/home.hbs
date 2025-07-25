@@ -25,7 +25,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: cover; /* This makes the video cover the entire area, potentially cropping */
         z-index: 0;
     }
 
@@ -258,12 +258,18 @@
         #about-us .background-image-overlay {
             background-attachment: scroll; /* Disable parallax on mobile for performance */
         }
+        /* Further adjustments for video on smaller screens if needed */
+        .hero-video {
+            /* If the "zoom" is still too much, you might consider object-fit: contain
+               but this will add black bars. For background videos, 'cover' is usually preferred. */
+            /* object-fit: contain; */
+        }
     }
 </style>
 
 <!-- Hero Section with Filters -->
 <section class="hero-section">
-    <video autoplay muted loop id="homeVideo" class="hero-video">
+    <video autoplay muted loop playsinline id="homeVideo" class="hero-video">
         <source src="/images/tesla.mp4" type="video/mp4">
         Your browser does not support HTML5 video.
     </video>
@@ -424,5 +430,19 @@
 
     fadeInElements.forEach(element => {
         observer.observe(element);
+    });
+
+    // JavaScript to attempt video autoplay on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const video = document.getElementById('homeVideo');
+        if (video) {
+            video.play().catch(error => {
+                console.warn("Video autoplay failed:", error);
+                // O autoplay pode ser bloqueado por navegadores em certas condições.
+                // Aqui você poderia adicionar um botão de play para o usuário clicar
+                // ou mostrar uma mensagem. Por simplicidade, estamos apenas registrando o erro.
+                // Exemplo: video.controls = true; // Para mostrar os controles do vídeo
+            });
+        }
     });
 </script>
