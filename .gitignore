@@ -1,1 +1,11 @@
+# Ignorar variáveis sensíveis
+.env
+
+# Ignorar dependências
 node_modules/
+
+# Ignorar arquivos de sistema
+.DS_Store
+
+# Ignorar logs
+*.log

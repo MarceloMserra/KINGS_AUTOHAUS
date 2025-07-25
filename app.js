@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -13,7 +15,7 @@ const app = express();
 // ======================
 // 🔗 Conexão com MongoDB Atlas
 // ======================
-mongoose.connect('mongodb://msmadureira:pfGoP65qVZOa29h8@ac-i8wrumx-shard-00-00.wsk8ldo.mongodb.net:27017,ac-i8wrumx-shard-00-01.wsk8ldo.mongodb.net:27017,ac-i8wrumx-shard-00-02.wsk8ldo.mongodb.net:27017/autorizz?ssl=true&replicaSet=atlas-ousvn5-shard-0&authSource=admin&retryWrites=true&w=majority', {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -27,37 +29,29 @@ app.engine('hbs', exphbs.engine({
     extname: 'hbs',
     defaultLayout: 'layout',
     layoutsDir: __dirname + '/views/layouts/',
-    // Adição dos helpers personalizados aqui
     helpers: {
-        // Helper para verificar se 'a' é maior que 'b' (Greater Than)
         gt: function(a, b) {
             return a > b;
         },
-        // Helper para subtração
         subtract: function(a, b) {
             return a - b;
         },
-        // Helper para verificar igualdade
         eq: function(a, b) {
             return a === b;
         },
-        // Helper para divisão (usado nos ranges de preço/milhagem)
         divide: function(a, b) {
             return a / b;
         },
-        // Helper para gerar um array de números (usado para anos no select)
         range: function(start, end) {
             const arr = [];
-            for (let i = start; i >= end; i--) { // Conta de trás para frente para anos mais novos primeiro
+            for (let i = start; i >= end; i--) {
                 arr.push(i);
             }
             return arr;
         },
-        // NOVO HELPER: para acessar propriedades dinamicamente (usado para modelsByBrand[selectedMake])
         lookup: function(obj, field) {
             return obj[field];
         },
-        // NOVO HELPER: para adição
         add: function(a, b) {
             return a + b;
         }
@@ -66,20 +60,19 @@ app.engine('hbs', exphbs.engine({
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-
 // ======================
 // 🔧 Middlewares principais
 // ======================
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(methodOverride('_method')); // Middleware para permitir DELETE/PUT em formulários HTML
-app.use(express.static(path.join(__dirname, 'public'))); // Serve HTML, CSS, imagens, vídeos etc.
+app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ======================
 // 🧠 Sessão e Flash Messages
 // ======================
 app.use(session({
-    secret: 'seusegredo', // Altere para uma string mais complexa em produção
+    secret: process.env.SESSION_SECRET || 'seusegredo',
     resave: true,
     saveUninitialized: true
 }));
@@ -88,12 +81,12 @@ app.use(flash());
 // ======================
 // 🔐 Passport
 // ======================
-require('./config/auth')(passport); // Certifique-se de que o ficheiro auth.js está configurado corretamente
+require('./config/auth')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
 // ======================
-// 🌍 Variáveis Globais (para aceder a flash messages e utilizador em qualquer template)
+// 🌍 Variáveis Globais
 // ======================
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
@@ -115,7 +108,6 @@ app.use('/admin', admin);
 app.use('/', usuarios);
 app.use('/gas', gas);
 app.use('/electric', electric);
-
 
 // ======================
 // 🚀 Exportação
