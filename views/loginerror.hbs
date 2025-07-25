@@ -2,32 +2,13 @@
 
 <style>
     /* Styles specific to the login error page, similar to login.hbs */
-    body {
-        /* Adicionado a imagem de fundo aqui para ser específica desta página */
-        background-image: url('/images/login.jpg');
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
-        background-position: center;
-        background-color: #000000; /* Fallback caso a imagem não carregue */
-        color: #ffffff; /* Default text color */
-        font-family: 'Inter', sans-serif; /* Using Inter font for a modern look */
-        display: flex; /* Ensure body is flex to center content if needed */
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh; /* Full viewport height */
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
     /* Main container for the login error page */
     .login-page-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        min-height: calc(100vh - 90px); /* Occupy full viewport height, adjusting for header height */
+        min-height: 100vh; /* Occupy full viewport height */
         width: 100%;
         padding: 20px;
         box-sizing: border-box;
@@ -99,7 +80,7 @@
     }
 
     .form-control:focus {
-        background-color: #2a2a2a; /* Slightly lighter on focus */
+        background-color: #2a2a2a;
         border-color: #029C4A;
         box-shadow: 0 0 0 0.3rem rgba(2, 156, 74, 0.3); /* Stronger green focus glow */
         color: #ffffff;
