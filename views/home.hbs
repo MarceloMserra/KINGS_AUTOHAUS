@@ -70,7 +70,7 @@
         border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
         padding: 30px 40px; /* More padding */
         border-radius: 15px; /* More rounded corners */
-        box-shadow: 0 8px 30px rgba(2, 156, 74, 0.2); /* Green glow shadow - UPDATED GREEN */
+        box-shadow: 0 8px 30px rgba(5, 252, 4, 0.2); /* Green glow shadow - UPDATED GREEN */
         z-index: 2;
         width: 90%;
         max-width: 900px; /* Wider filter bar */
@@ -81,7 +81,7 @@
     .filter-bar .form-control {
         background-color: rgba(0, 0, 0, 0.7); /* Darker input background */
         color: #ffffff; /* White text in inputs */
-        border: 1px solid #029C4A; /* Green border for inputs - UPDATED GREEN */
+        border: 1px solid #05FC04; /* Green border for inputs - UPDATED GREEN */
         border-radius: 8px;
         padding: 10px 15px;
     }
@@ -90,14 +90,14 @@
     }
     .filter-bar .form-control:focus {
         background-color: rgba(0, 0, 0, 0.9);
-        border-color: #029C4A; /* UPDATED GREEN */
-        box-shadow: 0 0 0 0.2rem rgba(2, 156, 74, 0.25); /* UPDATED GREEN */
+        border-color: #05FC04; /* UPDATED GREEN */
+        box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25); /* UPDATED GREEN */
         color: #ffffff;
     }
 
     .filter-bar .btn-primary {
-        background-color: #029C4A; /* Green button - UPDATED GREEN */
-        border-color: #029C4A; /* UPDATED GREEN */
+        background-color: #05FC04; /* Green button - UPDATED GREEN */
+        border-color: #05FC04; /* UPDATED GREEN */
         color: #000000; /* Black text on green button */
         font-weight: bold;
         transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
@@ -105,11 +105,11 @@
         padding: 12px 25px;
     }
     .filter-bar .btn-primary:hover {
-        background-color: #017A3A; /* Darker green on hover - UPDATED GREEN */
-        border-color: #017A3A; /* UPDATED GREEN */
+        background-color: #04D803; /* Darker green on hover - UPDATED GREEN */
+        border-color: #04D803; /* UPDATED GREEN */
         color: #ffffff; /* White text on hover */
         transform: translateY(-2px); /* Slight lift effect */
-        box-shadow: 0 5px 15px rgba(2, 156, 74, 0.4); /* UPDATED GREEN */
+        box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4); /* UPDATED GREEN */
     }
 
     .section-title {
@@ -130,7 +130,7 @@
         transform: translateX(-50%);
         height: 4px; /* Thicker line */
         width: 100px; /* Wider line */
-        background-color: #029C4A; /* Green line - UPDATED GREEN */
+        background-color: #05FC04; /* Green line - UPDATED GREEN */
         border-radius: 5px;
     }
 
@@ -143,7 +143,7 @@
     }
     .inventory-card .card:hover {
         transform: translateY(-5px); /* Lift effect on hover */
-        box-shadow: 0 15px 30px rgba(2, 156, 74, 0.15); /* Green glow on hover - UPDATED GREEN */
+        box-shadow: 0 15px 30px rgba(5, 252, 4, 0.15); /* Green glow on hover - UPDATED GREEN */
     }
     .inventory-card .card-img-top {
         height: 250px;
@@ -155,7 +155,7 @@
         padding: 25px;
     }
     .inventory-card .card-title {
-        color: #029C4A; /* Green title for cars - UPDATED GREEN */
+        color: #05FC04; /* Green title for cars - UPDATED GREEN */
         font-weight: bold;
         font-size: 1.6rem;
     }
@@ -163,20 +163,20 @@
         color: rgba(255, 255, 255, 0.7) !important; /* Lighter grey for muted text */
     }
     .inventory-card .card-text.price {
-        color: #029C4A; /* Green price - UPDATED GREEN */
+        color: #05FC04; /* Green price - UPDATED GREEN */
         font-size: 1.8rem;
     }
     .inventory-card .btn-primary {
-        background-color: #029C4A; /* UPDATED GREEN */
-        border-color: #029C4A; /* UPDATED GREEN */
+        background-color: #05FC04; /* UPDATED GREEN */
+        border-color: #05FC04; /* UPDATED GREEN */
         color: #000000;
         font-weight: bold;
         border-radius: 5px;
         transition: background-color 0.3s ease, color 0.3s ease;
     }
     .inventory-card .btn-primary:hover {
-        background-color: #017A3A; /* Darker green on hover - UPDATED GREEN */
-        border-color: #017A3A; /* UPDATED GREEN */
+        background-color: #04D803; /* Darker green on hover - UPDATED GREEN */
+        border-color: #04D803; /* UPDATED GREEN */
         color: #ffffff;
     }
 
@@ -231,12 +231,12 @@
         color: rgba(255, 255, 255, 0.9);
     }
     #about-us .btn-outline-primary {
-        border-color: #029C4A; /* UPDATED GREEN */
-        color: #029C4A; /* UPDATED GREEN */
+        border-color: #05FC04; /* UPDATED GREEN */
+        color: #05FC04; /* UPDATED GREEN */
         transition: background-color 0.3s ease, color 0.3s ease;
     }
     #about-us .btn-outline-primary:hover {
-        background-color: #029C4A; /* UPDATED GREEN */
+        background-color: #05FC04; /* UPDATED GREEN */
         color: #000000;
     }
     /* Removed img styling from here as it's replaced by background-image */
@@ -335,13 +335,13 @@
                         <div class="card-img-top-wrapper position-relative">
                             <img src="{{this.image.[0]}}" class="card-img-top" alt="{{this.title}}">
                             {{#if (gt this.image.length 1)}}
-                                <span class="badge badge-secondary position-absolute" style="top: 10px; right: 10px; background-color: #029C4A; color: #000000;">
+                                <span class="badge badge-secondary position-absolute" style="top: 10px; right: 10px; background-color: #05FC04; color: #000000;">
                                     {{this.image.length}} photos
                                 </span>
                             {{/if}}
                         </div>
                     {{else}}
-                        <img src="https://placehold.co/600x400/0a0a0a/029C4A?text=No+Image" class="card-img-top" alt="No Image">
+                        <img src="https://placehold.co/600x400/0a0a0a/05FC04?text=No+Image" class="card-img-top" alt="No Image">
                     {{/if}}
                     <div class="card-body">
                         <h5 class="card-title">{{this.brand}} {{this.t2}}</h5>
