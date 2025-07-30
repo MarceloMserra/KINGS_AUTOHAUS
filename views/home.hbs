@@ -13,6 +13,7 @@
         height: 100vh; /* Full viewport height */
         overflow: hidden;
         display: flex;
+        flex-direction: column; /* Allow content to stack */
         justify-content: center;
         align-items: center;
         color: white;
@@ -44,44 +45,25 @@
         padding: 20px;
     }
 
-    .hero-content {
-        z-index: 2;
-        max-width: 800px;
-        margin-top: -100px; /* Adjust to better center with the filter below */
-    }
-
-    .hero-content h1 {
-        font-size: 4.5rem; /* Slightly larger font */
-        margin-bottom: 1rem;
-        font-weight: bold;
-        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8); /* Stronger text shadow */
-        color: #ffffff; /* Ensure title is white */
-    }
-
-    .hero-content p {
-        font-size: 1.8rem; /* Slightly larger font */
-        margin-bottom: 2.5rem; /* More space */
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-        color: #ffffff; /* Ensure paragraph is white */
-    }
+    /* REMOVED: .hero-content styles as it's replaced by new cards */
 
     .filter-bar {
         background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white for premium */
         border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
         padding: 30px 40px; /* More padding */
         border-radius: 15px; /* More rounded corners */
-        box-shadow: 0 8px 30px rgba(5, 252, 4, 0.2); /* Green glow shadow - UPDATED GREEN */
+        box-shadow: 0 8px 30px rgba(5, 252, 4, 0.2); /* Green glow shadow */
         z-index: 2;
         width: 90%;
         max-width: 900px; /* Wider filter bar */
-        margin-top: 80px; /* More space below hero text */
+        margin-top: 40px; /* Adjusted space below hero cards, now that cards are simple */
         backdrop-filter: blur(5px); /* Frosted glass effect */
     }
 
     .filter-bar .form-control {
         background-color: rgba(0, 0, 0, 0.7); /* Darker input background */
         color: #ffffff; /* White text in inputs */
-        border: 1px solid #05FC04; /* Green border for inputs - UPDATED GREEN */
+        border: 1px solid #05FC04; /* Green border for inputs */
         border-radius: 8px;
         padding: 10px 15px;
     }
@@ -90,14 +72,14 @@
     }
     .filter-bar .form-control:focus {
         background-color: rgba(0, 0, 0, 0.9);
-        border-color: #05FC04; /* UPDATED GREEN */
-        box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25); /* UPDATED GREEN */
+        border-color: #05FC04;
+        box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
         color: #ffffff;
     }
 
     .filter-bar .btn-primary {
-        background-color: #05FC04; /* Green button - UPDATED GREEN */
-        border-color: #05FC04; /* UPDATED GREEN */
+        background-color: #05FC04; /* Green button */
+        border-color: #05FC04;
         color: #000000; /* Black text on green button */
         font-weight: bold;
         transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
@@ -105,11 +87,11 @@
         padding: 12px 25px;
     }
     .filter-bar .btn-primary:hover {
-        background-color: #04D803; /* Darker green on hover - UPDATED GREEN */
-        border-color: #04D803; /* UPDATED GREEN */
+        background-color: #04D803; /* Darker green on hover */
+        border-color: #04D803;
         color: #ffffff; /* White text on hover */
         transform: translateY(-2px); /* Slight lift effect */
-        box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4); /* UPDATED GREEN */
+        box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4);
     }
 
     .section-title {
@@ -130,7 +112,7 @@
         transform: translateX(-50%);
         height: 4px; /* Thicker line */
         width: 100px; /* Wider line */
-        background-color: #05FC04; /* Green line - UPDATED GREEN */
+        background-color: #05FC04; /* Green line */
         border-radius: 5px;
     }
 
@@ -143,7 +125,7 @@
     }
     .inventory-card .card:hover {
         transform: translateY(-5px); /* Lift effect on hover */
-        box-shadow: 0 15px 30px rgba(5, 252, 4, 0.15); /* Green glow on hover - UPDATED GREEN */
+        box-shadow: 0 15px 30px rgba(5, 252, 4, 0.15); /* Green glow on hover */
     }
     .inventory-card .card-img-top {
         height: 250px;
@@ -155,7 +137,7 @@
         padding: 25px;
     }
     .inventory-card .card-title {
-        color: #05FC04; /* Green title for cars - UPDATED GREEN */
+        color: #05FC04; /* Green title for cars */
         font-weight: bold;
         font-size: 1.6rem;
     }
@@ -163,20 +145,20 @@
         color: rgba(255, 255, 255, 0.7) !important; /* Lighter grey for muted text */
     }
     .inventory-card .card-text.price {
-        color: #05FC04; /* Green price - UPDATED GREEN */
+        color: #05FC04; /* Green price */
         font-size: 1.8rem;
     }
     .inventory-card .btn-primary {
-        background-color: #05FC04; /* UPDATED GREEN */
-        border-color: #05FC04; /* UPDATED GREEN */
+        background-color: #05FC04;
+        border-color: #05FC04;
         color: #000000;
         font-weight: bold;
         border-radius: 5px;
         transition: background-color 0.3s ease, color 0.3s ease;
     }
     .inventory-card .btn-primary:hover {
-        background-color: #04D803; /* Darker green on hover - UPDATED GREEN */
-        border-color: #04D803; /* UPDATED GREEN */
+        background-color: #04D803; /* Darker green on hover */
+        border-color: #04D803;
         color: #ffffff;
     }
 
@@ -193,7 +175,9 @@
     .delay-1 { transition-delay: 0.1s; }
     .delay-2 { transition-delay: 0.2s; }
     .delay-3 { transition-delay: 0.3s; }
-    /* Add more delay classes as needed */
+    .delay-4 { transition-delay: 0.4s; } /* Added for new sections */
+    .delay-5 { transition-delay: 0.5s; } /* Added for new sections */
+
 
     /* About Us Section specific styling */
     #about-us {
@@ -210,7 +194,8 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url('/images/fotocapa2.png'); /* Your background image - UPDATED EXTENSION TO .PNG */
+        /* Certifique-se de que 'fotocapa2.png' está no diretório 'public/images' */
+        background-image: url('/images/fotocapa2.png');
         background-size: cover;
         background-position: center;
         background-attachment: fixed; /* Parallax effect */
@@ -231,15 +216,318 @@
         color: rgba(255, 255, 255, 0.9);
     }
     #about-us .btn-outline-primary {
-        border-color: #05FC04; /* UPDATED GREEN */
-        color: #05FC04; /* UPDATED GREEN */
+        border-color: #05FC04;
+        color: #05FC04;
         transition: background-color 0.3s ease, color 0.3s ease;
     }
     #about-us .btn-outline-primary:hover {
-        background-color: #05FC04; /* UPDATED GREEN */
+        background-color: #05FC04;
         color: #000000;
     }
     /* Removed img styling from here as it's replaced by background-image */
+
+    /* New styles for Hero Cards */
+    .hero-cards-container {
+        z-index: 2;
+        max-width: 1200px; /* Wider container for cards */
+        width: 100%;
+        margin-bottom: 50px; /* Space below cards */
+        padding: 0 15px;
+    }
+
+    .hero-card-link {
+        text-decoration: none; /* Remove underline from link */
+        color: inherit; /* Inherit text color */
+        display: block; /* Make the entire card clickable */
+        height: 100%; /* Ensure cards have equal height in row */
+    }
+
+    .hero-card {
+        position: relative;
+        height: 280px; /* Adjusted height to accommodate image + text better */
+        background-color: rgba(255, 255, 255, 0.1); /* Subtle background */
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        box-shadow: 0 8px 30px rgba(5, 252, 4, 0.2);
+        backdrop-filter: blur(5px);
+        overflow: hidden;
+        display: flex; /* Use flexbox for vertical alignment of image and text */
+        flex-direction: column; /* Stack image and text vertically */
+        justify-content: space-between; /* Distribute space between image and text */
+        align-items: center; /* Center content horizontally */
+        text-align: center;
+        transition: all 0.4s ease-in-out;
+    }
+
+    /* Styles for the image inside the hero card */
+    .hero-card-image {
+        width: 100%; /* Image takes full width of the card */
+        height: 60%; /* Image takes 60% of the card's height */
+        object-fit: cover; /* Ensures the image covers the area without distortion */
+        border-top-left-radius: 15px; /* Match card's top-left border radius */
+        border-top-right-radius: 15px; /* Match card's top-right border radius */
+    }
+
+    /* Styles for the text content inside the hero card */
+    .hero-card-text-content {
+        padding: 15px; /* Padding around the text */
+        flex-grow: 1; /* Allows this content to take up remaining vertical space */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centers text vertically within its allocated space */
+        align-items: center; /* Centers text horizontally */
+    }
+
+    .hero-card h3 {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #05FC04; /* Green title */
+        margin-bottom: 5px; /* Reduced margin for tighter text layout */
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        z-index: 2;
+    }
+
+    .hero-card p {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-top: 0;
+        z-index: 2;
+    }
+
+    /* Innovative Hover Effect (adjusted for cards with image and text) */
+    .hero-card:hover {
+        transform: scale(1.03) translateY(-5px); /* Lift and slightly scale */
+        box-shadow: 0 15px 40px rgba(5, 252, 4, 0.5); /* Stronger green glow */
+        border-color: #05FC04; /* Highlight border */
+    }
+
+    /* Removed skew effect for simpler cards, keeping only scale and lift */
+    .hero-card-link:hover .hero-card {
+        transform: scale(1.03) translateY(-5px); /* Only scale and lift */
+        box-shadow: 0 18px 45px rgba(5, 252, 4, 0.6);
+    }
+
+    .hero-card-link:hover .hero-card h3,
+    .hero-card-link:hover .hero-card p {
+        transform: none; /* No counter-skew needed */
+        transition: none;
+    }
+
+
+    /* New styles for Featured Vehicles Section (Horizontal Scroll) */
+    .featured-carousel-wrapper {
+        position: relative;
+        overflow: hidden; /* Hide scrollbar but allow scrolling */
+        padding-bottom: 20px; /* Space for potential scrollbar on some OS */
+    }
+
+    .featured-carousel-inner {
+        display: flex;
+        overflow-x: scroll; /* Enable horizontal scrolling */
+        scroll-behavior: smooth; /* Smooth scroll effect */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        padding-bottom: 17px; /* Compensate for scrollbar height */
+        margin-bottom: -17px; /* Hide scrollbar on modern browsers */
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+    .featured-car-item {
+        flex: 0 0 auto; /* Do not grow, do not shrink, base size auto */
+        width: 33.333%; /* Show 3 items on large screen */
+        padding: 0 15px; /* Spacing between cards */
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 992px) { /* Medium devices */
+        .featured-car-item {
+            width: 50%; /* Show 2 items */
+        }
+    }
+
+    @media (max-width: 768px) { /* Small devices */
+        .featured-car-item {
+            width: 80%; /* Show ~1.25 items to indicate scrollability */
+            padding: 0 10px;
+        }
+        .hero-card {
+            height: 220px; /* Adjusted height for mobile cards with image */
+        }
+        .hero-card h3 {
+            font-size: 1.8rem;
+        }
+        .hero-card p {
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 576px) { /* Extra small devices */
+        .featured-car-item {
+            width: 90%; /* Show ~1.1 items */
+        }
+    }
+
+    .featured-carousel-control {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(5, 252, 4, 0.7); /* Green with transparency */
+        color: #000000;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 10;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .featured-carousel-control:hover {
+        background-color: #04D803; /* Darker green on hover */
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .featured-carousel-prev {
+        left: 0px; /* Position to the left */
+    }
+
+    .featured-carousel-next {
+        right: 0px; /* Position to the right */
+    }
+
+
+    /* New styles for Testimonials Section */
+    #testimonials {
+        background-color: #0a0a0a;
+        padding: 80px 0;
+    }
+    #testimonials .blockquote {
+        border-left: 5px solid #05FC04; /* Green border for blockquote */
+        padding-left: 20px;
+        margin-bottom: 30px;
+    }
+    #testimonials .blockquote p {
+        font-style: italic;
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.9);
+    }
+    #testimonials .blockquote-footer {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1rem;
+    }
+    #testimonials .blockquote-footer cite {
+        color: #05FC04; /* Green for cite */
+    }
+
+    /* New styles for Contact Info Section */
+    #contact-info {
+        background-color: #1a1a1a;
+        padding: 60px 0;
+        text-align: center;
+    }
+    #contact-info h3 {
+        color: #05FC04; /* Green title */
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+    }
+    #contact-info p {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    #contact-info .contact-detail {
+        margin-bottom: 20px;
+    }
+    .contact-detail i {
+        color: #05FC04; /* Green icons */
+        margin-right: 10px;
+        font-size: 1.5rem;
+    }
+
+    /* New styles for Floating Message Button */
+    .floating-message-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #05FC04; /* Green button */
+        color: #000000; /* Black text */
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.8rem;
+        box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4); /* Green glow */
+        z-index: 1000; /* Ensure it's on top */
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none; /* Remove default button border */
+    }
+    .floating-message-btn:hover {
+        background-color: #04D803; /* Darker green on hover */
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(5, 252, 4, 0.6);
+    }
+
+    /* Modal styling */
+    .modal-content {
+        background-color: #1a1a1a;
+        color: #ffffff;
+        border: 1px solid #333333;
+        border-radius: 10px;
+    }
+    .modal-header {
+        border-bottom: 1px solid #333333;
+    }
+    .modal-title {
+        color: #05FC04; /* Green title */
+    }
+    .modal-footer {
+        border-top: 1px solid #333333;
+    }
+    .modal-body .form-control {
+        background-color: #0d0d0d;
+        color: #ffffff;
+        border: 1px solid #05FC04; /* Green border */
+    }
+    .modal-body .form-control:focus {
+        border-color: #05FC04;
+        box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
+        background-color: #000000;
+        color: #ffffff;
+    }
+    .modal-body .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    .modal-footer .btn-primary {
+        background-color: #05FC04; /* Green button */
+        border-color: #05FC04;
+        color: #000000;
+    }
+    .modal-footer .btn-primary:hover {
+        background-color: #04D803;
+        border-color: #04D803;
+        color: #ffffff;
+    }
+    .modal-footer .btn-secondary {
+        background-color: #333333;
+        border-color: #333333;
+        color: #ffffff;
+    }
+    .modal-footer .btn-secondary:hover {
+        background-color: #555555;
+        border-color: #555555;
+    }
+
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
@@ -264,6 +552,13 @@
                but this will add black bars. For background videos, 'cover' is usually preferred. */
             /* object-fit: contain; */
         }
+        .floating-message-btn {
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            bottom: 15px;
+            right: 15px;
+        }
     }
 </style>
 
@@ -274,12 +569,44 @@
         Your browser does not support HTML5 video.
     </video>
     <div class="hero-overlay">
-        <div class="hero-content fade-in-up">
-            <h1>KINGS AUTOHAUS</h1>
-            <p>Your Premier Destination for Luxury and Performance Vehicles</p>
+        <!-- New Hero Cards Container (com imagens e texto) -->
+        <div class="hero-cards-container row justify-content-center align-items-stretch mb-5">
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
+                <a href="/financing" class="hero-card-link fade-in-up"> <!-- Link atualizado para /financing -->
+                    <div class="hero-card">
+                        <img src="/images/approved.jpg" alt="Get Approved" class="hero-card-image">
+                        <div class="hero-card-text-content">
+                            <h3>Get Approved</h3>
+                            <p>Fast and easy pre-approval for your next vehicle.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
+                <a href="/gas" class="hero-card-link fade-in-up delay-1">
+                    <div class="hero-card">
+                        <img src="/images/inventario.png" alt="Our Inventory" class="hero-card-image">
+                        <div class="hero-card-text-content">
+                            <h3>Our Inventory</h3>
+                            <p>Browse our extensive collection of luxury vehicles.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
+                <a href="https://www.google.com/maps/search/?api=1&query=123+Auto+Street,+Car+City,+State,+ZIP+12345" target="_blank" class="hero-card-link fade-in-up delay-2">
+                    <div class="hero-card">
+                        <img src="/images/rota.jpg" alt="Get Directions" class="hero-card-image">
+                        <div class="hero-card-text-content">
+                            <h3>Get Directions</h3>
+                            <p>Find your way to our dealership with ease.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
 
-        <div class="filter-bar fade-in-up delay-1">
+        <div class="filter-bar fade-in-up delay-3"> <!-- Adjusted delay -->
             <form action="/gas" method="GET" class="form-row align-items-center justify-content-center">
                 <div class="form-group col-md-4 col-sm-12 mb-md-0">
                     <label for="makeFilter" class="sr-only">Make</label>
@@ -304,8 +631,55 @@
     </div>
 </section>
 
+<!-- Featured Vehicles Section -->
+<section id="featured-vehicles" class="py-5 bg-dark fade-in-up delay-4"> <!-- Adjusted delay -->
+    <div class="container">
+        <h2 class="section-title text-center text-white">Featured Vehicles</h2>
+        <div class="position-relative"> <!-- Wrapper for carousel and controls -->
+            <div class="featured-carousel-wrapper">
+                <div class="featured-carousel-inner" id="featuredCarouselInner">
+                    {{#each latestCars}}
+                    <div class="featured-car-item">
+                        <div class="card h-100 inventory-card shadow-sm">
+                            {{#if this.image.length}}
+                                <div class="card-img-top-wrapper position-relative">
+                                    <img src="{{this.image.[0]}}" class="card-img-top" alt="{{this.title}}">
+                                    {{#if (gt this.image.length 1)}}
+                                        <span class="badge badge-secondary position-absolute" style="top: 10px; right: 10px; background-color: #05FC04; color: #000000;">
+                                            {{this.image.length}} photos
+                                        </span>
+                                    {{/if}}
+                                </div>
+                            {{else}}
+                                <img src="https://placehold.co/600x400/0a0a0a/05FC04?text=No+Image" class="card-img-top" alt="No Image">
+                            {{/if}}
+                            <div class="card-body">
+                                <h5 class="card-title">{{this.brand}} {{this.t2}}</h5>
+                                <p class="card-text text-muted">{{this.year}} - {{this.mileage}} miles - {{this.transmission}}</p>
+                                <p class="card-text price">R$ {{this.priceStr}}</p>
+                                <a href="/gas/details/{{this._id}}" class="btn btn-primary btn-block">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            <!-- Navigation Arrows -->
+            <button class="featured-carousel-control featured-carousel-prev" onclick="scrollFeaturedCars(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="featured-carousel-control featured-carousel-next" onclick="scrollFeaturedCars(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        <div class="text-center mt-4">
+            <a href="/gas" class="btn btn-outline-primary btn-lg">View All Featured Vehicles</a>
+        </div>
+    </div>
+</section>
+
 <!-- About Us Section -->
-<section id="about-us" class="fade-in-up delay-2">
+<section id="about-us" class="fade-in-up delay-5"> <!-- Adjusted delay -->
     <div class="background-image-overlay"></div> <!-- New div for background image -->
     <div class="container content-wrapper">
         <h2 class="section-title text-center">About KINGS AUTOHAUS</h2>
@@ -322,44 +696,98 @@
     </div>
 </section>
 
-<!-- Our Inventory / Latest Arrivals Section -->
-<section id="our-inventory" class="py-5 fade-in-up delay-3">
+<!-- Testimonials Section -->
+<section id="testimonials" class="fade-in-up delay-5"> <!-- Adjusted delay -->
     <div class="container">
-        <h2 class="section-title text-center">Latest Arrivals</h2>
-        {{#if latestCars.length}}
-        <div class="row">
-            {{#each latestCars}}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100 inventory-card shadow-sm">
-                    {{#if this.image.length}}
-                        <div class="card-img-top-wrapper position-relative">
-                            <img src="{{this.image.[0]}}" class="card-img-top" alt="{{this.title}}">
-                            {{#if (gt this.image.length 1)}}
-                                <span class="badge badge-secondary position-absolute" style="top: 10px; right: 10px; background-color: #05FC04; color: #000000;">
-                                    {{this.image.length}} photos
-                                </span>
-                            {{/if}}
-                        </div>
-                    {{else}}
-                        <img src="https://placehold.co/600x400/0a0a0a/05FC04?text=No+Image" class="card-img-top" alt="No Image">
-                    {{/if}}
-                    <div class="card-body">
-                        <h5 class="card-title">{{this.brand}} {{this.t2}}</h5>
-                        <p class="card-text text-muted">{{this.year}}</p>
-                        <p class="card-text price">R$ {{this.price}}</p>
-                        <a href="/gas/details/{{this._id}}" class="btn btn-primary btn-block">View Details</a>
-                    </div>
-                </div>
+        <h2 class="section-title text-center text-white">What Our Customers Say</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Testimonial 1 -->
+                <blockquote class="blockquote text-white mb-4">
+                    <p class="mb-0">"KINGS AUTOHAUS exceeded my expectations! I found my dream car with impeccable and transparent service. I highly recommend them!"</p>
+                    <footer class="blockquote-footer text-muted">John Doe, <cite title="Satisfied Customer">Satisfied Customer</cite></footer>
+                </blockquote>
+                <!-- Testimonial 2 -->
+                <blockquote class="blockquote text-white">
+                    <p class="mb-0">"Easy and no-pressure buying process. The team was very helpful and found the perfect payment plan for me. Impeccable car!"</p>
+                    <footer class="blockquote-footer text-muted">Jane Smith, <cite title="KINGS AUTOHAUS Client">KINGS AUTOHAUS Client</cite></footer>
+                </blockquote>
             </div>
-            {{/each}}
         </div>
-        {{else}}
-        <div class="alert alert-info text-center" role="alert" style="background-color: #1a1a1a; color: #ffffff; border-color: #333333;">
-            No new cars in stock at the moment.
-        </div>
-        {{/if}}
     </div>
 </section>
+
+<!-- Financing Call to Action Section -->
+<section id="financing-cta" class="py-5 text-center bg-dark fade-in-up delay-5">
+    <div class="container">
+        <h2 class="section-title text-white">Ready to Drive Your Dream Car?</h2>
+        <p class="lead text-white-75 mb-4">Get pre-approved for financing quickly and easily!</p>
+        <a href="/financing" class="btn btn-primary btn-lg">Apply for Financing</a>
+    </div>
+</section>
+
+<!-- Contact Information Section -->
+<section id="contact-info" class="fade-in-up delay-5">
+    <div class="container">
+        <h3>Contact Us</h3>
+        <div class="row justify-content-center">
+            <div class="col-md-4 contact-detail">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>123 Auto Street, Car City, State, ZIP 12345</p>
+            </div>
+            <div class="col-md-4 contact-detail">
+                <i class="fas fa-phone"></i>
+                <p>+1 (555) 123-4567</p>
+            </div>
+            <div class="col-md-4 contact-detail">
+                <i class="fas fa-envelope"></i>
+                <p>info@kingsautohaus.com</p>
+            </div>
+        </div>
+        <p class="text-muted mt-4">Operating Hours: Mon-Fri: 9 AM - 6 PM | Sat: 10 AM - 4 PM | Sun: Closed</p>
+    </div>
+</section>
+
+
+<!-- Floating Message Button -->
+<button class="floating-message-btn" data-toggle="modal" data-target="#messageModal">
+    <i class="fas fa-comments"></i>
+</button>
+
+<!-- Message Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">Send Us a Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="contactName">Name</label>
+                        <input type="text" class="form-control" id="contactName" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email address</label>
+                        <input type="email" class="form-control" id="contactEmail" placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Message</label>
+                        <textarea class="form-control" id="contactMessage" rows="3" placeholder="Your message..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send Message</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- JavaScript for dynamic Model filter -->
 <script>
@@ -438,11 +866,143 @@
         if (video) {
             video.play().catch(error => {
                 console.warn("Video autoplay failed:", error);
-                // O autoplay pode ser bloqueado por navegadores em certas condições.
-                // Aqui você poderia adicionar um botão de play para o usuário clicar
-                // ou mostrar uma mensagem. Por simplicidade, estamos apenas registrando o erro.
-                // Exemplo: video.controls = true; // Para mostrar os controles do vídeo
+                // Autoplay might be blocked by browsers under certain conditions.
+                // Here you could add a play button for the user to click
+                // or show a message. For simplicity, we are just logging the error.
             });
         }
+
+        // Infinite scroll logic for featured cars
+        // This section handles the seamless looping of the carousel.
+        // It clones items from the beginning and end of the original list
+        // and appends/prepends them to create a continuous scroll effect.
+        // When the user scrolls into a cloned section, the scroll position
+        // is instantly reset to the equivalent position within the original items,
+        // making the loop visually imperceptible.
+        // The effectiveness of this "infinite" illusion depends on having
+        // a sufficient number of original items (cars) in the 'latestCars' array
+        // to prevent obvious repetitions.
+        const featuredCarouselInner = document.getElementById('featuredCarouselInner');
+        if (featuredCarouselInner) { // Check if the element exists
+            const originalItems = Array.from(featuredCarouselInner.children);
+            const numOriginalItems = originalItems.length;
+
+            // Log para diagnóstico: Verifique se há itens para clonar
+            console.log("Carrossel: Número de itens originais:", numOriginalItems);
+
+            // Se não houver itens originais, não há necessidade de clonar ou configurar o loop.
+            if (numOriginalItems === 0) {
+                console.warn("Carrossel: Nenhum item original encontrado para clonar. Verifique se 'latestCars' está populado.");
+                return;
+            }
+
+            // Garante que não tentamos clonar mais itens do que existem
+            const numClones = Math.min(numOriginalItems, 3); // Clona no máximo 3 itens de cada lado
+
+            // Log para diagnóstico: Verifique as dimensões do container e do primeiro item
+            console.log("Carrossel: clientWidth =", featuredCarouselInner.clientWidth, "scrollWidth =", featuredCarouselInner.scrollWidth);
+            if (originalItems[0]) {
+                console.log("Carrossel: Largura do primeiro item (offsetWidth) =", originalItems[0].offsetWidth);
+            } else {
+                console.warn("Carrossel: Primeiro item não encontrado para calcular offsetWidth.");
+            }
+            if (featuredCarouselInner.scrollWidth <= featuredCarouselInner.clientWidth) {
+                console.warn("Carrossel: O conteúdo não está transbordando (scrollWidth <= clientWidth). A rolagem não funcionará. Verifique o número de itens ou as larguras dos itens.");
+            }
+
+
+            // Limpa os itens existentes antes de adicionar clones para evitar duplicatas em re-renderizações
+            featuredCarouselInner.innerHTML = '';
+
+            // 1. Prepend clones of the last 'numClones' original items to the beginning
+            for (let i = 0; i < numClones; i++) {
+                const cloneIndex = numOriginalItems - numClones + i;
+                const clone = originalItems[cloneIndex].cloneNode(true);
+                featuredCarouselInner.prepend(clone);
+            }
+
+            // 2. Append all original items
+            originalItems.forEach(item => {
+                featuredCarouselInner.appendChild(item.cloneNode(true)); // Append clones of originals
+            });
+
+            // 3. Append clones of the first 'numClones' original items to the end
+            for (let i = 0; i < numClones; i++) {
+                const clone = originalItems[i].cloneNode(true);
+                featuredCarouselInner.appendChild(clone);
+            }
+
+            // Define a posição inicial de rolagem para o início dos itens originais
+            // Isso é crucial para esconder os clones prepended
+            // Usa requestAnimationFrame para garantir que o layout esteja estável antes de definir scrollLeft
+            requestAnimationFrame(() => {
+                const firstOriginalItem = featuredCarouselInner.children[numClones];
+                if (firstOriginalItem) {
+                    featuredCarouselInner.scrollLeft = firstOriginalItem.offsetLeft;
+                    console.log("Carrossel: Posição inicial de scrollLeft definida para:", featuredCarouselInner.scrollLeft);
+                } else {
+                    console.warn("Carrossel: Não foi possível encontrar o primeiro item original para definir o scrollLeft inicial.");
+                }
+            });
+
+
+            let isScrolling;
+            featuredCarouselInner.addEventListener('scroll', () => {
+                window.clearTimeout(isScrolling);
+                isScrolling = setTimeout(() => {
+                    const scrollLeft = featuredCarouselInner.scrollLeft;
+                    // Certifique-se de que originalItems[0] existe antes de tentar acessar offsetWidth
+                    const itemWidth = originalItems[0] ? (originalItems[0].offsetWidth + 30) : 0; // Item width + padding
+
+                    // Posição de início e fim dos itens originais dentro do carrossel combinado (com clones)
+                    const startOfOriginals = numClones * itemWidth;
+                    const endOfOriginals = (numClones + numOriginalItems) * itemWidth;
+
+                    // Se rolou além do final dos itens originais (para os clones anexados)
+                    if (scrollLeft >= endOfOriginals - featuredCarouselInner.clientWidth) {
+                        featuredCarouselInner.style.scrollBehavior = 'auto'; // Desabilita a rolagem suave para salto instantâneo
+                        featuredCarouselInner.scrollLeft = startOfOriginals; // Salta de volta para o início dos itens originais
+                        featuredCarouselInner.style.scrollBehavior = 'smooth'; // Reabilita a rolagem suave
+                        console.log("Carrossel: Salto para o início dos itens originais. Novo scrollLeft:", featuredCarouselInner.scrollLeft);
+                    }
+                    // Se rolou antes do início dos itens originais (para os clones prepended)
+                    else if (scrollLeft <= 0) { // Quando rolado totalmente para a esquerda
+                        featuredCarouselInner.style.scrollBehavior = 'auto'; // Desabilita a rolagem suave para salto instantâneo
+                        // Salta para a posição do último item original
+                        featuredCarouselInner.scrollLeft = (numClones + numOriginalItems - 1) * itemWidth;
+                        featuredCarouselInner.style.scrollBehavior = 'smooth'; // Reabilita a rolagem suave
+                        console.log("Carrossel: Salto para o final dos itens originais. Novo scrollLeft:", featuredCarouselInner.scrollLeft);
+                    }
+                }, 66); // Ajuste o tempo de debounce conforme necessário
+            });
+        } else if (featuredCarouselInner) {
+            console.warn("Carrossel: Elemento 'featuredCarouselInner' encontrado, mas sem filhos para clonar. Certifique-se de que o array 'latestCars' está populado e renderizado.");
+        }
     });
+
+    // JavaScript para rolagem horizontal de carros em destaque com loop
+    function scrollFeaturedCars(direction) {
+        const container = document.getElementById('featuredCarouselInner');
+        if (!container) {
+            console.error("Função scrollFeaturedCars: featuredCarouselInner não encontrado.");
+            return;
+        }
+
+        const firstItem = container.querySelector('.featured-car-item');
+        if (!firstItem) {
+            console.error("Função scrollFeaturedCars: Nenhum .featured-car-item encontrado no carrossel.");
+            return;
+        }
+
+        const itemWidth = firstItem.offsetWidth;
+        const padding = 30; // 15px left + 15px right
+        const scrollAmount = itemWidth + padding;
+
+        console.log("Função scrollFeaturedCars: Tentando rolar. Direção:", direction, "Largura do Item:", itemWidth, "Quantidade de Rolagem:", scrollAmount);
+
+        container.scrollBy({
+            left: direction * scrollAmount,
+            behavior: 'smooth'
+        });
+    }
 </script>

@@ -1,0 +1,830 @@
+<div class="container py-5">
+    <h2 class="section-title text-center text-white mb-5 fade-in-up">SOLICITE CRÉDITO</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+            <div class="card bg-dark text-white shadow-lg fade-in-up delay-1">
+                <div class="card-body p-4 p-md-5">
+                    <form action="/financing-submit" method="POST">
+
+                        <!-- 1. Applicant Information -->
+                        <h5 class="text-success mb-3 mt-4">Informações do candidato</h5>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="applicantFirstName">First Name</label>
+                                <input type="text" class="form-control" id="applicantFirstName" name="applicantFirstName" required>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="applicantMiddleInitial">Middle Initial</label>
+                                <input type="text" class="form-control" id="applicantMiddleInitial" name="applicantMiddleInitial" maxlength="1">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="applicantLastName">Last Name</label>
+                                <input type="text" class="form-control" id="applicantLastName" name="applicantLastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="applicantAddress1">Address 1</label>
+                            <input type="text" class="form-control" id="applicantAddress1" name="applicantAddress1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="applicantAddress2">Address 2</label>
+                            <input type="text" class="form-control" id="applicantAddress2" name="applicantAddress2">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="applicantCity">City</label>
+                                <input type="text" class="form-control" id="applicantCity" name="applicantCity" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="applicantState">State</label>
+                                <select id="applicantState" name="applicantState" class="form-control" required>
+                                    <option value="">Select...</option>
+                                    <!-- Populated by JS -->
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="applicantZip">Zip</label>
+                                <input type="text" class="form-control" id="applicantZip" name="applicantZip" pattern="\d{5}(?:[-\s]\d{4})?" title="5 ou 9 dígitos" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="applicantSSN">Social Security</label>
+                                <input type="text" class="form-control" id="applicantSSN" name="applicantSSN" placeholder="XXX-XX-XXXX" pattern="\d{3}-\d{2}-\d{4}" title="Formato: XXX-XX-XXXX" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="applicantDOB">Date of Birth</label>
+                                <input type="date" class="form-control" id="applicantDOB" name="applicantDOB" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="applicantDriverLicenseNumber">Driver's License Number</label>
+                            <input type="text" class="form-control" id="applicantDriverLicenseNumber" name="applicantDriverLicenseNumber" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="applicantDriverLicenseState">Driver's License State</label>
+                                <select id="applicantDriverLicenseState" name="applicantDriverLicenseState" class="form-control" required>
+                                    <option value="">Select...</option>
+                                    <!-- Populated by JS -->
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="applicantDriverLicenseExp">Driver's License Exp</label>
+                                <input type="month" class="form-control" id="applicantDriverLicenseExp" name="applicantDriverLicenseExp" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="applicantMobilePhone">Mobile Phone</label>
+                                <input type="tel" class="form-control" id="applicantMobilePhone" name="applicantMobilePhone" placeholder="(XXX) XXX-XXXX" pattern="\(\d{3}\) \d{3}-\d{4}" title="Formato: (XXX) XXX-XXXX" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="applicantHomePhone">Home Phone</label>
+                                <input type="tel" class="form-control" id="applicantHomePhone" name="applicantHomePhone" placeholder="(XXX) XXX-XXXX" pattern="\(\d{3}\) \d{3}-\d{4}" title="Formato: (XXX) XXX-XXXX">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="applicantEmail">Email</label>
+                            <input type="email" class="form-control" id="applicantEmail" name="applicantEmail" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="timeAtResidenceYears">Time at Residence: Years</label>
+                                <input type="number" class="form-control" id="timeAtResidenceYears" name="timeAtResidenceYears" min="0" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="timeAtResidenceMonths">Time at Residence: Months</label>
+                                <input type="number" class="form-control" id="timeAtResidenceMonths" name="timeAtResidenceMonths" min="0" max="11" placeholder="0" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="residenceType">Residence Type</label>
+                                <select id="residenceType" name="residenceType" class="form-control" required>
+                                    <option value="">Select...</option>
+                                    <option value="Rent">Rent</option>
+                                    <option value="Own">Own</option>
+                                    <option value="Living with Family">Living with Family</option>
+                                    <option value="Military Housing">Military Housing</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="rentMortgage">Rent/Mortgage</label>
+                                <input type="number" class="form-control" id="rentMortgage" name="rentMortgage" min="0" step="0.01" placeholder="$" required>
+                            </div>
+                        </div>
+
+                        <!-- 2. Applicant Employment Information -->
+                        <h5 class="text-success mb-3 mt-4">Informações de emprego do candidato</h5>
+                        <div class="form-group">
+                            <label for="employerName">Employer</label>
+                            <input type="text" class="form-control" id="employerName" name="employerName" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="employerType">Employer Type</label>
+                                <select id="employerType" name="employerType" class="form-control" required>
+                                    <option value="">Select...</option>
+                                    <option value="Full-Time">Full‑Time</option>
+                                    <option value="Part-Time">Part‑Time</option>
+                                    <option value="Temporary">Temporary</option>
+                                    <option value="Fixed Income">Fixed Income</option>
+                                    <option value="Self-Employed">Self‑Employed</option>
+                                    <option value="Cash Income">Cash Income</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="monthlyIncome">Monthly Income</label>
+                                <input type="number" class="form-control" id="monthlyIncome" name="monthlyIncome" min="0" step="0.01" placeholder="$" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="occupation">Occupation</label>
+                            <input type="text" class="form-control" id="occupation" name="occupation" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="employerAddress1">Address 1</label>
+                            <input type="text" class="form-control" id="employerAddress1" name="employerAddress1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="employerAddress2">Address 2</label>
+                            <input type="text" class="form-control" id="employerAddress2" name="employerAddress2">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="employerCity">City</label>
+                                <input type="text" class="form-control" id="employerCity" name="employerCity" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="employerState">State</label>
+                                <select id="employerState" name="employerState" class="form-control" required>
+                                    <option value="">Select...</option>
+                                    <!-- Populated by JS -->
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="employerZip">Zip</label>
+                                <input type="text" class="form-control" id="employerZip" name="employerZip" pattern="\d{5}(?:[-\s]\d{4})?" title="5 ou 9 dígitos" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="workPhone">Work Phone</label>
+                            <input type="tel" class="form-control" id="workPhone" name="workPhone" placeholder="(XXX) XXX-XXXX" pattern="\(\d{3}\) \d{3}-\d{4}" title="Formato: (XXX) XXX-XXXX">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="timeOnJobYears">Time on Job: Years</label>
+                                <input type="number" class="form-control" id="timeOnJobYears" name="timeOnJobYears" min="0" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="timeOnJobMonths">Time on Job: Months</label>
+                                <input type="number" class="form-control" id="timeOnJobMonths" name="timeOnJobMonths" min="0" max="11" placeholder="0" required>
+                            </div>
+                        </div>
+
+                        <!-- 3. Co-Buyer Toggle -->
+                        <h5 class="text-success mb-3 mt-4">Você tem um co-comprador?</h5>
+                        <div class="co-buyer-toggle">
+                            <div class="form-check">
+                                <input type="hidden" id="hasCoBuyerHidden" name="hasCoBuyer" value="false">
+                                <button type="button" class="btn btn-outline-success" id="toggleCoBuyer">
+                                    <i id="coBuyerIcon">➕</i> <span id="coBuyerText">Add Co-Buyer</span>
+                                </button>
+                                <small class="form-text text-muted d-block mt-2">Clique no botão acima para adicionar informações do co-comprador</small>
+                            </div>
+                        </div>
+
+                        <!-- 3. Co-Buyer Information (Hidden by default) -->
+                        <div id="coBuyerInfo" style="display: none;">
+                            <h6 class="text-success mb-3 mt-4">Informações do Co-Comprador</h6>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="coBuyerFirstName">First Name</label>
+                                    <input type="text" class="form-control" id="coBuyerFirstName" name="coBuyerFirstName">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="coBuyerMiddleInitial">Middle Initial</label>
+                                    <input type="text" class="form-control" id="coBuyerMiddleInitial" name="coBuyerMiddleInitial" maxlength="1">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerLastName">Last Name</label>
+                                    <input type="text" class="form-control" id="coBuyerLastName" name="coBuyerLastName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="coBuyerAddress1">Address 1</label>
+                                <input type="text" class="form-control" id="coBuyerAddress1" name="coBuyerAddress1">
+                            </div>
+                            <div class="form-group">
+                                <label for="coBuyerAddress2">Address 2</label>
+                                <input type="text" class="form-control" id="coBuyerAddress2" name="coBuyerAddress2">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerCity">City</label>
+                                    <input type="text" class="form-control" id="coBuyerCity" name="coBuyerCity">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="coBuyerState">State</label>
+                                    <select id="coBuyerState" name="coBuyerState" class="form-control">
+                                        <option value="">Select...</option>
+                                        <!-- Populated by JS -->
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="coBuyerZip">Zip</label>
+                                    <input type="text" class="form-control" id="coBuyerZip" name="coBuyerZip" pattern="\d{5}(?:[-\s]\d{4})?" title="5 ou 9 dígitos">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerSSN">Social Security</label>
+                                    <input type="text" class="form-control" id="coBuyerSSN" name="coBuyerSSN" placeholder="XXX-XX-XXXX" pattern="\d{3}-\d{2}-\d{4}" title="Formato: XXX-XX-XXXX">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerDOB">Date of Birth</label>
+                                    <input type="date" class="form-control" id="coBuyerDOB" name="coBuyerDOB">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="coBuyerDriverLicenseNumber">Driver's License Number</label>
+                                <input type="text" class="form-control" id="coBuyerDriverLicenseNumber" name="coBuyerDriverLicenseNumber">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerDriverLicenseState">Driver's License State</label>
+                                    <select id="coBuyerDriverLicenseState" name="coBuyerDriverLicenseState" class="form-control">
+                                        <option value="">Select...</option>
+                                        <!-- Populated by JS -->
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerDriverLicenseExp">Driver's License Exp</label>
+                                    <input type="month" class="form-control" id="coBuyerDriverLicenseExp" name="coBuyerDriverLicenseExp">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerMobilePhone">Mobile Phone</label>
+                                    <input type="tel" class="form-control" id="coBuyerMobilePhone" name="coBuyerMobilePhone" placeholder="(XXX) XXX-XXXX" pattern="\(\d{3}\) \d{3}-\d{4}" title="Formato: (XXX) XXX-XXXX">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerHomePhone">Home Phone</label>
+                                    <input type="tel" class="form-control" id="coBuyerHomePhone" name="coBuyerHomePhone" placeholder="(XXX) XXX-XXXX" pattern="\(\d{3}\) \d{3}-\d{4}" title="Formato: (XXX) XXX-XXXX">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="coBuyerEmail">Email</label>
+                                <input type="email" class="form-control" id="coBuyerEmail" name="coBuyerEmail">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerTimeAtResidenceYears">Time at Residence: Years</label>
+                                    <input type="number" class="form-control" id="coBuyerTimeAtResidenceYears" name="coBuyerTimeAtResidenceYears" min="0" placeholder="0">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerTimeAtResidenceMonths">Time at Residence: Months</label>
+                                    <input type="number" class="form-control" id="coBuyerTimeAtResidenceMonths" name="coBuyerTimeAtResidenceMonths" min="0" max="11" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerResidenceType">Residence Type</label>
+                                    <select id="coBuyerResidenceType" name="coBuyerResidenceType" class="form-control">
+                                        <option value="">Select...</option>
+                                        <option value="Rent">Rent</option>
+                                        <option value="Own">Own</option>
+                                        <option value="Living with Family">Living with Family</option>
+                                        <option value="Military Housing">Military Housing</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerRentMortgage">Rent/Mortgage</label>
+                                    <input type="number" class="form-control" id="coBuyerRentMortgage" name="coBuyerRentMortgage" min="0" step="0.01" placeholder="$">
+                                </div>
+                            </div>
+
+                            <h6 class="text-success mb-3 mt-4">Informações de emprego do Co-Comprador</h6>
+                            <div class="form-group">
+                                <label for="coBuyerEmployerName">Employer</label>
+                                <input type="text" class="form-control" id="coBuyerEmployerName" name="coBuyerEmployerName">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerEmployerType">Employer Type</label>
+                                    <select id="coBuyerEmployerType" name="coBuyerEmployerType" class="form-control">
+                                        <option value="">Select...</option>
+                                        <option value="Full-Time">Full‑Time</option>
+                                        <option value="Part-Time">Part‑Time</option>
+                                        <option value="Temporary">Temporary</option>
+                                        <option value="Fixed Income">Fixed Income</option>
+                                        <option value="Self-Employed">Self‑Employed</option>
+                                        <option value="Cash Income">Cash Income</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerMonthlyIncome">Monthly Income</label>
+                                    <input type="number" class="form-control" id="coBuyerMonthlyIncome" name="coBuyerMonthlyIncome" min="0" step="0.01" placeholder="$">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="coBuyerOccupation">Occupation</label>
+                                <input type="text" class="form-control" id="coBuyerOccupation" name="coBuyerOccupation">
+                            </div>
+                            <div class="form-group">
+                                <label for="coBuyerEmployerAddress1">Address 1</label>
+                                <input type="text" class="form-control" id="coBuyerEmployerAddress1" name="coBuyerEmployerAddress1">
+                            </div>
+                            <div class="form-group">
+                                <label for="coBuyerEmployerAddress2">Address 2</label>
+                                <input type="text" class="form-control" id="coBuyerEmployerAddress2" name="coBuyerEmployerAddress2">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerEmployerCity">City</label>
+                                    <input type="text" class="form-control" id="coBuyerEmployerCity" name="coBuyerEmployerCity">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="coBuyerEmployerState">State</label>
+                                    <select id="coBuyerEmployerState" name="coBuyerEmployerState" class="form-control">
+                                        <option value="">Select...</option>
+                                        <!-- Populated by JS -->
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="coBuyerEmployerZip">Zip</label>
+                                    <input type="text" class="form-control" id="coBuyerEmployerZip" name="coBuyerEmployerZip" pattern="\d{5}(?:[-\s]\d{4})?" title="5 ou 9 dígitos">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="coBuyerWorkPhone">Work Phone</label>
+                                <input type="tel" class="form-control" id="coBuyerWorkPhone" name="coBuyerWorkPhone" placeholder="(XXX) XXX-XXXX" pattern="\(\d{3}\) \d{3}-\d{4}" title="Formato: (XXX) XXX-XXXX">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerTimeOnJobYears">Time on Job: Years</label>
+                                    <input type="number" class="form-control" id="coBuyerTimeOnJobYears" name="coBuyerTimeOnJobYears" min="0" placeholder="0">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="coBuyerTimeOnJobMonths">Time on Job: Months</label>
+                                    <input type="number" class="form-control" id="coBuyerTimeOnJobMonths" name="coBuyerTimeOnJobMonths" min="0" max="11" placeholder="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Vehicle Information -->
+                        <h5 class="text-success mb-3 mt-4">Informações do veículo</h5>
+                        <div class="form-group">
+                            <label for="vehicleToFinance">Vehicle To Finance</label>
+                            <select id="vehicleToFinance" name="vehicleToFinance" class="form-control">
+                                <option value="">Select a vehicle from our inventory...</option>
+                                {{#if vehicles}}
+                                    {{#each vehicles}}
+                                        <option value="{{this.id}}">{{this.year}} {{this.make}} {{this.model}}</option>
+                                    {{/each}}
+                                {{else}}
+                                    <!-- Default options if no vehicles passed from backend -->
+                                    <option value="Mercedes-Benz C 300">Mercedes-Benz C 300</option>
+                                    <option value="BMW X5">BMW X5</option>
+                                    <option value="Audi A4">Audi A4</option>
+                                    <option value="Porsche 911">Porsche 911</option>
+                                {{/if}}
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="stockNumber">Stock Number</label>
+                                <input type="text" class="form-control" id="stockNumber" name="stockNumber">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="vehicleYear">Year</label>
+                                <input type="number" class="form-control" id="vehicleYear" name="vehicleYear" min="1900" max="{{currentYear}}" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="vehicleMake">Make</label>
+                                <input type="text" class="form-control" id="vehicleMake" name="vehicleMake" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="vehicleModel">Model</label>
+                                <input type="text" class="form-control" id="vehicleModel" name="vehicleModel" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleTrim">Trim</label>
+                            <input type="text" class="form-control" id="vehicleTrim" name="vehicleTrim">
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleVin">VIN</label>
+                            <input type="text" class="form-control" id="vehicleVin" name="vehicleVin" maxlength="17" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleMileage">Mileage</label>
+                            <input type="number" class="form-control" id="vehicleMileage" name="vehicleMileage" min="0" required>
+                        </div>
+
+                        <!-- 5. Additional Comments -->
+                        <h5 class="text-success mb-3 mt-4">Comentários adicionais</h5>
+                        <div class="form-group">
+                            <label for="additionalComments">Additional Comments</label>
+                            <textarea class="form-control" id="additionalComments" name="additionalComments" rows="4" placeholder="Digite quaisquer comentários ou informações adicionais aqui..."></textarea>
+                        </div>
+
+                        <!-- 6. Acknowledgment and Consent -->
+                        <h5 class="text-success mb-3 mt-4">RECONHECIMENTO E CONSENTIMENTO</h5>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="acknowledgmentConsent" name="acknowledgmentConsent" required>
+                                <label class="form-check-label" for="acknowledgmentConsent" style="font-size: 0.9rem; line-height: 1.4;">
+                                    I certify that the above information is complete and accurate to the best of my knowledge. Creditors receiving this application will retain the application whether or not it is approved. Creditors may rely on this application in deciding whether to grant the requested credit. False statements may subject me to criminal penalties. I authorize the creditors to obtain credit reports about me on an ongoing basis during this credit transaction and to check my credit and employment history on an ongoing basis during the term of the credit transaction. If this application is approved, I authorize the creditor to give credit information about me to its affiliates.
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 7. Text Message Consent -->
+                        <h5 class="text-success mb-3 mt-4">CONSENTIMENTO PARA MENSAGENS</h5>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="textMessageConsent" name="textMessageConsent">
+                                <label class="form-check-label" for="textMessageConsent" style="font-size: 0.9rem; line-height: 1.4;">
+                                    By checking this box I hereby consent to receive customer care text messages and/or phone calls from or on behalf of Clinton Motorcars or their employees to the mobile phone number I provided above. By opting in, I understand that message and data rates may apply. This acknowledgement constitutes my written consent to receive text messages to my cell phone and phone calls, including communications sent using an auto‑dialer or pre‑recorded message. You may withdraw your consent at any time by texting 'STOP' or 'HELP' for help. See our privacy policy for more information.
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 8. Submit Button -->
+                        <div class="text-center mt-5">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <strong>SUBMIT CREDIT APPLICATION</strong>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Estilos específicos para este formulário */
+    .form-control {
+        background-color: #0d0d0d;
+        color: #ffffff;
+        border: 1px solid #05FC04; /* Green border */
+        border-radius: 8px;
+        padding: 10px 15px;
+        transition: all 0.3s ease;
+    }
+    .form-control:focus {
+        border-color: #04D803;
+        box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
+        background-color: #000000;
+        color: #ffffff;
+    }
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    .form-group label {
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .form-check-label {
+        color: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+    }
+    .form-check-input {
+        margin-top: 0.3rem;
+    }
+    .btn-primary {
+        background-color: #05FC04;
+        border-color: #05FC04;
+        color: #000000;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        padding: 12px 30px;
+    }
+    .btn-primary:hover {
+        background-color: #04D803;
+        border-color: #04D803;
+        color: #ffffff;
+        transform: translateY(-2px);
+    }
+    .card {
+        border: 1px solid #05FC04; /* Borda verde para o card do formulário */
+        background-color: #1a1a1a;
+    }
+    .text-success {
+        color: #05FC04 !important;
+    }
+    .section-title::after {
+        background-color: #05FC04; /* Garante a linha verde sob o título da seção */
+    }
+    small.form-text.text-muted {
+        color: rgba(255, 255, 255, 0.6) !important;
+    }
+    
+    #coBuyerInfo {
+        border-left: 3px solid #05FC04;
+        padding-left: 20px;
+        margin-left: 10px;
+        transition: all 0.5s ease;
+    }
+    
+    .co-buyer-toggle {
+        background-color: #2a2a2a;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #333;
+        text-align: center;
+    }
+    
+    .btn-outline-success {
+        color: #05FC04;
+        border-color: #05FC04;
+        background-color: transparent;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-success:hover {
+        color: #000;
+        background-color: #05FC04;
+        border-color: #05FC04;
+    }
+    
+    .btn-outline-danger {
+        color: #dc3545;
+        border-color: #dc3545;
+        background-color: transparent;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-danger:hover {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+    
+    .fade-in-up {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .delay-1 {
+        animation-delay: 0.2s;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // US States data
+        const usStates = [
+            { name: 'Alabama', abbr: 'AL' }, { name: 'Alaska', abbr: 'AK' }, { name: 'Arizona', abbr: 'AZ' },
+            { name: 'Arkansas', abbr: 'AR' }, { name: 'California', abbr: 'CA' }, { name: 'Colorado', abbr: 'CO' },
+            { name: 'Connecticut', abbr: 'CT' }, { name: 'Delaware', abbr: 'DE' }, { name: 'Florida', abbr: 'FL' },
+            { name: 'Georgia', abbr: 'GA' }, { name: 'Hawaii', abbr: 'HI' }, { name: 'Idaho', abbr: 'ID' },
+            { name: 'Illinois', abbr: 'IL' }, { name: 'Indiana', abbr: 'IN' }, { name: 'Iowa', abbr: 'IA' },
+            { name: 'Kansas', abbr: 'KS' }, { name: 'Kentucky', abbr: 'KY' }, { name: 'Louisiana', abbr: 'LA' },
+            { name: 'Maine', abbr: 'ME' }, { name: 'Maryland', abbr: 'MD' }, { name: 'Massachusetts', abbr: 'MA' },
+            { name: 'Michigan', abbr: 'MI' }, { name: 'Minnesota', abbr: 'MN' }, { name: 'Mississippi', abbr: 'MS' },
+            { name: 'Missouri', abbr: 'MO' }, { name: 'Montana', abbr: 'MT' }, { name: 'Nebraska', abbr: 'NE' },
+            { name: 'Nevada', abbr: 'NV' }, { name: 'New Hampshire', abbr: 'NH' }, { name: 'New Jersey', abbr: 'NJ' },
+            { name: 'New Mexico', abbr: 'NM' }, { name: 'New York', abbr: 'NY' }, { name: 'North Carolina', abbr: 'NC' },
+            { name: 'North Dakota', abbr: 'ND' }, { name: 'Ohio', abbr: 'OH' }, { name: 'Oklahoma', abbr: 'OK' },
+            { name: 'Oregon', abbr: 'OR' }, { name: 'Pennsylvania', abbr: 'PA' }, { name: 'Rhode Island', abbr: 'RI' },
+            { name: 'South Carolina', abbr: 'SC' }, { name: 'South Dakota', abbr: 'SD' }, { name: 'Tennessee', abbr: 'TN' },
+            { name: 'Texas', abbr: 'TX' }, { name: 'Utah', abbr: 'UT' }, { name: 'Vermont', abbr: 'VT' },
+            { name: 'Virginia', abbr: 'VA' }, { name: 'Washington', abbr: 'WA' }, { name: 'West Virginia', abbr: 'WV' },
+            { name: 'Wisconsin', abbr: 'WI' }, { name: 'Wyoming', abbr: 'WY' }
+        ];
+
+        // Function to populate state dropdowns
+        function populateStateDropdown(selectElementId) {
+            const selectElement = document.getElementById(selectElementId);
+            if (selectElement) {
+                usStates.forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state.abbr;
+                    option.textContent = state.name;
+                    selectElement.appendChild(option);
+                });
+            }
+        }
+
+        // Populate all state dropdowns
+        populateStateDropdown('applicantState');
+        populateStateDropdown('applicantDriverLicenseState');
+        populateStateDropdown('employerState');
+        populateStateDropdown('coBuyerState');
+        populateStateDropdown('coBuyerDriverLicenseState');
+        populateStateDropdown('coBuyerEmployerState');
+
+        // Set current year for vehicle year field
+        const currentYear = new Date().getFullYear();
+        const vehicleYearInput = document.getElementById('vehicleYear');
+        if (vehicleYearInput) {
+            vehicleYearInput.setAttribute('max', currentYear);
+        }
+
+        // Co-Buyer toggle functionality - COMPLETELY FIXED VERSION
+        const toggleCoBuyerBtn = document.getElementById('toggleCoBuyer');
+        const coBuyerInfoDiv = document.getElementById('coBuyerInfo');
+        const hasCoBuyerHidden = document.getElementById('hasCoBuyerHidden');
+        const coBuyerIcon = document.getElementById('coBuyerIcon');
+        const coBuyerText = document.getElementById('coBuyerText');
+        let coBuyerVisible = false;
+
+        function toggleCoBuyerInfo() {
+            console.log('Toggling co-buyer, current state:', coBuyerVisible);
+            
+            if (!coBuyerVisible) {
+                // Show co-buyer section
+                coBuyerVisible = true;
+                hasCoBuyerHidden.value = 'true';
+                
+                // Update button appearance
+                coBuyerIcon.textContent = '➖';
+                coBuyerText.textContent = 'Remove Co-Buyer';
+                toggleCoBuyerBtn.classList.remove('btn-outline-success');
+                toggleCoBuyerBtn.classList.add('btn-outline-danger');
+                
+                // Show section with animation
+                coBuyerInfoDiv.style.display = 'block';
+                coBuyerInfoDiv.style.opacity = '0';
+                coBuyerInfoDiv.style.transform = 'translateY(-20px)';
+                
+                setTimeout(() => {
+                    coBuyerInfoDiv.style.transition = 'all 0.5s ease';
+                    coBuyerInfoDiv.style.opacity = '1';
+                    coBuyerInfoDiv.style.transform = 'translateY(0)';
+                }, 10);
+                
+                // Make co-buyer fields required
+                const requiredFields = [
+                    'coBuyerFirstName', 'coBuyerLastName', 'coBuyerAddress1', 'coBuyerCity', 
+                    'coBuyerState', 'coBuyerZip', 'coBuyerSSN', 'coBuyerDOB', 
+                    'coBuyerDriverLicenseNumber', 'coBuyerDriverLicenseState', 'coBuyerDriverLicenseExp',
+                    'coBuyerMobilePhone', 'coBuyerEmail', 'coBuyerTimeAtResidenceYears', 
+                    'coBuyerTimeAtResidenceMonths', 'coBuyerResidenceType', 'coBuyerRentMortgage',
+                    'coBuyerEmployerName', 'coBuyerEmployerType', 'coBuyerMonthlyIncome', 
+                    'coBuyerOccupation', 'coBuyerEmployerAddress1', 'coBuyerEmployerCity', 
+                    'coBuyerEmployerState', 'coBuyerEmployerZip', 'coBuyerTimeOnJobYears', 
+                    'coBuyerTimeOnJobMonths'
+                ];
+                
+                requiredFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (field) {
+                        field.setAttribute('required', 'required');
+                    }
+                });
+                
+            } else {
+                // Hide co-buyer section
+                coBuyerVisible = false;
+                hasCoBuyerHidden.value = 'false';
+                
+                // Update button appearance
+                coBuyerIcon.textContent = '➕';
+                coBuyerText.textContent = 'Add Co-Buyer';
+                toggleCoBuyerBtn.classList.remove('btn-outline-danger');
+                toggleCoBuyerBtn.classList.add('btn-outline-success');
+                
+                // Hide section with animation
+                coBuyerInfoDiv.style.transition = 'all 0.3s ease';
+                coBuyerInfoDiv.style.opacity = '0';
+                coBuyerInfoDiv.style.transform = 'translateY(-20px)';
+                
+                setTimeout(() => {
+                    coBuyerInfoDiv.style.display = 'none';
+                }, 300);
+                
+                // Remove required attributes and clear values
+                coBuyerInfoDiv.querySelectorAll('input, select, textarea').forEach(field => {
+                    field.removeAttribute('required');
+                    if (field.type === 'checkbox') {
+                        field.checked = false;
+                    } else {
+                        field.value = '';
+                    }
+                    if (field.tagName === 'SELECT') {
+                        field.selectedIndex = 0;
+                    }
+                });
+            }
+        }
+
+        // Add click event listener to the button
+        if (toggleCoBuyerBtn) {
+            toggleCoBuyerBtn.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent any form submission
+                e.stopPropagation(); // Stop event bubbling
+                toggleCoBuyerInfo();
+            });
+        }
+
+        // Formatting functions for SSN and Phone numbers
+        function formatSSN(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 5) {
+                value = value.substring(0, 3) + '-' + value.substring(3, 5) + '-' + value.substring(5, 9);
+            } else if (value.length > 3) {
+                value = value.substring(0, 3) + '-' + value.substring(3, 5);
+            }
+            input.value = value;
+        }
+
+        function formatPhone(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 6) {
+                value = '(' + value.substring(0, 3) + ') ' + value.substring(3, 6) + '-' + value.substring(6, 10);
+            } else if (value.length > 3) {
+                value = '(' + value.substring(0, 3) + ') ' + value.substring(3, 6);
+            } else if (value.length > 0) {
+                value = '(' + value;
+            }
+            input.value = value;
+        }
+
+        // Apply formatting to phone and SSN fields
+        const phoneFields = [
+            'applicantMobilePhone', 'applicantHomePhone', 'workPhone',
+            'coBuyerMobilePhone', 'coBuyerHomePhone', 'coBuyerWorkPhone'
+        ];
+        
+        const ssnFields = ['applicantSSN', 'coBuyerSSN'];
+
+        phoneFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.addEventListener('input', function() { formatPhone(this); });
+            }
+        });
+
+        ssnFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.addEventListener('input', function() { formatSSN(this); });
+            }
+        });
+
+        // Form validation enhancement
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.style.borderColor = '#dc3545';
+                        isValid = false;
+                    } else {
+                        field.style.borderColor = '#05FC04';
+                    }
+                });
+                
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Por favor, preencha todos os campos obrigatórios.');
+                    // Scroll to first invalid field
+                    const firstInvalid = form.querySelector('[required]:invalid, [required][value=""]');
+                    if (firstInvalid) {
+                        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstInvalid.focus();
+                    }
+                }
+            });
+        }
+
+        // Add visual feedback for form interactions
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        console.log('Form initialized successfully');
+    });
+</script>

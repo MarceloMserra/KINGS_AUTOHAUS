@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const GasModel = require('../models/GasModel');
-const ElectricModel = require('../models/ElectricModel');
+const ElectricModel = require('../models/ElectricModel'); // Mantido, caso seja usado em outras rotas neste arquivo
+// Removido: const FinancingApplication = require('../models/FinancingApplication'); // Agora está em routes/financing.js
 
 // Rota para a página pública de carros a gasolina
 router.get('/', async (req, res) => {
@@ -138,5 +139,9 @@ router.get('/details/:id', async (req, res) => {
         res.redirect('/gas');
     }
 });
+
+// As rotas de financiamento foram movidas para 'routes/financing.js'
+// Removido: router.get('/financing', ...);
+// Removido: router.post('/financing-submit', ...);
 
 module.exports = router;

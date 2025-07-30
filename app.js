@@ -103,11 +103,13 @@ const admin = require('./routes/admin');
 const usuarios = require('./routes/usuarios');
 const gas = require('./routes/gas_index');
 const electric = require('./routes/electric_index');
+const financing = require('./routes/financing'); // Adicionado: Importa o novo router de financiamento
 
 app.use('/admin', admin);
 app.use('/', usuarios);
-app.use('/gas', gas);
+app.use('/gas', gas); // Rotas de gás agora funcionam *apenas* com prefixo /gas
 app.use('/electric', electric);
+app.use('/', financing); // Rotas de financiamento agora funcionam na raiz (ex: /financing)
 
 // ======================
 // 🚀 Exportação
