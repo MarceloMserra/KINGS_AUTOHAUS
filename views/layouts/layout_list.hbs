@@ -43,9 +43,8 @@
         body {
             background-color: #000000; /* Absolute black fallback background */
             color: #ffffff; /* Default text color for contrast */
-            /* Background image for login/admin pages */
-            background-image: url('/images/login.jpg'); /* Default background for this layout */
-            background-repeat: no-repeat;
+            /* Removed background-image and related properties to allow child templates to define their own */
+            background-repeat: no-repeat; /* Keep these for consistency, but they won't apply without image */
             background-attachment: fixed;
             background-size: cover;
             background-position: center;

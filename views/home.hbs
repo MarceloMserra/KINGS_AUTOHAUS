@@ -20,13 +20,14 @@
         text-align: center;
     }
 
-    .hero-video {
+    /* New style for the background image */
+    .hero-image {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover; /* This makes the video cover the entire area, potentially cropping */
+        object-fit: cover; /* This makes the image cover the entire area, potentially cropping */
         z-index: 0;
     }
 
@@ -43,9 +44,8 @@
         justify-content: center;
         align-items: center;
         padding: 20px;
+        padding-top: 610px; /* Adjusted: Increased padding-top significantly to push content down for large logo */
     }
-
-    /* REMOVED: .hero-content styles as it's replaced by new cards */
 
     .filter-bar {
         background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white for premium */
@@ -56,7 +56,7 @@
         z-index: 2;
         width: 90%;
         max-width: 900px; /* Wider filter bar */
-        margin-top: 40px; /* Adjusted space below hero cards, now that cards are simple */
+        margin-top: -50px; /* Adjusted: Decreased space below hero cards to be closer */
         backdrop-filter: blur(5px); /* Frosted glass effect */
     }
 
@@ -244,7 +244,7 @@
 
     .hero-card {
         position: relative;
-        height: 280px; /* Adjusted height to accommodate image + text better */
+        height: 180px; /* Adjusted: Smaller height for the cards */
         background-color: rgba(255, 255, 255, 0.1); /* Subtle background */
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 15px;
@@ -262,7 +262,7 @@
     /* Styles for the image inside the hero card */
     .hero-card-image {
         width: 100%; /* Image takes full width of the card */
-        height: 60%; /* Image takes 60% of the card's height */
+        height: 50%; /* Adjusted: Image takes 50% of the card's height */
         object-fit: cover; /* Ensures the image covers the area without distortion */
         border-top-left-radius: 15px; /* Match card's top-left border radius */
         border-top-right-radius: 15px; /* Match card's top-right border radius */
@@ -270,7 +270,7 @@
 
     /* Styles for the text content inside the hero card */
     .hero-card-text-content {
-        padding: 15px; /* Padding around the text */
+        padding: 10px; /* Adjusted: Smaller padding around the text */
         flex-grow: 1; /* Allows this content to take up remaining vertical space */
         display: flex;
         flex-direction: column;
@@ -279,7 +279,7 @@
     }
 
     .hero-card h3 {
-        font-size: 2.2rem;
+        font-size: 1.5rem; /* Adjusted: Smaller font size for h3 */
         font-weight: bold;
         color: #05FC04; /* Green title */
         margin-bottom: 5px; /* Reduced margin for tighter text layout */
@@ -288,7 +288,7 @@
     }
 
     .hero-card p {
-        font-size: 1.1rem;
+        font-size: 0.9rem; /* Adjusted: Smaller font size for p */
         color: rgba(255, 255, 255, 0.9);
         margin-top: 0;
         z-index: 2;
@@ -356,13 +356,13 @@
             padding: 0 10px;
         }
         .hero-card {
-            height: 220px; /* Adjusted height for mobile cards with image */
+            height: 160px; /* Adjusted: Smaller height for mobile cards with image */
         }
         .hero-card h3 {
-            font-size: 1.8rem;
+            font-size: 1.2rem; /* Adjusted: Smaller font for mobile h3 */
         }
         .hero-card p {
-            font-size: 0.9rem;
+            font-size: 0.8rem; /* Adjusted: Smaller font for mobile p */
         }
     }
 
@@ -546,12 +546,6 @@
         #about-us .background-image-overlay {
             background-attachment: scroll; /* Disable parallax on mobile for performance */
         }
-        /* Further adjustments for video on smaller screens if needed */
-        .hero-video {
-            /* If the "zoom" is still too much, you might consider object-fit: contain
-               but this will add black bars. For background videos, 'cover' is usually preferred. */
-            /* object-fit: contain; */
-        }
         .floating-message-btn {
             width: 50px;
             height: 50px;
@@ -562,17 +556,15 @@
     }
 </style>
 
-<!-- Hero Section with Filters -->
+<!-- Hero Section with Image and Filters -->
 <section class="hero-section">
-    <video autoplay muted loop playsinline id="homeVideo" class="hero-video">
-        <source src="/images/tesla.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
-    </video>
+    <!-- Replaced video with image -->
+    <img src="/images/capa.png" alt="KINGS AUTOHAUS Background" class="hero-image">
     <div class="hero-overlay">
-        <!-- New Hero Cards Container (com imagens e texto) -->
+        <!-- New Hero Cards Container (with images and text) -->
         <div class="hero-cards-container row justify-content-center align-items-stretch mb-5">
             <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
-                <a href="/financing" class="hero-card-link fade-in-up"> <!-- Link atualizado para /financing -->
+                <a href="/financing" class="hero-card-link fade-in-up"> <!-- Link updated to /financing -->
                     <div class="hero-card">
                         <img src="/images/approved.jpg" alt="Get Approved" class="hero-card-image">
                         <div class="hero-card-text-content">
@@ -733,15 +725,15 @@
         <div class="row justify-content-center">
             <div class="col-md-4 contact-detail">
                 <i class="fas fa-map-marker-alt"></i>
-                <p>123 Auto Street, Car City, State, ZIP 12345</p>
+                <p>1278 Washington St, Holliston MA 01746</p>
             </div>
             <div class="col-md-4 contact-detail">
                 <i class="fas fa-phone"></i>
-                <p>+1 (555) 123-4567</p>
+                <p>+1 (774)523-7860</p>
             </div>
             <div class="col-md-4 contact-detail">
                 <i class="fas fa-envelope"></i>
-                <p>info@kingsautohaus.com</p>
+                <p>contact@kingsautous.com</p>
             </div>
         </div>
         <p class="text-muted mt-4">Operating Hours: Mon-Fri: 9 AM - 6 PM | Sat: 10 AM - 4 PM | Sun: Closed</p>
@@ -860,127 +852,7 @@
         observer.observe(element);
     });
 
-    // JavaScript to attempt video autoplay on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        const video = document.getElementById('homeVideo');
-        if (video) {
-            video.play().catch(error => {
-                console.warn("Video autoplay failed:", error);
-                // Autoplay might be blocked by browsers under certain conditions.
-                // Here you could add a play button for the user to click
-                // or show a message. For simplicity, we are just logging the error.
-            });
-        }
-
-        // Infinite scroll logic for featured cars
-        // This section handles the seamless looping of the carousel.
-        // It clones items from the beginning and end of the original list
-        // and appends/prepends them to create a continuous scroll effect.
-        // When the user scrolls into a cloned section, the scroll position
-        // is instantly reset to the equivalent position within the original items,
-        // making the loop visually imperceptible.
-        // The effectiveness of this "infinite" illusion depends on having
-        // a sufficient number of original items (cars) in the 'latestCars' array
-        // to prevent obvious repetitions.
-        const featuredCarouselInner = document.getElementById('featuredCarouselInner');
-        if (featuredCarouselInner) { // Check if the element exists
-            const originalItems = Array.from(featuredCarouselInner.children);
-            const numOriginalItems = originalItems.length;
-
-            // Log para diagnóstico: Verifique se há itens para clonar
-            console.log("Carrossel: Número de itens originais:", numOriginalItems);
-
-            // Se não houver itens originais, não há necessidade de clonar ou configurar o loop.
-            if (numOriginalItems === 0) {
-                console.warn("Carrossel: Nenhum item original encontrado para clonar. Verifique se 'latestCars' está populado.");
-                return;
-            }
-
-            // Garante que não tentamos clonar mais itens do que existem
-            const numClones = Math.min(numOriginalItems, 3); // Clona no máximo 3 itens de cada lado
-
-            // Log para diagnóstico: Verifique as dimensões do container e do primeiro item
-            console.log("Carrossel: clientWidth =", featuredCarouselInner.clientWidth, "scrollWidth =", featuredCarouselInner.scrollWidth);
-            if (originalItems[0]) {
-                console.log("Carrossel: Largura do primeiro item (offsetWidth) =", originalItems[0].offsetWidth);
-            } else {
-                console.warn("Carrossel: Primeiro item não encontrado para calcular offsetWidth.");
-            }
-            if (featuredCarouselInner.scrollWidth <= featuredCarouselInner.clientWidth) {
-                console.warn("Carrossel: O conteúdo não está transbordando (scrollWidth <= clientWidth). A rolagem não funcionará. Verifique o número de itens ou as larguras dos itens.");
-            }
-
-
-            // Limpa os itens existentes antes de adicionar clones para evitar duplicatas em re-renderizações
-            featuredCarouselInner.innerHTML = '';
-
-            // 1. Prepend clones of the last 'numClones' original items to the beginning
-            for (let i = 0; i < numClones; i++) {
-                const cloneIndex = numOriginalItems - numClones + i;
-                const clone = originalItems[cloneIndex].cloneNode(true);
-                featuredCarouselInner.prepend(clone);
-            }
-
-            // 2. Append all original items
-            originalItems.forEach(item => {
-                featuredCarouselInner.appendChild(item.cloneNode(true)); // Append clones of originals
-            });
-
-            // 3. Append clones of the first 'numClones' original items to the end
-            for (let i = 0; i < numClones; i++) {
-                const clone = originalItems[i].cloneNode(true);
-                featuredCarouselInner.appendChild(clone);
-            }
-
-            // Define a posição inicial de rolagem para o início dos itens originais
-            // Isso é crucial para esconder os clones prepended
-            // Usa requestAnimationFrame para garantir que o layout esteja estável antes de definir scrollLeft
-            requestAnimationFrame(() => {
-                const firstOriginalItem = featuredCarouselInner.children[numClones];
-                if (firstOriginalItem) {
-                    featuredCarouselInner.scrollLeft = firstOriginalItem.offsetLeft;
-                    console.log("Carrossel: Posição inicial de scrollLeft definida para:", featuredCarouselInner.scrollLeft);
-                } else {
-                    console.warn("Carrossel: Não foi possível encontrar o primeiro item original para definir o scrollLeft inicial.");
-                }
-            });
-
-
-            let isScrolling;
-            featuredCarouselInner.addEventListener('scroll', () => {
-                window.clearTimeout(isScrolling);
-                isScrolling = setTimeout(() => {
-                    const scrollLeft = featuredCarouselInner.scrollLeft;
-                    // Certifique-se de que originalItems[0] existe antes de tentar acessar offsetWidth
-                    const itemWidth = originalItems[0] ? (originalItems[0].offsetWidth + 30) : 0; // Item width + padding
-
-                    // Posição de início e fim dos itens originais dentro do carrossel combinado (com clones)
-                    const startOfOriginals = numClones * itemWidth;
-                    const endOfOriginals = (numClones + numOriginalItems) * itemWidth;
-
-                    // Se rolou além do final dos itens originais (para os clones anexados)
-                    if (scrollLeft >= endOfOriginals - featuredCarouselInner.clientWidth) {
-                        featuredCarouselInner.style.scrollBehavior = 'auto'; // Desabilita a rolagem suave para salto instantâneo
-                        featuredCarouselInner.scrollLeft = startOfOriginals; // Salta de volta para o início dos itens originais
-                        featuredCarouselInner.style.scrollBehavior = 'smooth'; // Reabilita a rolagem suave
-                        console.log("Carrossel: Salto para o início dos itens originais. Novo scrollLeft:", featuredCarouselInner.scrollLeft);
-                    }
-                    // Se rolou antes do início dos itens originais (para os clones prepended)
-                    else if (scrollLeft <= 0) { // Quando rolado totalmente para a esquerda
-                        featuredCarouselInner.style.scrollBehavior = 'auto'; // Desabilita a rolagem suave para salto instantâneo
-                        // Salta para a posição do último item original
-                        featuredCarouselInner.scrollLeft = (numClones + numOriginalItems - 1) * itemWidth;
-                        featuredCarouselInner.style.scrollBehavior = 'smooth'; // Reabilita a rolagem suave
-                        console.log("Carrossel: Salto para o final dos itens originais. Novo scrollLeft:", featuredCarouselInner.scrollLeft);
-                    }
-                }, 66); // Ajuste o tempo de debounce conforme necessário
-            });
-        } else if (featuredCarouselInner) {
-            console.warn("Carrossel: Elemento 'featuredCarouselInner' encontrado, mas sem filhos para clonar. Certifique-se de que o array 'latestCars' está populado e renderizado.");
-        }
-    });
-
-    // JavaScript para rolagem horizontal de carros em destaque com loop
+    // JavaScript for horizontal scroll of featured cars with loop
     function scrollFeaturedCars(direction) {
         const container = document.getElementById('featuredCarouselInner');
         if (!container) {
@@ -1005,4 +877,70 @@
             behavior: 'smooth'
         });
     }
+
+    // Infinite scroll logic for featured cars
+    document.addEventListener('DOMContentLoaded', function() {
+        const featuredCarouselInner = document.getElementById('featuredCarouselInner');
+        if (featuredCarouselInner) {
+            const originalItems = Array.from(featuredCarouselInner.children);
+            const numOriginalItems = originalItems.length;
+
+            if (numOriginalItems === 0) {
+                console.warn("Carrossel: Nenhum item original encontrado para clonar. Verifique se 'latestCars' está populado.");
+                return;
+            }
+
+            const numClones = Math.min(numOriginalItems, 3);
+
+            featuredCarouselInner.innerHTML = '';
+
+            for (let i = 0; i < numClones; i++) {
+                const cloneIndex = numOriginalItems - numClones + i;
+                const clone = originalItems[cloneIndex].cloneNode(true);
+                featuredCarouselInner.prepend(clone);
+            }
+
+            originalItems.forEach(item => {
+                featuredCarouselInner.appendChild(item.cloneNode(true));
+            });
+
+            for (let i = 0; i < numClones; i++) {
+                const clone = originalItems[i].cloneNode(true);
+                featuredCarouselInner.appendChild(clone);
+            }
+
+            requestAnimationFrame(() => {
+                const firstOriginalItem = featuredCarouselInner.children[numClones];
+                if (firstOriginalItem) {
+                    featuredCarouselInner.scrollLeft = firstOriginalItem.offsetLeft;
+                } else {
+                    console.warn("Carrossel: Não foi possível encontrar o primeiro item original para definir o scrollLeft inicial.");
+                }
+            });
+
+            let isScrolling;
+            featuredCarouselInner.addEventListener('scroll', () => {
+                window.clearTimeout(isScrolling);
+                isScrolling = setTimeout(() => {
+                    const scrollLeft = featuredCarouselInner.scrollLeft;
+                    const itemWidth = originalItems[0] ? (originalItems[0].offsetWidth + 30) : 0;
+
+                    const startOfOriginals = numClones * itemWidth;
+                    const endOfOriginals = (numClones + numOriginalItems) * itemWidth;
+
+                    if (scrollLeft >= endOfOriginals - featuredCarouselInner.clientWidth) {
+                        featuredCarouselInner.style.scrollBehavior = 'auto';
+                        featuredCarouselInner.scrollLeft = startOfOriginals;
+                        featuredCarouselInner.style.scrollBehavior = 'smooth';
+                    } else if (scrollLeft <= 0) {
+                        featuredCarouselInner.style.scrollBehavior = 'auto';
+                        featuredCarouselInner.scrollLeft = (numClones + numOriginalItems - 1) * itemWidth;
+                        featuredCarouselInner.style.scrollBehavior = 'smooth';
+                    }
+                }, 66);
+            });
+        } else if (featuredCarouselInner) {
+            console.warn("Carrossel: Elemento 'featuredCarouselInner' encontrado, mas sem filhos para clonar. Certifique-se de que o array 'latestCars' está populado e renderizado.");
+        }
+    });
 </script>

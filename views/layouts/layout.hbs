@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>KINGS AUTOHAUS</title>
@@ -9,7 +9,7 @@
     <!-- Stylesheet -->
     <link rel="icon" href="/images/auto_favi.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/style.css">
-    <!-- Adicionar um ficheiro CSS personalizado para o tema premium -->
+    <!-- Custom CSS file for premium theme -->
     <link rel="stylesheet" href="/css/premium-theme.css">
 
     {{!-- Icons --}}
@@ -28,25 +28,33 @@
         xintegrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <style>
-        /* Estilos globais para o corpo */
-        body {
-            background-color: #000000; /* Fundo preto absoluto */
-            color: #ffffff; /* Cor do texto padrão para contraste */
+        /* Global styles for HTML and Body to ensure full black background coverage */
+        html, body {
+            height: 100%; /* Ensure HTML and Body take full viewport height */
+            margin: 0; /* Remove default margins */
+            padding: 0; /* Remove default padding */
+            background-color: #000000; /* Absolute black background for both HTML and Body */
+            color: #ffffff; /* Default text color for contrast */
         }
 
-        /* Estilos para a barra superior (top bar) */
+        body {
+            /* The padding-top will be adjusted via JavaScript to handle the fixed navbar */
+            /* No need for background-color here as it's set on html and inherited/covered */
+        }
+
+        /* Styles for the top bar */
         #top-bar {
-            background-color: #1a1a1a; /* Cor de fundo para a barra superior */
-            color: rgba(255, 255, 255, 0.8); /* Cor do texto */
+            background-color: #1a1a1a; /* Background color for the top bar */
+            color: rgba(255, 255, 255, 0.8); /* Text color */
             padding: 10px 0;
             font-size: 0.9rem;
             border-bottom: 1px solid #333333;
-            position: fixed; /* Fixa a top-bar no topo */
+            position: fixed; /* Fix top-bar to the top */
             width: 100%;
             top: 0;
             left: 0;
-            z-index: 1040; /* Acima da navbar principal */
-            transition: all 0.3s ease-in-out; /* Transição suave */
+            z-index: 1040; /* Above main navbar */
+            transition: all 0.3s ease-in-out; /* Smooth transition */
         }
 
         #top-bar a {
@@ -56,7 +64,7 @@
         }
 
         #top-bar a:hover {
-            color: #05FC04; /* Cor verde no hover */
+            color: #05FC04; /* Green color on hover */
         }
 
         #top-bar .social-icons a {
@@ -68,74 +76,81 @@
             margin-left: 20px;
         }
 
-        /* Estilos para a barra de navegação principal */
+        /* Styles for the main navigation bar */
         #main-navbar {
-            background-color: #000000; /* Navbar preta absoluta */
-            border-bottom: 1px solid #1a1a1a; /* Linha subtil para separar */
-            padding: 20px 0; /* Padding maior para a logo grande */
-            transition: all 0.3s ease-in-out; /* Transição suave para o efeito de rolagem */
-            position: fixed; /* Fixa a navbar no topo */
-            width: 100%; /* Ocupa a largura total */
-            top: 45px; /* Ajusta a posição para ficar abaixo da top-bar */
+            background-color: #000000; /* Absolute black navbar */
+            border-bottom: 1px solid #1a1a1a; /* Subtle line to separate */
+            padding: 15px 0; /* Adjusted: Smaller padding for the navbar */
+            transition: all 0.3s ease-in-out; /* Smooth transition for position scroll effect */
+            position: fixed; /* Fix navbar to the top */
+            width: 100%; /* Occupy full width */
+            top: 45px; /* Adjusted: Now starts below the top-bar again */
             left: 0;
-            z-index: 1030; /* Garante que a navbar esteja acima de outros elementos */
+            z-index: 1030; /* Ensure navbar is above other elements */
+            /* Removed flex-direction and align-items as it's no longer a column */
         }
 
-        /* Estilos da logo */
+        /* UPDATED: Logo styles - fixed height */
         #main-navbar .navbar-brand img {
-            height: 80px; /* Tamanho inicial da logo grande */
-            transition: height 0.3s ease-in-out; /* Transição suave para o tamanho da logo */
+            height: 50px; /* Adjusted: Smaller fixed height */
+            transition: none; /* Remove height transition */
+            filter: drop-shadow(0 1px 3px rgba(5, 252, 4, 0.2)); /* Subtle green glow */
         }
 
-        /* Estilos para os links de navegação */
+        /* Styles for navigation links */
         #main-navbar .nav-link {
-            color: #ffffff !important; /* Links da navbar brancos */
+            color: #ffffff !important; /* Navbar links white */
             font-weight: bold;
+            font-size: 1.05rem; /* Adjusted: Slightly smaller font for links */
             transition: color 0.3s ease;
+            /* Reverted padding for links */
+            padding-top: initial;
+            padding-bottom: initial;
         }
 
         #main-navbar .nav-link:hover {
-            color: #05FC04 !important; /* Efeito hover verde para links */
+            color: #05FC04 !important; /* Green hover effect for links */
         }
 
-        /* Ajustar a cor do ícone do toggler para ser visível no fundo preto */
+        /* Adjust toggler icon color to be visible on black background */
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
         }
 
-        /* Estilos para a navbar quando a página é rolada */
+        /* Styles for the navbar when the page is scrolled - NO SHRINKING */
         #main-navbar.scrolled {
-            padding: 10px 0; /* Padding menor quando rolado */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Sombra para destacar */
-            top: 0; /* Sobe a navbar para o topo da tela */
+            padding: 15px 0; /* Maintain the same padding as unscrolled state */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow to highlight */
+            top: 0; /* Maintain top position */
         }
 
         #main-navbar.scrolled .navbar-brand img {
-            height: 40px; /* Logo menor quando rolado */
+            height: 50px; /* Maintain the same height as unscrolled state */
         }
 
-        /* Adiciona um padding ao corpo para evitar que o conteúdo fique escondido atrás da navbar fixa */
-        body {
-            padding-top: 145px; /* Altura inicial da top-bar (45px) + navbar (100px) */
-        }
-        /* Ajuste o padding-top do body quando a navbar estiver menor */
-        #main-navbar.scrolled + body { /* Este seletor pode ser problemático, o JS ajustará dinamicamente */
-            padding-top: 60px; /* Altura da navbar menor + um pouco de espaço */
-        }
-
-        /* Media queries para responsividade */
-        @media (max-width: 768px) {
-            #top-bar {
-                display: none; /* Esconde a top-bar em telas menores para economizar espaço */
+        /* Media queries for responsiveness */
+        @media (max-width: 991.98px) { /* Adjusted breakpoint for larger screens */
+            #top-bar { /* Re-enabled display for top-bar in media query */
+                display: none; /* Hide top-bar on smaller screens to save space */
             }
             #main-navbar {
-                top: 0; /* Navbar começa no topo em telas menores */
+                top: 0; /* Navbar starts at the top on smaller screens */
+                padding: 10px 0; /* Smaller padding on mobile */
             }
-            body {
-                padding-top: 100px; /* Ajusta o padding-top do body para telas menores */
+            #main-navbar .navbar-brand img {
+                height: 35px; /* Fixed height for mobile */
             }
-            #main-navbar.scrolled + body {
-                padding-top: 60px;
+            #main-navbar.scrolled .navbar-brand img {
+                height: 35px; /* Fixed height for mobile when scrolled */
+            }
+        }
+
+        @media (max-width: 767.98px) { /* Standard Bootstrap md breakpoint */
+            #main-navbar .navbar-brand img {
+                height: 30px; /* Fixed height for very small screens */
+            }
+            #main-navbar.scrolled .navbar-brand img {
+                height: 30px; /* Fixed height for very small screens when scrolled */
             }
         }
     </style>
@@ -145,35 +160,35 @@
 <body>
 
     <!-- Top Bar -->
-    <section id="top-bar" class="d-none d-md-block"> <!-- Esconde em telas menores que md -->
+    <section id="top-bar" class="d-none d-lg-block"> <!-- Changed to d-lg-block to hide on md and sm screens -->
         <div class="container-fluid">
             <div class="row align-items-center">
-                <div class="col-md-6 text-left">
+                <div class="col-lg-6 text-left">
                     <span class="contact-info">
-                        <i class="fas fa-map-marker-alt"></i> 123 Auto Street, Car City, State, ZIP 12345
+                        <i class="fas fa-map-marker-alt"></i> 1278 Washington St, Holliston MA 01746
                     </span>
                     <span class="contact-info">
-                        <i class="fas fa-phone"></i> +1 (555) 123-4567
+                        <i class="fas fa-phone"></i> +1 (774)523-7860
                     </span>
                 </div>
-                <div class="col-md-6 text-right">
+                <div class="col-lg-6 text-right">
                     <div class="social-icons">
                         <a href="https://www.facebook.com/kingsautohaus" target="_blank" class="mr-2"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.google.com/search?q=KINGS+AUTOHAUS" target="_blank" class="mr-2"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="https://www.instagram.com/kingsautohaus" target="_blank" class="mr-2"><i class="fab fa-instagram"></i></a>
-                        <!-- Você pode adicionar mais ícones aqui -->
+                        <a href="https://www.google.com/maps/search/?api=1&query=1278%20Washington%20St,%20Holliston%20MA%2001746" target="_blank" class="mr-2"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="https://www.instagram.com/kingsautous/" target="_blank" class="mr-2"><i class="fab fa-instagram"></i></a>
+                        <!-- You can add more icons here -->
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Navbar Principal -->
+    <!-- Main Navbar -->
     <section id="navigation">
         <div class="container-fluid" id="nav-container">
-            <nav class="navbar navbar-expand-md" id="main-navbar">
-                <a class="navbar-brand" href="/">
-                    <!-- Nova Logo KINGS AUTOHAUS -->
+            <nav class="navbar navbar-expand-lg" id="main-navbar">
+                <a class="navbar-brand mx-auto mx-lg-0" href="/">
+                    <!-- KINGS AUTOHAUS LOGO - NOW FIXED SIZE -->
                     <img src="/images/kings_autohaus_logo.jpeg" alt="KINGS AUTOHAUS Logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -181,24 +196,30 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav ml-auto"> <!-- ml-auto para alinhar todos os itens à direita -->
+                    <ul class="navbar-nav ml-auto"> <!-- ml-auto to align all items to the right -->
                         <li class="nav-item ml-4">
-                            <a class="nav-link" href="/gas">Inventory</a> <!-- Link para o estoque de carros -->
+                            <a class="nav-link" href="/gas">Inventory</a> <!-- Link to car inventory -->
                         </li>
                         <li class="nav-item ml-4">
                             <a class="nav-link" href="/financing">Financing</a>
                         </li>
                         <li class="nav-item ml-4">
-                            <a class="nav-link" href="/#about-us">About Us</a> <!-- Link para a seção About Us na Home -->
+                            <a class="nav-link" href="/#about-us">About Us</a> <!-- Link to About Us section on Home -->
                         </li>
                         <li class="nav-item ml-4">
-                            <a class="nav-link" href="/#contact-info">Contact</a> <!-- Link para a seção Contact na Home -->
+                            <a class="nav-link" href="/#contact-info">Contact</a> <!-- Link to Contact section on Home -->
                         </li>
                         <li class="nav-item">
-                            <!-- Botão de Login -->
+                            <!-- Login Button -->
                             <a class="nav-link btn btn-outline-light px-3 py-2 ml-md-3" href="/login"
                                 style="border-color: #05FC04; color: #05FC04 !important; border-radius: 5px; font-weight: bold;">
                                 Login
+                            </a>
+                        </li>
+                        <!-- Added Search Icon - you can link this to a search page or a modal -->
+                        <li class="nav-item ml-4 d-flex align-items-center">
+                            <a class="nav-link" href="#" aria-label="Search">
+                                <i class="fas fa-search" style="color: #05FC04;"></i>
                             </a>
                         </li>
                     </ul>
@@ -209,6 +230,7 @@
 
     {{{body}}}
 
+    <!-- jQuery and Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         xintegrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
@@ -216,57 +238,59 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         xintegrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-    <script src="/javascripts/ev_cars.js"></script> {{!-- Manter se ainda for usar em algum lugar, senão remover --}}
-    <script src="/javascripts/gas_cars.js"></script> {{!-- Manter se ainda for usar em algum lugar, senão remover --}}
+    <script src="/javascripts/ev_cars.js"></script> {{!-- Keep if still used elsewhere, otherwise remove --}}
+    <script src="/javascripts/gas_cars.js"></script> {{!-- Keep if still used elsewhere, otherwise remove --}}
 
     <script>
-        // JavaScript para o efeito de navbar ao rolar
+        // JavaScript for the navbar scroll effect
         document.addEventListener('DOMContentLoaded', function() {
             const mainNavbar = document.getElementById('main-navbar');
-            const topBar = document.getElementById('top-bar');
+            const topBar = document.getElementById('top-bar'); // Re-get the topBar element
             const body = document.body;
-            let initialNavbarHeight = mainNavbar.offsetHeight; // Captura a altura inicial da navbar
-            let initialTopBarHeight = topBar ? topBar.offsetHeight : 0; // Captura a altura inicial da top-bar
 
             function adjustBodyPadding() {
-                // Ajusta o padding-top do body para compensar a navbar fixa
-                // Isso evita que o conteúdo seja escondido por baixo da navbar
-                if (mainNavbar.classList.contains('scrolled')) {
-                    body.style.paddingTop = '60px'; // Altura menor da navbar + um pouco de espaço
-                } else {
-                    body.style.paddingTop = `${initialNavbarHeight + initialTopBarHeight}px`; // Altura inicial da top-bar + navbar
+                let totalHeaderHeight = mainNavbar.offsetHeight;
+                // Check if topBar is visible (not hidden by transform and not display: none)
+                if (topBar && topBar.style.transform !== 'translateY(-100%)' && window.getComputedStyle(topBar).display !== 'none') {
+                    totalHeaderHeight += topBar.offsetHeight;
                 }
+                body.style.paddingTop = `${totalHeaderHeight}px`;
             }
 
             function handleScroll() {
-                if (window.scrollY > 50) { // Se a rolagem for maior que 50px
+                if (window.scrollY > 50) { // If scroll is greater than 50px
                     mainNavbar.classList.add('scrolled');
                     if (topBar) {
-                        topBar.style.transform = 'translateY(-100%)'; // Esconde a top-bar
+                        topBar.style.transform = 'translateY(-100%)'; // Hide top-bar
                     }
                 } else {
                     mainNavbar.classList.remove('scrolled');
                     if (topBar) {
-                        topBar.style.transform = 'translateY(0)'; // Mostra a top-bar
+                        topBar.style.transform = 'translateY(0)'; // Show top-bar
                     }
                 }
-                adjustBodyPadding(); // Ajusta o padding do body a cada rolagem
+                adjustBodyPadding(); // Adjust body padding on each scroll
             }
 
-            // Adiciona o event listener para o scroll
+            // Add scroll event listener
             window.addEventListener('scroll', handleScroll);
 
-            // Chama a função uma vez ao carregar para definir o estado inicial correto
-            // e recalcula as alturas após o DOM carregar completamente
+            // Call function once on load to set correct initial state
             window.addEventListener('load', function() {
-                initialNavbarHeight = mainNavbar.offsetHeight;
-                initialTopBarHeight = topBar ? topBar.offsetHeight : 0;
-                adjustBodyPadding(); // Ajusta o padding inicial
-                handleScroll(); // Define o estado inicial da navbar com base na rolagem atual
+                adjustBodyPadding(); // Adjust initial padding after full load
+                handleScroll(); // Set initial navbar state based on current scroll
             });
 
-            // Ajusta o padding do body em caso de redimensionamento da janela
-            window.addEventListener('resize', adjustBodyPadding);
+            // Adjust body padding on window resize
+            window.addEventListener('resize', function() {
+                // Re-evaluate topBar visibility on resize
+                if (window.innerWidth < 992) { // Use 992px for d-lg-block breakpoint
+                    if (topBar) topBar.style.display = 'none';
+                } else if (!mainNavbar.classList.contains('scrolled')) {
+                    if (topBar) topBar.style.display = 'block'; // Changed to block as it's not flex
+                }
+                adjustBodyPadding();
+            });
         });
     </script>
 </body>
