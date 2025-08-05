@@ -1,124 +1,607 @@
-body {
-  overflow-x: hidden;
-  font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+/*
+    Este ficheiro foi atualizado para otimizar a responsividade da página inicial.
+    Foram feitos ajustes em unidades de medida, paddings, margins e media queries
+    para garantir que o layout se adapte a diferentes tamanhos de tela.
+*/
+
+/* Removido: body overflow-x: hidden, pois é tratado no style.css global */
+/* Removido: #myVideo e .content pois o vídeo foi substituído por imagem e o conteúdo é gerenciado pelo hero-overlay */
+/* Removido: #b1 e #l1 pois são estilos de botões e inputs que devem ser tratados de forma mais genérica ou no layout.hbs/premium-theme.css */
+/* Removido: #mainNav e suas media queries pois a navegação principal é controlada pelo layout.hbs e style.css */
+
+/* Ajustes para a seção Hero (hero-section, hero-overlay, hero-image) */
+.hero-section {
+    /* Altura total da viewport, flexível */
+    height: 100vh;
+    /* Garante que o conteúdo não seja cortado em telas menores */
+    overflow: hidden;
+    /* Centraliza o conteúdo verticalmente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative; /* Necessário para posicionar a imagem de fundo */
 }
 
-#myVideo {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
+.hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem cubra a área */
+    z-index: 0;
 }
 
-.content {
-  position: fixed;
-  bottom: 0;
-  color: #f1f1f1;
-  width: 100%;
-  padding-left: 400px;
-  padding-bottom: 200px;
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Sobreposição escura */
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    /* padding-top será ajustado via media queries para posicionar cards abaixo da logo */
 }
 
-#b1 {
-  padding-top: 1.3%;
-  padding-bottom: 1.3%;
-  padding-left: 5%;
-  padding-right: 5%;
-  font-size: 120%;
-  border-radius: 30px;
-  border-width: 3px;
+/* Hero Cards Container */
+.hero-cards-container {
+    z-index: 2;
+    max-width: 1200px; /* Largura máxima para desktop */
+    width: 100%;
+    margin-bottom: 50px; /* Espaçamento abaixo dos cards */
+    padding: 0 15px; /* Padding horizontal para evitar que os cards toquem as bordas */
 }
 
-#l1 {
-  width: 250px;
-  height: 35px;
-  margin-left: 0px;
+.hero-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
 }
 
-p {
-  line-height: 1.75;
+.hero-card {
+    position: relative;
+    height: 180px; /* Altura base para desktop */
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(5, 252, 4, 0.2);
+    backdrop-filter: blur(5px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    transition: all 0.4s ease-in-out;
 }
 
-@media (min-width: 768px) {
-  section {
-    padding: 150px 0;
-  }
+.hero-card-image {
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
-::-moz-selection {
-  background: #fed136;
-  text-shadow: none;
+.hero-card-text-content {
+    padding: 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-::selection {
-  background: #fed136;
-  text-shadow: none;
+.hero-card h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #05FC04;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    z-index: 2;
 }
 
-img::-moz-selection {
-  background: 0 0;
+.hero-card p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 0;
+    z-index: 2;
 }
 
-img::selection {
-  background: 0 0;
+.hero-card:hover {
+    transform: scale(1.03) translateY(-5px);
+    box-shadow: 0 15px 40px rgba(5, 252, 4, 0.5);
+    border-color: #05FC04;
 }
 
-img::-moz-selection {
-  background: 0 0;
+.hero-card-link:hover .hero-card {
+    transform: scale(1.03) translateY(-5px);
+    box-shadow: 0 18px 45px rgba(5, 252, 4, 0.6);
 }
 
-.btn {
-  font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
-  font-weight: 700;
+.hero-card-link:hover .hero-card h3,
+.hero-card-link:hover .hero-card p {
+    transform: none;
+    transition: none;
 }
 
-.btn-xl {
-  font-size: 18px;
-  padding: 20px 40px;
+/* Filter Bar */
+.filter-bar {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(5, 252, 4, 0.2);
+    z-index: 2;
+    width: 90%;
+    max-width: 900px;
+    margin-top: -50px; /* Ajuste para aproximar do cards */
+    backdrop-filter: blur(5px);
 }
 
-#mainNav .navbar-nav .nav-item .nav-link {
-  font-size: 100%;
-  font-weight: 400;
-  padding: 0.75em 0;
-  letter-spacing: 1px;
-  color: #fff;
-  font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
+.filter-bar .form-control {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    border: 1px solid #05FC04;
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+.filter-bar .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+.filter-bar .form-control:focus {
+    background-color: rgba(0, 0, 0, 0.9);
+    border-color: #05FC04;
+    box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
+    color: #ffffff;
 }
 
-@media (min-width: 992px) {
-  #mainNav {
-    padding-top: 25px;
-    padding-bottom: 25px;
-    transition: padding-top 0.3s, padding-bottom 0.3s;
+.filter-bar .btn-primary {
+    background-color: #05FC04;
+    border-color: #05FC04;
+    color: #000000;
+    font-weight: bold;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    border-radius: 8px;
+    padding: 12px 25px;
+}
+.filter-bar .btn-primary:hover {
+    background-color: #04D803;
+    border-color: #04D803;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4);
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 15px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 100px;
+    background-color: #05FC04;
+    border-radius: 5px;
+}
+
+/* Inventory Card (Featured Vehicles) */
+.inventory-card .card {
+    background-color: #1a1a1a;
+    border: 1px solid #333333;
+    color: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+}
+.inventory-card .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(5, 252, 4, 0.15);
+}
+.inventory-card .card-img-top {
+    height: 250px; /* Altura base para desktop */
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.inventory-card .card-body {
+    padding: 25px;
+}
+.inventory-card .card-title {
+    color: #05FC04;
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+.inventory-card .card-text.text-muted {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+.inventory-card .card-text.price {
+    color: #05FC04;
+    font-size: 1.8rem;
+}
+.inventory-card .btn-primary {
+    background-color: #05FC04;
+    border-color: #05FC04;
+    color: #000000;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.inventory-card .btn-primary:hover {
+    background-color: #04D803;
+    border-color: #04D803;
+    color: #ffffff;
+}
+
+/* Scroll Reveal Effects */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-up.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
+/* About Us Section */
+#about-us {
+    position: relative;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    padding: 50px 0;
+    overflow: hidden;
+}
+
+#about-us .background-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/fotocapa2.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: brightness(0.4) grayscale(0.5);
+    z-index: 0;
+}
+
+#about-us .content-wrapper {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#about-us .lead, #about-us p {
+    color: rgba(255, 255, 255, 0.9);
+}
+#about-us .btn-outline-primary {
+    border-color: #05FC04;
+    color: #05FC04;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+#about-us .btn-outline-primary:hover {
+    background-color: #05FC04;
+    color: #000000;
+}
+
+/* Testimonials Section */
+#testimonials {
+    background-color: #0a0a0a;
+    padding: 80px 0;
+}
+#testimonials .blockquote {
+    border-left: 5px solid #05FC04;
+    padding-left: 20px;
+    margin-bottom: 30px;
+}
+#testimonials .blockquote p {
+    font-style: italic;
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+#testimonials .blockquote-footer {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+}
+#testimonials .blockquote-footer cite {
+    color: #05FC04;
+}
+
+/* Contact Info Section */
+#contact-info {
+    background-color: #1a1a1a;
+    padding: 60px 0;
+    text-align: center;
+}
+#contact-info h3 {
+    color: #05FC04;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+}
+#contact-info p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+#contact-info .contact-detail {
+    margin-bottom: 20px;
+}
+.contact-detail i {
+    color: #05FC04;
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+/* Floating Message Button */
+.floating-message-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #05FC04;
+    color: #000000;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4);
+    z-index: 1000;
+    cursor: pointer;
+    transition: all 0.3s ease;
     border: none;
-    background-color: transparent;
-  }
+}
+.floating-message-btn:hover {
+    background-color: #04D803;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(5, 252, 4, 0.6);
+}
 
-  #mainNav .navbar-brand {
-    font-size: 2.75em;
-    transition: all 0.3s;
-  }
+/* Modal styling */
+.modal-content {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border: 1px solid #333333;
+    border-radius: 10px;
+}
+.modal-header {
+    border-bottom: 1px solid #333333;
+}
+.modal-title {
+    color: #05FC04;
+}
+.modal-footer {
+    border-top: 1px solid #333333;
+}
+.modal-body .form-control {
+    background-color: #0d0d0d;
+    color: #ffffff;
+    border: 1px solid #05FC04;
+}
+.modal-body .form-control:focus {
+    border-color: #05FC04;
+    box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
+    background-color: #000000;
+    color: #ffffff;
+}
+.modal-body .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+.modal-footer .btn-primary {
+    background-color: #05FC04;
+    border-color: #05FC04;
+    color: #000000;
+}
+.modal-footer .btn-primary:hover {
+    background-color: #04D803;
+    border-color: #04D803;
+    color: #ffffff;
+}
+.modal-footer .btn-secondary {
+    background-color: #333333;
+    border-color: #333333;
+    color: #ffffff;
+}
+.modal-footer .btn-secondary:hover {
+    background-color: #555555;
+    border-color: #555555;
+}
 
-  #mainNav .navbar-nav .nav-item .nav-link {
-    padding: 1.1em 1em !important;
-  }
+/* Responsive adjustments for home.css elements */
 
-  #mainNav.navbar-shrink {
-    padding-top: 0;
-    padding-bottom: 0;
-    /* background-color: #ffffff */
-  }
+/* Adjustments for smaller desktops/laptops */
+@media (max-width: 1200px) {
+    .hero-overlay {
+        padding-top: 500px; /* Slightly less padding to bring content up */
+    }
+    .filter-bar {
+        padding: 25px 30px; /* Slightly less padding for filter bar */
+    }
+    .hero-card {
+        height: 160px; /* Slightly smaller card height */
+    }
+    .hero-card h3 {
+        font-size: 1.4rem;
+    }
+    .hero-card p {
+        font-size: 0.85rem;
+    }
+    .inventory-card .card-img-top {
+        height: 200px; /* Adjust image height for featured cars */
+    }
+    .inventory-card .card-title {
+        font-size: 1.5rem;
+    }
+    .inventory-card .card-text.price {
+        font-size: 1.7rem;
+    }
+}
 
-  #mainNav.navbar-shrink .navbar-brand {
-    font-size: 1.25rem;
-    padding: 12px;
-  }
+/* Tablets and smaller desktops (Bootstrap 'lg' breakpoint) */
+@media (max-width: 992px) {
+    .hero-overlay {
+        padding-top: 350px; /* More aggressive padding adjustment for tablets */
+    }
+    .hero-cards-container {
+        margin-bottom: 30px; /* Less space below cards on smaller screens */
+    }
+    .filter-bar {
+        padding: 20px 25px; /* Further reduced padding for filter bar */
+    }
+    .hero-card {
+        height: 140px; /* Smaller card height */
+    }
+    .hero-card h3 {
+        font-size: 1.2rem;
+    }
+    .hero-card p {
+        font-size: 0.8rem;
+    }
+    .featured-car-item {
+        width: 50%; /* Show 2 items per row */
+    }
+    .section-title {
+        font-size: 2.5rem; /* Smaller title for sections */
+    }
+    #testimonials, #contact-info, #financing-cta {
+        padding: 60px 0; /* Reduced padding for sections */
+    }
+    .inventory-card .card-img-top {
+        height: 160px; /* Adjust image height for featured cars */
+    }
+    .inventory-card .card-title {
+        font-size: 1.3rem;
+    }
+    .inventory-card .card-text.price {
+        font-size: 1.5rem;
+    }
+}
+
+/* Small devices (Bootstrap 'md' breakpoint) */
+@media (max-width: 768px) {
+    .hero-overlay {
+        padding-top: 250px; /* Further adjustment for phones */
+    }
+    .hero-card {
+        height: 120px; /* Even smaller card height */
+    }
+    .hero-card h3 {
+        font-size: 1.1rem; /* Smaller font for card titles */
+    }
+    .hero-card p {
+        font-size: 0.75rem; /* Smaller font for card descriptions */
+    }
+    .filter-bar {
+        padding: 15px; /* Even less padding for filter bar */
+        margin-top: 0px; /* Bring filter bar closer */
+    }
+    .filter-bar .form-group {
+        margin-bottom: 10px; /* Space out form fields */
+    }
+    .filter-bar .btn-primary {
+        width: 100%; /* Full width button */
+    }
+    .featured-car-item {
+        width: 90%; /* Show ~1 item to make scrolling obvious */
+    }
+    .section-title {
+        font-size: 2rem; /* Even smaller section titles */
+        margin-bottom: 30px;
+    }
+    #about-us .content-wrapper {
+        padding: 20px; /* Smaller padding for content wrapper */
+    }
+    #testimonials .blockquote p {
+        font-size: 1.1rem; /* Smaller testimonial font */
+    }
+    #contact-info p {
+        font-size: 1rem; /* Smaller contact info font */
+    }
+    .floating-message-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        bottom: 15px;
+        right: 15px;
+    }
+    .inventory-card .card-img-top {
+        height: 120px; /* Adjust image height for featured cars */
+    }
+    .inventory-card .card-title {
+        font-size: 1.1rem;
+    }
+    .inventory-card .card-text.price {
+        font-size: 1.3rem;
+    }
+}
+
+/* Extra small devices (Bootstrap 'sm' breakpoint) */
+@media (max-width: 576px) {
+    .hero-overlay {
+        padding-top: 180px; /* Final adjustment for very small phones */
+    }
+    .hero-card {
+        height: 100px; /* Smallest card height */
+    }
+    .hero-card h3 {
+        font-size: 1rem;
+    }
+    .hero-card p {
+        font-size: 0.7rem;
+    }
+    .filter-bar {
+        padding: 10px; /* Smallest padding */
+    }
+    .filter-bar .form-control {
+        padding: 8px 10px;
+    }
+    .filter-bar .btn-primary {
+        padding: 10px 20px;
+    }
+    .inventory-card .card-img-top {
+        height: 100px; /* Smallest image height */
+    }
+    .inventory-card .card-title {
+        font-size: 1rem;
+    }
+    .inventory-card .card-text.price {
+        font-size: 1.1rem;
+    }
+    .section-title {
+        font-size: 1.8rem;
+    }
+    #testimonials .blockquote p {
+        font-size: 1rem;
+    }
+    #contact-info p {
+        font-size: 0.9rem;
+    }
 }
