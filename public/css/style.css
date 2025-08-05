@@ -1,105 +1,132 @@
-/* body{
-    background-color: #cccccc !important;
-} */
+/* General Body Styles - Ensure full width and no horizontal overflow */
+body {
+    /* Removed overflow-x: hidden; to prevent cutting off content that might overflow */
+    font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    /* Ensure no default margin/padding that could cause issues */
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Ensure body takes full width */
+    overflow-x: hidden; /* Re-added to prevent horizontal scroll, but we'll manage content better */
+}
 
+/* Images should always be responsive by default */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Prevents extra space below images */
+}
 
-/* Navigation */
-#navigation{
+/* General paragraph styling */
+p {
+    line-height: 1.75;
+}
+
+/* Selection styles */
+::-moz-selection {
+    background: #fed136;
+    text-shadow: none;
+}
+
+::selection {
+    background: #fed136;
+    text-shadow: none;
+}
+
+img::-moz-selection {
+    background: 0 0;
+}
+
+img::selection {
+    background: 0 0;
+}
+
+img::-moz-selection {
+    background: 0 0;
+}
+
+/* General Button Styles */
+.btn {
+    font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 700;
+    border-radius: 8px; /* Added general rounded corners for buttons */
+}
+
+.btn-xl {
+    font-size: 18px;
+    padding: 20px 40px;
+}
+
+/* Navigation - General styles for #navigation section */
+#navigation {
     background-color: #232425;
     padding: 0px;
     font-size: 1.1rem;
+    width: 100%; /* Ensure it always takes full width */
 }
 
-#nav-container{
-    padding: 0.7% 5%;
+#nav-container {
+    padding: 0.7% 5%; /* Use percentage for fluid padding */
 }
 
-.navbar-brand{
+.navbar-brand {
     font-family: 'Russo One', sans-serif !important;
     font-size: 1.8rem !important;
-    /* font-weight: bold; */
 }
 
-.nav-catg{
+.navbar-brand img {
+    height: 2rem; /* Base height for logo */
+    max-width: 100%; /* Ensure logo doesn't overflow */
+}
+
+.nav-catg {
     padding: 0 1rem;
     border: #eeeff1 solid;
     border-width: 1px;
     border-radius: 2rem;
 }
 
-.nav-catg.active{
+.nav-catg.active {
     border-width: 2px;
 }
 
-@media only screen and (max-width: 540px) {
-    .nav-catg{
-        margin-top: 5%;
-        text-align: center;
-    }
-
-    .navbar-brand img{
-        height: 7vw !important;
-    }
-}
-
-.navbar-brand img{
-    height: 2rem;
-}
-
-.nav-catg:hover{
+.nav-catg:hover {
     background-color: #1d1b1b;
-    
 }
 
-
-
-/* Filters */
-#filtering{
+/* Filters Section - General styles for #filtering */
+#filtering {
     background-color: #f2f4f7;
-    padding: 2% 5%;
+    padding: 2% 5%; /* Use percentage for fluid padding */
     border-bottom: #cacaca solid;
     border-width: 3px;
 }
 
-#filtering:hover{
+#filtering:hover {
     background-color: #eeeff1;
 }
 
-.bord-wid{
+.bord-wid {
     border-radius: 6px !important;
-    /* border-width: .13rem !important; */
     border-color: #343a40 !important;
 }
 
-
-.dropdown-toggle{
+.dropdown-toggle {
     width: 100%;
     margin: 1.5%;
 }
 
-
-
-
-
-
-/* Car Models */
-/* h4{
-    font-family: 'Noto Sans JP', sans-serif;
-}
-
-p{
-    font-family:'Quicksand', sans-serif;
-    font-weight: 600 !important;
-} */
-
-#carmodels{
-    padding: 1.5% 7%;
+/* Car Models Section - General styles for #carmodels */
+#carmodels {
+    padding: 1.5% 7%; /* Use percentage for fluid padding */
     background-color: #f0f0f0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
-
 }
 
-.car-item{
+.car-item {
     margin: auto;
     margin-top: 2%;
     margin-bottom: 4%;
@@ -108,99 +135,88 @@ p{
     background-color: #fff;
     border-width: .25rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
-
 }
 
-.car-item:hover{
-  border: #777a80 solid;
-  border-width: .25rem;
-  box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+.car-item:hover {
+    border: #777a80 solid;
+    border-width: .25rem;
+    box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
 }
-
-
 
 .modeltitle {
     font-family: 'Noto Sans JP', sans-serif;
     margin-top: 12px;
 }
 
-.car-item img{
-    max-height: 100%;
+.car-item img {
+    max-height: 100%; /* Ensure images scale down */
     max-width: 100%;
     margin-top: 20px;
     margin-bottom: 10px;
 }
 
-
-.info-first{
+.info-first {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.first-specs{
+.first-specs {
     font-family: 'Ubuntu', sans-serif;
     font-weight: 500;
 }
 
-.info-first-cards{
+.info-first-cards {
     text-align: center;
     margin: 0px auto;
 }
 
-.info-first-cards p{
+.info-first-cards p {
     margin: 0;
 }
 
-
-
-
-.info-second{
+.info-second {
     font-size: 0.9rem;
     color: #5c5e62;
     margin-top: 3%;
     margin-bottom: 3%;
 }
 
-.info-second-row{
+.info-second-row {
     margin-left: 3% !important;
     margin-right: 0% !important;
     justify-content: space-around;
-
 }
 
-.info-second-row-gas{
+.info-second-row-gas {
     margin-top: 5% !important;
     margin-left: 2% !important;
     margin-right: 0% !important;
     justify-content: space-around;
-
 }
 
-.info-second-col{
+.info-second-col {
     margin-top: 2%;
     padding: 0 !important;
 }
 
-.info-second-col-gas{
+.info-second-col-gas {
     margin-top: 0%;
     padding: 0 !important;
 }
 
-
-.info-second-col-gas li{
+.info-second-col-gas li {
     margin-bottom: 6%;  
-    list-style-type:none;
+    list-style-type: none;
 }
 
-.info-second-col-gas ul{
+.info-second-col-gas ul {
     padding: 0;
     margin: 0;
 }
 
-
-.info-third{
+.info-third {
     font-family:'Quicksand', sans-serif;
     font-weight: 600;
     font-size: 14px;
@@ -208,23 +224,16 @@ p{
     color: #5c5e62;
 }
 
-
 .model-buy {
     margin: 24px;
     margin-left: 15px;
 }
 
-.buyprice{
+.buyprice {
     text-align: center;
 }
 
-@media only screen and (max-width: 540px) {
-    .buybutton{
-        margin-top: 5%;
-    }
-}
-
-
+/* Buttons - Specific styles, ensure responsiveness */
 #b1 {
     height: 40px;
     width: 130px;
@@ -234,7 +243,7 @@ p{
     border-radius: 25px;
     border-width: 2.5px;
 }
-  
+
 #b1:hover {
     height: 40px;
     width: 130px;
@@ -243,5 +252,153 @@ p{
     color: white;
     border-radius: 25px;
     border-width: 2.5px;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Smallest screens (e.g., mobile portrait) */
+@media only screen and (max-width: 575.98px) { /* Bootstrap 'sm' breakpoint */
+    #nav-container {
+        padding: 0.7% 2%; /* Reduced horizontal padding */
+    }
+    .navbar-brand img {
+        height: 1.8rem; /* Slightly smaller logo */
+    }
+    .nav-catg {
+        margin-top: 3%; /* Reduced top margin */
+        padding: 0 0.8rem; /* Reduced padding */
+    }
+    #filtering {
+        padding: 2% 3%; /* Reduced horizontal padding */
+    }
+    #carmodels {
+        padding: 1.5% 3%; /* Reduced horizontal padding */
+    }
+    .car-item {
+        margin-top: 3%; /* Adjusted margin */
+        margin-bottom: 3%;
+    }
+    .modeltitle {
+        font-size: 1.2rem; /* Smaller font size */
+    }
+    .info-first-cards p {
+        font-size: 0.85rem; /* Smaller font size */
+    }
+    .info-second {
+        font-size: 0.8rem; /* Smaller font size */
+    }
+    .info-third {
+        font-size: 12px; /* Smaller font size */
+    }
+    .model-buy {
+        margin: 15px; /* Reduced margin */
+    }
+    #b1 {
+        width: 100px; /* Smaller button width */
+        height: 35px; /* Smaller button height */
+        font-size: 0.9rem; /* Smaller font size */
+    }
+    .buybutton {
+        margin-top: 3%; /* Adjusted margin */
+    }
+}
+
+/* Medium screens (e.g., mobile landscape, small tablets) */
+@media only screen and (min-width: 576px) and (max-width: 767.98px) { /* Bootstrap 'md' breakpoint */
+    #nav-container {
+        padding: 0.7% 3%;
+    }
+    .navbar-brand img {
+        height: 2rem;
+    }
+    .nav-catg {
+        margin-top: 4%;
+        padding: 0 1rem;
+    }
+    #filtering {
+        padding: 2% 4%;
+    }
+    #carmodels {
+        padding: 1.5% 5%;
+    }
+    .modeltitle {
+        font-size: 1.4rem;
+    }
+    .info-first-cards p {
+        font-size: 0.9rem;
+    }
+    .info-second {
+        font-size: 0.85rem;
+    }
+    .info-third {
+        font-size: 13px;
+    }
+    #b1 {
+        width: 110px;
+        height: 38px;
+        font-size: 1rem;
+    }
+}
+
+/* Large screens (e.g., tablets, small laptops) */
+@media only screen and (min-width: 768px) and (max-width: 991.98px) { /* Bootstrap 'lg' breakpoint */
+    #nav-container {
+        padding: 0.7% 4%;
+    }
+    .navbar-brand img {
+        height: 2.2rem;
+    }
+    .nav-catg {
+        margin-top: 4%;
+        padding: 0 1.2rem;
+    }
+    #filtering {
+        padding: 2% 5%;
+    }
+    #carmodels {
+        padding: 1.5% 6%;
+    }
+    .modeltitle {
+        font-size: 1.6rem;
+    }
+    .info-first-cards p {
+        font-size: 0.95rem;
+    }
+    .info-second {
+        font-size: 0.9rem;
+    }
+    .info-third {
+        font-size: 14px;
+    }
+    #b1 {
+        width: 120px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Larger screens (e.g., desktops) - base styles apply, but can be refined */
+@media only screen and (min-width: 992px) { /* Bootstrap 'xl' breakpoint and above */
+    section {
+        padding: 150px 0; /* Example: adjust section padding for larger screens */
+    }
+    #mainNav .navbar-nav .nav-item .nav-link {
+        padding: 1.1em 1em !important;
+    }
+}
+
+/* Specific overrides from home.css that might cause issues if not handled */
+/* Removed #myVideo and .content as they are specific to home.hbs and handled there */
+/* Removed #b1 and #l1 as they are specific to home.hbs and handled there */
+/* Removed #mainNav specific overrides as these are handled in layout.hbs */
+
+/* Ensure elements are contained and don't overflow */
+.row {
+    margin-left: -15px; /* Adjust negative margins from Bootstrap if causing overflow */
+    margin-right: -15px;
+}
+.col, [class*="col-"] {
+    padding-left: 15px; /* Adjust padding if needed */
+    padding-right: 15px;
 }
 
