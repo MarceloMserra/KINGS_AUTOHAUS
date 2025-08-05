@@ -1,0 +1,134 @@
+/* 
+   financing.css - Estilos específicos para a página de financiamento
+   Este arquivo deve ser salvo em: /public/css/financing.css
+*/
+
+/* Estilos específicos para o formulário de financiamento */
+.form-control {
+    background-color: #0d0d0d !important;
+    color: #ffffff !important;
+    border: 1px solid #05FC04 !important;
+    border-radius: 8px !important;
+    padding: 10px 15px !important;
+    transition: all 0.3s ease !important;
+}
+
+.form-control:focus {
+    border-color: #04D803 !important;
+    box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25) !important;
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.form-group label {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: bold !important;
+    margin-bottom: 5px !important;
+}
+
+.form-check-label {
+    color: rgba(255, 255, 255, 0.8) !important;
+    cursor: pointer !important;
+}
+
+.form-check-input {
+    margin-top: 0.3rem !important;
+}
+
+.btn-primary {
+    background-color: #05FC04 !important;
+    border-color: #05FC04 !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+    transition: all 0.3s ease !important;
+    padding: 12px 30px !important;
+}
+
+.btn-primary:hover {
+    background-color: #04D803 !important;
+    border-color: #04D803 !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+}
+
+.card {
+    border: 1px solid #05FC04 !important;
+    background-color: #1a1a1a !important;
+}
+
+.text-success {
+    color: #05FC04 !important;
+}
+
+.section-title::after {
+    background-color: #05FC04 !important;
+}
+
+small.form-text.text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+#coBuyerInfo {
+    border-left: 3px solid #05FC04 !important;
+    padding-left: 20px !important;
+    margin-left: 10px !important;
+    transition: all 0.5s ease !important;
+}
+
+.co-buyer-toggle {
+    background-color: #2a2a2a !important;
+    padding: 20px !important;
+    border-radius: 8px !important;
+    margin-bottom: 20px !important;
+    border: 1px solid #333 !important;
+    text-align: center !important;
+}
+
+.btn-outline-success {
+    color: #05FC04 !important;
+    border-color: #05FC04 !important;
+    background-color: transparent !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-outline-success:hover {
+    color: #000 !important;
+    background-color: #05FC04 !important;
+    border-color: #05FC04 !important;
+}
+
+.btn-outline-danger {
+    color: #dc3545 !important;
+    border-color: #dc3545 !important;
+    background-color: transparent !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-outline-danger:hover {
+    color: #fff !important;
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out !important;
+}
+
+.delay-1 {
+    animation-delay: 0.2s !important;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
