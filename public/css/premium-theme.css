@@ -1,0 +1,175 @@
+/* Global styles for HTML and Body to ensure full black background coverage */
+html, body {
+    height: 100%; /* Ensure HTML and Body take full viewport height */
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+    background-color: #000000; /* Absolute black background for both HTML and Body */
+    color: #ffffff; /* Default text color for contrast */
+}
+
+body {
+    /* The padding-top will be adjusted via JavaScript to handle the fixed navbar */
+    /* No need for background-color here as it's set on html and inherited/covered */
+}
+
+/* Styles for the top bar */
+#top-bar {
+    background-color: #1a1a1a; /* Background color for the top bar */
+    color: rgba(255, 255, 255, 0.8); /* Text color */
+    padding: 10px 0;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #333333;
+    position: fixed; /* Fix top-bar to the top */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1040; /* Above main navbar */
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+#top-bar a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#top-bar a:hover {
+    color: #05FC04; /* Green color on hover */
+}
+
+#top-bar .social-icons a {
+    margin-left: 15px;
+    font-size: 1.2rem;
+}
+
+#top-bar .contact-info span {
+    margin-left: 20px;
+}
+
+/* Styles for the main navigation bar */
+#main-navbar {
+    background-color: #000000; /* Absolute black navbar */
+    border-bottom: 1px solid #1a1a1a; /* Subtle line to separate */
+    padding: 15px 0; /* Adjusted: Smaller padding for the navbar */
+    transition: all 0.3s ease-in-out; /* Smooth transition for position scroll effect */
+    position: fixed; /* Fix navbar to the top */
+    width: 100%; /* Occupy full width */
+    top: 45px; /* Adjusted: Now starts below the top-bar again */
+    left: 0;
+    z-index: 1030; /* Ensure navbar is above other elements */
+}
+
+/* UPDATED: Logo styles - fixed height */
+#main-navbar .navbar-brand img {
+    height: 50px; /* Adjusted: Smaller fixed height */
+    transition: none; /* Remove height transition */
+    filter: drop-shadow(0 1px 3px rgba(5, 252, 4, 0.2)); /* Subtle green glow */
+}
+
+/* Styles for navigation links */
+#main-navbar .nav-link {
+    color: #ffffff !important; /* Navbar links white */
+    font-weight: bold;
+    font-size: 1.05rem; /* Adjusted: Slightly smaller font for links */
+    transition: color 0.3s ease;
+    padding-top: initial; /* Reverted padding for links */
+    padding-bottom: initial;
+}
+
+#main-navbar .nav-link:hover {
+    color: #05FC04 !important; /* Green hover effect for links */
+}
+
+/* Adjust toggler icon color to be visible on black background */
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+}
+
+/* Styles for the navbar when the page is scrolled - NO SHRINKING */
+#main-navbar.scrolled {
+    padding: 15px 0; /* Maintain the same padding as unscrolled state */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow to highlight */
+    top: 0; /* Maintain top position */
+}
+
+#main-navbar.scrolled .navbar-brand img {
+    height: 50px; /* Maintain the same height as unscrolled state */
+}
+
+/* Media queries for responsiveness */
+/* Adjusted breakpoints and values for smoother scaling */
+@media (max-width: 1200px) { /* Large desktops / smaller laptops */
+    #main-navbar .navbar-brand img {
+        height: 45px;
+    }
+    #main-navbar.scrolled .navbar-brand img {
+        height: 45px;
+    }
+    #main-navbar .nav-link {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 991.98px) { /* Tablets and smaller desktops (Bootstrap 'lg' breakpoint) */
+    #top-bar {
+        display: none; /* Hide top-bar on tablets and mobile */
+    }
+    #main-navbar {
+        top: 0; /* Navbar starts at the top */
+        padding: 10px 0; /* Smaller padding for mobile/tablet */
+    }
+    #main-navbar .navbar-brand img {
+        height: 35px; /* Smaller logo for mobile/tablet */
+    }
+    #main-navbar.scrolled .navbar-brand img {
+        height: 35px; /* Consistent size when scrolled */
+    }
+    #main-navbar .nav-link {
+        font-size: 1rem; /* Consistent font size */
+    }
+    /* Ensure nav items stack properly on mobile */
+    .navbar-collapse {
+        background-color: #000000; /* Dark background for collapsed menu */
+        border-top: 1px solid #1a1a1a;
+        padding: 10px;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 100%; /* Position below the navbar */
+    }
+    .navbar-nav {
+        width: 100%;
+        text-align: center;
+    }
+    .navbar-nav .nav-item {
+        margin-left: 0 !important; /* Remove horizontal margin */
+        margin-bottom: 5px; /* Add vertical spacing */
+    }
+    .navbar-nav .nav-link {
+        padding: 8px 0; /* Adjust padding for stacked links */
+    }
+}
+
+@media (max-width: 767.98px) { /* Smaller tablets and large phones (Bootstrap 'md' breakpoint) */
+    #main-navbar .navbar-brand img {
+        height: 30px; /* Even smaller logo for smaller screens */
+    }
+    #main-navbar.scrolled .navbar-brand img {
+        height: 30px;
+    }
+    #main-navbar .nav-link {
+        font-size: 0.95rem; /* Slightly smaller font */
+    }
+}
+
+@media (max-width: 575.98px) { /* Extra small devices (Bootstrap 'sm' breakpoint) */
+    #main-navbar .navbar-brand img {
+        height: 25px; /* Smallest logo size */
+    }
+    #main-navbar.scrolled .navbar-brand img {
+        height: 25px;
+    }
+    #main-navbar .nav-link {
+        font-size: 0.9rem;
+    }
+}

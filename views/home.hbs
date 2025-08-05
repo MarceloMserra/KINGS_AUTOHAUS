@@ -1,631 +1,6 @@
 <!-- This file will be rendered inside the {{{body}}} of the layout.hbs -->
 
-<style>
-    /* Styles for the new Home Page structure */
-    html, body {
-        height: 100%; /* Ensure html and body take full height */
-        margin: 0;
-        padding: 0;
-        background-color: #000000; /* Ensure html background is black for full coverage */
-        color: #ffffff; /* Default text color for contrast */
-    }
-
-    .hero-section {
-        position: relative;
-        width: 100%;
-        height: 100vh; /* Full viewport height */
-        overflow: hidden;
-        display: flex;
-        flex-direction: column; /* Allow content to stack */
-        justify-content: center;
-        align-items: center;
-        color: white;
-        text-align: center;
-    }
-
-    /* New style for the background image */
-    .hero-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* This makes the image cover the entire area, potentially cropping */
-        z-index: 0;
-    }
-
-    .hero-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7); /* Slightly darker overlay for premium feel */
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        padding-top: 550px; /* Adjusted: Optimized padding-top for better visibility on most screens */
-    }
-
-    .filter-bar {
-        background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white for premium */
-        border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
-        padding: 30px 40px; /* More padding */
-        border-radius: 15px; /* More rounded corners */
-        box-shadow: 0 8px 30px rgba(5, 252, 4, 0.2); /* Green glow shadow */
-        z-index: 2;
-        width: 90%;
-        max-width: 900px; /* Wider filter bar */
-        margin-top: 10px; /* Adjusted: Decreased space below hero cards to be closer */
-        backdrop-filter: blur(5px); /* Frosted glass effect */
-    }
-
-    .filter-bar .form-control {
-        background-color: rgba(0, 0, 0, 0.7); /* Darker input background */
-        color: #ffffff; /* White text in inputs */
-        border: 1px solid #05FC04; /* Green border for inputs */
-        border-radius: 8px;
-        padding: 10px 15px;
-    }
-    .filter-bar .form-control::placeholder {
-        color: rgba(255, 255, 255, 0.7); /* Lighter placeholder text */
-    }
-    .filter-bar .form-control:focus {
-        background-color: rgba(0, 0, 0, 0.9);
-        border-color: #05FC04;
-        box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
-        color: #ffffff;
-    }
-
-    .filter-bar .btn-primary {
-        background-color: #05FC04; /* Green button */
-        border-color: #05FC04;
-        color: #000000; /* Black text on green button */
-        font-weight: bold;
-        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-        border-radius: 8px;
-        padding: 12px 25px;
-    }
-    .filter-bar .btn-primary:hover {
-        background-color: #04D803; /* Darker green on hover */
-        border-color: #04D803;
-        color: #ffffff; /* White text on hover */
-        transform: translateY(-2px); /* Slight lift effect */
-        box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4);
-    }
-
-    .section-title {
-        font-size: 3rem; /* Larger section titles */
-        font-weight: bold;
-        margin-bottom: 50px; /* More space */
-        position: relative;
-        padding-bottom: 15px;
-        color: #ffffff; /* White text for section titles */
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    }
-
-    .section-title::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
-        height: 4px; /* Thicker line */
-        width: 100px; /* Wider line */
-        background-color: #05FC04; /* Green line */
-        border-radius: 5px;
-    }
-
-    .inventory-card .card {
-        background-color: #1a1a1a; /* Darker card background */
-        border: 1px solid #333333; /* Subtle card border */
-        color: #ffffff; /* White text inside cards */
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-radius: 10px; /* Rounded card corners */
-    }
-    .inventory-card .card:hover {
-        transform: translateY(-5px); /* Lift effect on hover */
-        box-shadow: 0 15px 30px rgba(5, 252, 4, 0.15); /* Green glow on hover */
-    }
-    .inventory-card .card-img-top {
-        height: 250px;
-        object-fit: cover;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-    }
-    .inventory-card .card-body {
-        padding: 25px;
-    }
-    .inventory-card .card-title {
-        color: #05FC04; /* Green title for cars */
-        font-weight: bold;
-        font-size: 1.6rem;
-    }
-    .inventory-card .card-text.text-muted {
-        color: rgba(255, 255, 255, 0.7) !important; /* Lighter grey for muted text */
-    }
-    .inventory-card .card-text.price {
-        color: #05FC04; /* Green price */
-        font-size: 1.8rem;
-    }
-    .inventory-card .btn-primary {
-        background-color: #05FC04;
-        border-color: #05FC04;
-        color: #000000;
-        font-weight: bold;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    .inventory-card .btn-primary:hover {
-        background-color: #04D803; /* Darker green on hover */
-        border-color: #04D803;
-        color: #ffffff;
-    }
-
-    /* Scroll Reveal Effects (placeholder classes) */
-    .fade-in-up {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-    .fade-in-up.revealed {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    .delay-1 { transition-delay: 0.1s; }
-    .delay-2 { transition-delay: 0.2s; }
-    .delay-3 { transition-delay: 0.3s; }
-    .delay-4 { transition-delay: 0.4s; } /* Added for new sections */
-    .delay-5 { transition-delay: 0.5s; } /* Added for new sections */
-
-
-    /* About Us Section specific styling */
-    #about-us {
-        position: relative; /* Needed for overlay */
-        background-color: #0a0a0a; /* Fallback background color */
-        color: #ffffff;
-        padding: 50px 0; /* Add some padding */
-        overflow: hidden; /* Hide overflow from parallax */
-    }
-
-    #about-us .background-image-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        /* Certifique-se de que 'fotocapa2.png' está no diretório 'public/images' */
-        background-image: url('/images/fotocapa2.png');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed; /* Parallax effect */
-        filter: brightness(0.4) grayscale(0.5); /* Darker and slightly desaturated */
-        z-index: 0;
-    }
-
-    #about-us .content-wrapper {
-        position: relative;
-        z-index: 1; /* Content above the background image */
-        background-color: rgba(0, 0, 0, 0.7); /* Dark overlay for text readability */
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    }
-
-    #about-us .lead, #about-us p {
-        color: rgba(255, 255, 255, 0.9);
-    }
-    #about-us .btn-outline-primary {
-        border-color: #05FC04;
-        color: #05FC04;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    #about-us .btn-outline-primary:hover {
-        background-color: #05FC04;
-        color: #000000;
-    }
-    /* Removed img styling from here as it's replaced by background-image */
-
-    /* New styles for Hero Cards */
-    .hero-cards-container {
-        z-index: 2;
-        max-width: 1200px; /* Wider container for cards */
-        width: 100%;
-        margin-bottom: 50px; /* Space below cards */
-        padding: 0 15px;
-    }
-
-    .hero-card-link {
-        text-decoration: none; /* Remove underline from link */
-        color: inherit; /* Inherit text color */
-        display: block; /* Make the entire card clickable */
-        height: 100%; /* Ensure cards have equal height in row */
-    }
-
-    .hero-card {
-        position: relative;
-        height: 180px; /* Adjusted: Smaller height for the cards */
-        background-color: rgba(255, 255, 255, 0.1); /* Subtle background */
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 15px;
-        box-shadow: 0 8px 30px rgba(5, 252, 4, 0.2);
-        backdrop-filter: blur(5px);
-        overflow: hidden;
-        display: flex; /* Use flexbox for vertical alignment of image and text */
-        flex-direction: column; /* Stack image and text vertically */
-        justify-content: space-between; /* Distribute space between image and text */
-        align-items: center; /* Center content horizontally */
-        text-align: center;
-        transition: all 0.4s ease-in-out;
-    }
-
-    /* Styles for the image inside the hero card */
-    .hero-card-image {
-        width: 100%; /* Image takes full width of the card */
-        height: 50%; /* Adjusted: Image takes 50% of the card's height */
-        object-fit: cover; /* Ensures the image covers the area without distortion */
-        border-top-left-radius: 15px; /* Match card's top-left border radius */
-        border-top-right-radius: 15px; /* Match card's top-right border radius */
-    }
-
-    /* Styles for the text content inside the hero card */
-    .hero-card-text-content {
-        padding: 10px; /* Adjusted: Smaller padding around the text */
-        flex-grow: 1; /* Allows this content to take up remaining vertical space */
-        display: flex;
-        flex-direction: column;
-        justify-content: center; /* Centers text vertically within its allocated space */
-        align-items: center; /* Centers text horizontally */
-    }
-
-    .hero-card h3 {
-        font-size: 1.5rem; /* Adjusted: Smaller font size for h3 */
-        font-weight: bold;
-        color: #05FC04; /* Green title */
-        margin-bottom: 5px; /* Reduced margin for tighter text layout */
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-        z-index: 2;
-    }
-
-    .hero-card p {
-        font-size: 0.9rem; /* Adjusted: Smaller font size for p */
-        color: rgba(255, 255, 255, 0.9);
-        margin-top: 0;
-        z-index: 2;
-    }
-
-    /* Innovative Hover Effect (adjusted for cards with image and text) */
-    .hero-card:hover {
-        transform: scale(1.03) translateY(-5px); /* Lift and slightly scale */
-        box-shadow: 0 15px 40px rgba(5, 252, 4, 0.5); /* Stronger green glow */
-        border-color: #05FC04; /* Highlight border */
-    }
-
-    /* Removed skew effect for simpler cards, keeping only scale and lift */
-    .hero-card-link:hover .hero-card {
-        transform: scale(1.03) translateY(-5px); /* Only scale and lift */
-        box-shadow: 0 18px 45px rgba(5, 252, 4, 0.6);
-    }
-
-    .hero-card-link:hover .hero-card h3,
-    .hero-card-link:hover .hero-card p {
-        transform: none; /* No counter-skew needed */
-        transition: none;
-    }
-
-
-    /* New styles for Featured Vehicles Section (Horizontal Scroll) */
-    .featured-carousel-wrapper {
-        position: relative;
-        overflow: hidden; /* Hide scrollbar but allow scrolling */
-        padding-bottom: 20px; /* Space for potential scrollbar on some OS */
-    }
-
-    .featured-carousel-inner {
-        display: flex;
-        overflow-x: scroll; /* Enable horizontal scrolling */
-        scroll-behavior: smooth; /* Smooth scroll effect */
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-        padding-bottom: 17px; /* Compensate for scrollbar height */
-        margin-bottom: -17px; /* Hide scrollbar on modern browsers */
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        &::-webkit-scrollbar {
-            display: none;
-        }
-        /* Hide scrollbar for IE, Edge and Firefox */
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-    }
-
-    .featured-car-item {
-        flex: 0 0 auto; /* Do not grow, do not shrink, base size auto */
-        width: 33.333%; /* Show 3 items on large screen */
-        padding: 0 15px; /* Spacing between cards */
-        box-sizing: border-box;
-    }
-
-    @media (max-width: 992px) { /* Medium devices */
-        .featured-car-item {
-            width: 50%; /* Show 2 items */
-        }
-    }
-
-    @media (max-width: 768px) { /* Small devices */
-        .featured-car-item {
-            width: 80%; /* Show ~1.25 items to indicate scrollability */
-            padding: 0 10px;
-        }
-        .hero-card {
-            height: 160px; /* Adjusted: Smaller height for mobile cards with image */
-        }
-        .hero-card h3 {
-            font-size: 1.2rem; /* Adjusted: Smaller font for mobile h3 */
-        }
-        .hero-card p {
-            font-size: 0.8rem; /* Adjusted: Smaller font for mobile p */
-        }
-    }
-
-    @media (max-width: 576px) { /* Extra small devices */
-        .featured-car-item {
-            width: 90%; /* Show ~1.1 items */
-        }
-    }
-
-    .featured-carousel-control {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(5, 252, 4, 0.7); /* Green with transparency */
-        color: #000000;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        z-index: 10;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .featured-carousel-control:hover {
-        background-color: #04D803; /* Darker green on hover */
-        transform: translateY(-50%) scale(1.1);
-    }
-
-    .featured-carousel-prev {
-        left: 0px; /* Position to the left */
-    }
-
-    .featured-carousel-next {
-        right: 0px; /* Position to the right */
-    }
-
-
-    /* New styles for Testimonials Section */
-    #testimonials {
-        background-color: #0a0a0a;
-        padding: 80px 0;
-    }
-    #testimonials .blockquote {
-        border-left: 5px solid #05FC04; /* Green border for blockquote */
-        padding-left: 20px;
-        margin-bottom: 30px;
-    }
-    #testimonials .blockquote p {
-        font-style: italic;
-        font-size: 1.3rem;
-        color: rgba(255, 255, 255, 0.9);
-    }
-    #testimonials .blockquote-footer {
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 1rem;
-    }
-    #testimonials .blockquote-footer cite {
-        color: #05FC04; /* Green for cite */
-    }
-
-    /* New styles for Contact Info Section */
-    #contact-info {
-        background-color: #1a1a1a;
-        padding: 60px 0;
-        text-align: center;
-    }
-    #contact-info h3 {
-        color: #05FC04; /* Green title */
-        font-size: 2.2rem;
-        margin-bottom: 30px;
-    }
-    #contact-info p {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
-    }
-    #contact-info .contact-detail {
-        margin-bottom: 20px;
-    }
-    .contact-detail i {
-        color: #05FC04; /* Green icons */
-        margin-right: 10px;
-        font-size: 1.5rem;
-    }
-
-    /* New styles for Floating Message Button */
-    .floating-message-btn {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #05FC04; /* Green button */
-        color: #000000; /* Black text */
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.8rem;
-        box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4); /* Green glow */
-        z-index: 1000; /* Ensure it's on top */
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border: none; /* Remove default button border */
-    }
-    .floating-message-btn:hover {
-        background-color: #04D803; /* Darker green on hover */
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(5, 252, 4, 0.6);
-    }
-
-    /* Modal styling */
-    .modal-content {
-        background-color: #1a1a1a;
-        color: #ffffff;
-        border: 1px solid #333333;
-        border-radius: 10px;
-    }
-    .modal-header {
-        border-bottom: 1px solid #333333;
-    }
-    .modal-title {
-        color: #05FC04; /* Green title */
-    }
-    .modal-footer {
-        border-top: 1px solid #333333;
-    }
-    .modal-body .form-control {
-        background-color: #0d0d0d;
-        color: #ffffff;
-        border: 1px solid #05FC04; /* Green border */
-    }
-    .modal-body .form-control:focus {
-        border-color: #05FC04;
-        box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
-        background-color: #000000;
-        color: #ffffff;
-    }
-    .modal-body .form-control::placeholder {
-        color: rgba(255, 255, 255, 0.5);
-    }
-    .modal-footer .btn-primary {
-        background-color: #05FC04; /* Green button */
-        border-color: #05FC04;
-        color: #000000;
-    }
-    .modal-footer .btn-primary:hover {
-        background-color: #04D803;
-        border-color: #04D803;
-        color: #ffffff;
-    }
-    .modal-footer .btn-secondary {
-        background-color: #333333;
-        border-color: #333333;
-        color: #ffffff;
-    }
-    .modal-footer .btn-secondary:hover {
-        background-color: #555555;
-        border-color: #555555;
-    }
-
-
-    /* Responsive adjustments */
-    @media (max-width: 1200px) { /* Adjust for smaller desktops/laptops */
-        .hero-overlay {
-            padding-top: 500px; /* Slightly less padding to bring content up */
-        }
-    }
-
-    @media (max-width: 992px) { /* Tablets and smaller desktops (Bootstrap 'lg' breakpoint) */
-        .hero-overlay {
-            padding-top: 350px; /* More aggressive padding adjustment for tablets */
-        }
-        .hero-cards-container {
-            margin-bottom: 30px; /* Less space below cards on smaller screens */
-        }
-        .filter-bar {
-            padding: 25px 30px; /* Slightly less padding for filter bar */
-        }
-        .featured-car-item {
-            width: 50%; /* Show 2 items per row */
-        }
-        .section-title {
-            font-size: 2.5rem; /* Smaller title for sections */
-        }
-        #testimonials, #contact-info, #financing-cta {
-            padding: 60px 0; /* Reduced padding for sections */
-        }
-    }
-
-    @media (max-width: 768px) { /* Small devices (Bootstrap 'md' breakpoint) */
-        .hero-overlay {
-            padding-top: 250px; /* Further adjustment for phones */
-        }
-        .hero-card {
-            height: 150px; /* Smaller card height */
-        }
-        .hero-card h3 {
-            font-size: 1.3rem; /* Smaller font for card titles */
-        }
-        .hero-card p {
-            font-size: 0.8rem; /* Smaller font for card descriptions */
-        }
-        .filter-bar {
-            padding: 20px; /* Even less padding for filter bar */
-            margin-top: 0px; /* Bring filter bar closer */
-        }
-        .filter-bar .form-group {
-            margin-bottom: 10px; /* Space out form fields */
-        }
-        .filter-bar .btn-primary {
-            width: 100%; /* Full width button */
-        }
-        .featured-car-item {
-            width: 90%; /* Show ~1 item to make scrolling obvious */
-        }
-        .section-title {
-            font-size: 2rem; /* Even smaller section titles */
-            margin-bottom: 30px;
-        }
-        #about-us .content-wrapper {
-            padding: 20px; /* Smaller padding for content wrapper */
-        }
-        #testimonials .blockquote p {
-            font-size: 1.1rem; /* Smaller testimonial font */
-        }
-        #contact-info p {
-            font-size: 1rem; /* Smaller contact info font */
-        }
-        .floating-message-btn {
-            width: 50px;
-            height: 50px;
-            font-size: 1.5rem;
-            bottom: 15px;
-            right: 15px;
-        }
-    }
-
-    @media (max-width: 576px) { /* Extra small devices (Bootstrap 'sm' breakpoint) */
-        .hero-overlay {
-            padding-top: 180px; /* Final adjustment for very small phones */
-        }
-        .hero-card {
-            height: 130px; /* Smallest card height */
-        }
-        .hero-card h3 {
-            font-size: 1.1rem;
-        }
-        .hero-card p {
-            font-size: 0.75rem;
-        }
-        .filter-bar {
-            padding: 15px;
-        }
-    }
-</style>
+<!-- All CSS styles for this page are now located in public/css/home.css -->
 
 <!-- Hero Section with Image and Filters -->
 <section class="hero-section">
@@ -694,49 +69,58 @@
     </div>
 </section>
 
-<!-- Featured Vehicles Section -->
-<section id="featured-vehicles" class="py-5 bg-dark fade-in-up delay-4"> <!-- Adjusted delay -->
+<!-- Featured Vehicles Section - NOVO CARROSSEL INFINITO -->
+<section id="featured-vehicles" class="featured-vehicles-section fade-in-up delay-4">
     <div class="container">
-        <h2 class="section-title text-center text-white">Featured Vehicles</h2>
-        <div class="position-relative"> <!-- Wrapper for carousel and controls -->
-            <div class="featured-carousel-wrapper">
-                <div class="featured-carousel-inner" id="featuredCarouselInner">
-                    {{#each latestCars}}
-                    <div class="featured-car-item">
-                        <div class="card h-100 inventory-card shadow-sm">
+        <h2 class="section-title">Featured Vehicles</h2>
+        
+        <div class="featured-carousel-wrapper">
+            <div class="featured-carousel-inner" id="featuredCarouselInner">
+                {{#each latestCars}}
+                <div class="featured-car-item {{#if @first}}active{{/if}}">
+                    <div class="featured-car-card">
+                        <div class="car-image-wrapper">
                             {{#if this.image.length}}
-                                <div class="card-img-top-wrapper position-relative">
-                                    <img src="{{this.image.[0]}}" class="card-img-top" alt="{{this.title}}">
-                                    {{#if (gt this.image.length 1)}}
-                                        <span class="badge badge-secondary position-absolute" style="top: 10px; right: 10px; background-color: #05FC04; color: #000000;">
-                                            {{this.image.length}} photos
-                                        </span>
-                                    {{/if}}
-                                </div>
+                                <img src="{{this.image.[0]}}" alt="{{this.brand}} {{this.t2}}" class="car-image">
+                                {{#if (gt this.image.length 1)}}
+                                    <span class="photo-badge">{{this.image.length}} photos</span>
+                                {{/if}}
                             {{else}}
-                                <img src="https://placehold.co/600x400/0a0a0a/05FC04?text=No+Image" class="card-img-top" alt="No Image">
+                                <img src="https://placehold.co/400x300/0a0a0a/05FC04?text=No+Image" alt="No Image" class="car-image">
                             {{/if}}
-                            <div class="card-body">
-                                <h5 class="card-title">{{this.brand}} {{this.t2}}</h5>
-                                <p class="card-text text-muted">{{this.year}} - {{this.mileage}} miles - {{this.transmission}}</p>
-                                <p class="card-text price">R$ {{this.priceStr}}</p>
-                                <a href="/gas/details/{{this._id}}" class="btn btn-primary btn-block">View Details</a>
-                            </div>
+                        </div>
+                        <div class="car-content">
+                            <h5 class="car-title">{{this.brand}} {{this.t2}}</h5>
+                            <p class="car-subtitle">{{this.year}} - {{this.mileage}} miles - {{this.transmission}}</p>
+                            <p class="car-price">R$ {{this.priceStr}}</p>
+                            <a href="/gas/details/{{this._id}}" class="view-details-btn">View Details</a>
                         </div>
                     </div>
-                    {{/each}}
                 </div>
+                {{/each}}
             </div>
-            <!-- Navigation Arrows -->
-            <button class="featured-carousel-control featured-carousel-prev" onclick="scrollFeaturedCars(-1)">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="featured-carousel-control featured-carousel-next" onclick="scrollFeaturedCars(1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
+
+            <!-- Controles de navegação -->
+            <div class="carousel-controls">
+                <button class="carousel-control prev" onclick="moveCarousel(-1)" aria-label="Previous">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-control next" onclick="moveCarousel(1)" aria-label="Next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
-        <div class="text-center mt-4">
-            <a href="/gas" class="btn btn-outline-primary btn-lg">View All Featured Vehicles</a>
+
+        <!-- Indicadores -->
+        <div class="carousel-indicators" id="carouselIndicators">
+            <!-- Será populado dinamicamente pelo JavaScript -->
+        </div>
+
+        <!-- Botão View All -->
+        <div class="view-all-container">
+            <a href="/gas" class="view-all-btn">View All Featured Vehicles</a>
         </div>
     </div>
 </section>
@@ -811,7 +195,6 @@
     </div>
 </section>
 
-
 <!-- Floating Message Button -->
 <button class="floating-message-btn" data-toggle="modal" data-target="#messageModal">
     <i class="fas fa-comments"></i>
@@ -851,8 +234,7 @@
     </div>
 </div>
 
-
-<!-- JavaScript for dynamic Model filter -->
+<!-- JavaScript for dynamic Model filter and Infinite Carousel -->
 <script>
     // Converts the JSON string of modelsByBrand back to a JavaScript object
     let modelsByBrand = {};
@@ -904,8 +286,7 @@
         }
     }
 
-    // Scroll Reveal Effect JavaScript (simple implementation)
-    // This can be replaced by a more robust library like ScrollReveal.js if needed.
+    // Scroll Reveal Effect JavaScript
     const fadeInElements = document.querySelectorAll('.fade-in-up');
 
     const observer = new IntersectionObserver((entries, observer) => {
@@ -923,95 +304,262 @@
         observer.observe(element);
     });
 
-    // JavaScript for horizontal scroll of featured cars with loop
-    function scrollFeaturedCars(direction) {
-        const container = document.getElementById('featuredCarouselInner');
-        if (!container) {
-            console.error("Função scrollFeaturedCars: featuredCarouselInner não encontrado.");
-            return;
+    // ============================================
+    // INFINITE CAROUSEL CLASS - NOVA IMPLEMENTAÇÃO
+    // ============================================
+    class InfiniteCarousel {
+        constructor(selector) {
+            this.carousel = document.querySelector(selector);
+            if (!this.carousel) return;
+            
+            this.carouselInner = this.carousel.querySelector('.featured-carousel-inner');
+            this.items = Array.from(this.carousel.querySelectorAll('.featured-car-item'));
+            this.originalItems = [...this.items];
+            this.currentIndex = 0;
+            this.itemWidth = 0;
+            this.visibleItems = 1;
+            this.totalItems = this.originalItems.length;
+            this.isTransitioning = false;
+            this.autoPlayInterval = null;
+            this.autoPlayDelay = 4000;
+
+            if (this.totalItems > 0) {
+                this.init();
+            }
         }
 
-        const firstItem = container.querySelector('.featured-car-item');
-        if (!firstItem) {
-            console.error("Função scrollFeaturedCars: Nenhum .featured-car-item encontrado no carrossel.");
-            return;
+        init() {
+            this.calculateDimensions();
+            this.createClones();
+            this.createIndicators();
+            this.setInitialPosition();
+            this.bindEvents();
+            this.startAutoPlay();
+            this.updateActiveStates();
         }
 
-        const itemWidth = firstItem.offsetWidth;
-        const padding = 30; // 15px left + 15px right
-        const scrollAmount = itemWidth + padding;
+        calculateDimensions() {
+            // Calcula quantos itens são visíveis baseado na largura da tela
+            const containerWidth = this.carousel.offsetWidth;
+            const item = this.items[0];
+            if (!item) return;
 
-        console.log("Função scrollFeaturedCars: Tentando rolar. Direção:", direction, "Largura do Item:", itemWidth, "Quantidade de Rolagem:", scrollAmount);
+            this.itemWidth = item.offsetWidth + parseInt(window.getComputedStyle(item).marginRight);
+            this.visibleItems = Math.max(1, Math.floor(containerWidth / this.itemWidth));
+            
+            // Ajusta para dispositivos móveis
+            if (window.innerWidth <= 576) {
+                this.visibleItems = 1;
+            } else if (window.innerWidth <= 768) {
+                this.visibleItems = Math.min(2, this.visibleItems);
+            } else if (window.innerWidth <= 992) {
+                this.visibleItems = Math.min(3, this.visibleItems);
+            }
+        }
 
-        container.scrollBy({
-            left: direction * scrollAmount,
-            behavior: 'smooth'
-        });
+        createClones() {
+            // Remove clones existentes
+            this.carouselInner.innerHTML = '';
+            
+            // Cria clones suficientes para o efeito infinito
+            const clonesNeeded = Math.max(this.visibleItems, 3);
+            
+            // Adiciona clones dos últimos itens no início
+            for (let i = 0; i < clonesNeeded; i++) {
+                const cloneIndex = this.totalItems - clonesNeeded + i;
+                const clone = this.originalItems[cloneIndex].cloneNode(true);
+                clone.classList.add('clone');
+                this.carouselInner.appendChild(clone);
+            }
+            
+            // Adiciona os itens originais
+            this.originalItems.forEach(item => {
+                const clone = item.cloneNode(true);
+                this.carouselInner.appendChild(clone);
+            });
+            
+            // Adiciona clones dos primeiros itens no final
+            for (let i = 0; i < clonesNeeded; i++) {
+                const clone = this.originalItems[i].cloneNode(true);
+                clone.classList.add('clone');
+                this.carouselInner.appendChild(clone);
+            }
+            
+            // Atualiza a lista de itens
+            this.items = Array.from(this.carouselInner.querySelectorAll('.featured-car-item'));
+            this.clonesAtStart = clonesNeeded;
+        }
+
+        createIndicators() {
+            const indicatorsContainer = document.getElementById('carouselIndicators');
+            if (!indicatorsContainer) return;
+
+            indicatorsContainer.innerHTML = '';
+            
+            for (let i = 0; i < this.totalItems; i++) {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                if (i === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => this.goToSlide(i));
+                indicatorsContainer.appendChild(indicator);
+            }
+            
+            this.indicators = Array.from(indicatorsContainer.querySelectorAll('.indicator'));
+        }
+
+        setInitialPosition() {
+            const initialOffset = -this.clonesAtStart * this.itemWidth;
+            this.carouselInner.style.transform = `translateX(${initialOffset}px)`;
+            this.carouselInner.style.transition = 'none';
+        }
+
+        updateActiveStates() {
+            // Remove active class de todos os itens
+            this.items.forEach(item => item.classList.remove('active'));
+            
+            // Adiciona active class ao item central
+            const activeIndex = this.clonesAtStart + this.currentIndex;
+            if (this.items[activeIndex]) {
+                this.items[activeIndex].classList.add('active');
+            }
+            
+            // Atualiza indicadores
+            if (this.indicators) {
+                this.indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === this.currentIndex);
+                });
+            }
+        }
+
+        move(direction) {
+            if (this.isTransitioning) return;
+            
+            this.isTransitioning = true;
+            this.stopAutoPlay();
+            
+            this.currentIndex += direction;
+            const offset = -(this.clonesAtStart + this.currentIndex) * this.itemWidth;
+            
+            this.carouselInner.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            this.carouselInner.style.transform = `translateX(${offset}px)`;
+            
+            setTimeout(() => {
+                this.handleInfiniteLoop();
+                this.updateActiveStates();
+                this.isTransitioning = false;
+                this.startAutoPlay();
+            }, 500);
+        }
+
+        handleInfiniteLoop() {
+            if (this.currentIndex >= this.totalItems) {
+                this.currentIndex = 0;
+                const offset = -this.clonesAtStart * this.itemWidth;
+                this.carouselInner.style.transition = 'none';
+                this.carouselInner.style.transform = `translateX(${offset}px)`;
+            } else if (this.currentIndex < 0) {
+                this.currentIndex = this.totalItems - 1;
+                const offset = -(this.clonesAtStart + this.currentIndex) * this.itemWidth;
+                this.carouselInner.style.transition = 'none';
+                this.carouselInner.style.transform = `translateX(${offset}px)`;
+            }
+        }
+
+        goToSlide(index) {
+            if (this.isTransitioning || index === this.currentIndex) return;
+            
+            const direction = index > this.currentIndex ? 1 : -1;
+            const steps = Math.abs(index - this.currentIndex);
+            
+            for (let i = 0; i < steps; i++) {
+                setTimeout(() => this.move(direction), i * 100);
+            }
+        }
+
+        startAutoPlay() {
+            this.stopAutoPlay();
+            this.autoPlayInterval = setInterval(() => {
+                this.move(1);
+            }, this.autoPlayDelay);
+        }
+
+        stopAutoPlay() {
+            if (this.autoPlayInterval) {
+                clearInterval(this.autoPlayInterval);
+                this.autoPlayInterval = null;
+            }
+        }
+
+        bindEvents() {
+            // Pause auto-play on hover
+            this.carousel.addEventListener('mouseenter', () => this.stopAutoPlay());
+            this.carousel.addEventListener('mouseleave', () => this.startAutoPlay());
+            
+            // Touch events for mobile
+            let startX = 0;
+            let isDown = false;
+            
+            this.carousel.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDown = true;
+                this.stopAutoPlay();
+            });
+            
+            this.carousel.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+            });
+            
+            this.carousel.addEventListener('touchend', (e) => {
+                if (!isDown) return;
+                isDown = false;
+                
+                const endX = e.changedTouches[0].clientX;
+                const diffX = startX - endX;
+                
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        this.move(1); // Swipe left - next
+                    } else {
+                        this.move(-1); // Swipe right - previous
+                    }
+                }
+                
+                this.startAutoPlay();
+            });
+            
+            // Resize event
+            window.addEventListener('resize', () => {
+                clearTimeout(this.resizeTimeout);
+                this.resizeTimeout = setTimeout(() => {
+                    this.calculateDimensions();
+                    this.createClones();
+                    this.setInitialPosition();
+                    this.updateActiveStates();
+                }, 250);
+            });
+        }
+
+        destroy() {
+            this.stopAutoPlay();
+            if (this.resizeTimeout) {
+                clearTimeout(this.resizeTimeout);
+            }
+        }
     }
 
-    // Infinite scroll logic for featured cars
-    document.addEventListener('DOMContentLoaded', function() {
-        const featuredCarouselInner = document.getElementById('featuredCarouselInner');
-        if (featuredCarouselInner) {
-            const originalItems = Array.from(featuredCarouselInner.children);
-            const numOriginalItems = originalItems.length;
-
-            if (numOriginalItems === 0) {
-                console.warn("Carrossel: Nenhum item original encontrado para clonar. Verifique se 'latestCars' está populado.");
-                return;
-            }
-
-            const numClones = Math.min(numOriginalItems, 3);
-
-            featuredCarouselInner.innerHTML = '';
-
-            for (let i = 0; i < numClones; i++) {
-                const cloneIndex = numOriginalItems - numClones + i;
-                const clone = originalItems[cloneIndex].cloneNode(true);
-                featuredCarouselInner.prepend(clone);
-            }
-
-            originalItems.forEach(item => {
-                featuredCarouselInner.appendChild(item.cloneNode(true));
-            });
-
-            for (let i = 0; i < numClones; i++) {
-                const clone = originalItems[i].cloneNode(true);
-                featuredCarouselInner.appendChild(clone);
-            }
-
-            requestAnimationFrame(() => {
-                const firstOriginalItem = featuredCarouselInner.children[numClones];
-                if (firstOriginalItem) {
-                    featuredCarouselInner.scrollLeft = firstOriginalItem.offsetLeft;
-                } else {
-                    console.warn("Carrossel: Não foi possível encontrar o primeiro item original para definir o scrollLeft inicial.");
-                }
-            });
-
-            let isScrolling;
-            featuredCarouselInner.addEventListener('scroll', () => {
-                window.clearTimeout(isScrolling);
-                isScrolling = setTimeout(() => {
-                    const scrollLeft = featuredCarouselInner.scrollLeft;
-                    const itemWidth = originalItems[0] ? (originalItems[0].offsetWidth + 30) : 0;
-
-                    const startOfOriginals = numClones * itemWidth;
-                    const endOfOriginals = (numClones + numOriginalItems) * itemWidth;
-
-                    if (scrollLeft >= endOfOriginals - featuredCarouselInner.clientWidth) {
-                        featuredCarouselInner.style.scrollBehavior = 'auto';
-                        featuredCarouselInner.scrollLeft = startOfOriginals;
-                        featuredCarouselInner.style.scrollBehavior = 'smooth';
-                    } else if (scrollLeft <= 0) {
-                        featuredCarouselInner.style.scrollBehavior = 'auto';
-                        featuredCarouselInner.scrollLeft = (numClones + numOriginalItems - 1) * itemWidth;
-                        featuredCarouselInner.style.scrollBehavior = 'smooth';
-                    }
-                }, 66);
-            });
-        } else if (featuredCarouselInner) {
-            console.warn("Carrossel: Elemento 'featuredCarouselInner' encontrado, mas sem filhos para clonar. Certifique-se de que o array 'latestCars' está populado e renderizado.");
+    // Funções globais para os botões
+    function moveCarousel(direction) {
+        if (window.featuredCarousel) {
+            window.featuredCarousel.move(direction);
         }
+    }
+
+    // Inicializa o carrossel quando o DOM estiver pronto
+    document.addEventListener('DOMContentLoaded', function() {
+        // Pequeno delay para garantir que todos os elementos estejam renderizados
+        setTimeout(() => {
+            window.featuredCarousel = new InfiniteCarousel('.featured-carousel-wrapper');
+        }, 100);
     });
 </script>
