@@ -2,8 +2,11 @@
 
 <style>
     /* Styles for the new Home Page structure */
-    body {
-        background-color: #000000; /* Ensure body background is black */
+    html, body {
+        height: 100%; /* Ensure html and body take full height */
+        margin: 0;
+        padding: 0;
+        background-color: #000000; /* Ensure html background is black for full coverage */
         color: #ffffff; /* Default text color for contrast */
     }
 
@@ -44,7 +47,7 @@
         justify-content: center;
         align-items: center;
         padding: 20px;
-        padding-top: 610px; /* Adjusted: Increased padding-top significantly to push content down for large logo */
+        padding-top: 550px; /* Adjusted: Optimized padding-top for better visibility on most screens */
     }
 
     .filter-bar {
@@ -56,7 +59,7 @@
         z-index: 2;
         width: 90%;
         max-width: 900px; /* Wider filter bar */
-        margin-top: -50px; /* Adjusted: Decreased space below hero cards to be closer */
+        margin-top: 10px; /* Adjusted: Decreased space below hero cards to be closer */
         backdrop-filter: blur(5px); /* Frosted glass effect */
     }
 
@@ -530,21 +533,71 @@
 
 
     /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .hero-content h1 {
-            font-size: 3rem;
+    @media (max-width: 1200px) { /* Adjust for smaller desktops/laptops */
+        .hero-overlay {
+            padding-top: 500px; /* Slightly less padding to bring content up */
         }
-        .hero-content p {
-            font-size: 1.2rem;
+    }
+
+    @media (max-width: 992px) { /* Tablets and smaller desktops (Bootstrap 'lg' breakpoint) */
+        .hero-overlay {
+            padding-top: 350px; /* More aggressive padding adjustment for tablets */
+        }
+        .hero-cards-container {
+            margin-bottom: 30px; /* Less space below cards on smaller screens */
         }
         .filter-bar {
-            padding: 20px;
+            padding: 25px 30px; /* Slightly less padding for filter bar */
+        }
+        .featured-car-item {
+            width: 50%; /* Show 2 items per row */
         }
         .section-title {
-            font-size: 2.2rem;
+            font-size: 2.5rem; /* Smaller title for sections */
         }
-        #about-us .background-image-overlay {
-            background-attachment: scroll; /* Disable parallax on mobile for performance */
+        #testimonials, #contact-info, #financing-cta {
+            padding: 60px 0; /* Reduced padding for sections */
+        }
+    }
+
+    @media (max-width: 768px) { /* Small devices (Bootstrap 'md' breakpoint) */
+        .hero-overlay {
+            padding-top: 250px; /* Further adjustment for phones */
+        }
+        .hero-card {
+            height: 150px; /* Smaller card height */
+        }
+        .hero-card h3 {
+            font-size: 1.3rem; /* Smaller font for card titles */
+        }
+        .hero-card p {
+            font-size: 0.8rem; /* Smaller font for card descriptions */
+        }
+        .filter-bar {
+            padding: 20px; /* Even less padding for filter bar */
+            margin-top: 0px; /* Bring filter bar closer */
+        }
+        .filter-bar .form-group {
+            margin-bottom: 10px; /* Space out form fields */
+        }
+        .filter-bar .btn-primary {
+            width: 100%; /* Full width button */
+        }
+        .featured-car-item {
+            width: 90%; /* Show ~1 item to make scrolling obvious */
+        }
+        .section-title {
+            font-size: 2rem; /* Even smaller section titles */
+            margin-bottom: 30px;
+        }
+        #about-us .content-wrapper {
+            padding: 20px; /* Smaller padding for content wrapper */
+        }
+        #testimonials .blockquote p {
+            font-size: 1.1rem; /* Smaller testimonial font */
+        }
+        #contact-info p {
+            font-size: 1rem; /* Smaller contact info font */
         }
         .floating-message-btn {
             width: 50px;
@@ -552,6 +605,24 @@
             font-size: 1.5rem;
             bottom: 15px;
             right: 15px;
+        }
+    }
+
+    @media (max-width: 576px) { /* Extra small devices (Bootstrap 'sm' breakpoint) */
+        .hero-overlay {
+            padding-top: 180px; /* Final adjustment for very small phones */
+        }
+        .hero-card {
+            height: 130px; /* Smallest card height */
+        }
+        .hero-card h3 {
+            font-size: 1.1rem;
+        }
+        .hero-card p {
+            font-size: 0.75rem;
+        }
+        .filter-bar {
+            padding: 15px;
         }
     }
 </style>

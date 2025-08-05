@@ -66,6 +66,9 @@
 
     .inventory-controls .form-group {
         margin-bottom: 15px; /* Space between form groups on smaller screens */
+        flex-grow: 1; /* Allow form groups to grow */
+        flex-basis: 22%; /* Approx. 4 items per row on large screens */
+        min-width: 150px; /* Minimum width for form controls */
     }
 
     .inventory-controls .form-control,
@@ -75,6 +78,7 @@
         border: 1px solid #05FC04;
         border-radius: 5px;
         padding: 8px 15px;
+        width: 100%; /* Ensure full width within their flex-basis */
     }
 
     .inventory-controls .form-control:focus {
@@ -263,16 +267,38 @@
     }
 
     /* Responsive adjustments */
-    @media (max-width: 992px) { /* Medium devices */
+    @media (max-width: 1200px) { /* Adjust for smaller desktops/laptops */
         .inventory-controls .form-group {
-            flex-basis: 48%; /* Two columns on medium screens */
+            flex-basis: 23%; /* Slightly adjust for 4 columns */
         }
     }
 
-    @media (max-width: 768px) { /* Small devices */
+    @media (max-width: 992px) { /* Tablets and smaller desktops (Bootstrap 'lg' breakpoint) */
+        .inventory-controls .form-group {
+            flex-basis: 48%; /* Two columns on medium screens */
+        }
+        .card-img-top {
+            height: 180px; /* Smaller image height on tablets */
+        }
+        .card-title {
+            font-size: 1.3rem; /* Smaller title */
+        }
+        .card-subtitle {
+            font-size: 0.9rem;
+        }
+        .car-details-list {
+            font-size: 0.85rem;
+        }
+        .card-price-section .price {
+            font-size: 1.6rem;
+        }
+    }
+
+    @media (max-width: 768px) { /* Small devices (Bootstrap 'md' breakpoint) */
         .inventory-controls {
             flex-direction: column;
             align-items: stretch;
+            padding: 15px; /* Reduced padding */
         }
         .inventory-controls .form-group {
             flex-basis: 100%;
@@ -293,6 +319,54 @@
         .card-buttons .btn {
             width: 100%;
             margin-top: 5px;
+        }
+        .card-img-top {
+            height: 150px; /* Even smaller image height on phones */
+        }
+        .card-title {
+            font-size: 1.2rem;
+        }
+        .card-subtitle {
+            font-size: 0.8rem;
+        }
+        .car-details-list {
+            font-size: 0.8rem;
+        }
+        .card-price-section .price {
+            font-size: 1.4rem;
+        }
+        h2.section-title-public {
+            font-size: 2.5rem; /* Smaller title for public sections */
+            margin-bottom: 30px;
+        }
+        .pagination-controls {
+            flex-direction: column;
+            align-items: center;
+            font-size: 1rem;
+        }
+        .pagination-controls div {
+            margin-top: 10px;
+        }
+    }
+
+    @media (max-width: 576px) { /* Extra small devices (Bootstrap 'sm' breakpoint) */
+        .card-img-top {
+            height: 120px; /* Smallest image height */
+        }
+        .card-title {
+            font-size: 1.1rem;
+        }
+        .card-subtitle {
+            font-size: 0.75rem;
+        }
+        .car-details-list {
+            font-size: 0.75rem;
+        }
+        .card-price-section .price {
+            font-size: 1.2rem;
+        }
+        h2.section-title-public {
+            font-size: 2rem;
         }
     }
 </style>

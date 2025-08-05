@@ -87,7 +87,6 @@
             top: 45px; /* Adjusted: Now starts below the top-bar again */
             left: 0;
             z-index: 1030; /* Ensure navbar is above other elements */
-            /* Removed flex-direction and align-items as it's no longer a column */
         }
 
         /* UPDATED: Logo styles - fixed height */
@@ -103,8 +102,7 @@
             font-weight: bold;
             font-size: 1.05rem; /* Adjusted: Slightly smaller font for links */
             transition: color 0.3s ease;
-            /* Reverted padding for links */
-            padding-top: initial;
+            padding-top: initial; /* Reverted padding for links */
             padding-bottom: initial;
         }
 
@@ -129,28 +127,80 @@
         }
 
         /* Media queries for responsiveness */
-        @media (max-width: 991.98px) { /* Adjusted breakpoint for larger screens */
-            #top-bar { /* Re-enabled display for top-bar in media query */
-                display: none; /* Hide top-bar on smaller screens to save space */
-            }
-            #main-navbar {
-                top: 0; /* Navbar starts at the top on smaller screens */
-                padding: 10px 0; /* Smaller padding on mobile */
-            }
+        /* Adjusted breakpoints and values for smoother scaling */
+        @media (max-width: 1200px) { /* Large desktops / smaller laptops */
             #main-navbar .navbar-brand img {
-                height: 35px; /* Fixed height for mobile */
+                height: 45px;
             }
             #main-navbar.scrolled .navbar-brand img {
-                height: 35px; /* Fixed height for mobile when scrolled */
+                height: 45px;
+            }
+            #main-navbar .nav-link {
+                font-size: 1rem;
             }
         }
 
-        @media (max-width: 767.98px) { /* Standard Bootstrap md breakpoint */
+        @media (max-width: 991.98px) { /* Tablets and smaller desktops (Bootstrap 'lg' breakpoint) */
+            #top-bar {
+                display: none; /* Hide top-bar on tablets and mobile */
+            }
+            #main-navbar {
+                top: 0; /* Navbar starts at the top */
+                padding: 10px 0; /* Smaller padding for mobile/tablet */
+            }
             #main-navbar .navbar-brand img {
-                height: 30px; /* Fixed height for very small screens */
+                height: 35px; /* Smaller logo for mobile/tablet */
             }
             #main-navbar.scrolled .navbar-brand img {
-                height: 30px; /* Fixed height for very small screens when scrolled */
+                height: 35px; /* Consistent size when scrolled */
+            }
+            #main-navbar .nav-link {
+                font-size: 1rem; /* Consistent font size */
+            }
+            /* Ensure nav items stack properly on mobile */
+            .navbar-collapse {
+                background-color: #000000; /* Dark background for collapsed menu */
+                border-top: 1px solid #1a1a1a;
+                padding: 10px;
+                position: absolute;
+                width: 100%;
+                left: 0;
+                top: 100%; /* Position below the navbar */
+            }
+            .navbar-nav {
+                width: 100%;
+                text-align: center;
+            }
+            .navbar-nav .nav-item {
+                margin-left: 0 !important; /* Remove horizontal margin */
+                margin-bottom: 5px; /* Add vertical spacing */
+            }
+            .navbar-nav .nav-link {
+                padding: 8px 0; /* Adjust padding for stacked links */
+            }
+        }
+
+        @media (max-width: 767.98px) { /* Smaller tablets and large phones (Bootstrap 'md' breakpoint) */
+            #main-navbar .navbar-brand img {
+                height: 30px; /* Even smaller logo for smaller screens */
+            }
+            #main-navbar.scrolled .navbar-brand img {
+                height: 30px;
+            }
+            #main-navbar .nav-link {
+                font-size: 0.95rem; /* Slightly smaller font */
+            }
+        }
+
+        @media (max-width: 575.98px) { /* Extra small devices (Bootstrap 'sm' breakpoint) */
+            #main-navbar .navbar-brand img {
+                height: 25px; /* Smallest logo size */
+            }
+            #main-navbar.scrolled .navbar-brand img {
+                height: 25px;
+            }
+            #main-navbar .nav-link {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -245,7 +295,7 @@
         // JavaScript for the navbar scroll effect
         document.addEventListener('DOMContentLoaded', function() {
             const mainNavbar = document.getElementById('main-navbar');
-            const topBar = document.getElementById('top-bar'); // Re-get the topBar element
+            const topBar = document.getElementById('top-bar');
             const body = document.body;
 
             function adjustBodyPadding() {
