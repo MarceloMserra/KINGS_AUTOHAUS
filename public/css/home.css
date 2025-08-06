@@ -1,35 +1,31 @@
 /*
     Este ficheiro foi atualizado para otimizar a responsividade da página inicial.
-    Foram feitos ajustes em unidades de medida, paddings, margins e media queries
-    para garantir que o layout se adapte a diferentes tamanhos de tela.
-    ADICIONADO: Carrossel infinito responsivo para Featured Vehicles
+    CORRIGIDO: Layout quebrado, estilos conflitantes removidos
 */
-
-/* Removido: body overflow-x: hidden, pois é tratado no style.css global */
-/* Removido: #myVideo e .content pois o vídeo foi substituído por imagem e o conteúdo é gerenciado pelo hero-overlay */
-/* Removido: #b1 e #l1 pois são estilos de botões e inputs que devem ser tratados de forma mais genérica ou no layout.hbs/premium-theme.css */
-/* Removido: #mainNav e suas media queries pois a navegação principal é controlada pelo layout.hbs e style.css */
 
 /* Styles for the new Home Page structure */
 html, body {
-    height: 100%; /* Ensure html and body take full height */
+    height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #000000; /* Ensure html background is black for full coverage */
-    color: #ffffff; /* Default text color for contrast */
+    background-color: #000000;
+    color: #ffffff;
 }
+
+/* ==========================================
+   HERO SECTION STYLES
+   ========================================== */
 
 .hero-section {
     position: relative;
     width: 100%;
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
     overflow: hidden;
     display: flex;
-    flex-direction: column; /* Allow content to stack */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: relative; /* Necessário para posicionar a imagem de fundo */
 }
 
 .hero-image {
@@ -38,8 +34,53 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* This makes the image cover the entire area, potentially cropping */
+    object-fit: cover;
     z-index: 0;
+}
+
+/* Estilo do vídeo */
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* Logo centralizada sobre o vídeo */
+.hero-logo-container {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+.hero-logo {
+    max-width: 340px;
+    height: auto;
+}
+
+/* Controle de áudio do vídeo */
+.video-audio-control {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.video-audio-control:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
 }
 
 .hero-overlay {
@@ -48,23 +89,33 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Slightly darker overlay for premium feel */
+    background: rgba(0, 0, 0, 0.7);
     z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    padding-top: 380px; /* Adjusted: Optimized padding-top for better visibility on most screens */
+    padding-top: 380px;
+}
+
+/* ==========================================
+   HERO CARDS SECTION - CENTRALIZADOS
+   ========================================== */
+
+/* Seção dos cards e filtros */
+.hero-cards-filter-section {
+    padding: 60px 0;
+    background: #000000;
 }
 
 /* Hero Cards Container */
 .hero-cards-container {
     z-index: 2;
-    max-width: 1200px; /* Largura máxima para desktop */
+    max-width: 1200px;
     width: 100%;
-    margin-bottom: 50px; /* Espaçamento abaixo dos cards */
-    padding: 0 15px; /* Padding horizontal para evitar que os cards toquem as bordas */
+    margin-bottom: 50px;
+    padding: 0 15px;
 }
 
 .hero-card-link {
@@ -76,7 +127,7 @@ html, body {
 
 .hero-card {
     position: relative;
-    height: 180px; /* Altura base para desktop */
+    height: 180px;
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 15px;
@@ -91,7 +142,6 @@ html, body {
     transition: all 0.4s ease-in-out;
 }
 
-/* Styles for the image inside the hero card */
 .hero-card-image {
     width: 100%;
     height: 50%;
@@ -100,7 +150,6 @@ html, body {
     border-top-right-radius: 15px;
 }
 
-/* Styles for the text content inside the hero card */
 .hero-card-text-content {
     padding: 10px;
     flex-grow: 1;
@@ -153,7 +202,7 @@ html, body {
     z-index: 2;
     width: 90%;
     max-width: 900px;
-    margin-top: -50px; /* Ajuste para aproximar do cards */
+    margin-top: -50px;
     backdrop-filter: blur(5px);
 }
 
@@ -164,9 +213,11 @@ html, body {
     border-radius: 8px;
     padding: 10px 15px;
 }
+
 .filter-bar .form-control::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
+
 .filter-bar .form-control:focus {
     background-color: rgba(0, 0, 0, 0.9);
     border-color: #05FC04;
@@ -183,6 +234,7 @@ html, body {
     border-radius: 8px;
     padding: 12px 25px;
 }
+
 .filter-bar .btn-primary:hover {
     background-color: #04D803;
     border-color: #04D803;
@@ -215,7 +267,7 @@ html, body {
 }
 
 /* ========================================= */
-/* FEATURED VEHICLES - INFINITE CAROUSEL */
+/* FEATURED VEHICLES - CARROSSEL MELHORADO */
 /* ========================================= */
 
 .featured-vehicles-section {
@@ -224,41 +276,37 @@ html, body {
     overflow: hidden;
 }
 
-/* Wrapper do carrossel */
 .featured-carousel-wrapper {
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* ESCONDE o excesso */
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     margin: 0 auto;
-    max-width: 100%;
+    max-width: 1400px; /* LARGURA MÁXIMA para controlar quantos carros aparecem */
 }
 
-/* Container interno do carrossel */
 .featured-carousel-inner {
     display: flex;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
 }
 
-/* Cada item do carrossel */
+/* Cada item do carrossel - TAMANHO AJUSTADO */
 .featured-car-item {
     flex: 0 0 auto;
-    width: 350px;
-    margin-right: 30px;
-    opacity: 0.7;
-    transform: scale(0.9);
+    width: 320px; /* LARGURA FIXA para caber 4 no desktop */
+    margin-right: 20px; /* MENOS ESPAÇAMENTO */
+    opacity: 0.8;
+    transform: scale(0.95);
     transition: all 0.5s ease;
 }
 
-/* Item ativo (central) */
 .featured-car-item.active {
     opacity: 1;
     transform: scale(1);
     z-index: 2;
 }
 
-/* Card do carro */
 .featured-car-card {
     background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
     border: 1px solid #333333;
@@ -277,7 +325,6 @@ html, body {
     border-color: #05FC04;
 }
 
-/* Imagem do carro */
 .car-image-wrapper {
     position: relative;
     height: 200px;
@@ -307,7 +354,6 @@ html, body {
     font-weight: bold;
 }
 
-/* Conteúdo do card */
 .car-content {
     padding: 20px;
     flex: 1;
@@ -360,22 +406,23 @@ html, body {
     text-decoration: none;
 }
 
-/* Controles de navegação - AJUSTADOS */
-.carousel-controls {
+/* ==========================================
+   CAROUSEL BUTTON - POSIÇÃO CORRIGIDA
+   ========================================== */
+
+.carousel-next {
     position: absolute;
+    right: -60px; /* POSICIONADO FORA à direita */
     top: 50%;
     transform: translateY(-50%);
-    z-index: 10;
-}
-
-.carousel-control {
+    z-index: 100;
     background: linear-gradient(45deg, #05FC04, #04D803);
     border: none;
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     color: #000000;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(5, 252, 4, 0.3);
@@ -384,78 +431,15 @@ html, body {
     justify-content: center;
 }
 
-.carousel-control:hover {
+.carousel-next:hover {
     background: linear-gradient(45deg, #04D803, #03C602);
-    transform: scale(1.1);
+    transform: translateY(-50%) scale(1.1);
     box-shadow: 0 6px 20px rgba(5, 252, 4, 0.5);
 }
 
-/* AJUSTE: Posicionamento das setas para não atrapalhar a visão */
-.carousel-control.prev {
-    left: -80px; /* Mais afastado para não atrapalhar */
-}
-
-.carousel-control.next {
-    right: -80px; /* Mais afastado para não atrapalhar */
-}
-
-/* Media queries para ajustar em telas menores */
-@media (max-width: 1200px) {
-    .carousel-control.prev {
-        left: -60px;
-    }
-    
-    .carousel-control.next {
-        right: -60px;
-    }
-}
-
-@media (max-width: 992px) {
-    .carousel-control {
-        width: 45px;
-        height: 45px;
-        font-size: 1.1rem;
-    }
-    
-    .carousel-control.prev {
-        left: -50px;
-    }
-    
-    .carousel-control.next {
-        right: -50px;
-    }
-}
-
-@media (max-width: 768px) {
-    .carousel-control {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-    }
-    
-    .carousel-control.prev {
-        left: -45px;
-    }
-    
-    .carousel-control.next {
-        right: -45px;
-    }
-}
-
-@media (max-width: 576px) {
-    .carousel-control {
-        width: 35px;
-        height: 35px;
-        font-size: 0.9rem;
-    }
-    
-    .carousel-control.prev {
-        left: -40px;
-    }
-    
-    .carousel-control.next {
-        right: -40px;
-    }
+.carousel-next:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(5, 252, 4, 0.4);
 }
 
 /* Indicadores */
@@ -510,55 +494,8 @@ html, body {
 }
 
 /* ========================================= */
-/* LEGACY FEATURED VEHICLES STYLES - REMOVIDO */
+/* OTHER SECTIONS */
 /* ========================================= */
-
-/* Inventory Card (Featured Vehicles) */
-.inventory-card .card {
-    background-color: #1a1a1a;
-    border: 1px solid #333333;
-    color: #ffffff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 10px;
-}
-.inventory-card .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(5, 252, 4, 0.15);
-}
-.inventory-card .card-img-top {
-    height: 250px; /* Altura base para desktop */
-    object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-.inventory-card .card-body {
-    padding: 25px;
-}
-.inventory-card .card-title {
-    color: #05FC04;
-    font-weight: bold;
-    font-size: 1.6rem;
-}
-.inventory-card .card-text.text-muted {
-    color: rgba(255, 255, 255, 0.7) !important;
-}
-.inventory-card .card-text.price {
-    color: #05FC04;
-    font-size: 1.8rem;
-}
-.inventory-card .btn-primary {
-    background-color: #05FC04;
-    border-color: #05FC04;
-    color: #000000;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-.inventory-card .btn-primary:hover {
-    background-color: #04D803;
-    border-color: #04D803;
-    color: #ffffff;
-}
 
 /* Scroll Reveal Effects */
 .fade-in-up {
@@ -566,17 +503,19 @@ html, body {
     transform: translateY(20px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
+
 .fade-in-up.revealed {
     opacity: 1;
     transform: translateY(0);
 }
+
 .delay-1 { transition-delay: 0.1s; }
 .delay-2 { transition-delay: 0.2s; }
 .delay-3 { transition-delay: 0.3s; }
 .delay-4 { transition-delay: 0.4s; }
 .delay-5 { transition-delay: 0.5s; }
 
-/* About Us Section */
+/* About Us Section - TEXTOS MAIS NÍTIDOS */
 #about-us {
     position: relative;
     background-color: #0a0a0a;
@@ -602,70 +541,102 @@ html, body {
 #about-us .content-wrapper {
     position: relative;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.8);
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 #about-us .lead, #about-us p {
-    color: rgba(255, 255, 255, 0.9);
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    font-weight: 500;
+    line-height: 1.8;
 }
+
+#about-us .section-title {
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+}
+
 #about-us .btn-outline-primary {
     border-color: #05FC04;
     color: #05FC04;
     transition: background-color 0.3s ease, color 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
+
 #about-us .btn-outline-primary:hover {
     background-color: #05FC04;
     color: #000000;
 }
 
-/* Testimonials Section */
+/* Testimonials Section - TEXTOS MAIS NÍTIDOS */
 #testimonials {
     background-color: #0a0a0a;
     padding: 80px 0;
 }
+
 #testimonials .blockquote {
     border-left: 5px solid #05FC04;
     padding-left: 20px;
     margin-bottom: 30px;
 }
+
 #testimonials .blockquote p {
     font-style: italic;
     font-size: 1.3rem;
-    color: rgba(255, 255, 255, 0.9);
-}
-#testimonials .blockquote-footer {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 1rem;
-}
-#testimonials .blockquote-footer cite {
-    color: #05FC04;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: 500;
 }
 
-/* Contact Info Section */
+#testimonials .blockquote-footer {
+    color: #ffffff;
+    font-size: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    font-weight: 500;
+}
+
+#testimonials .blockquote-footer cite {
+    color: #05FC04;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+#testimonials .section-title {
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+}
+
+/* Contact Info Section - TEXTOS MAIS NÍTIDOS */
 #contact-info {
     background-color: #1a1a1a;
     padding: 60px 0;
     text-align: center;
 }
+
 #contact-info h3 {
     color: #05FC04;
     font-size: 2.2rem;
     margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
+
 #contact-info p {
     font-size: 1.1rem;
     margin-bottom: 10px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    font-weight: 500;
 }
+
 #contact-info .contact-detail {
     margin-bottom: 20px;
 }
+
 .contact-detail i {
     color: #05FC04;
     margin-right: 10px;
     font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 /* Floating Message Button */
@@ -688,6 +659,7 @@ html, body {
     transition: all 0.3s ease;
     border: none;
 }
+
 .floating-message-btn:hover {
     background-color: #04D803;
     transform: translateY(-3px);
@@ -701,325 +673,196 @@ html, body {
     border: 1px solid #333333;
     border-radius: 10px;
 }
+
 .modal-header {
     border-bottom: 1px solid #333333;
 }
+
 .modal-title {
     color: #05FC04;
 }
+
 .modal-footer {
     border-top: 1px solid #333333;
 }
+
 .modal-body .form-control {
     background-color: #0d0d0d;
     color: #ffffff;
     border: 1px solid #05FC04;
 }
+
 .modal-body .form-control:focus {
     border-color: #05FC04;
     box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
     background-color: #000000;
     color: #ffffff;
 }
+
 .modal-body .form-control::placeholder {
     color: rgba(255, 255, 255, 0.5);
 }
+
 .modal-footer .btn-primary {
     background-color: #05FC04;
     border-color: #05FC04;
     color: #000000;
 }
+
 .modal-footer .btn-primary:hover {
     background-color: #04D803;
     border-color: #04D803;
     color: #ffffff;
 }
+
 .modal-footer .btn-secondary {
     background-color: #333333;
     border-color: #333333;
     color: #ffffff;
 }
+
 .modal-footer .btn-secondary:hover {
     background-color: #555555;
     border-color: #555555;
 }
 
-/* ========================================= */
-/* RESPONSIVE DESIGN - INFINITE CAROUSEL */
-/* ========================================= */
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
 
-/* Adjustments for smaller desktops/laptops */
-@media (max-width: 1200px) {
-    .hero-overlay {
-        padding-top: 400px; /* Adjusted to move content up */
+/* ==========================================
+   RESPONSIVE DESIGN - CARROSSEL OTIMIZADO
+   ========================================== */
+
+/* Desktop Grande (1400px+) - 4 carros visíveis */
+@media (min-width: 1400px) {
+    .featured-carousel-wrapper {
+        max-width: 1400px;
     }
-    .filter-bar {
-        padding: 25px 30px; /* Slightly less padding for filter bar */
-    }
-    .hero-card {
-        height: 160px; /* Slightly smaller card height */
-    }
-    .hero-card h3 {
-        font-size: 1.4rem;
-    }
-    .hero-card p {
-        font-size: 0.85rem;
-    }
-    
-    /* Featured Vehicles Carousel */
     .featured-car-item {
-        width: 320px;
-        margin-right: 25px;
+        width: 320px; /* 4 carros + margens = ~1400px */
     }
-    
-    .section-title {
-        font-size: 2.5rem;
-    }
-    
-    .inventory-card .card-img-top {
-        height: 200px; /* Adjust image height for featured cars */
-    }
-    .inventory-card .card-title {
-        font-size: 1.5rem;
-    }
-    .inventory-card .card-text.price {
-        font-size: 1.7rem;
+    .carousel-next {
+        right: -80px;
     }
 }
 
-/* Tablets and smaller desktops (Bootstrap 'lg' breakpoint) */
-@media (max-width: 992px) {
-    .hero-overlay {
-        padding-top: 280px; /* More aggressive padding adjustment for tablets */
+/* Desktop Padrão (1200px-1399px) - 4 carros visíveis */
+@media (max-width: 1399px) and (min-width: 1200px) {
+    .featured-carousel-wrapper {
+        max-width: 1200px;
     }
-    .hero-cards-container {
-        margin-bottom: 30px; /* Less space below cards on smaller screens */
+    .featured-car-item {
+        width: 280px; /* 4 carros menores */
+        margin-right: 15px;
     }
-    .filter-bar {
-        padding: 20px 25px; /* Further reduced padding for filter bar */
-    }
-    .hero-card {
-        height: 140px; /* Smaller card height */
-    }
-    .hero-card h3 {
+    .carousel-next {
+        right: -70px;
+        width: 50px;
+        height: 50px;
         font-size: 1.2rem;
     }
-    .hero-card p {
-        font-size: 0.8rem;
+}
+
+/* Laptop/Tablet Grande (992px-1199px) - 3 carros visíveis */
+@media (max-width: 1199px) and (min-width: 992px) {
+    .featured-carousel-wrapper {
+        max-width: 900px;
     }
-    .section-title {
-        font-size: 2.2rem; /* Smaller title for sections */
-        margin-bottom: 40px;
-    }
-    #testimonials, #contact-info, #financing-cta {
-        padding: 60px 0; /* Reduced padding for sections */
-    }
-    
-    /* Featured Vehicles Carousel */
     .featured-car-item {
-        width: 280px;
-        margin-right: 20px;
+        width: 280px; /* 3 carros */
+        margin-right: 15px;
     }
-    
-    .featured-car-card {
-        height: 380px;
-    }
-    
-    .carousel-control {
+    .carousel-next {
+        right: -60px;
         width: 45px;
         height: 45px;
         font-size: 1.1rem;
     }
-    
-    .inventory-card .card-img-top {
-        height: 160px; /* Adjust image height for featured cars */
-    }
-    .inventory-card .card-title {
-        font-size: 1.3rem;
-    }
-    .inventory-card .card-text.price {
-        font-size: 1.5rem;
-    }
 }
 
-/* Small devices (Bootstrap 'md' breakpoint) */
-@media (max-width: 768px) {
-    .hero-overlay {
-        padding-top: 180px; /* Further adjustment for phones */
+/* Tablet (768px-991px) - 2 carros visíveis */
+@media (max-width: 991px) and (min-width: 768px) {
+    .featured-carousel-wrapper {
+        max-width: 600px;
     }
-    .hero-card {
-        height: 120px; /* Even smaller card height */
-    }
-    .hero-card h3 {
-        font-size: 1.1rem; /* Smaller font for card titles */
-    }
-    .hero-card p {
-        font-size: 0.75rem; /* Smaller font for card descriptions */
-    }
-    .filter-bar {
-        padding: 15px; /* Even less padding for filter bar */
-        margin-top: 0px; /* Bring filter bar closer */
-    }
-    .filter-bar .form-group {
-        margin-bottom: 10px; /* Space out form fields */
-    }
-    .filter-bar .btn-primary {
-        width: 100%; /* Full width button */
-    }
-    .section-title {
-        font-size: 2rem; /* Even smaller section titles */
-        margin-bottom: 30px;
-    }
-    #about-us .content-wrapper {
-        padding: 20px; /* Smaller padding for content wrapper */
-    }
-    #testimonials .blockquote p {
-        font-size: 1.1rem; /* Smaller testimonial font */
-    }
-    #contact-info p {
-        font-size: 1rem; /* Smaller contact info font */
-    }
-    .floating-message-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
-        bottom: 15px;
-        right: 15px;
-    }
-    
-    /* Featured Vehicles Carousel */
-    .featured-vehicles-section {
-        padding: 60px 0;
-    }
-    
     .featured-car-item {
-        width: 250px;
-        margin-right: 15px;
+        width: 280px; /* 2 carros */
+        margin-right: 20px;
     }
-    
     .featured-car-card {
-        height: 350px;
+        height: 380px;
     }
-    
-    .car-content {
-        padding: 15px;
-    }
-    
-    .car-title {
-        font-size: 1.2rem;
-    }
-    
-    .car-price {
-        font-size: 1.4rem;
-    }
-    
-    .carousel-control {
+    .carousel-next {
+        right: -50px;
         width: 40px;
         height: 40px;
         font-size: 1rem;
     }
-    
-    .carousel-control.prev {
-        left: -20px;
-    }
-    
-    .carousel-control.next {
-        right: -20px;
-    }
-    
-    .inventory-card .card-img-top {
-        height: 120px; /* Adjust image height for featured cars */
-    }
-    .inventory-card .card-title {
-        font-size: 1.1rem;
-    }
-    .inventory-card .card-text.price {
-        font-size: 1.3rem;
-    }
 }
 
-/* Extra small devices (Bootstrap 'sm' breakpoint) */
-@media (max-width: 576px) {
-    .hero-overlay {
-        padding-top: 120px; /* Final adjustment for very small phones */
+/* Mobile Grande (576px-767px) - 1 carro visível */
+@media (max-width: 767px) and (min-width: 576px) {
+    .featured-carousel-wrapper {
+        max-width: 350px;
     }
-    .hero-card {
-        height: 100px; /* Smallest card height */
-    }
-    .hero-card h3 {
-        font-size: 1rem;
-    }
-    .hero-card p {
-        font-size: 0.7rem;
-    }
-    .filter-bar {
-        padding: 10px; /* Smallest padding */
-    }
-    .filter-bar .form-control {
-        padding: 8px 10px;
-    }
-    .filter-bar .btn-primary {
-        padding: 10px 20px;
-    }
-    .section-title {
-        font-size: 1.8rem;
-    }
-    #testimonials .blockquote p {
-        font-size: 1rem;
-    }
-    #contact-info p {
-        font-size: 0.9rem;
-    }
-    
-    /* Featured Vehicles Carousel */
-    .container {
-        padding: 0 15px;
-    }
-    
     .featured-car-item {
-        width: 220px;
-        margin-right: 10px;
+        width: 320px; /* 1 carro */
+        margin-right: 15px;
     }
-    
     .featured-car-card {
-        height: 320px;
+        height: 360px;
     }
-    
-    .car-image-wrapper {
-        height: 150px;
-    }
-    
     .car-content {
-        padding: 12px;
+        padding: 15px;
     }
-    
     .car-title {
-        font-size: 1.1rem;
-    }
-    
-    .car-price {
         font-size: 1.2rem;
     }
-    
-    .view-details-btn {
-        padding: 10px 15px;
-        font-size: 0.9rem;
+    .car-price {
+        font-size: 1.4rem;
     }
-    
-    .carousel-control {
+    .carousel-next {
+        right: -45px;
         width: 35px;
         height: 35px;
         font-size: 0.9rem;
     }
-    
-    .inventory-card .card-img-top {
-        height: 100px; /* Smallest image height */
+}
+
+/* Mobile Pequeno (<576px) - 1 carro visível */
+@media (max-width: 575px) {
+    .featured-carousel-wrapper {
+        max-width: 300px;
     }
-    .inventory-card .card-title {
-        font-size: 1rem;
+    .featured-car-item {
+        width: 280px; /* 1 carro menor */
+        margin-right: 10px;
     }
-    .inventory-card .card-text.price {
+    .featured-car-card {
+        height: 340px;
+    }
+    .car-image-wrapper {
+        height: 160px;
+    }
+    .car-content {
+        padding: 12px;
+    }
+    .car-title {
         font-size: 1.1rem;
+    }
+    .car-price {
+        font-size: 1.2rem;
+    }
+    .view-details-btn {
+        padding: 8px 15px;
+        font-size: 0.8rem;
+    }
+    .carousel-next {
+        right: -40px;
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
     }
 }
 
@@ -1039,14 +882,7 @@ html, body {
     animation: fadeInUp 0.6s ease-out;
 }
 
-/* Additional responsive adjustments for home.css elements */
-@media (max-width: 1200px) {
-    .section-title::after {
-        width: 80px;
-        height: 3px;
-    }
-}
-
+/* Additional responsive adjustments */
 @media (max-width: 768px) {
     .section-title::after {
         width: 60px;

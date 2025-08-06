@@ -1,16 +1,36 @@
 <!-- This file will be rendered inside the {{{body}}} of the layout.hbs -->
 
-<!-- All CSS styles for this page are now located in public/css/home.css -->
-
-<!-- Hero Section with Image and Filters -->
+<!-- Hero Section with Video Background -->
 <section class="hero-section">
-    <!-- Replaced video with image -->
-    <img src="/images/capa.png" alt="KINGS AUTOHAUS Background" class="hero-image">
+    <!-- Video de fundo -->
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="/images/tesla.mp4" type="video/mp4">
+        <!-- Fallback para browsers que não suportam MP4 -->
+        <img src="/images/capa.png" alt="KINGS AUTOHAUS Background" class="hero-image">
+    </video>
+    
+    <!-- Logo centralizada sobre o vídeo -->
+    <div class="hero-logo-container">
+        <img src="/images/kings_autohaus_logo.jpeg" alt="Kings Autohaus Logo" class="hero-logo">
+    </div>
+    
+    <!-- Controle de áudio do vídeo -->
+    <button class="video-audio-control" id="audioToggle" aria-label="Toggle Audio">
+        <i class="fas fa-volume-mute"></i>
+    </button>
+    
     <div class="hero-overlay">
-        <!-- New Hero Cards Container (with images and text) -->
+        <!-- Conteúdo inicial vazio - apenas o vídeo -->
+    </div>
+</section>
+
+<!-- Cards e Filtros movidos para abaixo da seção inicial - CENTRALIZADOS -->
+<section class="hero-cards-filter-section fade-in-up">
+    <div class="container">
+        <!-- Hero Cards Container (with images and text) - CENTRALIZADO -->
         <div class="hero-cards-container row justify-content-center align-items-stretch mb-5">
             <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
-                <a href="/financing" class="hero-card-link fade-in-up"> <!-- Link updated to /financing -->
+                <a href="/financing" class="hero-card-link fade-in-up">
                     <div class="hero-card">
                         <img src="/images/approved.jpg" alt="Get Approved" class="hero-card-image">
                         <div class="hero-card-text-content">
@@ -44,32 +64,37 @@
             </div>
         </div>
 
-        <div class="filter-bar fade-in-up delay-3"> <!-- Adjusted delay -->
-            <form action="/gas" method="GET" class="form-row align-items-center justify-content-center">
-                <div class="form-group col-md-4 col-sm-12 mb-md-0">
-                    <label for="makeFilter" class="sr-only">Make</label>
-                    <select class="form-control form-control-lg" id="makeFilter" name="make">
-                        <option value="">Make</option>
-                        {{#each carBrands}}
-                            <option value="{{this.name}}">{{this.name}} ({{this.count}})</option>
-                        {{/each}}
-                    </select>
+        <!-- FILTRO CENTRALIZADO -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                <div class="filter-bar fade-in-up delay-3">
+                    <form action="/gas" method="GET" class="form-row align-items-center justify-content-center">
+                        <div class="form-group col-md-4 col-sm-12 mb-md-0">
+                            <label for="makeFilter" class="sr-only">Make</label>
+                            <select class="form-control form-control-lg" id="makeFilter" name="make">
+                                <option value="">Make</option>
+                                {{#each carBrands}}
+                                    <option value="{{this.name}}">{{this.name}} ({{this.count}})</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12 mb-md-0">
+                            <label for="modelFilter" class="sr-only">Model</label>
+                            <select class="form-control form-control-lg" id="modelFilter" name="model" disabled>
+                                <option value="">Model</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12 mb-0">
+                            <button type="submit" class="btn btn-primary btn-lg">Search Cars</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group col-md-4 col-sm-12 mb-md-0">
-                    <label for="modelFilter" class="sr-only">Model</label>
-                    <select class="form-control form-control-lg" id="modelFilter" name="model" disabled>
-                        <option value="">Model</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-4 col-sm-12 mb-0">
-                    <button type="submit" class="btn btn-primary btn-lg">Search Cars</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Featured Vehicles Section - NOVO CARROSSEL INFINITO -->
+<!-- Featured Vehicles Section - CARROSSEL COM BOTÃO CORRIGIDO -->
 <section id="featured-vehicles" class="featured-vehicles-section fade-in-up delay-4">
     <div class="container">
         <h2 class="section-title">Featured Vehicles</h2>
@@ -100,17 +125,10 @@
                 {{/each}}
             </div>
 
-            <!-- Controles de navegação -->
-            <div class="carousel-controls">
-                <button class="carousel-control prev" onclick="moveCarousel(-1)" aria-label="Previous">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-            </div>
-            <div class="carousel-controls">
-                <button class="carousel-control next" onclick="moveCarousel(1)" aria-label="Next">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
+            <!-- Controle de navegação - BOTÃO DIREITO CORRIGIDO -->
+            <button class="carousel-next" onclick="moveCarousel(1)" aria-label="Next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
 
         <!-- Indicadores -->
@@ -126,16 +144,15 @@
 </section>
 
 <!-- About Us Section -->
-<section id="about-us" class="fade-in-up delay-5"> <!-- Adjusted delay -->
-    <div class="background-image-overlay"></div> <!-- New div for background image -->
+<section id="about-us" class="fade-in-up delay-5">
+    <div class="background-image-overlay"></div>
     <div class="container content-wrapper">
         <h2 class="section-title text-center">About KINGS AUTOHAUS</h2>
         <div class="row align-items-center">
-            <div class="col-md-12"> <!-- Changed to col-md-12 as image is now background -->
+            <div class="col-md-12">
                 <p class="lead">Welcome to KINGS AUTOHAUS, your trusted dealership for luxury and high-performance cars. With years of experience in the market, we are dedicated to offering an impeccable selection of vehicles that combine elegance, technology, and performance.</p>
                 <p>Our mission is to provide an exceptional buying experience, with personalized and transparent service. We believe that finding your dream car should be an exciting and straightforward journey.</p>
             </div>
-            <!-- Removed img tag as it's now a background -->
         </div>
         <div class="text-center mt-4">
             <a href="/about" class="btn btn-outline-primary btn-lg">Learn More About Us</a>
@@ -144,7 +161,7 @@
 </section>
 
 <!-- Testimonials Section -->
-<section id="testimonials" class="fade-in-up delay-5"> <!-- Adjusted delay -->
+<section id="testimonials" class="fade-in-up delay-5">
     <div class="container">
         <h2 class="section-title text-center text-white">What Our Customers Say</h2>
         <div class="row justify-content-center">
@@ -234,8 +251,28 @@
     </div>
 </div>
 
-<!-- JavaScript for dynamic Model filter and Infinite Carousel -->
+<!-- JavaScript for dynamic Model filter, Audio Control, and Infinite Carousel -->
 <script>
+    // Controle de áudio do vídeo
+    document.addEventListener('DOMContentLoaded', function() {
+        const audioToggle = document.getElementById('audioToggle');
+        const heroVideo = document.querySelector('.hero-video');
+        
+        if (audioToggle && heroVideo) {
+            audioToggle.addEventListener('click', function() {
+                if (heroVideo.muted) {
+                    heroVideo.muted = false;
+                    audioToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    audioToggle.setAttribute('aria-label', 'Mute Audio');
+                } else {
+                    heroVideo.muted = true;
+                    audioToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    audioToggle.setAttribute('aria-label', 'Unmute Audio');
+                }
+            });
+        }
+    });
+
     // Converts the JSON string of modelsByBrand back to a JavaScript object
     let modelsByBrand = {};
     try {
@@ -305,7 +342,7 @@
     });
 
 // ============================================
-// INFINITE CAROUSEL CLASS - TEMPO AJUSTADO PARA 2s
+// INFINITE CAROUSEL CLASS - CORRIGIDO
 // ============================================
 class InfiniteCarousel {
     constructor(selector) {
@@ -321,7 +358,7 @@ class InfiniteCarousel {
         this.totalItems = this.originalItems.length;
         this.isTransitioning = false;
         this.autoPlayInterval = null;
-        this.autoPlayDelay = 2000; // ALTERADO: de 4000ms para 2000ms (2 segundos)
+        this.autoPlayDelay = 2000; // 2 segundos
 
         if (this.totalItems > 0) {
             this.init();
@@ -339,32 +376,31 @@ class InfiniteCarousel {
     }
 
     calculateDimensions() {
-        // Calcula quantos itens são visíveis baseado na largura da tela
         const containerWidth = this.carousel.offsetWidth;
         const item = this.items[0];
         if (!item) return;
 
         this.itemWidth = item.offsetWidth + parseInt(window.getComputedStyle(item).marginRight);
-        this.visibleItems = Math.max(1, Math.floor(containerWidth / this.itemWidth));
         
-        // Ajusta para dispositivos móveis
-        if (window.innerWidth <= 576) {
-            this.visibleItems = 1;
-        } else if (window.innerWidth <= 768) {
-            this.visibleItems = Math.min(2, this.visibleItems);
-        } else if (window.innerWidth <= 992) {
-            this.visibleItems = Math.min(3, this.visibleItems);
+        // CONTROLE DE QUANTOS CARROS APARECEM POR TELA
+        if (window.innerWidth >= 1400) {
+            this.visibleItems = 4; // Desktop grande: 4 carros
+        } else if (window.innerWidth >= 1200) {
+            this.visibleItems = 4; // Desktop padrão: 4 carros
+        } else if (window.innerWidth >= 992) {
+            this.visibleItems = 3; // Laptop: 3 carros
+        } else if (window.innerWidth >= 768) {
+            this.visibleItems = 2; // Tablet: 2 carros
+        } else {
+            this.visibleItems = 1; // Mobile: 1 carro
         }
     }
 
     createClones() {
-        // Remove clones existentes
         this.carouselInner.innerHTML = '';
         
-        // Cria clones suficientes para o efeito infinito
         const clonesNeeded = Math.max(this.visibleItems, 3);
         
-        // Adiciona clones dos últimos itens no início
         for (let i = 0; i < clonesNeeded; i++) {
             const cloneIndex = this.totalItems - clonesNeeded + i;
             const clone = this.originalItems[cloneIndex].cloneNode(true);
@@ -372,20 +408,17 @@ class InfiniteCarousel {
             this.carouselInner.appendChild(clone);
         }
         
-        // Adiciona os itens originais
         this.originalItems.forEach(item => {
             const clone = item.cloneNode(true);
             this.carouselInner.appendChild(clone);
         });
         
-        // Adiciona clones dos primeiros itens no final
         for (let i = 0; i < clonesNeeded; i++) {
             const clone = this.originalItems[i].cloneNode(true);
             clone.classList.add('clone');
             this.carouselInner.appendChild(clone);
         }
         
-        // Atualiza a lista de itens
         this.items = Array.from(this.carouselInner.querySelectorAll('.featured-car-item'));
         this.clonesAtStart = clonesNeeded;
     }
@@ -414,16 +447,13 @@ class InfiniteCarousel {
     }
 
     updateActiveStates() {
-        // Remove active class de todos os itens
         this.items.forEach(item => item.classList.remove('active'));
         
-        // Adiciona active class ao item central
         const activeIndex = this.clonesAtStart + this.currentIndex;
         if (this.items[activeIndex]) {
             this.items[activeIndex].classList.add('active');
         }
         
-        // Atualiza indicadores
         if (this.indicators) {
             this.indicators.forEach((indicator, index) => {
                 indicator.classList.toggle('active', index === this.currentIndex);
@@ -480,7 +510,7 @@ class InfiniteCarousel {
         this.stopAutoPlay();
         this.autoPlayInterval = setInterval(() => {
             this.move(1);
-        }, this.autoPlayDelay); // Agora usa 2000ms (2 segundos)
+        }, this.autoPlayDelay);
     }
 
     stopAutoPlay() {
@@ -491,11 +521,9 @@ class InfiniteCarousel {
     }
 
     bindEvents() {
-        // Pause auto-play on hover
         this.carousel.addEventListener('mouseenter', () => this.stopAutoPlay());
         this.carousel.addEventListener('mouseleave', () => this.startAutoPlay());
         
-        // Touch events for mobile
         let startX = 0;
         let isDown = false;
         
@@ -519,16 +547,15 @@ class InfiniteCarousel {
             
             if (Math.abs(diffX) > 50) {
                 if (diffX > 0) {
-                    this.move(1); // Swipe left - next
+                    this.move(1);
                 } else {
-                    this.move(-1); // Swipe right - previous
+                    this.move(-1);
                 }
             }
             
             this.startAutoPlay();
         });
         
-        // Resize event
         window.addEventListener('resize', () => {
             clearTimeout(this.resizeTimeout);
             this.resizeTimeout = setTimeout(() => {
@@ -557,7 +584,6 @@ class InfiniteCarousel {
 
     // Inicializa o carrossel quando o DOM estiver pronto
     document.addEventListener('DOMContentLoaded', function() {
-        // Pequeno delay para garantir que todos os elementos estejam renderizados
         setTimeout(() => {
             window.featuredCarousel = new InfiniteCarousel('.featured-carousel-wrapper');
         }, 100);

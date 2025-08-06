@@ -1,4 +1,56 @@
-/* Global styles for HTML and Body to ensure full black background coverage */
+@media (max-width: 991.98px) { /* Tablets and smaller desktops */
+    #top-bar {
+        display: none; /* Hide top-bar on tablets and mobile */
+    }
+    #main-navbar {
+        top: 0; /* Navbar starts at the top */
+        padding: 15px 0; /* Padding menor para mobile */
+    }
+    #main-navbar .navbar-brand img {
+        height: 80px; /* Logo menor para mobile */
+        margin-bottom: 10px;
+    }
+    
+    /* Container ainda à esquerda no mobile */
+    #nav-container {
+        padding-left: 20px !important;
+    }
+    
+    /* Menu vira vertical no mobile mas ainda à esquerda */
+    .menu-horizontal {
+        flex-direction: column !important;
+        align-items: flex-start !important; /* À ESQUERDA no mobile */
+        padding: 15px 0;
+    }
+    .menu-horizontal .nav-item {
+        margin: 8px 0; /* Espaçamento vertical */
+    }
+    #main-navbar .nav-link {
+        font-size: 1.1rem;
+        padding: 8px 15px;
+    }
+    
+    /* Ensure nav items stack properly on mobile */
+    .navbar-collapse {
+        background-color: #000000;
+        border-top: 1px solid #1a1a1a;
+        padding: 15px;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 100%;
+        border-radius: 0 0 10px 10px;
+        justify-content: flex-start !important; /* À ESQUERDA */
+    }
+    
+    .back-to-top-btn {
+        bottom: 80px; /* Ajuste para mobile */
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+}/* Global styles for HTML and Body to ensure full black background coverage */
 html, body {
     height: 100%; /* Ensure HTML and Body take full viewport height */
     margin: 0; /* Remove default margins */
@@ -46,38 +98,84 @@ body {
     margin-left: 20px;
 }
 
-/* Styles for the main navigation bar */
+/* Styles for the main navigation bar - CABEÇALHO À ESQUERDA */
 #main-navbar {
     background-color: #000000; /* Absolute black navbar */
     border-bottom: 1px solid #1a1a1a; /* Subtle line to separate */
-    padding: 15px 0; /* Adjusted: Smaller padding for the navbar */
+    padding: 20px 0; /* PADDING para acomodar logo grande */
     transition: all 0.3s ease-in-out; /* Smooth transition for position scroll effect */
     position: fixed; /* Fix navbar to the top */
     width: 100%; /* Occupy full width */
-    top: 45px; /* Adjusted: Now starts below the top-bar again */
+    top: 45px; /* Starts below the top-bar */
     left: 0;
     z-index: 1030; /* Ensure navbar is above other elements */
+    display: block !important; /* FORÇAR DISPLAY */
+    visibility: visible !important; /* FORÇAR VISIBILIDADE */
 }
 
-/* UPDATED: Logo styles - fixed height */
+/* Logo GRANDE à esquerda */
+#main-navbar .navbar-brand {
+    margin-left: 0 !important; /* ALINHADO À ESQUERDA */
+    margin-right: auto; 
+}
+
 #main-navbar .navbar-brand img {
-    height: 50px; /* Adjusted: Smaller fixed height */
+    height: 120px; /* LOGO GRANDE */
     transition: none; /* Remove height transition */
-    filter: drop-shadow(0 1px 3px rgba(5, 252, 4, 0.2)); /* Subtle green glow */
+    filter: drop-shadow(0 2px 4px rgba(5, 252, 4, 0.3)); /* Green glow */
+    margin-bottom: 15px; /* Espaço entre logo e menu */
+}
+
+/* Container do navbar alinhado à esquerda */
+#nav-container {
+    text-align: left !important; /* ALINHAMENTO À ESQUERDA */
+    padding-left: 30px !important; /* PADDING à esquerda */
+}
+
+/* Navbar flex-column mas alinhado à esquerda */
+#main-navbar.flex-column {
+    align-items: flex-start !important; /* ITENS À ESQUERDA */
+}
+
+/* Menu horizontal embaixo da logo - À ESQUERDA */
+.menu-horizontal {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important; /* ALINHADO À ESQUERDA */
+    align-items: center;
+    width: auto !important; /* NÃO ocupar toda largura */
+    margin: 0;
+    padding: 0;
+}
+
+.menu-horizontal .nav-item {
+    margin: 0 25px 0 0; /* MARGIN apenas à direita */
+    display: flex;
+    align-items: center;
+}
+
+/* Navbar collapse à esquerda */
+.navbar-collapse {
+    justify-content: flex-start !important; /* À ESQUERDA */
 }
 
 /* Styles for navigation links */
 #main-navbar .nav-link {
     color: #ffffff !important; /* Navbar links white */
     font-weight: bold;
-    font-size: 1.05rem; /* Adjusted: Slightly smaller font for links */
+    font-size: 1.3rem; /* FONTE GRANDE */
     transition: color 0.3s ease;
-    padding-top: initial; /* Reverted padding for links */
-    padding-bottom: initial;
+    padding: 10px 15px; /* PADDING GENEROSO */
+    text-transform: uppercase; /* MAIÚSCULAS */
+    letter-spacing: 1px; /* ESPAÇAMENTO ENTRE LETRAS */
+    border-bottom: 3px solid transparent; /* BORDA INVISÍVEL para hover */
+    text-decoration: none;
 }
 
 #main-navbar .nav-link:hover {
     color: #05FC04 !important; /* Green hover effect for links */
+    border-bottom-color: #05FC04; /* BORDA VERDE no hover */
+    transform: translateY(-2px); /* LEVE ELEVAÇÃO no hover */
 }
 
 /* Adjust toggler icon color to be visible on black background */
@@ -85,91 +183,164 @@ body {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
 
-/* Styles for the navbar when the page is scrolled - NO SHRINKING */
+/* Estilos para esconder o cabeçalho no scroll - CORRIGIDO */
+#navigation {
+    transition: transform 0.3s ease-in-out;
+    display: block !important; /* FORÇAR DISPLAY */
+    visibility: visible !important; /* FORÇAR VISIBILIDADE */
+}
+
+#navigation.hidden {
+    transform: translateY(-100%);
+}
+
+/* GARANTIR QUE O TOP-BAR APAREÇA */
+#top-bar {
+    display: block !important; /* FORÇAR DISPLAY */
+    visibility: visible !important; /* FORÇAR VISIBILIDADE */
+}
+
+/* Botão "Voltar ao Topo" - Estilo elegante */
+.back-to-top-btn {
+    position: fixed;
+    bottom: 90px; /* ACIMA do botão de mensagem */
+    right: 20px;
+    background: linear-gradient(45deg, #05FC04, #04D803);
+    color: #000000;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(5, 252, 4, 0.4);
+    z-index: 1001; /* ACIMA do botão de mensagem */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.back-to-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top-btn:hover {
+    background: linear-gradient(45deg, #04D803, #03C602);
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 6px 20px rgba(5, 252, 4, 0.6);
+}
+
+/* Styles for the navbar when the page is scrolled */
 #main-navbar.scrolled {
-    padding: 15px 0; /* Maintain the same padding as unscrolled state */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow to highlight */
-    top: 0; /* Maintain top position */
+    padding: 20px 0; /* MANTÉM o mesmo padding */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    top: 0;
 }
 
 #main-navbar.scrolled .navbar-brand img {
-    height: 50px; /* Maintain the same height as unscrolled state */
+    height: 120px; /* MANTÉM o mesmo tamanho da logo */
 }
 
-/* Media queries for responsiveness */
-/* Adjusted breakpoints and values for smoother scaling */
+/* Media queries for responsiveness - AJUSTADAS PARA O NOVO DESIGN */
 @media (max-width: 1200px) { /* Large desktops / smaller laptops */
     #main-navbar .navbar-brand img {
-        height: 45px;
+        height: 100px; /* Logo um pouco menor */
+        margin-bottom: 12px;
     }
-    #main-navbar.scrolled .navbar-brand img {
-        height: 45px;
+    .menu-horizontal .nav-item {
+        margin: 0 20px; /* Menos espaçamento */
     }
     #main-navbar .nav-link {
-        font-size: 1rem;
+        font-size: 1.2rem; /* Fonte um pouco menor */
     }
 }
 
-@media (max-width: 991.98px) { /* Tablets and smaller desktops (Bootstrap 'lg' breakpoint) */
+@media (max-width: 991.98px) { /* Tablets and smaller desktops */
     #top-bar {
         display: none; /* Hide top-bar on tablets and mobile */
     }
     #main-navbar {
         top: 0; /* Navbar starts at the top */
-        padding: 10px 0; /* Smaller padding for mobile/tablet */
+        padding: 15px 0; /* Padding menor para mobile */
     }
     #main-navbar .navbar-brand img {
-        height: 35px; /* Smaller logo for mobile/tablet */
+        height: 80px; /* Logo menor para mobile */
+        margin-bottom: 10px;
     }
-    #main-navbar.scrolled .navbar-brand img {
-        height: 35px; /* Consistent size when scrolled */
+    
+    /* Menu vira vertical no mobile */
+    .menu-horizontal {
+        flex-direction: column !important;
+        padding: 15px 0;
+    }
+    .menu-horizontal .nav-item {
+        margin: 8px 0; /* Espaçamento vertical */
     }
     #main-navbar .nav-link {
-        font-size: 1rem; /* Consistent font size */
+        font-size: 1.1rem;
+        padding: 8px 15px;
     }
+    
     /* Ensure nav items stack properly on mobile */
     .navbar-collapse {
-        background-color: #000000; /* Dark background for collapsed menu */
+        background-color: #000000;
         border-top: 1px solid #1a1a1a;
-        padding: 10px;
+        padding: 15px;
         position: absolute;
         width: 100%;
         left: 0;
-        top: 100%; /* Position below the navbar */
+        top: 100%;
+        border-radius: 0 0 10px 10px;
     }
-    .navbar-nav {
-        width: 100%;
-        text-align: center;
-    }
-    .navbar-nav .nav-item {
-        margin-left: 0 !important; /* Remove horizontal margin */
-        margin-bottom: 5px; /* Add vertical spacing */
-    }
-    .navbar-nav .nav-link {
-        padding: 8px 0; /* Adjust padding for stacked links */
+    
+    .back-to-top-btn {
+        bottom: 80px; /* Ajuste para mobile */
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
     }
 }
 
-@media (max-width: 767.98px) { /* Smaller tablets and large phones (Bootstrap 'md' breakpoint) */
+@media (max-width: 767.98px) { /* Smaller tablets and large phones */
     #main-navbar .navbar-brand img {
-        height: 30px; /* Even smaller logo for smaller screens */
+        height: 70px;
+        margin-bottom: 8px;
     }
-    #main-navbar.scrolled .navbar-brand img {
-        height: 30px;
+    .menu-horizontal .nav-item {
+        margin: 6px 0;
     }
     #main-navbar .nav-link {
-        font-size: 0.95rem; /* Slightly smaller font */
+        font-size: 1rem;
+        padding: 6px 12px;
+    }
+    
+    .back-to-top-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
     }
 }
 
-@media (max-width: 575.98px) { /* Extra small devices (Bootstrap 'sm' breakpoint) */
+@media (max-width: 575.98px) { /* Extra small devices */
     #main-navbar .navbar-brand img {
-        height: 25px; /* Smallest logo size */
+        height: 60px;
+        margin-bottom: 6px;
     }
-    #main-navbar.scrolled .navbar-brand img {
-        height: 25px;
+    .menu-horizontal .nav-item {
+        margin: 5px 0;
     }
     #main-navbar .nav-link {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+    }
+    
+    .back-to-top-btn {
+        width: 40px;
+        height: 40px;
         font-size: 0.9rem;
     }
 }
