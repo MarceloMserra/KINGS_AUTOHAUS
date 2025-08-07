@@ -1,26 +1,45 @@
-/* General Body Styles - Ensure full width and no horizontal overflow */
+/* General Body Styles - MÁXIMA RESPONSIVIDADE */
 body {
-    /* Removed overflow-x: hidden; to prevent cutting off content that might overflow */
     font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
         "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    /* Ensure no default margin/padding that could cause issues */
     margin: 0;
     padding: 0;
-    width: 100%; /* Ensure body takes full width */
-    overflow-x: hidden; /* Re-added to prevent horizontal scroll, but we'll manage content better */
+    width: 100%;
+    overflow-x: hidden; /* Previne scroll horizontal */
+    min-height: 100vh;
+    /* Suporte para viewport units em mobile */
+    min-height: calc(var(--vh, 1vh) * 100);
+}
+
+/* RESET para máxima compatibilidade */
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
 /* Images should always be responsive by default */
 img {
     max-width: 100%;
     height: auto;
-    display: block; /* Prevents extra space below images */
+    display: block;
+}
+
+/* Responsive images com lazy loading */
+img.lazy {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    transition: opacity 0.3s;
+}
+
+img.lazy.loaded {
+    opacity: 1;
 }
 
 /* General paragraph styling */
 p {
     line-height: 1.75;
+    word-wrap: break-word; /* Quebra palavras longas */
+    hyphens: auto; /* Hifenização automática */
 }
 
 /* Selection styles */
@@ -46,40 +65,49 @@ img::-moz-selection {
     background: 0 0;
 }
 
-/* General Button Styles */
+/* General Button Styles - RESPONSIVOS */
 .btn {
     font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
         "Segoe UI Symbol", "Noto Color Emoji";
     font-weight: 700;
-    border-radius: 8px; /* Added general rounded corners for buttons */
+    border-radius: 8px;
+    /* Área de toque mínima para mobile */
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all 0.3s ease;
 }
 
 .btn-xl {
-    font-size: 18px;
-    padding: 20px 40px;
+    font-size: clamp(16px, 4vw, 18px); /* Responsive font size */
+    padding: clamp(15px, 4vw, 20px) clamp(30px, 6vw, 40px);
 }
 
-/* Navigation - General styles for #navigation section */
+/* Navigation - General styles for #navigation section - RESPONSIVO */
 #navigation {
     background-color: #232425;
     padding: 0px;
-    font-size: 1.1rem;
-    width: 100%; /* Ensure it always takes full width */
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem); /* Responsive font */
+    width: 100%;
+    position: relative;
 }
 
 #nav-container {
-    padding: 0.7% 5%; /* Use percentage for fluid padding */
+    padding: clamp(0.5%, 2vw, 0.7%) clamp(3%, 6vw, 5%); /* Responsive padding */
 }
 
 .navbar-brand {
     font-family: 'Russo One', sans-serif !important;
-    font-size: 1.8rem !important;
+    font-size: clamp(1.4rem, 4vw, 1.8rem) !important; /* Responsive font */
 }
 
 .navbar-brand img {
-    height: 2rem; /* Base height for logo */
-    max-width: 100%; /* Ensure logo doesn't overflow */
+    height: clamp(1.5rem, 5vw, 2rem); /* Responsive logo height */
+    max-width: 100%;
 }
 
 .nav-catg {
@@ -87,6 +115,7 @@ img::-moz-selection {
     border: #eeeff1 solid;
     border-width: 1px;
     border-radius: 2rem;
+    transition: all 0.3s ease;
 }
 
 .nav-catg.active {
@@ -97,10 +126,10 @@ img::-moz-selection {
     background-color: #1d1b1b;
 }
 
-/* Filters Section - General styles for #filtering */
+/* Filters Section - RESPONSIVO */
 #filtering {
     background-color: #f2f4f7;
-    padding: 2% 5%; /* Use percentage for fluid padding */
+    padding: clamp(1%, 3vw, 2%) clamp(3%, 6vw, 5%); /* Responsive padding */
     border-bottom: #cacaca solid;
     border-width: 3px;
 }
@@ -116,43 +145,47 @@ img::-moz-selection {
 
 .dropdown-toggle {
     width: 100%;
-    margin: 1.5%;
+    margin: clamp(0.5%, 2vw, 1.5%);
 }
 
-/* Car Models Section - General styles for #carmodels */
+/* Car Models Section - RESPONSIVO */
 #carmodels {
-    padding: 1.5% 7%; /* Use percentage for fluid padding */
+    padding: clamp(1%, 3vw, 1.5%) clamp(5%, 8vw, 7%); /* Responsive padding */
     background-color: #f0f0f0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
 }
 
 .car-item {
     margin: auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
+    margin-top: clamp(1%, 3vw, 2%);
+    margin-bottom: clamp(2%, 5vw, 4%);
     border-radius: 15px;
     border: #cacaca solid;
     background-color: #fff;
     border-width: .25rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
 .car-item:hover {
     border: #777a80 solid;
     border-width: .25rem;
     box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
 }
 
 .modeltitle {
     font-family: 'Noto Sans JP', sans-serif;
     margin-top: 12px;
+    font-size: clamp(1.1rem, 3vw, 1.3rem); /* Responsive font */
 }
 
 .car-item img {
-    max-height: 100%; /* Ensure images scale down */
+    max-height: 100%;
     max-width: 100%;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: clamp(15px, 4vw, 20px);
+    margin-bottom: clamp(8px, 3vw, 10px);
+    border-radius: 8px; /* Bordas arredondadas */
 }
 
 .info-first {
@@ -160,44 +193,50 @@ img::-moz-selection {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    flex-wrap: wrap; /* Permite quebra em telas pequenas */
+    gap: 10px; /* Espaçamento entre items */
 }
 
 .first-specs {
     font-family: 'Ubuntu', sans-serif;
     font-weight: 500;
+    font-size: clamp(0.8rem, 2.5vw, 1rem); /* Responsive font */
 }
 
 .info-first-cards {
     text-align: center;
     margin: 0px auto;
+    flex: 1; /* Distribui igualmente */
+    min-width: 120px; /* Largura mínima */
 }
 
 .info-first-cards p {
     margin: 0;
+    word-break: break-word; /* Quebra palavras longas */
 }
 
 .info-second {
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 2.2vw, 0.9rem); /* Responsive font */
     color: #5c5e62;
-    margin-top: 3%;
-    margin-bottom: 3%;
+    margin-top: clamp(2%, 4vw, 3%);
+    margin-bottom: clamp(2%, 4vw, 3%);
 }
 
 .info-second-row {
-    margin-left: 3% !important;
+    margin-left: clamp(1%, 3vw, 3%) !important;
     margin-right: 0% !important;
     justify-content: space-around;
 }
 
 .info-second-row-gas {
-    margin-top: 5% !important;
-    margin-left: 2% !important;
+    margin-top: clamp(3%, 6vw, 5%) !important;
+    margin-left: clamp(1%, 3vw, 2%) !important;
     margin-right: 0% !important;
     justify-content: space-around;
 }
 
 .info-second-col {
-    margin-top: 2%;
+    margin-top: clamp(1%, 3vw, 2%);
     padding: 0 !important;
 }
 
@@ -207,7 +246,7 @@ img::-moz-selection {
 }
 
 .info-second-col-gas li {
-    margin-bottom: 6%;  
+    margin-bottom: clamp(4%, 7vw, 6%);
     list-style-type: none;
 }
 
@@ -219,92 +258,107 @@ img::-moz-selection {
 .info-third {
     font-family:'Quicksand', sans-serif;
     font-weight: 600;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px); /* Responsive font */
     text-align: justify;
     color: #5c5e62;
+    line-height: 1.6;
 }
 
 .model-buy {
-    margin: 24px;
-    margin-left: 15px;
+    margin: clamp(20px, 5vw, 24px);
+    margin-left: clamp(12px, 4vw, 15px);
 }
 
 .buyprice {
     text-align: center;
 }
 
-/* Buttons - Specific styles, ensure responsiveness */
+/* Buttons - RESPONSIVOS */
 #b1 {
-    height: 40px;
-    width: 130px;
+    height: clamp(35px, 8vw, 40px);
+    width: clamp(110px, 25vw, 130px);
     border-color: #171a20;
     background-color: white;
     color: #171a20;
     border-radius: 25px;
     border-width: 2.5px;
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+    transition: all 0.3s ease;
 }
 
 #b1:hover {
-    height: 40px;
-    width: 130px;
+    height: clamp(35px, 8vw, 40px);
+    width: clamp(110px, 25vw, 130px);
     border-color: #171a20;
     background-color: #171a20;
     color: white;
     border-radius: 25px;
     border-width: 2.5px;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* Media Queries for Responsiveness */
+/* MEDIA QUERIES PARA MÁXIMA RESPONSIVIDADE */
 
-/* Smallest screens (e.g., mobile portrait) */
-@media only screen and (max-width: 575.98px) { /* Bootstrap 'sm' breakpoint */
+/* Extra Small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
     #nav-container {
-        padding: 0.7% 2%; /* Reduced horizontal padding */
+        padding: 0.7% 2%;
     }
     .navbar-brand img {
-        height: 1.8rem; /* Slightly smaller logo */
+        height: 1.8rem;
     }
     .nav-catg {
-        margin-top: 3%; /* Reduced top margin */
-        padding: 0 0.8rem; /* Reduced padding */
+        margin-top: 3%;
+        padding: 0 0.8rem;
+        font-size: 0.85rem;
     }
     #filtering {
-        padding: 2% 3%; /* Reduced horizontal padding */
+        padding: 2% 3%;
     }
     #carmodels {
-        padding: 1.5% 3%; /* Reduced horizontal padding */
+        padding: 1.5% 3%;
     }
     .car-item {
-        margin-top: 3%; /* Adjusted margin */
+        margin-top: 3%;
         margin-bottom: 3%;
     }
     .modeltitle {
-        font-size: 1.2rem; /* Smaller font size */
+        font-size: 1.2rem;
     }
     .info-first-cards p {
-        font-size: 0.85rem; /* Smaller font size */
+        font-size: 0.85rem;
     }
     .info-second {
-        font-size: 0.8rem; /* Smaller font size */
+        font-size: 0.8rem;
     }
     .info-third {
-        font-size: 12px; /* Smaller font size */
+        font-size: 12px;
     }
     .model-buy {
-        margin: 15px; /* Reduced margin */
+        margin: 15px;
     }
     #b1 {
-        width: 100px; /* Smaller button width */
-        height: 35px; /* Smaller button height */
-        font-size: 0.9rem; /* Smaller font size */
+        width: 100px;
+        height: 35px;
+        font-size: 0.9rem;
     }
     .buybutton {
-        margin-top: 3%; /* Adjusted margin */
+        margin-top: 3%;
+    }
+    
+    /* Stack info cards vertically on very small screens */
+    .info-first {
+        flex-direction: column;
+    }
+    
+    .info-first-cards {
+        margin-bottom: 10px;
     }
 }
 
-/* Medium screens (e.g., mobile landscape, small tablets) */
-@media only screen and (min-width: 576px) and (max-width: 767.98px) { /* Bootstrap 'md' breakpoint */
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
     #nav-container {
         padding: 0.7% 3%;
     }
@@ -340,8 +394,8 @@ img::-moz-selection {
     }
 }
 
-/* Large screens (e.g., tablets, small laptops) */
-@media only screen and (min-width: 768px) and (max-width: 991.98px) { /* Bootstrap 'lg' breakpoint */
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
     #nav-container {
         padding: 0.7% 4%;
     }
@@ -377,28 +431,183 @@ img::-moz-selection {
     }
 }
 
-/* Larger screens (e.g., desktops) - base styles apply, but can be refined */
-@media only screen and (min-width: 992px) { /* Bootstrap 'xl' breakpoint and above */
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
     section {
-        padding: 150px 0; /* Example: adjust section padding for larger screens */
+        padding: clamp(100px, 15vw, 150px) 0;
     }
     #mainNav .navbar-nav .nav-item .nav-link {
         padding: 1.1em 1em !important;
     }
 }
 
-/* Specific overrides from home.css that might cause issues if not handled */
-/* Removed #myVideo and .content as they are specific to home.hbs and handled there */
-/* Removed #b1 and #l1 as they are specific to home.hbs and handled there */
-/* Removed #mainNav specific overrides as these are handled in layout.hbs */
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* Ultra wide screens (1400px and up) */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+    
+    .modeltitle {
+        font-size: 1.8rem;
+    }
+    
+    .info-first-cards p {
+        font-size: 1.1rem;
+    }
+}
 
 /* Ensure elements are contained and don't overflow */
 .row {
-    margin-left: -15px; /* Adjust negative margins from Bootstrap if causing overflow */
+    margin-left: -15px;
     margin-right: -15px;
 }
+
 .col, [class*="col-"] {
-    padding-left: 15px; /* Adjust padding if needed */
+    padding-left: 15px;
     padding-right: 15px;
+    word-wrap: break-word; /* Previne overflow de texto */
 }
 
+/* ACESSIBILIDADE E UX MELHORADAS */
+
+/* Focus styles para acessibilidade */
+.btn:focus,
+.nav-link:focus,
+.dropdown-toggle:focus {
+    outline: 2px solid #05FC04;
+    outline-offset: 2px;
+}
+
+/* Melhor contraste para usuarios com necessidades especiais */
+@media (prefers-contrast: high) {
+    .car-item {
+        border-width: 3px;
+    }
+    
+    .nav-link {
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
+    }
+}
+
+/* Redução de movimento para usuarios sensíveis */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .car-item {
+        background-color: #1a1a1a;
+        color: #ffffff;
+        border-color: #444444;
+    }
+    
+    #filtering {
+        background-color: #2a2a2a;
+    }
+}
+
+/* Print styles */
+@media print {
+    .nav-catg,
+    .btn,
+    .dropdown-toggle {
+        display: none !important;
+    }
+    
+    .car-item {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .car-item:hover {
+        transform: none; /* Remove hover effects on touch devices */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn {
+        min-height: 48px; /* Larger touch targets */
+        min-width: 48px;
+    }
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .navbar-brand img,
+    .car-item img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Container queries support (future-proofing) */
+@supports (container-type: inline-size) {
+    .car-item {
+        container-type: inline-size;
+    }
+    
+    @container (max-width: 300px) {
+        .modeltitle {
+            font-size: 1rem;
+        }
+        
+        .info-first-cards p {
+            font-size: 0.8rem;
+        }
+    }
+}
+
+/* Fallback para browsers antigos sem suporte a CSS Grid/Flexbox */
+@supports not (display: flex) {
+    .info-first {
+        display: table;
+        width: 100%;
+    }
+    
+    .info-first-cards {
+        display: table-cell;
+        vertical-align: top;
+    }
+}
+
+/* Scroll behavior smooth */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar para webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #05FC04;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #04D803;
+}

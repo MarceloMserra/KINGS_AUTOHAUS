@@ -1,56 +1,4 @@
-@media (max-width: 991.98px) { /* Tablets and smaller desktops */
-    #top-bar {
-        display: none; /* Hide top-bar on tablets and mobile */
-    }
-    #main-navbar {
-        top: 0; /* Navbar starts at the top */
-        padding: 15px 0; /* Padding menor para mobile */
-    }
-    #main-navbar .navbar-brand img {
-        height: 80px; /* Logo menor para mobile */
-        margin-bottom: 10px;
-    }
-    
-    /* Container ainda à esquerda no mobile */
-    #nav-container {
-        padding-left: 20px !important;
-    }
-    
-    /* Menu vira vertical no mobile mas ainda à esquerda */
-    .menu-horizontal {
-        flex-direction: column !important;
-        align-items: flex-start !important; /* À ESQUERDA no mobile */
-        padding: 15px 0;
-    }
-    .menu-horizontal .nav-item {
-        margin: 8px 0; /* Espaçamento vertical */
-    }
-    #main-navbar .nav-link {
-        font-size: 1.1rem;
-        padding: 8px 15px;
-    }
-    
-    /* Ensure nav items stack properly on mobile */
-    .navbar-collapse {
-        background-color: #000000;
-        border-top: 1px solid #1a1a1a;
-        padding: 15px;
-        position: absolute;
-        width: 100%;
-        left: 0;
-        top: 100%;
-        border-radius: 0 0 10px 10px;
-        justify-content: flex-start !important; /* À ESQUERDA */
-    }
-    
-    .back-to-top-btn {
-        bottom: 80px; /* Ajuste para mobile */
-        right: 15px;
-        width: 45px;
-        height: 45px;
-        font-size: 1.1rem;
-    }
-}/* Global styles for HTML and Body to ensure full black background coverage */
+/* Global styles for HTML and Body to ensure full black background coverage */
 html, body {
     height: 100%; /* Ensure HTML and Body take full viewport height */
     margin: 0; /* Remove default margins */
@@ -98,77 +46,87 @@ body {
     margin-left: 20px;
 }
 
-/* Styles for the main navigation bar - CABEÇALHO À ESQUERDA */
+/* Styles for the main navigation bar - LAYOUT VERTICAL À ESQUERDA */
 #main-navbar {
     background-color: #000000; /* Absolute black navbar */
     border-bottom: 1px solid #1a1a1a; /* Subtle line to separate */
-    padding: 20px 0; /* PADDING para acomodar logo grande */
+    padding: 15px 0; /* PADDING para acomodar layout vertical */
     transition: all 0.3s ease-in-out; /* Smooth transition for position scroll effect */
     position: fixed; /* Fix navbar to the top */
     width: 100%; /* Occupy full width */
     top: 45px; /* Starts below the top-bar */
     left: 0;
     z-index: 1030; /* Ensure navbar is above other elements */
-    display: block !important; /* FORÇAR DISPLAY */
-    visibility: visible !important; /* FORÇAR VISIBILIDADE */
+    display: flex !important; /* Usar flexbox para layout */
+    flex-direction: column; /* LAYOUT VERTICAL: logo em cima, menu embaixo */
+    align-items: flex-start; /* ALINHA TUDO À ESQUERDA */
 }
 
-/* Logo GRANDE à esquerda */
+/* Logo alinhada à esquerda no topo */
 #main-navbar .navbar-brand {
-    margin-left: 0 !important; /* ALINHADO À ESQUERDA */
-    margin-right: auto; 
+    margin: 0 !important; /* Remove todas as margens */
+    text-align: left; /* ALINHAMENTO À ESQUERDA */
+    margin-bottom: 10px !important; /* Espaço entre logo e menu */
+    margin-left: 30px !important; /* MARGEM À ESQUERDA para não colar na borda */
 }
 
 #main-navbar .navbar-brand img {
-    height: 120px; /* LOGO GRANDE */
+    height: 90px; /* LOGO GRANDE mantém o tamanho */
     transition: none; /* Remove height transition */
     filter: drop-shadow(0 2px 4px rgba(5, 252, 4, 0.3)); /* Green glow */
-    margin-bottom: 15px; /* Espaço entre logo e menu */
 }
 
 /* Container do navbar alinhado à esquerda */
 #nav-container {
-    text-align: left !important; /* ALINHAMENTO À ESQUERDA */
-    padding-left: 30px !important; /* PADDING à esquerda */
+    text-align: left !important; /* ALINHADO À ESQUERDA */
+    padding: 0 30px !important; /* PADDING lateral */
+    display: flex; /* Transforma em flex container */
+    flex-direction: column; /* Layout vertical */
+    align-items: flex-start; /* ALINHA TUDO À ESQUERDA */
+    width: 100%; /* Ocupa a largura total */
 }
 
-/* Navbar flex-column mas alinhado à esquerda */
-#main-navbar.flex-column {
-    align-items: flex-start !important; /* ITENS À ESQUERDA */
+/* Oculta o toggler em telas maiores, onde o menu não colapsa */
+.navbar-toggler {
+    display: none; /* Esconde o toggler por padrão em desktop */
 }
 
-/* Menu horizontal embaixo da logo - À ESQUERDA */
+/* Menu horizontal embaixo da logo - ALINHADO À ESQUERDA */
 .menu-horizontal {
     display: flex !important;
     flex-direction: row !important;
-    justify-content: flex-start !important; /* ALINHADO À ESQUERDA */
+    justify-content: flex-start !important; /* ALINHADO À ESQUERDA para harmonizar com a logo */
     align-items: center;
-    width: auto !important; /* NÃO ocupar toda largura */
+    width: auto !important; /* Largura automática baseada no conteúdo */
     margin: 0;
     padding: 0;
+    flex-wrap: wrap; /* Permite quebra de linha se necessário */
+    margin-left: 30px !important; /* MARGEM À ESQUERDA igual à logo */
 }
 
 .menu-horizontal .nav-item {
-    margin: 0 25px 0 0; /* MARGIN apenas à direita */
+    margin: 0 8px; /* MARGIN entre os itens do menu */
     display: flex;
     align-items: center;
 }
 
-/* Navbar collapse à esquerda */
+/* Navbar collapse - alinhado à esquerda */
 .navbar-collapse {
-    justify-content: flex-start !important; /* À ESQUERDA */
+    justify-content: flex-start !important; /* ALINHADO À ESQUERDA */
+    flex-grow: 0; /* Não cresce, mantém tamanho natural */
+    width: auto; /* Largura automática */
 }
 
-/* Styles for navigation links */
+/* Styles for navigation links - TAMANHO 50% MENOR */
 #main-navbar .nav-link {
     color: #ffffff !important; /* Navbar links white */
     font-weight: bold;
-    font-size: 1.3rem; /* FONTE GRANDE */
+    font-size: 0.55rem; /* 50% MENOR que 1.1rem */
     transition: color 0.3s ease;
-    padding: 10px 15px; /* PADDING GENEROSO */
+    padding: 6px 10px; /* PADDING mais compacto */
     text-transform: uppercase; /* MAIÚSCULAS */
-    letter-spacing: 1px; /* ESPAÇAMENTO ENTRE LETRAS */
-    border-bottom: 3px solid transparent; /* BORDA INVISÍVEL para hover */
+    letter-spacing: 0.6px; /* ESPAÇAMENTO ENTRE LETRAS reduzido */
+    border-bottom: 2px solid transparent; /* BORDA INVISÍVEL para hover */
     text-decoration: none;
 }
 
@@ -215,8 +173,8 @@ body {
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(5, 252, 4, 0.4);
     z-index: 1001; /* ACIMA do botão de mensagem */
-    opacity: 0;
-    visibility: hidden;
+    opacity: 0; /* Começa oculto */
+    visibility: hidden; /* Começa oculto */
     transform: translateY(20px);
     transition: all 0.3s ease;
 }
@@ -235,53 +193,119 @@ body {
 
 /* Styles for the navbar when the page is scrolled */
 #main-navbar.scrolled {
-    padding: 20px 0; /* MANTÉM o mesmo padding */
+    padding: 15px 0; /* MANTÉM o mesmo padding */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     top: 0;
 }
 
 #main-navbar.scrolled .navbar-brand img {
-    height: 120px; /* MANTÉM o mesmo tamanho da logo */
+    height: 90px; /* MANTÉM o mesmo tamanho da logo */
 }
 
-/* Media queries for responsiveness - AJUSTADAS PARA O NOVO DESIGN */
-@media (max-width: 1200px) { /* Large desktops / smaller laptops */
+/* Media queries for responsiveness - TOTALMENTE RESPONSIVO */
+@media (min-width: 992px) { /* Desktop e telas maiores */
+    .navbar-toggler {
+        display: none; /* Garante que o toggler esteja escondido em desktop */
+    }
+    .navbar-collapse {
+        display: flex !important; /* Garante que o menu esteja visível em desktop */
+        flex-basis: auto;
+    }
+}
+
+/* RESPONSIVIDADE COMPLETA - DESKTOP MENORES */
+@media (max-width: 1400px) and (min-width: 1201px) {
     #main-navbar .navbar-brand img {
-        height: 100px; /* Logo um pouco menor */
-        margin-bottom: 12px;
+        height: 85px; /* Logo ligeiramente menor */
+    }
+    #main-navbar .navbar-brand {
+        margin-left: 25px !important;
+    }
+    .menu-horizontal {
+        margin-left: 25px !important;
     }
     .menu-horizontal .nav-item {
-        margin: 0 20px; /* Menos espaçamento */
+        margin: 0 7px;
     }
     #main-navbar .nav-link {
-        font-size: 1.2rem; /* Fonte um pouco menor */
+        font-size: 0.53rem;
+        padding: 5px 9px;
     }
 }
 
+@media (max-width: 1200px) and (min-width: 992px) { /* Large desktops / smaller laptops */
+    #main-navbar .navbar-brand img {
+        height: 80px; /* Logo um pouco menor */
+    }
+    #main-navbar .navbar-brand {
+        margin-left: 20px !important;
+    }
+    .menu-horizontal {
+        margin-left: 20px !important;
+    }
+    .menu-horizontal .nav-item {
+        margin: 0 6px; /* Menos espaçamento */
+    }
+    #main-navbar .nav-link {
+        font-size: 0.5rem; /* 50% MENOR - proporcional */
+        padding: 5px 8px;
+    }
+}
+
+/* RESPONSIVIDADE COMPLETA - TABLETS E MOBILE */
 @media (max-width: 991.98px) { /* Tablets and smaller desktops */
     #top-bar {
         display: none; /* Hide top-bar on tablets and mobile */
     }
     #main-navbar {
         top: 0; /* Navbar starts at the top */
-        padding: 15px 0; /* Padding menor para mobile */
+        padding: 20px 0; /* Padding maior para mobile acomodar layout vertical */
+        flex-direction: column; /* Mantém layout vertical */
+        align-items: center; /* CENTRALIZA EM MOBILE para melhor UX */
+    }
+    #main-navbar .navbar-brand {
+        width: 100%; /* Logo ocupa a largura total */
+        text-align: center; /* CENTRALIZA a logo em mobile */
+        margin: 0 !important; /* Remove margens */
+        margin-bottom: 15px !important; /* Mais espaço entre logo e menu no mobile */
     }
     #main-navbar .navbar-brand img {
         height: 80px; /* Logo menor para mobile */
-        margin-bottom: 10px;
     }
     
-    /* Menu vira vertical no mobile */
+    /* Container centralizado no mobile */
+    #nav-container {
+        padding: 0 20px !important; /* Padding lateral reduzido */
+        justify-content: center; /* Centraliza tudo */
+        align-items: center; /* CENTRALIZA para mobile */
+        text-align: center !important;
+    }
+
+    .navbar-toggler {
+        display: block; /* Mostra o toggler em mobile */
+        position: absolute; /* Posiciona o toggler */
+        right: 20px;
+        top: 30px;
+        border: 1px solid #05FC04; /* Borda verde */
+        border-radius: 5px;
+        padding: 8px;
+    }
+    
+    /* Menu continua centralizado no mobile */
     .menu-horizontal {
         flex-direction: column !important;
+        align-items: center !important; /* CENTRALIZADO no mobile */
         padding: 15px 0;
+        width: 100%; /* Ocupa a largura total */
+        margin: 0 !important; /* Remove margem esquerda no mobile */
     }
     .menu-horizontal .nav-item {
-        margin: 8px 0; /* Espaçamento vertical */
+        margin: 5px 0; /* Espaçamento vertical */
     }
     #main-navbar .nav-link {
-        font-size: 1.1rem;
-        padding: 8px 15px;
+        font-size: 0.5rem; /* 50% MENOR - mantém proporção */
+        padding: 6px 12px; /* Padding maior para touch */
+        border-radius: 5px; /* Bordas arredondadas para mobile */
     }
     
     /* Ensure nav items stack properly on mobile */
@@ -294,6 +318,7 @@ body {
         left: 0;
         top: 100%;
         border-radius: 0 0 10px 10px;
+        justify-content: center !important; /* CENTRALIZADO */
     }
     
     .back-to-top-btn {
@@ -305,17 +330,18 @@ body {
     }
 }
 
-@media (max-width: 767.98px) { /* Smaller tablets and large phones */
+/* RESPONSIVIDADE - TABLETS MENORES */
+@media (max-width: 767.98px) and (min-width: 576px) {
     #main-navbar .navbar-brand img {
         height: 70px;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
     }
     .menu-horizontal .nav-item {
-        margin: 6px 0;
+        margin: 4px 0; /* Espaçamento vertical reduzido */
     }
     #main-navbar .nav-link {
-        font-size: 1rem;
-        padding: 6px 12px;
+        font-size: 0.48rem; /* Ainda menor para tablets pequenos */
+        padding: 5px 10px;
     }
     
     .back-to-top-btn {
@@ -325,22 +351,148 @@ body {
     }
 }
 
+/* RESPONSIVIDADE - MOBILE PEQUENO */
 @media (max-width: 575.98px) { /* Extra small devices */
+    #main-navbar {
+        padding: 15px 0; /* Padding menor para telas muito pequenas */
+    }
     #main-navbar .navbar-brand img {
-        height: 60px;
-        margin-bottom: 6px;
+        height: 60px; /* Logo ainda menor */
+        margin-bottom: 10px;
+    }
+    #nav-container {
+        padding: 0 15px !important; /* Padding ainda menor */
+    }
+    .navbar-toggler {
+        right: 15px; /* Mais próximo da borda */
+        top: 25px;
+        padding: 6px; /* Botão toggler menor */
     }
     .menu-horizontal .nav-item {
-        margin: 5px 0;
+        margin: 3px 0; /* Espaçamento vertical mínimo */
     }
     #main-navbar .nav-link {
-        font-size: 0.9rem;
-        padding: 5px 10px;
+        font-size: 0.45rem; /* O menor tamanho */
+        padding: 4px 8px; /* Padding mínimo mas ainda tocável */
     }
     
     .back-to-top-btn {
         width: 40px;
         height: 40px;
         font-size: 0.9rem;
+        bottom: 75px; /* Ajuste para não sobrepor outros elementos */
+        right: 10px;
+    }
+}
+
+/* RESPONSIVIDADE EXTRA - DISPOSITIVOS MUITO PEQUENOS */
+@media (max-width: 375px) {
+    #main-navbar .navbar-brand img {
+        height: 55px; /* Logo extra pequena para phones muito pequenos */
+    }
+    #main-navbar .nav-link {
+        font-size: 0.4rem; /* Font extra pequena mas ainda legível */
+        padding: 3px 6px;
+    }
+    #nav-container {
+        padding: 0 10px !important; /* Padding mínimo */
+    }
+}
+
+/* MELHORIAS PARA TOUCH E ACESSIBILIDADE */
+@media (max-width: 991.98px) {
+    /* Melhora a área de toque para dispositivos móveis */
+    #main-navbar .nav-link {
+        min-height: 44px; /* Área de toque mínima recomendada */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2px 0; /* Espaçamento entre links */
+    }
+    
+    /* Melhora o botão toggler para touch */
+    .navbar-toggler {
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* OTIMIZAÇÕES PARA PERFORMANCE EM MOBILE */
+@media (max-width: 991.98px) {
+    /* Reduz animações em dispositivos móveis para melhor performance */
+    #main-navbar .nav-link {
+        transition: color 0.2s ease; /* Transição mais rápida */
+    }
+    
+    .back-to-top-btn {
+        transition: all 0.2s ease; /* Transição mais rápida */
+    }
+}
+
+/* FALLBACK PARA DISPOSITIVOS MUITO ANTIGOS */
+@supports not (display: flex) {
+    #main-navbar {
+        display: block;
+        text-align: left;
+    }
+    
+    .menu-horizontal {
+        display: block;
+        text-align: left;
+    }
+    
+    .menu-horizontal .nav-item {
+        display: inline-block;
+    }
+}
+
+/* Melhorias para orientação landscape em tablets */
+@media (max-width: 1024px) and (orientation: landscape) {
+    #main-navbar .navbar-brand img {
+        height: 70px; /* Logo menor em landscape */
+    }
+    
+    #main-navbar {
+        padding: 10px 0; /* Padding reduzido */
+    }
+    
+    .menu-horizontal .nav-item {
+        margin: 0 5px; /* Espaçamento reduzido */
+    }
+}
+
+/* Otimizações para high-refresh rate displays */
+@media (min-resolution: 120dpi) {
+    #main-navbar .nav-link {
+        transition-duration: 0.1s; /* Transições mais rápidas em displays de alta taxa */
+    }
+}
+
+/* Support para modo escuro do sistema */
+@media (prefers-color-scheme: dark) {
+    #top-bar {
+        background-color: #0d0d0d;
+    }
+    
+    #main-navbar {
+        background-color: #000000;
+    }
+}
+
+/* Melhorias para usuários com motion sickness */
+@media (prefers-reduced-motion: reduce) {
+    #main-navbar .nav-link {
+        transition: none !important;
+    }
+    
+    .back-to-top-btn {
+        transition: none !important;
+    }
+    
+    #navigation {
+        transition: none !important;
     }
 }

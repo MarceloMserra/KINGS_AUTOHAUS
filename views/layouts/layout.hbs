@@ -58,10 +58,11 @@
         </div>
     </section>
 
-    <!-- Main Navbar - CABEÇALHO À ESQUERDA -->
+    <!-- Main Navbar -->
     <section id="navigation">
         <div class="container-fluid" id="nav-container">
-            <nav class="navbar navbar-expand-lg flex-column" id="main-navbar">
+            <!-- Removido flex-column daqui para permitir layout horizontal em desktop -->
+            <nav class="navbar navbar-expand-lg" id="main-navbar"> 
                 <!-- Logo GRANDE à esquerda -->
                 <a class="navbar-brand" href="/">
                     <img src="/images/kings_autohaus_logo.jpeg" alt="KINGS AUTOHAUS Logo">
@@ -104,7 +105,7 @@
     {{{body}}}
 
     <!-- Botão de voltar ao topo - SEMPRE VISÍVEL -->
-    <button id="backToTop" class="back-to-top-btn visible" onclick="scrollToTop()" aria-label="Back to Top">
+    <button id="backToTop" class="back-to-top-btn" onclick="scrollToTop()" aria-label="Back to Top">
         <i class="fas fa-chevron-up"></i>
     </button>
 
@@ -120,46 +121,86 @@
     <script src="/javascripts/gas_cars.js"></script>
 
     <script>
-        // JavaScript simplificado - SEM funcionalidade de esconder cabeçalho
         document.addEventListener('DOMContentLoaded', function() {
             const mainNavbar = document.getElementById('main-navbar');
+            const navigationSection = document.getElementById('navigation');
             const topBar = document.getElementById('top-bar');
+            const backToTopBtn = document.getElementById('backToTop');
             const body = document.body;
+            let lastScrollTop = 0; // Para rastrear a direção da rolagem
+            let isTopBarVisible = window.innerWidth >= 992; // Controla a visibilidade inicial da top-bar
 
+            // Função para ajustar o padding-top do body
             function adjustBodyPadding() {
                 let totalHeaderHeight = 0;
-                if (mainNavbar) {
-                    totalHeaderHeight += mainNavbar.offsetHeight;
+                if (navigationSection) {
+                    // Se a navegação está visível, adiciona sua altura
+                    if (!navigationSection.classList.contains('hidden')) {
+                         totalHeaderHeight += navigationSection.offsetHeight;
+                    }
                 }
-                if (topBar && window.getComputedStyle(topBar).display !== 'none') {
+                // Se a top-bar está visível, adiciona sua altura
+                if (topBar && isTopBarVisible) {
                     totalHeaderHeight += topBar.offsetHeight;
                 }
                 body.style.paddingTop = `${totalHeaderHeight}px`;
             }
 
-            // Call function once on load to set correct initial state
+            // Função para lidar com o scroll
+            function handleScroll() {
+                const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+
+                // Lógica para esconder/mostrar o cabeçalho principal
+                if (currentScrollTop > lastScrollTop && currentScrollTop > (mainNavbar.offsetHeight + (isTopBarVisible ? topBar.offsetHeight : 0))) {
+                    // Rolando para baixo e passou da altura do cabeçalho
+                    navigationSection.classList.add('hidden');
+                    backToTopBtn.classList.add('visible'); // Mostra o botão "Voltar ao Topo"
+                } else if (currentScrollTop < lastScrollTop || currentScrollTop < 50) {
+                    // Rolando para cima ou perto do topo
+                    navigationSection.classList.remove('hidden');
+                    if (currentScrollTop < 50) { // Esconde o botão se estiver no topo
+                         backToTopBtn.classList.remove('visible');
+                    }
+                }
+                lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // Evita valores negativos
+
+                adjustBodyPadding(); // Ajusta o padding do body a cada scroll
+            }
+
+            // Adiciona event listeners
+            window.addEventListener('scroll', handleScroll);
+
+            // Ajusta o padding e o estado inicial ao carregar a página
             window.addEventListener('load', function() {
                 adjustBodyPadding();
+                handleScroll(); // Define o estado inicial do navbar e botão "Voltar ao Topo"
             });
 
-            // Adjust body padding on window resize
+            // Ajusta o padding e a visibilidade da top-bar ao redimensionar a janela
             window.addEventListener('resize', function() {
-                if (window.innerWidth < 992) {
-                    if (topBar) topBar.style.display = 'none';
-                } else {
-                    if (topBar) topBar.style.display = 'block';
+                isTopBarVisible = window.innerWidth >= 992; // Reavalia a visibilidade da top-bar
+                if (topBar) {
+                    topBar.style.display = isTopBarVisible ? 'block' : 'none'; // Define display para top-bar
                 }
                 adjustBodyPadding();
+                handleScroll(); // Reajusta o estado do cabeçalho e botão
             });
-        });
 
-        // Função para voltar ao topo (caso seja usada)
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
+            // Função para voltar ao topo
+            window.scrollToTop = function() { // Tornar global para ser acessível via onclick
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            };
+
+            // Inicializa a visibilidade da top-bar e padding no carregamento inicial
+            if (topBar) {
+                topBar.style.display = isTopBarVisible ? 'block' : 'none';
+            }
+            adjustBodyPadding();
+            handleScroll(); // Executa uma vez para definir o estado inicial
+        });
     </script>
 </body>
 
