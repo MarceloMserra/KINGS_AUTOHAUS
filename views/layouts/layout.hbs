@@ -26,6 +26,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> <!-- Adicionado Inter -->
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -35,33 +36,9 @@
 
 <body>
 
-    <!-- Top Bar -->
-    <section id="top-bar" class="d-none d-lg-block">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-lg-6 text-left">
-                    <span class="contact-info">
-                        <i class="fas fa-map-marker-alt"></i> 1278 Washington St, Holliston MA 01746
-                    </span>
-                    <span class="contact-info">
-                        <i class="fas fa-phone"></i> +1 (774)523-7860
-                    </span>
-                </div>
-                <div class="col-lg-6 text-right">
-                    <div class="social-icons">
-                        <a href="https://www.facebook.com/kingsautohaus" target="_blank" class="mr-2"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=1278%20Washington%20St,%20Holliston%20MA%2001746" target="_blank" class="mr-2"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="https://www.instagram.com/kingsautous/" target="_blank" class="mr-2"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Main Navbar -->
     <section id="navigation">
         <div class="container-fluid" id="nav-container">
-            <!-- Removido flex-column daqui para permitir layout horizontal em desktop -->
             <nav class="navbar navbar-expand-lg" id="main-navbar"> 
                 <!-- Logo GRANDE à esquerda -->
                 <a class="navbar-brand" href="/">
@@ -74,7 +51,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
-                <!-- Menu embaixo da logo - À ESQUERDA -->
+                <!-- Menu e Informações de Contato/Redes Sociais -->
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav menu-horizontal">
                         <li class="nav-item">
@@ -97,6 +74,20 @@
                             </a>
                         </li>
                     </ul>
+                    <!-- Informações de Contato e Redes Sociais - MOVIDAS AQUI -->
+                    <div class="navbar-contact-info ml-auto d-flex align-items-center">
+                        <span class="contact-info">
+                            <i class="fas fa-map-marker-alt"></i> 1278 Washington St, Holliston MA 01746
+                        </span>
+                        <span class="contact-info mr-3">
+                            <i class="fas fa-phone"></i> +1 (774)523-7860
+                        </span>
+                        <div class="social-icons">
+                            <a href="https://www.facebook.com/kingsautohaus" target="_blank" class="mr-2"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=1278%20Washington%20St,%20Holliston%20MA%2001746" target="_blank" class="mr-2"><i class="fab fa-google-plus-g"></i></a>
+                            <a href="https://www.instagram.com/kingsautous/" target="_blank" class="mr-2"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -122,84 +113,87 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const mainNavbar = document.getElementById('main-navbar');
             const navigationSection = document.getElementById('navigation');
-            const topBar = document.getElementById('top-bar');
             const backToTopBtn = document.getElementById('backToTop');
             const body = document.body;
-            let lastScrollTop = 0; // Para rastrear a direção da rolagem
-            let isTopBarVisible = window.innerWidth >= 992; // Controla a visibilidade inicial da top-bar
+            let headerHeight = navigationSection.offsetHeight; // Altura inicial do cabeçalho
 
             // Função para ajustar o padding-top do body
             function adjustBodyPadding() {
-                let totalHeaderHeight = 0;
-                if (navigationSection) {
-                    // Se a navegação está visível, adiciona sua altura
-                    if (!navigationSection.classList.contains('hidden')) {
-                         totalHeaderHeight += navigationSection.offsetHeight;
-                    }
-                }
-                // Se a top-bar está visível, adiciona sua altura
-                if (topBar && isTopBarVisible) {
-                    totalHeaderHeight += topBar.offsetHeight;
-                }
-                body.style.paddingTop = `${totalHeaderHeight}px`;
+                // Ajusta o padding do body com base na altura do cabeçalho
+                // Isso evita que o conteúdo fique escondido sob o cabeçalho fixo
+                body.style.paddingTop = `${headerHeight}px`;
+            }
+
+            // Função para mostrar o cabeçalho
+            function showHeader() {
+                navigationSection.classList.remove('hidden');
+                navigationSection.style.pointerEvents = 'auto'; // Habilita interações
+            }
+
+            // Função para esconder o cabeçalho
+            function hideHeader() {
+                navigationSection.classList.add('hidden');
+                navigationSection.style.pointerEvents = 'none'; // Desabilita interações
             }
 
             // Função para lidar com o scroll
             function handleScroll() {
                 const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
-                // Lógica para esconder/mostrar o cabeçalho principal
-                if (currentScrollTop > lastScrollTop && currentScrollTop > (mainNavbar.offsetHeight + (isTopBarVisible ? topBar.offsetHeight : 0))) {
-                    // Rolando para baixo e passou da altura do cabeçalho
-                    navigationSection.classList.add('hidden');
+                if (currentScrollTop === 0) {
+                    // Se estiver no topo da página, o cabeçalho sempre aparece
+                    showHeader();
+                    backToTopBtn.classList.remove('visible'); // Esconde o botão "Voltar ao Topo"
+                } else {
+                    // Se não estiver no topo, o cabeçalho fica escondido por padrão
+                    hideHeader();
                     backToTopBtn.classList.add('visible'); // Mostra o botão "Voltar ao Topo"
-                } else if (currentScrollTop < lastScrollTop || currentScrollTop < 50) {
-                    // Rolando para cima ou perto do topo
-                    navigationSection.classList.remove('hidden');
-                    if (currentScrollTop < 50) { // Esconde o botão se estiver no topo
-                         backToTopBtn.classList.remove('visible');
-                    }
                 }
-                lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // Evita valores negativos
 
                 adjustBodyPadding(); // Ajusta o padding do body a cada scroll
             }
 
-            // Adiciona event listeners
+            // Event Listener para quando o mouse entra na área do cabeçalho
+            navigationSection.addEventListener('mouseenter', function() {
+                showHeader();
+            });
+
+            // Event Listener para quando o mouse sai da área do cabeçalho
+            navigationSection.addEventListener('mouseleave', function() {
+                // Esconde o cabeçalho apenas se não estiver no topo da página
+                if (window.scrollY > 0) {
+                    hideHeader();
+                }
+            });
+
+            // Adiciona event listeners de scroll
             window.addEventListener('scroll', handleScroll);
 
             // Ajusta o padding e o estado inicial ao carregar a página
             window.addEventListener('load', function() {
+                headerHeight = navigationSection.offsetHeight; // Recalcula a altura após o carregamento completo
                 adjustBodyPadding();
                 handleScroll(); // Define o estado inicial do navbar e botão "Voltar ao Topo"
             });
 
-            // Ajusta o padding e a visibilidade da top-bar ao redimensionar a janela
+            // Ajusta o padding ao redimensionar a janela
             window.addEventListener('resize', function() {
-                isTopBarVisible = window.innerWidth >= 992; // Reavalia a visibilidade da top-bar
-                if (topBar) {
-                    topBar.style.display = isTopBarVisible ? 'block' : 'none'; // Define display para top-bar
-                }
+                headerHeight = navigationSection.offsetHeight; // Recalcula a altura ao redimensionar
                 adjustBodyPadding();
                 handleScroll(); // Reajusta o estado do cabeçalho e botão
             });
 
             // Função para voltar ao topo
-            window.scrollToTop = function() { // Tornar global para ser acessível via onclick
+            window.scrollToTop = function() {
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
                 });
             };
 
-            // Inicializa a visibilidade da top-bar e padding no carregamento inicial
-            if (topBar) {
-                topBar.style.display = isTopBarVisible ? 'block' : 'none';
-            }
-            adjustBodyPadding();
-            handleScroll(); // Executa uma vez para definir o estado inicial
+            // Executa uma vez para definir o estado inicial
+            handleScroll();
         });
     </script>
 </body>

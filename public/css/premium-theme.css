@@ -5,6 +5,7 @@ html, body {
     padding: 0; /* Remove default padding */
     background-color: #000000; /* Absolute black background for both HTML and Body */
     color: #ffffff; /* Default text color for contrast */
+    font-family: 'Inter', sans-serif; /* Usando Inter como fonte principal */
 }
 
 body {
@@ -12,41 +13,7 @@ body {
     /* No need for background-color here as it's set on html and inherited/covered */
 }
 
-/* Styles for the top bar */
-#top-bar {
-    background-color: #1a1a1a; /* Background color for the top bar */
-    color: rgba(255, 255, 255, 0.8); /* Text color */
-    padding: 10px 0;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #333333;
-    position: fixed; /* Fix top-bar to the top */
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1040; /* Above main navbar */
-    transition: all 0.3s ease-in-out; /* Smooth transition */
-}
-
-#top-bar a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-#top-bar a:hover {
-    color: #05FC04; /* Green color on hover */
-}
-
-#top-bar .social-icons a {
-    margin-left: 15px;
-    font-size: 1.2rem;
-}
-
-#top-bar .contact-info span {
-    margin-left: 20px;
-}
-
-/* Styles for the main navigation bar - LAYOUT VERTICAL À ESQUERDA */
+/* Styles for the main navigation bar */
 #main-navbar {
     background-color: #000000; /* Absolute black navbar */
     border-bottom: 1px solid #1a1a1a; /* Subtle line to separate */
@@ -54,12 +21,15 @@ body {
     transition: all 0.3s ease-in-out; /* Smooth transition for position scroll effect */
     position: fixed; /* Fix navbar to the top */
     width: 100%; /* Occupy full width */
-    top: 45px; /* Starts below the top-bar */
+    top: 0; /* Agora começa no topo */
     left: 0;
     z-index: 1030; /* Ensure navbar is above other elements */
     display: flex !important; /* Usar flexbox para layout */
-    flex-direction: column; /* LAYOUT VERTICAL: logo em cima, menu embaixo */
+    flex-direction: column; /* LAYOUT VERTICAL: logo em cima, menu e contato embaixo */
     align-items: flex-start; /* ALINHA TUDO À ESQUERDA */
+    /* Adicionado para garantir que o cabeçalho ocupe o espaço mesmo quando "escondido" */
+    height: auto; /* Altura automática baseada no conteúdo */
+    min-height: 120px; /* Altura mínima para o hover funcionar bem */
 }
 
 /* Logo alinhada à esquerda no topo */
@@ -82,7 +52,7 @@ body {
     padding: 0 30px !important; /* PADDING lateral */
     display: flex; /* Transforma em flex container */
     flex-direction: column; /* Layout vertical */
-    align-items: flex-start; /* ALINHA TUDO À ESQUERDA */
+    align-items: flex-start; /* ALINHA TUDO NO CENTRO verticalmente */
     width: 100%; /* Ocupa a largura total */
 }
 
@@ -98,7 +68,7 @@ body {
     justify-content: flex-start !important; /* ALINHADO À ESQUERDA para harmonizar com a logo */
     align-items: center;
     width: auto !important; /* Largura automática baseada no conteúdo */
-    margin: 0;
+    margin: 0; /* Removido margin: 0 auto 0 30px; */
     padding: 0;
     flex-wrap: wrap; /* Permite quebra de linha se necessário */
     margin-left: 30px !important; /* MARGEM À ESQUERDA igual à logo */
@@ -112,9 +82,11 @@ body {
 
 /* Navbar collapse - alinhado à esquerda */
 .navbar-collapse {
-    justify-content: flex-start !important; /* ALINHADO À ESQUERDA */
-    flex-grow: 0; /* Não cresce, mantém tamanho natural */
-    width: auto; /* Largura automática */
+    flex-grow: 1; /* Permite que o collapse ocupe o espaço restante */
+    width: 100%; /* Ocupa a largura total para alinhar os itens */
+    display: flex !important; /* Garante que seja flexbox */
+    align-items: center; /* Alinha verticalmente */
+    justify-content: space-between !important; /* Espaça o menu e as infos de contato */
 }
 
 /* Styles for navigation links - TAMANHO 50% MENOR */
@@ -136,26 +108,22 @@ body {
     transform: translateY(-2px); /* LEVE ELEVAÇÃO no hover */
 }
 
-/* Adjust toggler icon color to be visible on black background */
+/* Ajusta a cor do ícone do toggler para ser visível no fundo preto */
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
 
 /* Estilos para esconder o cabeçalho no scroll - CORRIGIDO */
 #navigation {
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Adiciona transição para opacidade */
     display: block !important; /* FORÇAR DISPLAY */
     visibility: visible !important; /* FORÇAR VISIBILIDADE */
 }
 
 #navigation.hidden {
     transform: translateY(-100%);
-}
-
-/* GARANTIR QUE O TOP-BAR APAREÇA */
-#top-bar {
-    display: block !important; /* FORÇAR DISPLAY */
-    visibility: visible !important; /* FORÇAR VISIBILIDADE */
+    opacity: 0; /* Esconde completamente */
+    pointer-events: none; /* Impede interações quando escondido */
 }
 
 /* Botão "Voltar ao Topo" - Estilo elegante */
@@ -202,6 +170,47 @@ body {
     height: 90px; /* MANTÉM o mesmo tamanho da logo */
 }
 
+/* Estilos para as informações de contato e redes sociais no cabeçalho */
+.navbar-contact-info {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Empurra para a direita */
+}
+
+.navbar-contact-info .contact-info {
+    margin-right: 20px; /* Espaçamento entre telefone e redes sociais */
+    white-space: nowrap; /* Evita quebra de linha */
+}
+
+.navbar-contact-info .contact-info i {
+    color: #05FC04; /* Ícone verde */
+    margin-right: 5px;
+}
+
+.navbar-contact-info .social-icons a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin-left: 15px; /* Espaçamento entre ícones sociais */
+    font-size: 1.2rem;
+}
+
+.navbar-contact-info .social-icons a:hover {
+    color: #05FC04; /* Verde no hover */
+}
+
+/* Centraliza o botão de Login */
+.menu-horizontal .nav-item .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 10px; /* Ajuste o padding para centralizar */
+    min-width: 80px; /* Garante largura mínima para centralizar o texto */
+}
+
+
 /* Media queries for responsiveness - TOTALMENTE RESPONSIVO */
 @media (min-width: 992px) { /* Desktop e telas maiores */
     .navbar-toggler {
@@ -231,9 +240,22 @@ body {
         font-size: 0.53rem;
         padding: 5px 9px;
     }
+    .navbar-contact-info {
+        font-size: 0.85rem;
+    }
+    .navbar-contact-info .contact-info {
+        margin-right: 15px;
+    }
+    .navbar-contact-info .social-icons a {
+        margin-left: 10px;
+        font-size: 1.1rem;
+    }
 }
 
 @media (max-width: 1200px) and (min-width: 992px) { /* Large desktops / smaller laptops */
+    #main-navbar {
+        padding: 10px 0; /* Reduz padding para telas menores */
+    }
     #main-navbar .navbar-brand img {
         height: 80px; /* Logo um pouco menor */
     }
@@ -250,18 +272,27 @@ body {
         font-size: 0.5rem; /* 50% MENOR - proporcional */
         padding: 5px 8px;
     }
+    .navbar-contact-info {
+        font-size: 0.8rem;
+    }
+    .navbar-contact-info .contact-info {
+        margin-right: 10px;
+    }
+    .navbar-contact-info .social-icons a {
+        margin-left: 8px;
+        font-size: 1rem;
+    }
 }
 
 /* RESPONSIVIDADE COMPLETA - TABLETS E MOBILE */
 @media (max-width: 991.98px) { /* Tablets and smaller desktops */
-    #top-bar {
-        display: none; /* Hide top-bar on tablets and mobile */
-    }
     #main-navbar {
         top: 0; /* Navbar starts at the top */
-        padding: 20px 0; /* Padding maior para mobile acomodar layout vertical */
+        padding: 15px 0; /* Padding ajustado para mobile */
         flex-direction: column; /* Mantém layout vertical */
         align-items: center; /* CENTRALIZA EM MOBILE para melhor UX */
+        justify-content: center; /* Centraliza o conteúdo */
+        min-height: auto; /* Remove altura mínima em mobile */
     }
     #main-navbar .navbar-brand {
         width: 100%; /* Logo ocupa a largura total */
@@ -319,8 +350,25 @@ body {
         top: 100%;
         border-radius: 0 0 10px 10px;
         justify-content: center !important; /* CENTRALIZADO */
+        flex-direction: column; /* Garante que o menu e as infos de contato se empilhem */
     }
     
+    .navbar-contact-info {
+        margin-top: 20px; /* Espaço entre o menu e as infos de contato */
+        flex-direction: column; /* Empilha as infos de contato no mobile */
+        margin-left: 0; /* Remove margin-left auto no mobile */
+    }
+    .navbar-contact-info .contact-info {
+        margin-right: 0;
+        margin-bottom: 10px; /* Espaçamento vertical */
+    }
+    .navbar-contact-info .social-icons {
+        margin-top: 10px;
+    }
+    .navbar-contact-info .social-icons a {
+        margin: 0 8px; /* Espaçamento horizontal entre ícones */
+    }
+
     .back-to-top-btn {
         bottom: 80px; /* Ajuste para mobile */
         right: 15px;
@@ -473,10 +521,6 @@ body {
 
 /* Support para modo escuro do sistema */
 @media (prefers-color-scheme: dark) {
-    #top-bar {
-        background-color: #0d0d0d;
-    }
-    
     #main-navbar {
         background-color: #000000;
     }
