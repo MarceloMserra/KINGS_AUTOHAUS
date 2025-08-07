@@ -163,6 +163,20 @@
                     <input type="text" class="form-control" name="t2" placeholder="e.g., GT350 Coupe" value="{{gasCar.t2}}" required>
                 </div>
 
+                <!-- New fields: Stock Number, VIN, Trim -->
+                <div class="form-group col-md-4">
+                    <label>Stock #</label>
+                    <input type="text" class="form-control" name="stockNumber" placeholder="e.g., CM12345" value="{{gasCar.stockNumber}}">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>VIN</label>
+                    <input type="text" class="form-control" name="vin" placeholder="e.g., 1G6FV1234567890" value="{{gasCar.vin}}">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Trim (e.g., Premium Plus)</label>
+                    <input type="text" class="form-control" name="trim" placeholder="e.g., Premium Plus" value="{{gasCar.trim}}">
+                </div>
+
                 <div class="form-group col-md-2">
                     <label>Year</label>
                     <input type="number" class="form-control" name="year" placeholder="e.g., 2023" value="{{gasCar.year}}" required>
@@ -228,6 +242,16 @@
                 <div class="form-group col-md-4">
                     <label>Wheel (e.g., 18'' Aluminium)</label>
                     <input type="text" class="form-control" name="wheel" placeholder="e.g., 18'' Aluminium Wheels" value="{{gasCar.wheel}}" required>
+                </div>
+
+                <!-- Status Dropdown - NEW FIELD -->
+                <div class="form-group col-md-4">
+                    <label>Status</label>
+                    <select class="form-control" name="status" required>
+                        <option value="available" {{#if (eq gasCar.status "available")}}selected{{/if}}>Available</option>
+                        <option value="sold" {{#if (eq gasCar.status "sold")}}selected{{/if}}>Sold</option>
+                        <option value="pending" {{#if (eq gasCar.status "pending")}}selected{{/if}}>Pending</option>
+                    </select>
                 </div>
 
                 <!-- Description Sections -->

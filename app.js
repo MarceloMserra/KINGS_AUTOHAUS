@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const exphbs = require('express-handlebars'); // Importação do express-handlebars
+const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const session = require('express-session');
@@ -11,6 +11,15 @@ const flash = require('connect-flash');
 const passport = require('passport');
 
 const app = express();
+
+// ======================
+// 🧪 Verificação da URI do MongoDB
+// ======================
+console.log('✅ URI carregada do .env:', process.env.MONGO_URI);
+if (!process.env.MONGO_URI.startsWith('mongodb+srv://')) {
+    console.error('❌ URI inválida detectada! Use mongodb+srv:// no .env');
+    process.exit(1);
+}
 
 // ======================
 // 🔗 Conexão com MongoDB Atlas
@@ -28,33 +37,19 @@ mongoose.connect(process.env.MONGO_URI, {
 app.engine('hbs', exphbs.engine({
     extname: 'hbs',
     defaultLayout: 'layout',
-    layoutsDir: __dirname + '/views/layouts/',
+    layoutsDir: path.join(__dirname, 'views/layouts'),
     helpers: {
-        gt: function(a, b) {
-            return a > b;
-        },
-        subtract: function(a, b) {
-            return a - b;
-        },
-        eq: function(a, b) {
-            return a === b;
-        },
-        divide: function(a, b) {
-            return a / b;
-        },
-        range: function(start, end) {
+        gt: (a, b) => a > b,
+        subtract: (a, b) => a - b,
+        eq: (a, b) => a === b,
+        divide: (a, b) => a / b,
+        range: (start, end) => {
             const arr = [];
-            for (let i = start; i >= end; i--) {
-                arr.push(i);
-            }
+            for (let i = start; i >= end; i--) arr.push(i);
             return arr;
         },
-        lookup: function(obj, field) {
-            return obj[field];
-        },
-        add: function(a, b) {
-            return a + b;
-        }
+        lookup: (obj, field) => obj[field],
+        add: (a, b) => a + b
     }
 }));
 app.set('view engine', 'hbs');
@@ -103,13 +98,13 @@ const admin = require('./routes/admin');
 const usuarios = require('./routes/usuarios');
 const gas = require('./routes/gas_index');
 const electric = require('./routes/electric_index');
-const financing = require('./routes/financing'); // Adicionado: Importa o novo router de financiamento
+const financing = require('./routes/financing');
 
 app.use('/admin', admin);
 app.use('/', usuarios);
-app.use('/gas', gas); // Rotas de gás agora funcionam *apenas* com prefixo /gas
+app.use('/gas', gas);
 app.use('/electric', electric);
-app.use('/', financing); // Rotas de financiamento agora funcionam na raiz (ex: /financing)
+app.use('/', financing);
 
 // ======================
 // 🚀 Exportação

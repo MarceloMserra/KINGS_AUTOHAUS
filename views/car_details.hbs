@@ -7,101 +7,265 @@
         color: #ffffff; /* Default text color */
     }
 
-    .car-details-header {
+    .car-details-container {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for content area */
+        border-radius: 10px;
+        margin-bottom: 50px; /* Space from bottom */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .car-details-header-section {
         background-color: #1a1a1a; /* Darker header background */
-        padding: 30px 0;
+        padding: 20px 30px;
         margin-bottom: 30px;
-        border-bottom: 1px solid #333333; /* Subtle border */
         border-radius: 10px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-    .car-details-header h1 {
-        font-weight: bold;
-        color: #05FC04; /* Green title - UPDATED GREEN */
-        font-size: 3rem;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-    }
-    .car-details-header p {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 1.2rem;
-    }
-    .car-details-header .price-display {
-        font-size: 3rem; /* Larger price display */
-        font-weight: bold;
-        color: #05FC04; /* Green price - UPDATED GREEN */
-        margin-top: 20px;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
     }
 
-    .carousel-item img {
-        height: 500px; /* Fixed height for carousel images */
-        object-fit: cover;
-        width: 100%;
+    .car-details-header-section h1 {
+        font-weight: bold;
+        color: #05FC04; /* Green title */
+        font-size: 2.5rem;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        margin-bottom: 0;
+    }
+
+    .car-details-header-section .retail-price-box {
+        background-color: #05FC04;
+        color: #000000;
+        padding: 10px 20px;
         border-radius: 8px;
-        border: 1px solid #05FC04; /* Green border for carousel - UPDATED GREEN */
-        box-shadow: 0 0 25px rgba(5, 252, 4, 0.3); /* Green glow - UPDATED GREEN */
-    }
-    .carousel-indicators li {
-        background-color: #05FC04; /* Green indicators - UPDATED GREEN */
-        height: 8px;
-        width: 8px;
-        border-radius: 50%;
-        margin: 0 5px;
-    }
-    .carousel-control-prev-icon, .carousel-control-next-icon {
-        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2305FC04' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important; /* UPDATED GREEN */
-    }
-    .carousel-control-next-icon {
-        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2305FC04' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important; /* UPDATED GREEN */
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
-
-    .card.shadow-sm.h-100 {
-        background-color: #1a1a1a; /* Darker card background for specs */
-        border: 1px solid #333333;
-        color: #ffffff;
+    /* Main content area for car details */
+    .main-car-info-section {
+        background-color: #1a1a1a;
         border-radius: 10px;
+        padding: 20px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     }
-    .card-body h4.card-title {
-        color: #05FC04; /* Green title for specs - UPDATED GREEN */
-        font-weight: bold;
+
+    .car-image-gallery {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        border: 1px solid #05FC04;
+        box-shadow: 0 0 25px rgba(5, 252, 4, 0.3);
         margin-bottom: 20px;
     }
-    .specs-list li {
-        margin-bottom: 12px;
-        font-size: 1.05rem;
+
+    .car-image-gallery img {
+        width: 100%;
+        height: 450px; /* Fixed height for main image */
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .car-specs-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 1rem;
         color: rgba(255, 255, 255, 0.9);
     }
-    .specs-list strong {
-        color: #ffffff; /* White for strong text in specs */
-    }
-    .specs-list i {
-        color: #05FC04; /* Green icons in specs - UPDATED GREEN */
-        margin-right: 10px;
+
+    .car-specs-list li {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
     }
 
-    .description-section, .safety-section, .tech-section {
-        margin-top: 40px;
-        padding-top: 20px;
-        border-top: 1px dashed #333333; /* Darker dashed border */
+    .car-specs-list strong {
+        color: #ffffff;
+        margin-right: 5px;
+    }
+
+    .car-specs-list i {
+        color: #05FC04;
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+    }
+
+    .compare-price-drop-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 20px;
+    }
+
+    .compare-price-drop-section .form-check {
+        margin-bottom: 10px;
+    }
+
+    .compare-price-drop-section .btn {
+        background-color: #05FC04;
+        border-color: #05FC04;
+        color: #000000;
+        font-weight: bold;
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .compare-price-drop-section .btn:hover {
+        background-color: #04D803;
+        border-color: #04D803;
         color: #ffffff;
     }
-    .description-section h3, .safety-section h3, .tech-section h3 {
-        color: #05FC04; /* Green titles for sections - UPDATED GREEN */
-        font-size: 2rem;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-    .description-section p, .safety-section p, .tech-section p {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 1.1rem;
-        line-height: 1.7;
+
+    .action-buttons-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 30px;
+        justify-content: center;
     }
 
+    .action-buttons-group .btn {
+        background-color: #333333;
+        border-color: #333333;
+        color: #ffffff;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        flex-grow: 1; /* Allow buttons to grow */
+        min-width: 150px; /* Minimum width for buttons */
+    }
+
+    .action-buttons-group .btn:hover {
+        background-color: #555555;
+        border-color: #555555;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .action-buttons-group .btn-primary-action {
+        background-color: #05FC04;
+        border-color: #05FC04;
+        color: #000000;
+    }
+
+    .action-buttons-group .btn-primary-action:hover {
+        background-color: #04D803;
+        border-color: #04D803;
+        color: #ffffff;
+    }
+
+    /* Collapsible sections (Payment Calculator, Description, etc.) */
+    .collapsible-section {
+        background-color: #1a1a1a;
+        border-radius: 10px;
+        margin-top: 30px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .collapsible-section .card-header {
+        background-color: #0d0d0d;
+        border-bottom: 1px solid #333333;
+        color: #05FC04;
+        font-weight: bold;
+        font-size: 1.3rem;
+        padding: 15px 20px;
+        cursor: pointer;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .collapsible-section .card-header:hover {
+        background-color: #2a2a2a;
+    }
+
+    .collapsible-section .card-body {
+        padding: 20px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+
+    .collapsible-section .form-control {
+        background-color: rgba(0, 0, 0, 0.6);
+        color: #ffffff;
+        border: 1px solid #05FC04;
+        border-radius: 5px;
+        padding: 8px 10px;
+    }
+    .collapsible-section .form-control:focus {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-color: #05FC04;
+        box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
+    }
+
+    /* Related Vehicles Section */
+    .related-vehicles-section {
+        margin-top: 50px;
+    }
+
+    .related-vehicles-section h3 {
+        color: #05FC04;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .related-car-card {
+        background-color: #1a1a1a;
+        border: 1px solid #333333;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .related-car-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(5, 252, 4, 0.2);
+    }
+
+    .related-car-card img {
+        height: 150px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .related-car-card .card-body {
+        padding: 15px;
+    }
+
+    .related-car-card .card-title {
+        color: #05FC04;
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .related-car-card .card-text {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+    }
+
+    .related-car-card .price {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    /* Back to Home Button */
     .btn-back-to-home {
-        background-color: #05FC04; /* Green button - UPDATED GREEN */
-        border-color: #05FC04; /* UPDATED GREEN */
+        background-color: #05FC04; /* Green button */
+        border-color: #05FC04;
         color: #000000; /* Black text */
         font-weight: bold;
         padding: 15px 40px;
@@ -110,28 +274,89 @@
         transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     }
     .btn-back-to-home:hover {
-        background-color: #04D803; /* Darker green on hover - UPDATED GREEN */
-        border-color: #04D803; /* UPDATED GREEN */
+        background-color: #04D803; /* Darker green on hover */
+        border-color: #04D803;
         color: #ffffff;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 991.98px) { /* Tablets and smaller desktops */
+        .car-details-header-section {
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            padding: 15px;
+        }
+        .car-details-header-section h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .car-details-header-section .retail-price-box {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+        .car-image-gallery img {
+            height: 300px;
+        }
+        .action-buttons-group .btn {
+            min-width: unset; /* Remove min-width to allow wrapping */
+            flex-basis: 48%; /* Two buttons per row */
+            font-size: 0.9rem;
+        }
+        .collapsible-section .card-header {
+            font-size: 1.1rem;
+            padding: 12px 15px;
+        }
+        .collapsible-section .card-body {
+            font-size: 0.95rem;
+        }
+        .related-vehicles-section h3 {
+            font-size: 1.8rem;
+        }
+    }
+
+    @media (max-width: 767.98px) { /* Small devices (phones) */
+        .car-details-container {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .car-image-gallery img {
+            height: 250px;
+        }
+        .car-specs-list {
+            font-size: 0.9rem;
+        }
+        .action-buttons-group .btn {
+            flex-basis: 100%; /* One button per row */
+            font-size: 0.95rem;
+        }
+        .related-car-card img {
+            height: 120px;
+        }
+        .related-car-card .card-title {
+            font-size: 1rem;
+        }
+        .related-car-card .card-text {
+            font-size: 0.8rem;
+        }
+        .related-car-card .price {
+            font-size: 1.1rem;
+        }
     }
 </style>
 
-<div class="container mt-4">
-    <div class="car-details-header text-center">
-        <h1>{{car.brand}} {{car.t2}}</h1>
-        <p class="lead">{{car.title}} - {{car.year}}</p>
-        <h2 class="price-display">R$ {{car.priceStr}}</h2>
+<div class="container car-details-container mt-4">
+    <!-- Header Section: Car Title and Retail Price -->
+    <div class="car-details-header-section">
+        <h1>{{car.year}} {{car.brand}} {{car.t2}} {{car.trim}}</h1>
+        <div class="retail-price-box">Retail Price: $ {{car.priceStr}}</div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-8 mb-4">
+    <div class="row main-car-info-section">
+        <div class="col-lg-7 mb-4">
+            <!-- Main Car Image / Carousel -->
             {{#if car.image.length}}
-            <div id="carCarousel" class="carousel slide shadow-lg" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    {{#each car.image}}
-                        <li data-target="#carCarousel" data-slide-to="{{@index}}" class="{{#if @first}}active{{/if}}"></li>
-                    {{/each}}
-                </ol>
+            <div id="carDetailsCarousel" class="carousel slide car-image-gallery" data-ride="carousel">
                 <div class="carousel-inner">
                     {{#each car.image}}
                         <div class="carousel-item {{#if @first}}active{{/if}}">
@@ -139,61 +364,245 @@
                         </div>
                     {{/each}}
                 </div>
-                <a class="carousel-control-prev" href="#carCarousel" role="button" data-slide="prev">
+                {{#if (gt car.image.length 1)}}
+                <a class="carousel-control-prev" href="#carDetailsCarousel" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carCarousel" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#carDetailsCarousel" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
+                {{/if}}
             </div>
             {{else}}
-            <img src="https://placehold.co/800x500/0a0a0a/05FC04?text=No+Image" class="img-fluid rounded shadow-lg" alt="No Image"> <!-- UPDATED GREEN -->
+            <div class="car-image-gallery">
+                <img src="https://placehold.co/800x450/0a0a0a/05FC04?text=No+Image" class="img-fluid" alt="No Image">
+            </div>
             {{/if}}
         </div>
 
-        <div class="col-lg-4 mb-4">
-            <div class="card shadow-sm h-100">
+        <div class="col-lg-5 mb-4">
+            <!-- Key Specifications and Actions -->
+            <div class="card shadow-sm h-100" style="background-color: #0d0d0d; border-color: #333333;">
                 <div class="card-body">
-                    <h4 class="card-title mb-3">Key Specifications</h4>
-                    <ul class="list-unstyled specs-list">
-                        <li><i class="fas fa-tachometer-alt mr-2"></i> <strong>Max Speed:</strong> {{car.topspeed}} mph</li>
-                        <li><i class="fas fa-stopwatch mr-2"></i> <strong>0-60 Time:</strong> {{car.time60}} s</li>
-                        <li><i class="fas fa-gas-pump mr-2"></i> <strong>Mileage:</strong> {{car.mileage}} mpg</li>
-                        <li><i class="fas fa-engine mr-2"></i> <strong>Engine:</strong> {{car.engine}} L</li>
-                        <li><i class="fas fa-cogs mr-2"></i> <strong>Cylinders:</strong> {{car.cyl}}</li>
-                        <li><i class="fas fa-car-alt mr-2"></i> <strong>Gearbox:</strong> {{car.gearbox}}</li>
-                        <li><i class="fas fa-car-side mr-2"></i> <strong>Transmission:</strong> {{car.transmission}}</li>
-                        <li><i class="fas fa-palette mr-2"></i> <strong>Color:</strong> {{car.colour}}</li>
-                        <li><i class="fas fa-couch mr-2"></i> <strong>Interior:</strong> {{car.interior}}</li>
-                        <li><i class="fas fa-car-battery mr-2"></i> <strong>Body:</strong> {{car.body}}</li>
-                        <li><i class="fas fa-road mr-2"></i> <strong>Drivetrain:</strong> {{car.drivetrain}}</li>
-                        <li><i class="fas fa-tire mr-2"></i> <strong>Wheel:</strong> {{car.wheel}}</li>
+                    <h4 class="card-title mb-3" style="color: #ffffff;">Vehicle Information</h4>
+                    <ul class="list-unstyled car-specs-list">
+                        {{#if car.stockNumber}}<li><i class="fas fa-hashtag"></i> <strong>Stock#:</strong> {{car.stockNumber}}</li>{{/if}}
+                        {{#if car.vin}}<li><i class="fas fa-fingerprint"></i> <strong>VIN:</strong> {{car.vin}}</li>{{/if}}
+                        <li><i class="fas fa-calendar-alt"></i> <strong>Year:</strong> {{car.year}}</li>
+                        <li><i class="fas fa-car"></i> <strong>Make:</strong> {{car.brand}}</li>
+                        <li><i class="fas fa-car-side"></i> <strong>Model:</strong> {{car.t2}}</li>
+                        {{#if car.trim}}<li><i class="fas fa-gem"></i> <strong>Trim:</strong> {{car.trim}}</li>{{/if}}
+                        <li><i class="fas fa-tachometer-alt"></i> <strong>Mileage:</strong> {{car.mileage}} miles</li>
+                        <li><i class="fas fa-engine"></i> <strong>Engine:</strong> {{car.engine}}L</li>
+                        <li><i class="fas fa-cogs"></i> <strong>Transmission:</strong> {{car.transmission}}</li>
+                        <li><i class="fas fa-road"></i> <strong>Drivetrain:</strong> {{car.drivetrain}}</li>
+                        <li><i class="fas fa-car-battery"></i> <strong>Body Type:</strong> {{car.body}}</li>
+                        <li><i class="fas fa-palette"></i> <strong>Color:</strong> {{car.colour}}</li>
+                        <li><i class="fas fa-couch"></i> <strong>Interior Color:</strong> {{car.interior}}</li>
                     </ul>
+
+                    <div class="compare-price-drop-section mt-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="compareCheckbox">
+                            <label class="form-check-label" for="compareCheckbox">
+                                Compare
+                            </label>
+                        </div>
+                        <button class="btn mt-2">Price Drop Notifications</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="description-section">
-                <h3>Description</h3>
-                <p>{{car.description}}</p>
-            </div>
-            <div class="safety-section">
-                <h3>Safety</h3>
-                <p>{{car.safety}}</p>
-            </div>
-            <div class="tech-section">
-                <h3>Technology</h3>
-                <p>{{car.technology}}</p>
-            </div>
-        </div>
+    <!-- Action Buttons Group -->
+    <div class="action-buttons-group mt-4 mb-5">
+        <button class="btn">CarFax Report</button>
+        <button class="btn">Inquiry</button>
+        <button class="btn">Schedule Test Drive</button>
+        <button class="btn">Make Offer</button>
+        <a href="/financing" class="btn">Financing</a>
+        <button class="btn btn-primary-action">Text Us</button>
     </div>
 
+    <!-- Collapsible Sections -->
+    <div class="accordion" id="carDetailsAccordion">
+        <!-- Payment Calculator -->
+        <div class="card collapsible-section">
+            <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Payment Calculator
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#carDetailsAccordion">
+                <div class="card-body">
+                    <p>Calculate your estimated monthly payments.</p>
+                    <form>
+                        <div class="form-group">
+                            <label for="loanAmount">Loan Amount</label>
+                            <input type="number" class="form-control" id="loanAmount" value="{{car.price}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="downPayment">Down Payment</label>
+                            <input type="number" class="form-control" id="downPayment" placeholder="e.g., 5000">
+                        </div>
+                        <div class="form-group">
+                            <label for="interestRate">Interest Rate (%)</label>
+                            <input type="number" step="0.1" class="form-control" id="interestRate" placeholder="e.g., 4.9">
+                        </div>
+                        <div class="form-group">
+                            <label for="loanTerm">Loan Term (Months)</label>
+                            <select class="form-control" id="loanTerm">
+                                <option value="36">36 Months</option>
+                                <option value="48">48 Months</option>
+                                <option value="60">60 Months</option>
+                                <option value="72">72 Months</option>
+                            </select>
+                        </div>
+                        <p class="mt-3">Estimated Monthly Payment: <strong id="estimatedPayment">$ 0.00</strong></p>
+                        <button type="button" class="btn btn-primary-action btn-block" id="calculatePayment">Calculate</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vehicle Details (Description) -->
+        <div class="card collapsible-section">
+            <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Vehicle Details
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#carDetailsAccordion">
+                <div class="card-body">
+                    <p>{{car.description}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Safety Features -->
+        <div class="card collapsible-section">
+            <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Safety Features
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#carDetailsAccordion">
+                <div class="card-body">
+                    <p>{{car.safety}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Features -->
+        <div class="card collapsible-section">
+            <div class="card-header" id="headingFour" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                Technology Features
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#carDetailsAccordion">
+                <div class="card-body">
+                    <p>{{car.technology}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Placeholder Sections (can be expanded with real data later) -->
+        <div class="card collapsible-section">
+            <div class="card-header" id="headingFive" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                Dealership Information
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#carDetailsAccordion">
+                <div class="card-body">
+                    <p>Learn more about KINGS AUTOHAUS and our commitment to quality service. We are located at 1278 Washington St, Holliston MA 01746. Contact us at +1 (774)523-7860 or contact@kingsautous.com.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card collapsible-section">
+            <div class="card-header" id="headingSix" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                Vehicle History Report
+            </div>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#carDetailsAccordion">
+                <div class="card-body">
+                    <p>A comprehensive history report for this vehicle is available upon request. It includes details on past ownership, accidents, and service records.</p>
+                    <button class="btn btn-primary-action">Request Report</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Related Vehicles Section -->
+    {{#if relatedVehicles.length}}
+    <div class="related-vehicles-section">
+        <h3>Similar Vehicles You Might Like</h3>
+        <div class="row">
+            {{#each relatedVehicles}}
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                <a href="/gas/details/{{this._id}}" class="car-card-link">
+                    <div class="card related-car-card h-100">
+                        {{#if this.image.length}}
+                            <img src="{{this.image.[0]}}" class="card-img-top" alt="{{this.brand}} {{this.t2}}">
+                        {{else}}
+                            <img src="https://placehold.co/400x300/0a0a0a/05FC04?text=No+Image" class="card-img-top" alt="No Image">
+                        {{/if}}
+                        <div class="card-body">
+                            <h5 class="card-title">{{this.year}} {{this.brand}} {{this.t2}}</h5>
+                            <p class="card-text">{{this.mileage}} miles</p>
+                            <p class="price">$ {{this.priceStr}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+
     <div class="text-center mt-5 mb-4">
-        <a href="/" class="btn btn-back-to-home btn-lg">Back to Home Page</a>
+        <a href="/gas" class="btn btn-back-to-home btn-lg">Back to Inventory</a>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Payment Calculator Logic
+        const calculateButton = document.getElementById('calculatePayment');
+        if (calculateButton) {
+            calculateButton.addEventListener('click', function() {
+                const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+                const downPayment = parseFloat(document.getElementById('downPayment').value) || 0;
+                const interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+                const loanTerm = parseInt(document.getElementById('loanTerm').value) || 1;
+                const estimatedPaymentSpan = document.getElementById('estimatedPayment');
+
+                if (isNaN(loanAmount) || isNaN(interestRate) || isNaN(loanTerm) || loanAmount <= 0) {
+                    estimatedPaymentSpan.textContent = 'Invalid input';
+                    return;
+                }
+
+                const principal = loanAmount - downPayment;
+                const monthlyInterestRate = (interestRate / 100) / 12;
+
+                let monthlyPayment;
+                if (monthlyInterestRate === 0) {
+                    monthlyPayment = principal / loanTerm;
+                } else {
+                    monthlyPayment = principal * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, loanTerm)) / (Math.pow(1 + monthlyInterestRate, loanTerm) - 1);
+                }
+
+                if (isNaN(monthlyPayment)) {
+                    estimatedPaymentSpan.textContent = '$ 0.00'; // Default if calculation results in NaN
+                } else {
+                    estimatedPaymentSpan.textContent = `$ ${monthlyPayment.toFixed(2)}`;
+                }
+            });
+        }
+
+        // Initialize loan amount with car price
+        const loanAmountInput = document.getElementById('loanAmount');
+        if (loanAmountInput && typeof carPrice !== 'undefined') { // Assuming carPrice is passed from backend
+            loanAmountInput.value = carPrice;
+        }
+    });
+
+    // Handlebars helper 'add' (assuming it's registered in Node.js backend)
+    // Example: Handlebars.registerHelper('add', function(value1, value2) { return value1 + value2; });
+    // This is just a placeholder here.
+</script>

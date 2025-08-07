@@ -149,6 +149,20 @@
                     <input type="text" class="form-control" name="t2" placeholder="e.g., GT350 Coupe" required>
                 </div>
 
+                <!-- New fields: Stock Number, VIN, Trim -->
+                <div class="form-group col-md-4">
+                    <label>Stock #</label>
+                    <input type="text" class="form-control" name="stockNumber" placeholder="e.g., CM12345">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>VIN</label>
+                    <input type="text" class="form-control" name="vin" placeholder="e.g., 1G6FV1234567890">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Trim (e.g., Premium Plus)</label>
+                    <input type="text" class="form-control" name="trim" placeholder="e.g., Premium Plus">
+                </div>
+
                 <div class="form-group col-md-2">
                     <label>Year</label>
                     <input type="number" class="form-control" name="year" placeholder="e.g., 2023" required>
@@ -216,6 +230,15 @@
                     <input type="text" class="form-control" name="wheel" placeholder="e.g., 18'' Aluminium Wheels" required>
                 </div>
 
+                <!-- Status Dropdown - NEW FIELD -->
+                <div class="form-group col-md-4">
+                    <label>Status</label>
+                    <select class="form-control" name="status" required>
+                        <option value="available">Available</option>
+                        <option value="sold">Sold</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
 
                 <div class="form-group col-md-12">
                     <label>Description</label>

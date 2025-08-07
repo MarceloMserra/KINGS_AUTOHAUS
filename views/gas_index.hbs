@@ -11,7 +11,7 @@
 
     body {
         color: #ffffff; /* Default text color for contrast */
-        /* Imagem de fundo específica para esta página */
+        /* Specific background image for this page */
         background-image: url('/images/fotocapa2.png'); /* Your desired background image */
         background-repeat: no-repeat;
         background-attachment: fixed; /* Parallax effect */
@@ -24,8 +24,8 @@
         padding-bottom: 30px;
         background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for content area */
         border-radius: 10px;
-        /* Removed margin-top: 50px; - rely on body's padding-top from layout.hbs */
         margin-bottom: 50px; /* Space from bottom */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Re-added box-shadow for container */
     }
 
     h2.section-title-public {
@@ -46,29 +46,29 @@
         transform: translateX(-50%);
         height: 4px;
         width: 100px;
-        background-color: #05FC04; /* Green line - UPDATED GREEN */
+        background-color: #05FC04; /* Green line */
         border-radius: 5px;
     }
 
-    /* Styles for the filter/sort bar on the inventory page */
+    /* Styles for the filter/sort bar on the inventory page - NEW COMPACT LAYOUT */
     .inventory-controls {
         background-color: rgba(255, 255, 255, 0.05); /* Lighter transparent background */
         border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 20px;
+        padding: 15px; /* Reduced padding */
         border-radius: 10px;
         margin-bottom: 30px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: center; /* Center items for better look */
         align-items: center;
+        gap: 10px; /* Space between filter items */
     }
 
     .inventory-controls .form-group {
-        margin-bottom: 15px; /* Space between form groups on smaller screens */
+        margin-bottom: 0; /* Remove default margin-bottom */
         flex-grow: 1; /* Allow form groups to grow */
-        flex-basis: 22%; /* Approx. 4 items per row on large screens */
-        min-width: 150px; /* Minimum width for form controls */
+        min-width: 120px; /* Minimum width for form controls */
     }
 
     .inventory-controls .form-control,
@@ -77,14 +77,22 @@
         color: #ffffff;
         border: 1px solid #05FC04;
         border-radius: 5px;
-        padding: 8px 15px;
+        padding: 8px 10px; /* Adjusted padding */
         width: 100%; /* Ensure full width within their flex-basis */
+        font-size: 0.9rem; /* Smaller font size for compactness */
     }
 
     .inventory-controls .form-control:focus {
         background-color: rgba(0, 0, 0, 0.8);
         border-color: #05FC04;
         box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
+    }
+
+    .inventory-controls .btn-primary-custom,
+    .inventory-controls .btn-dark-custom {
+        padding: 8px 15px; /* Adjust button padding */
+        font-size: 0.9rem;
+        white-space: nowrap; /* Prevent text wrapping */
     }
 
     .inventory-controls .btn-dark-custom {
@@ -97,141 +105,181 @@
         border-color: #555555;
     }
 
-    /* Card adjustments for the inventory list */
-    .card {
-        background-color: #1a1a1a; /* Darker card background */
-        border: 1px solid #333333; /* Subtle card border */
-        color: #ffffff; /* White text inside cards */
+    /* New Card styles for the inventory list - LIST VIEW */
+    .car-inventory-item {
+        background-color: #1a1a1a; /* Darker background for each car item */
+        border: 1px solid #333333; /* Subtle border */
+        color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        margin-bottom: 20px; /* Space between items */
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-radius: 10px; /* Rounded card corners */
-        overflow: hidden; /* Ensure content respects border-radius */
-    }
-
-    .card:hover {
-        transform: translateY(-5px); /* Lift effect on hover */
-        box-shadow: 0 15px 30px rgba(5, 252, 4, 0.15); /* Green glow on hover - UPDATED GREEN */
-    }
-
-    .card-img-top-wrapper {
-        position: relative;
+        display: flex; /* Use flexbox for horizontal layout */
+        flex-direction: row; /* Image left, details right */
         overflow: hidden;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
     }
 
-    .card-img-top {
-        height: 220px;
-        object-fit: cover;
+    .car-inventory-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(5, 252, 4, 0.15); /* Green glow on hover */
+    }
+
+    .car-image-col {
+        flex: 0 0 350px; /* Increased fixed width for image column on desktop */
+        max-width: 350px;
+        height: 250px; /* Increased fixed height for image */
+        overflow: hidden;
+        position: relative;
+        background-color: #0a0a0a; /* Added dark background for image column */
+    }
+
+    .car-image-col img {
         width: 100%;
+        height: 100%;
+        object-fit: cover;
         border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-bottom-left-radius: 10px;
     }
 
-    .badge-secondary {
-        background-color: #05FC04 !important; /* Green badge - UPDATED GREEN */
-        color: #000000 !important; /* Black text on badge */
+    .car-details-col {
+        flex-grow: 1; /* Take remaining space */
+        padding: 20px 25px; /* Increased padding */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .car-title-main {
+        font-size: 2rem; /* Larger title */
         font-weight: bold;
-    }
-
-    .card-body {
-        padding: 20px; /* Slightly reduced padding */
-    }
-
-    .card-title {
-        color: #05FC04; /* Green title for cars - UPDATED GREEN */
-        font-weight: bold;
-        font-size: 1.5rem; /* Slightly smaller title */
+        color: #05FC04;
         margin-bottom: 5px;
     }
 
-    .card-subtitle {
+    .car-subtitle-main {
+        font-size: 1.2rem; /* Larger subtitle */
         color: rgba(255, 255, 255, 0.8);
-        font-size: 1rem;
         margin-bottom: 15px;
     }
 
-    .car-details-list {
+    .car-main-specs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 20px; /* Adjusted gap */
         list-style: none;
         padding: 0;
-        margin: 0;
-        font-size: 0.9rem;
+        margin-bottom: 15px;
     }
 
-    .car-details-list li {
-        margin-bottom: 5px;
+    .car-main-specs li {
+        font-size: 1rem; /* Larger font size */
+        color: rgba(255, 255, 255, 0.9);
         display: flex;
         align-items: center;
+        white-space: nowrap; /* Prevent breaking */
     }
 
-    .car-details-list i {
-        color: #05FC04; /* Green icons - UPDATED GREEN */
+    .car-main-specs i {
+        color: #05FC04;
         margin-right: 8px;
-        width: 20px; /* Fixed width for icons for alignment */
+        width: 20px;
         text-align: center;
     }
 
-    .card-price-section {
-        background-color: rgba(0, 0, 0, 0.4); /* Darker background for price section */
-        padding: 15px;
-        border-radius: 8px;
+    .car-main-specs strong {
+        color: #ffffff;
+    }
+
+    .car-price-section-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-top: 15px;
-        text-align: right; /* Align price to the right */
+        padding-top: 15px;
+        border-top: 1px dashed #333333;
     }
 
-    .card-price-section .price {
-        color: #05FC04; /* Green price - UPDATED GREEN */
-        font-size: 1.8rem;
+    .price-display-list {
+        font-size: 2.5rem; /* Larger price display */
         font-weight: bold;
-        margin-bottom: 10px;
+        color: #05FC04;
     }
 
-    .card-buttons .btn {
-        margin-top: 10px;
-        font-size: 0.9rem;
-        padding: 8px 15px;
-        border-radius: 5px;
-        font-weight: bold;
+    .list-action-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
     }
 
-    .btn-compare {
+    .list-action-buttons .btn {
         background-color: #333333;
         border-color: #333333;
         color: #ffffff;
-    }
-    .btn-compare:hover {
-        background-color: #555555;
-        border-color: #555555;
-        color: #ffffff;
+        font-weight: bold;
+        padding: 10px 20px; /* Larger padding for buttons */
+        border-radius: 5px;
+        font-size: 1rem; /* Larger font size for buttons */
+        transition: all 0.3s ease;
     }
 
-    .btn-price-drop {
+    .list-action-buttons .btn:hover {
+        background-color: #555555;
+        border-color: #555555;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .list-action-buttons .btn-primary-action {
         background-color: #05FC04;
         border-color: #05FC04;
         color: #000000;
     }
-    .btn-price-drop:hover {
+
+    .list-action-buttons .btn-primary-action:hover {
         background-color: #04D803;
         border-color: #04D803;
         color: #ffffff;
     }
 
-    .btn-text-us {
-        background-color: #007bff; /* Bootstrap blue for example, change if needed */
-        border-color: #007bff;
-        color: #ffffff;
-    }
-    .btn-text-us:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
+    /* Badges */
+    .photo-count-badge {
+        background-color: #05FC04 !important;
+        color: #000000 !important;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        z-index: 5;
     }
 
-    .alert-warning-custom {
-        background-color: #1a1a1a; /* Dark background for warning alert */
-        color: #ffffff;
-        border-color: #333333;
-        border-radius: 8px;
-        padding: 15px;
-        margin-top: 20px;
+    .new-badge {
+        background-color: #17a2b8 !important;
+        color: #ffffff !important;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        z-index: 5;
+    }
+
+    .featured-badge {
+        background-color: #ffc107 !important;
+        color: #000000 !important;
+        font-weight: bold;
+        position: absolute;
+        top: 40px;
+        left: 10px;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        z-index: 5;
     }
 
     /* Pagination styles */
@@ -267,106 +315,85 @@
     }
 
     /* Responsive adjustments */
-    @media (max-width: 1200px) { /* Adjust for smaller desktops/laptops */
-        .inventory-controls .form-group {
-            flex-basis: 23%; /* Slightly adjust for 4 columns */
+    @media (max-width: 991.98px) { /* Tablets and smaller desktops */
+        .car-image-col {
+            flex: 0 0 100%; /* Image takes full width on smaller screens */
+            max-width: 100%;
+            height: 250px; /* Adjust height for mobile */
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 10px;
         }
-    }
-
-    @media (max-width: 992px) { /* Tablets and smaller desktops (Bootstrap 'lg' breakpoint) */
-        .inventory-controls .form-group {
-            flex-basis: 48%; /* Two columns on medium screens */
+        .car-image-col img {
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 10px;
         }
-        .card-img-top {
-            height: 180px; /* Smaller image height on tablets */
+        .car-inventory-item {
+            flex-direction: column; /* Stack image and details vertically */
         }
-        .card-title {
-            font-size: 1.3rem; /* Smaller title */
+        .car-details-col {
+            padding: 15px;
         }
-        .card-subtitle {
-            font-size: 0.9rem;
+        .car-title-main {
+            font-size: 1.5rem;
         }
-        .car-details-list {
-            font-size: 0.85rem;
-        }
-        .card-price-section .price {
-            font-size: 1.6rem;
-        }
-    }
-
-    @media (max-width: 768px) { /* Small devices (Bootstrap 'md' breakpoint) */
-        .inventory-controls {
-            flex-direction: column;
-            align-items: stretch;
-            padding: 15px; /* Reduced padding */
-        }
-        .inventory-controls .form-group {
-            flex-basis: 100%;
-            margin-bottom: 10px;
-        }
-        .inventory-controls .form-control,
-        .inventory-controls .btn {
-            width: 100%; /* Full width on small screens */
-        }
-        .card-body .row > div {
-            flex-basis: 100%; /* Stack details and price on small screens */
-            text-align: left !important;
-        }
-        .card-price-section {
-            text-align: left; /* Align price to left on small screens */
-            margin-top: 20px;
-        }
-        .card-buttons .btn {
-            width: 100%;
-            margin-top: 5px;
-        }
-        .card-img-top {
-            height: 150px; /* Even smaller image height on phones */
-        }
-        .card-title {
-            font-size: 1.2rem;
-        }
-        .card-subtitle {
-            font-size: 0.8rem;
-        }
-        .car-details-list {
-            font-size: 0.8rem;
-        }
-        .card-price-section .price {
-            font-size: 1.4rem;
-        }
-        h2.section-title-public {
-            font-size: 2.5rem; /* Smaller title for public sections */
-            margin-bottom: 30px;
-        }
-        .pagination-controls {
-            flex-direction: column;
-            align-items: center;
+        .car-subtitle-main {
             font-size: 1rem;
         }
-        .pagination-controls div {
-            margin-top: 10px;
+        .car-main-specs {
+            flex-direction: column; /* Stack specs vertically */
+            gap: 5px;
+        }
+        .car-price-section-list {
+            flex-direction: column; /* Stack price and buttons vertically */
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .list-action-buttons {
+            width: 100%;
+            justify-content: flex-start;
+        }
+        .list-action-buttons .btn {
+            flex-grow: 1; /* Buttons take full width */
         }
     }
 
-    @media (max-width: 576px) { /* Extra small devices (Bootstrap 'sm' breakpoint) */
-        .card-img-top {
-            height: 120px; /* Smallest image height */
+    @media (max-width: 767.98px) { /* Smaller phones */
+        .car-image-col {
+            height: 200px;
         }
-        .card-title {
-            font-size: 1.1rem;
+        .car-title-main {
+            font-size: 1.3rem;
         }
-        .card-subtitle {
-            font-size: 0.75rem;
+        .car-subtitle-main {
+            font-size: 0.9rem;
         }
-        .car-details-list {
-            font-size: 0.75rem;
+        .car-main-specs li {
+            font-size: 0.9rem;
         }
-        .card-price-section .price {
+        .price-display-list {
+            font-size: 1.8rem;
+        }
+        .list-action-buttons .btn {
+            font-size: 0.85rem;
+            padding: 10px;
+        }
+    }
+
+    @media (max-width: 575.98px) { /* Extra small phones */
+        .car-image-col {
+            height: 180px;
+        }
+        .car-title-main {
             font-size: 1.2rem;
         }
-        h2.section-title-public {
-            font-size: 2rem;
+        .car-subtitle-main {
+            font-size: 0.85rem;
+        }
+        .car-main-specs li {
+            font-size: 0.85rem;
+        }
+        .price-display-list {
+            font-size: 1.6rem;
         }
     }
 </style>
@@ -377,119 +404,175 @@
 
         <!-- Inventory Controls (Filters and Sort) -->
         <div class="inventory-controls">
-            <div class="form-group flex-grow-1 mr-3">
+            <div class="form-group">
                 <label for="makeFilter" class="sr-only">Make</label>
                 <select class="form-control" id="makeFilter" name="make">
-                    <option value="">Make</option>
-                    {{#each carBrands}}
-                        <option value="{{this.name}}">{{this.name}} ({{this.count}})</option>
+                    <option value="">All Makes</option>
+                    {{#each filters.brands}}
+                        <option value="{{this}}" {{#if (eq ../currentFilters.make this)}}selected{{/if}}>{{this}}</option>
                     {{/each}}
                 </select>
             </div>
-            <div class="form-group flex-grow-1 mr-3">
+            <div class="form-group">
                 <label for="modelFilter" class="sr-only">Model</label>
                 <select class="form-control" id="modelFilter" name="model" disabled>
-                    <option value="">Model</option>
+                    <option value="">All Models</option>
                 </select>
             </div>
-            <div class="form-group flex-grow-1 mr-3">
+            <div class="form-group">
+                <label for="minPrice" class="sr-only">Min Price</label>
+                <select class="form-control" id="minPrice" name="minPrice">
+                    <option value="">Min Price</option>
+                    <option value="10000" {{#if (eq currentFilters.minPrice "10000")}}selected{{/if}}>$10,000</option>
+                    <option value="20000" {{#if (eq currentFilters.minPrice "20000")}}selected{{/if}}>$20,000</option>
+                    <option value="30000" {{#if (eq currentFilters.minPrice "30000")}}selected{{/if}}>$30,000</option>
+                    <option value="40000" {{#if (eq currentFilters.minPrice "40000")}}selected{{/if}}>$40,000</option>
+                    <option value="50000" {{#if (eq currentFilters.minPrice "50000")}}selected{{/if}}>$50,000</option>
+                    <option value="75000" {{#if (eq currentFilters.minPrice "75000")}}selected{{/if}}>$75,000</option>
+                    <option value="100000" {{#if (eq currentFilters.minPrice "100000")}}selected{{/if}}>$100,000</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="maxPrice" class="sr-only">Max Price</label>
+                <select class="form-control" id="maxPrice" name="maxPrice">
+                    <option value="">Max Price</option>
+                    <option value="20000" {{#if (eq currentFilters.maxPrice "20000")}}selected{{/if}}>$20,000</option>
+                    <option value="30000" {{#if (eq currentFilters.maxPrice "30000")}}selected{{/if}}>$30,000</option>
+                    <option value="40000" {{#if (eq currentFilters.maxPrice "40000")}}selected{{/if}}>$40,000</option>
+                    <option value="50000" {{#if (eq currentFilters.maxPrice "50000")}}selected{{/if}}>$50,000</option>
+                    <option value="75000" {{#if (eq currentFilters.maxPrice "75000")}}selected{{/if}}>$75,000</option>
+                    <option value="100000" {{#if (eq currentFilters.maxPrice "100000")}}selected{{/if}}>$100,000</option>
+                    <option value="200000" {{#if (eq currentFilters.maxPrice "200000")}}selected{{/if}}>$200,000</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="minYear" class="sr-only">Min Year</label>
+                <select class="form-control" id="minYear" name="minYear">
+                    <option value="">Min Year</option>
+                    {{#each (range filters.yearRange.maxYear filters.yearRange.minYear)}}
+                        <option value="{{this}}" {{#if (eq ../currentFilters.minYear this)}}selected{{/if}}>{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="maxYear" class="sr-only">Max Year</label>
+                <select class="form-control" id="maxYear" name="maxYear">
+                    <option value="">Max Year</option>
+                    {{#each (range filters.yearRange.maxYear filters.yearRange.minYear)}}
+                        <option value="{{this}}" {{#if (eq ../currentFilters.maxYear this)}}selected{{/if}}>{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="transmission" class="sr-only">Transmission</label>
+                <select class="form-control" id="transmission" name="transmission">
+                    <option value="">All Transmissions</option>
+                    {{#each filters.transmissions}}
+                        <option value="{{this}}" {{#if (eq ../currentFilters.transmission this)}}selected{{/if}}>{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="color" class="sr-only">Color</label>
+                <select class="form-control" id="color" name="color">
+                    <option value="">All Colors</option>
+                    {{#each filters.colors}}
+                        <option value="{{this}}" {{#if (eq ../currentFilters.color this)}}selected{{/if}}>{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="sortBy" class="sr-only">Sort By</label>
                 <select class="form-control" id="sortBy" name="sortBy">
-                    <option value="price-asc">Sort By: Price Low to High</option>
-                    <option value="price-desc">Sort By: Price High to Low</option>
-                    <option value="year-desc">Sort By: Year Newest</option>
-                    <option value="year-asc">Sort By: Year Oldest</option>
+                    <option value="date-desc" {{#if (eq currentFilters.sortBy "date-desc")}}selected{{/if}}>Sort By: Newest</option>
+                    <option value="price-asc" {{#if (eq currentFilters.sortBy "price-asc")}}selected{{/if}}>Sort By: Price Low to High</option>
+                    <option value="price-desc" {{#if (eq currentFilters.sortBy "price-desc")}}selected{{/if}}>Sort By: Price High to Low</option>
+                    <option value="year-desc" {{#if (eq currentFilters.sortBy "year-desc")}}selected{{/if}}>Sort By: Year Newest</option>
+                    <option value="year-asc" {{#if (eq currentFilters.sortBy "year-asc")}}selected{{/if}}>Sort By: Year Oldest</option>
                 </select>
             </div>
-            <div class="form-group flex-grow-1">
+            <div class="form-group">
                 <label for="perPage" class="sr-only">Per Page</label>
                 <select class="form-control" id="perPage" name="perPage">
-                    <option value="10">Per Page: 10</option>
-                    <option value="25">Per Page: 25</option>
-                    <option value="50">Per Page: 50</option>
+                    <option value="12" {{#if (eq currentFilters.perPage "12")}}selected{{/if}}>Show: 12</option>
+                    <option value="24" {{#if (eq currentFilters.perPage "24")}}selected{{/if}}>Show: 24</option>
+                    <option value="48" {{#if (eq currentFilters.perPage "48")}}selected{{/if}}>Show: 48</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary-custom ml-3">Apply Filters</button>
-            <button type="button" class="btn btn-dark-custom ml-2" onclick="window.location.href='/gas'">Clear Filters</button>
+            <button type="submit" class="btn btn-primary-custom">Apply Filters</button>
+            <button type="button" class="btn btn-dark-custom" onclick="window.location.href='/gas'">Clear Filters</button>
         </div>
 
         <!-- Pagination Controls (Top) -->
         <div class="pagination-controls">
-            <span>Page 1 of 3 (67 vehicles)</span> <!-- Placeholder: Replace with dynamic values -->
+            <span>Showing {{vehicles.length}} of {{pagination.totalCount}} vehicles | Page {{pagination.current}} of {{pagination.total}}</span>
             <div>
-                <button class="btn btn-page-nav mr-2"><i class="fas fa-chevron-left"></i></button>
-                <button class="btn btn-page-nav"><i class="fas fa-chevron-right"></i></button>
+                <a href="/gas?page={{pagination.prev}}&make={{currentFilters.make}}&model={{currentFilters.model}}&minPrice={{currentFilters.minPrice}}&maxPrice={{currentFilters.maxPrice}}&minYear={{currentFilters.minYear}}&maxYear={{currentFilters.maxYear}}&transmission={{currentFilters.transmission}}&color={{currentFilters.color}}&sortBy={{currentFilters.sortBy}}&perPage={{currentFilters.perPage}}" class="btn btn-page-nav mr-2 {{#unless pagination.hasPrev}}disabled{{/unless}}"><i class="fas fa-chevron-left"></i> Prev</a>
+                <a href="/gas?page={{pagination.next}}&make={{currentFilters.make}}&model={{currentFilters.model}}&minPrice={{currentFilters.minPrice}}&maxPrice={{currentFilters.maxPrice}}&minYear={{currentFilters.minYear}}&maxYear={{currentFilters.maxYear}}&transmission={{currentFilters.transmission}}&color={{currentFilters.color}}&sortBy={{currentFilters.sortBy}}&perPage={{currentFilters.perPage}}" class="btn btn-page-nav {{#unless pagination.hasNext}}disabled{{/unless}}">Next <i class="fas fa-chevron-right"></i></a>
             </div>
         </div>
 
-        {{#if gasCars.length}}
+        {{#if vehicles.length}}
         <div class="row">
-            {{#each gasCars}}
-            <div class="col-12 mb-4"> <!-- Full width column for each car card -->
-                <div class="card h-100 shadow-sm">
-                    <div class="row no-gutters">
-                        <div class="col-md-5"> <!-- Image column -->
+            {{#each vehicles}}
+            <div class="col-12">
+                <a href="/gas/details/{{this._id}}" class="car-card-link">
+                    <div class="car-inventory-item">
+                        <div class="car-image-col">
                             {{#if this.image.length}}
-                                <div class="card-img-top-wrapper">
-                                    <img src="{{this.image.[0]}}" class="card-img-top" alt="{{this.brand}} {{this.t2}}">
-                                    {{#if (gt this.image.length 1)}}
-                                        <span class="badge badge-secondary position-absolute" style="top: 10px; right: 10px;">
-                                            {{this.image.length}} photos
-                                        </span>
-                                    {{/if}}
-                                </div>
+                                <img src="{{this.image.[0]}}" alt="{{this.brand}} {{this.t2}}">
+                                {{#if (gt this.image.length 1)}}
+                                    <span class="badge badge-secondary photo-count-badge">
+                                        {{this.image.length}} <i class="fas fa-camera"></i>
+                                    </span>
+                                {{/if}}
+                                {{!-- Example: Add NEW or FEATURED badges based on car data --}}
+                                {{#if (eq this.status 'new')}}
+                                    <span class="badge badge-info new-badge">NEW</span>
+                                {{/if}}
+                                {{#if this.featured}}
+                                    <span class="badge badge-warning featured-badge"><i class="fas fa-star"></i> FEATURED</span>
+                                {{/if}}
                             {{else}}
-                                <img src="https://placehold.co/600x400/0a0a0a/05FC04?text=No+Image" class="card-img-top" alt="No Image">
+                                <img src="https://placehold.co/300x200/0a0a0a/05FC04?text=No+Image" alt="No Image">
                             {{/if}}
                         </div>
-                        <div class="col-md-7"> <!-- Details and Price column -->
-                            <div class="card-body d-flex flex-column justify-content-between">
-                                <div class="row">
-                                    <div class="col-md-8 text-left">
-                                        <h5 class="card-title">{{this.year}} {{this.brand}} {{this.t2}}</h5>
-                                        <h6 class="card-subtitle mb-2">Stock#: {{this.stockNumber}} | VIN: {{this.vin}}</h6>
-                                        <ul class="car-details-list">
-                                            <li><i class="fas fa-calendar-alt"></i> Year: {{this.year}}</li>
-                                            <li><i class="fas fa-car"></i> Make: {{this.brand}}</li>
-                                            <li><i class="fas fa-car-side"></i> Model: {{this.t2}}</li>
-                                            <li><i class="fas fa-paint-roller"></i> Trim: {{this.trim}}</li>
-                                            <li><i class="fas fa-tachometer-alt"></i> Mileage: {{this.mileage}}</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4 text-left">
-                                        <ul class="car-details-list">
-                                            <li><i class="fas fa-engine"></i> Engine: {{this.engine}}L</li>
-                                            <li><i class="fas fa-cogs"></i> Trans: {{this.transmission}}</li>
-                                            <li><i class="fas fa-car-alt"></i> Body Type: {{this.body}}</li>
-                                            <li><i class="fas fa-road"></i> Drive: {{this.drivetrain}}</li>
-                                            <li><i class="fas fa-palette"></i> Color: {{this.colour}}</li>
-                                            <li><i class="fas fa-fill-drip"></i> Interior Color: {{this.interior}}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card-price-section">
-                                    <p class="price">Retail Price: R$ {{this.priceStr}}</p>
-                                    <div class="card-buttons d-flex flex-column">
-                                        <a href="/gas/details/{{this._id}}" class="btn btn-primary-custom mb-2">View Details</a>
-                                        <button class="btn btn-compare mb-2">Compare</button>
-                                        <button class="btn btn-price-drop mb-2">Price Drop Notifications</button>
-                                        <button class="btn btn-text-us">Text Us</button>
-                                    </div>
+                        <div class="car-details-col">
+                            <div>
+                                <h5 class="car-title-main">{{this.year}} {{this.brand}} {{this.t2}}</h5>
+                                {{#if this.trim}}<p class="car-subtitle-main">{{this.trim}}</p>{{/if}}
+                                <ul class="car-main-specs">
+                                    <li><i class="fas fa-tachometer-alt"></i> <strong>Mileage:</strong> {{this.mileage}} miles</li>
+                                    <li><i class="fas fa-engine"></i> <strong>Engine:</strong> {{this.engine}}L</li>
+                                    <li><i class="fas fa-cogs"></i> <strong>Transmission:</strong> {{this.transmission}}</li>
+                                    <li><i class="fas fa-car-side"></i> <strong>Body Type:</strong> {{this.body}}</li>
+                                    <li><i class="fas fa-palette"></i> <strong>Color:</strong> {{this.colour}}</li>
+                                    <li><i class="fas fa-fingerprint"></i> <strong>VIN:</strong> {{this.vin}}</li>
+                                    <li><i class="fas fa-hashtag"></i> <strong>Stock#:</strong> {{this.stockNumber}}</li>
+                                </ul>
+                            </div>
+                            <div class="car-price-section-list">
+                                <p class="price-display-list">$ {{this.priceStr}}</p>
+                                <div class="list-action-buttons">
+                                    <button class="btn">Inquiry</button>
+                                    <button class="btn">Schedule Test Drive</button>
+                                    <a href="/financing" class="btn">Financing</a>
+                                    <button class="btn btn-primary-action">Text Us</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             {{/each}}
         </div>
 
         <!-- Pagination Controls (Bottom) -->
         <div class="pagination-controls">
-            <span>Page 1 of 3 (67 vehicles)</span> <!-- Placeholder: Replace with dynamic values -->
+            <span>Showing {{vehicles.length}} of {{pagination.totalCount}} vehicles | Page {{pagination.current}} of {{pagination.total}}</span>
             <div>
-                <button class="btn btn-page-nav mr-2"><i class="fas fa-chevron-left"></i></button>
-                <button class="btn btn-page-nav"><i class="fas fa-chevron-right"></i></button>
+                <a href="/gas?page={{pagination.prev}}&make={{currentFilters.make}}&model={{currentFilters.model}}&minPrice={{currentFilters.minPrice}}&maxPrice={{currentFilters.maxPrice}}&minYear={{currentFilters.minYear}}&maxYear={{currentFilters.maxYear}}&transmission={{currentFilters.transmission}}&color={{currentFilters.color}}&sortBy={{currentFilters.sortBy}}&perPage={{currentFilters.perPage}}" class="btn btn-page-nav mr-2 {{#unless pagination.hasPrev}}disabled{{/unless}}"><i class="fas fa-chevron-left"></i> Prev</a>
+                <a href="/gas?page={{pagination.next}}&make={{currentFilters.make}}&model={{currentFilters.model}}&minPrice={{currentFilters.minPrice}}&maxPrice={{currentFilters.maxPrice}}&minYear={{currentFilters.minYear}}&maxYear={{currentFilters.maxYear}}&transmission={{currentFilters.transmission}}&color={{currentFilters.color}}&sortBy={{currentFilters.sortBy}}&perPage={{currentFilters.perPage}}" class="btn btn-page-nav {{#unless pagination.hasNext}}disabled{{/unless}}">Next <i class="fas fa-chevron-right"></i></a>
             </div>
         </div>
 
@@ -516,13 +599,19 @@
 
     const makeFilter = document.getElementById('makeFilter');
     const modelFilter = document.getElementById('modelFilter');
+    const minPriceFilter = document.getElementById('minPrice');
+    const maxPriceFilter = document.getElementById('maxPrice');
+    const minYearFilter = document.getElementById('minYear');
+    const maxYearFilter = document.getElementById('maxYear');
+    const transmissionFilter = document.getElementById('transmission');
+    const colorFilter = document.getElementById('color');
     const sortBy = document.getElementById('sortBy');
     const perPage = document.getElementById('perPage');
     const applyFiltersBtn = document.querySelector('.inventory-controls .btn-primary-custom');
 
     // Function to populate the model dropdown
     function populateModelFilter(selectedBrand) {
-        modelFilter.innerHTML = '<option value="">Model</option>'; // Clear previous options
+        modelFilter.innerHTML = '<option value="">All Models</option>'; // Clear previous options
         modelFilter.disabled = true; // Disable model filter by default
 
         if (selectedBrand && modelsByBrand[selectedBrand]) {
@@ -546,12 +635,24 @@
         event.preventDefault(); // Prevent default form submission
         const selectedMake = makeFilter.value;
         const selectedModel = modelFilter.value;
+        const selectedMinPrice = minPriceFilter.value;
+        const selectedMaxPrice = maxPriceFilter.value;
+        const selectedMinYear = minYearFilter.value;
+        const selectedMaxYear = maxYearFilter.value;
+        const selectedTransmission = transmissionFilter.value;
+        const selectedColor = colorFilter.value;
         const selectedSortBy = sortBy.value;
         const selectedPerPage = perPage.value;
 
         let queryString = [];
         if (selectedMake) queryString.push(`make=${selectedMake}`);
         if (selectedModel) queryString.push(`model=${selectedModel}`);
+        if (selectedMinPrice) queryString.push(`minPrice=${selectedMinPrice}`);
+        if (selectedMaxPrice) queryString.push(`maxPrice=${selectedMaxPrice}`);
+        if (selectedMinYear) queryString.push(`minYear=${selectedMinYear}`);
+        if (selectedMaxYear) queryString.push(`maxYear=${selectedMaxYear}`);
+        if (selectedTransmission) queryString.push(`transmission=${selectedTransmission}`);
+        if (selectedColor) queryString.push(`color=${selectedColor}`);
         if (selectedSortBy) queryString.push(`sortBy=${selectedSortBy}`);
         if (selectedPerPage) queryString.push(`perPage=${selectedPerPage}`);
 
@@ -563,41 +664,48 @@
         const urlParams = new URLSearchParams(window.location.search);
         const initialMake = urlParams.get('make');
         const initialModel = urlParams.get('model');
+        const initialMinPrice = urlParams.get('minPrice');
+        const initialMaxPrice = urlParams.get('maxPrice');
+        const initialMinYear = urlParams.get('minYear');
+        const initialMaxYear = urlParams.get('maxYear');
+        const initialTransmission = urlParams.get('transmission');
+        const initialColor = urlParams.get('color');
         const initialSortBy = urlParams.get('sortBy');
         const initialPerPage = urlParams.get('perPage');
 
         if (initialMake) {
             makeFilter.value = initialMake;
             populateModelFilter(initialMake);
-            // Ensure model is selected after options are populated
             if (initialModel) {
-                // Use a small delay to ensure options are rendered
                 setTimeout(() => {
                     modelFilter.value = initialModel;
                 }, 50);
             }
         }
-        if (initialSortBy) {
-            sortBy.value = initialSortBy;
-        }
-        if (initialPerPage) {
-            perPage.value = initialPerPage;
-        }
+        if (initialMinPrice) minPriceFilter.value = initialMinPrice;
+        if (initialMaxPrice) maxPriceFilter.value = initialMaxPrice;
+        if (initialMinYear) minYearFilter.value = initialMinYear;
+        if (initialMaxYear) maxYearFilter.value = initialMaxYear;
+        if (initialTransmission) transmissionFilter.value = initialTransmission;
+        if (initialColor) colorFilter.value = initialColor;
+        if (initialSortBy) sortBy.value = initialSortBy;
+        if (initialPerPage) perPage.value = initialPerPage;
     });
 
-    // Placeholder for pagination logic (you'll need backend support for this)
-    // For now, these buttons just log to console or can be linked to specific page numbers
+    // Handlebars Helper for range (needs to be registered in your Node.js app)
+    // Example: Handlebars.registerHelper('range', function(from, to) { ... });
+    // This is just a placeholder here, assuming it's handled server-side.
+
+    // Pagination buttons click handler
     document.querySelectorAll('.btn-page-nav').forEach(button => {
-        button.addEventListener('click', function() {
-            console.log('Pagination button clicked:', this.textContent);
-            // Implement actual pagination logic here, e.g.,
-            // let currentPage = parseInt(urlParams.get('page') || '1');
-            // if (this.classList.contains('featured-carousel-prev')) {
-            //     currentPage--;
-            // } else {
-            //     currentPage++;
-            // }
-            // window.location.href = `/gas?page=${currentPage}&${otherFilters}`;
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            if (this.classList.contains('disabled')) {
+                return; // Do nothing if button is disabled
+            }
+
+            const url = new URL(this.href);
+            window.location.href = url.toString();
         });
     });
 
