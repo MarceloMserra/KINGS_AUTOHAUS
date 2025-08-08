@@ -1,0 +1,202 @@
+<!-- Contact Success Page -->
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+    body {
+        background-image: url('/images/fotocapa2.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .success-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .success-card {
+        background-color: rgba(0, 0, 0, 0.9);
+        border: 1px solid #05FC04;
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(5, 252, 4, 0.2);
+    }
+
+    .success-icon {
+        font-size: 4rem;
+        color: #05FC04;
+        margin-bottom: 20px;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .success-title {
+        color: #05FC04;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .success-message {
+        color: #ffffff;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    .contact-info {
+        background-color: rgba(5, 252, 4, 0.1);
+        border: 1px solid #05FC04;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 30px 0;
+    }
+
+    .contact-info h4 {
+        color: #05FC04;
+        margin-bottom: 15px;
+    }
+
+    .contact-info p {
+        color: #ffffff;
+        margin: 5px 0;
+    }
+
+    .contact-info a {
+        color: #05FC04;
+        text-decoration: none;
+    }
+
+    .contact-info a:hover {
+        text-decoration: underline;
+    }
+
+    .action-buttons {
+        margin-top: 30px;
+    }
+
+    .btn-return {
+        background-color: #05FC04;
+        border-color: #05FC04;
+        color: #000000;
+        font-weight: bold;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        text-decoration: none;
+        margin: 0 10px;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .btn-return:hover {
+        background-color: #04D803;
+        border-color: #04D803;
+        color: #ffffff;
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4);
+    }
+
+    .btn-secondary {
+        background-color: #333333;
+        border-color: #333333;
+        color: #ffffff;
+        font-weight: bold;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        text-decoration: none;
+        margin: 0 10px;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        background-color: #555555;
+        border-color: #555555;
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+        .success-card {
+            padding: 30px 20px;
+            margin: 20px;
+        }
+        
+        .success-title {
+            font-size: 2rem;
+        }
+        
+        .success-message {
+            font-size: 1.1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .btn-return, .btn-secondary {
+            margin: 0;
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="success-container">
+    <div class="success-card">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <h1 class="success-title">Message Sent Successfully!</h1>
+        
+        <p class="success-message">
+            Thank you for contacting KINGS AUTOHAUS. We've received your message and one of our vehicle specialists will get back to you within 24 hours.
+        </p>
+        
+        <div class="contact-info">
+            <h4><i class="fas fa-info-circle"></i> Contact Information</h4>
+            <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> 1278 Washington St, Holliston MA 01746</p>
+            <p><i class="fas fa-phone"></i> <strong>Phone:</strong> <a href="tel:+17745237860">+1 (774) 523-7860</a></p>
+            <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:contact@kingsautous.com">contact@kingsautous.com</a></p>
+            <p><i class="fas fa-clock"></i> <strong>Hours:</strong> Mon-Fri 9AM-7PM, Sat 9AM-6PM, Sun 11AM-5PM</p>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="/gas" class="btn-return">
+                <i class="fas fa-car"></i> Browse Vehicles
+            </a>
+            <a href="/" class="btn-secondary">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #333333;">
+            <p style="color: #888888; font-size: 0.9rem; margin: 0;">
+                <i class="fas fa-shield-alt"></i> Your information is secure and will only be used to respond to your inquiry.
+            </p>
+        </div>
+    </div>
+</div>
