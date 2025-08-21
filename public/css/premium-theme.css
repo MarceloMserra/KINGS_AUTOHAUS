@@ -540,3 +540,205 @@ body {
         transition: none !important;
     }
 }
+/* ==========================================
+   MOBILE MENU CORRECTIONS - ADICIONAR NO FINAL DO premium-theme.css
+   ========================================== */
+
+/* Mobile: Garante que o navbar seja sempre visível */
+@media (max-width: 991.98px) {
+    #navigation {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        position: fixed !important;
+        top: 0 !important;
+        z-index: 1030 !important;
+    }
+    
+    /* Menu collapse com styling melhorado */
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #000000;
+        border-top: 1px solid #1a1a1a;
+        border-radius: 0 0 15px 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+    }
+    
+    /* Animação suave para abertura do menu */
+    .navbar-collapse.collapsing {
+        transition: height 0.35s ease;
+    }
+    
+    .navbar-collapse.show {
+        animation: slideDownMenu 0.3s ease-out;
+    }
+    
+    /* Links do menu com melhor espaçamento */
+    .menu-horizontal {
+        flex-direction: column !important;
+        align-items: center !important;
+        padding: 20px 0;
+        margin: 0 !important;
+    }
+    
+    .menu-horizontal .nav-item {
+        margin: 8px 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .menu-horizontal .nav-link {
+        padding: 15px 20px !important;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: block;
+        width: 90%;
+        margin: 0 auto;
+    }
+    
+    .menu-horizontal .nav-link:hover {
+        background-color: rgba(5, 252, 4, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(5, 252, 4, 0.2);
+    }
+    
+    /* Informações de contato no mobile */
+    .navbar-contact-info {
+        flex-direction: column;
+        align-items: center;
+        margin: 20px 0 10px 0;
+        padding-top: 20px;
+        border-top: 1px solid #333;
+    }
+    
+    .navbar-contact-info .contact-info {
+        margin: 8px 0;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+    
+    .navbar-contact-info .social-icons {
+        margin-top: 15px;
+    }
+    
+    .navbar-contact-info .social-icons a {
+        margin: 0 10px;
+        font-size: 1.3rem;
+    }
+    
+    /* Botão toggler melhorado */
+    .navbar-toggler {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 2px solid #05FC04;
+        background-color: transparent;
+        padding: 8px 10px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        background-color: rgba(5, 252, 4, 0.1);
+        border-color: #04D803;
+        box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
+        outline: none;
+    }
+    
+    /* Ícone do hamburger personalizado */
+    .navbar-toggler-icon {
+        width: 24px;
+        height: 18px;
+        background-image: none !important;
+        position: relative;
+        background: #05FC04;
+        border-radius: 1px;
+    }
+    
+    .navbar-toggler-icon::before,
+    .navbar-toggler-icon::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        left: 0;
+        background: #05FC04;
+        transition: all 0.3s ease;
+        border-radius: 1px;
+    }
+    
+    .navbar-toggler-icon::before {
+        top: -6px;
+    }
+    
+    .navbar-toggler-icon::after {
+        bottom: -6px;
+    }
+    
+    /* Animação do ícone hamburger */
+    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+        background: transparent;
+    }
+    
+    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+        transform: rotate(45deg);
+        top: 0;
+    }
+    
+    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+        transform: rotate(-45deg);
+        bottom: 0;
+    }
+}
+
+/* Animação para abertura do menu */
+@keyframes slideDownMenu {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Desktop: Mantém comportamento original */
+@media (min-width: 992px) {
+    /* Remove qualquer interferência mobile no desktop */
+    .navbar-toggler {
+        display: none !important;
+    }
+    
+    .navbar-collapse {
+        display: flex !important;
+        position: static !important;
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Comportamento original do hover */
+    #navigation {
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+    
+    #navigation.hidden {
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    /* Hover no desktop funciona normalmente */
+    #navigation:hover {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+}

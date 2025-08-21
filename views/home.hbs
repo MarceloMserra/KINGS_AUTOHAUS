@@ -117,7 +117,7 @@
                         <div class="car-content">
                             <h5 class="car-title">{{this.brand}} {{this.t2}}</h5>
                             <p class="car-subtitle">{{this.year}} - {{this.mileage}} miles - {{this.transmission}}</p>
-                            <p class="car-price">R$ {{this.priceStr}}</p>
+                            <p class="car-price">${{this.priceStr}}</p>
                             <a href="/gas/details/{{this._id}}" class="view-details-btn">View Details</a>
                         </div>
                     </div>
@@ -228,24 +228,30 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <!-- Formulário de mensagem ATUALIZADO com campo de telefone -->
+                <form id="contactForm">
                     <div class="form-group">
                         <label for="contactName">Name</label>
-                        <input type="text" class="form-control" id="contactName" placeholder="Your Name">
+                        <input type="text" class="form-control" id="contactName" name="name" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
                         <label for="contactEmail">Email address</label>
-                        <input type="email" class="form-control" id="contactEmail" placeholder="name@example.com">
+                        <input type="email" class="form-control" id="contactEmail" name="email" placeholder="name@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone">Phone Number (U.S. 10 digits)</label>
+                        <input type="tel" class="form-control" id="contactPhone" name="phone" placeholder="e.g., 123-456-7890" pattern="^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$" title="Please enter a valid 10-digit U.S. phone number (e.g., 123-456-7890)" required>
+                        <small id="phoneHelp" class="form-text text-muted">Format: XXX-XXX-XXXX</small>
                     </div>
                     <div class="form-group">
                         <label for="contactMessage">Message</label>
-                        <textarea class="form-control" id="contactMessage" rows="3" placeholder="Your message..."></textarea>
+                        <textarea class="form-control" id="contactMessage" name="message" rows="3" placeholder="Your message..." required></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send Message</button>
+                <button type="submit" class="btn btn-primary" id="sendMessageButton">Send Message</button>
             </div>
         </div>
     </div>
@@ -410,6 +416,7 @@ class InfiniteCarousel {
         
         this.originalItems.forEach(item => {
             const clone = item.cloneNode(true);
+            clone.classList.add('clone');
             this.carouselInner.appendChild(clone);
         });
         
@@ -587,5 +594,75 @@ class InfiniteCarousel {
         setTimeout(() => {
             window.featuredCarousel = new InfiniteCarousel('.featured-carousel-wrapper');
         }, 100);
+
+        // Lógica para o formulário de contato do modal
+        const contactForm = document.getElementById('contactForm');
+        const sendMessageButton = document.getElementById('sendMessageButton');
+        const messageModal = document.getElementById('messageModal');
+
+        if (sendMessageButton && contactForm) {
+            sendMessageButton.addEventListener('click', async function(event) { // Adicionado 'event' como parâmetro
+                // Previne o envio padrão do formulário
+                event.preventDefault();
+
+                // Validação básica do formulário
+                if (!contactForm.checkValidity()) {
+                    contactForm.classList.add('was-validated'); // Adiciona classes de validação do Bootstrap
+                    return;
+                }
+
+                const name = document.getElementById('contactName').value;
+                const email = document.getElementById('contactEmail').value;
+                const phone = document.getElementById('contactPhone').value; // Novo campo de telefone
+                const message = document.getElementById('contactMessage').value;
+
+                // Objeto com os dados a serem enviados
+                const formData = {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    message: message
+                };
+
+                // Exibe uma mensagem de carregamento/sucesso
+                const originalButtonText = sendMessageButton.innerHTML;
+                sendMessageButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
+                sendMessageButton.disabled = true;
+
+                try {
+                    // Endpoint para enviar o e-mail
+                    const response = await fetch('/send-message', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json(); // Espera uma resposta JSON
+                        if (result.redirect) {
+                            window.location.href = result.redirect; // Redireciona para a URL fornecida pelo backend
+                        } else {
+                            // Fallback caso o backend não envie um redirecionamento
+                            alert('Your message has been sent successfully!');
+                            $(messageModal).modal('hide');
+                            contactForm.reset();
+                            contactForm.classList.remove('was-validated');
+                        }
+                    } else {
+                        // Erro ao enviar a mensagem
+                        const errorData = await response.json();
+                        alert(`Error sending message: ${errorData.message || response.statusText}`);
+                    }
+                } catch (error) {
+                    console.error('Network error:', error);
+                    alert('There was a problem connecting to the server. Please try again later.');
+                } finally {
+                    sendMessageButton.innerHTML = originalButtonText;
+                    sendMessageButton.disabled = false;
+                }
+            });
+        }
     });
 </script>

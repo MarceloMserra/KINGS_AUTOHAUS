@@ -2,43 +2,44 @@
 const mongoose = require('mongoose');
 
 const FinancingApplicationSchema = new mongoose.Schema({
-    // 1. Applicant Information
+    // 1. Applicant Information - Campos essenciais para identificação e histórico de moradia
     applicantFirstName: { type: String, required: true },
-    applicantMiddleInitial: { type: String, maxlength: 1 },
+    applicantMiddleInitial: { type: String, maxlength: 1 }, // Opcional
     applicantLastName: { type: String, required: true },
     applicantAddress1: { type: String, required: true },
-    applicantAddress2: { type: String },
+    applicantAddress2: { type: String }, // Opcional (apto, complemento)
     applicantCity: { type: String, required: true },
     applicantState: { type: String, required: true },
     applicantZip: { type: String, required: true },
     applicantSSN: { type: String, required: true },
     applicantDOB: { type: Date, required: true },
-    applicantDriverLicenseNumber: { type: String, required: true },
-    applicantDriverLicenseState: { type: String, required: true },
-    applicantDriverLicenseExp: { type: String, required: true }, // Mês/Ano
+    applicantDriverLicenseNumber: { type: String, required: true }, // Essencial
+    applicantDriverLicenseState: { type: String, required: true },  // Essencial
+    applicantDriverLicenseExp: { type: String, required: true },    // Essencial (MM/YY)
     applicantMobilePhone: { type: String, required: true },
-    applicantHomePhone: { type: String },
+    applicantHomePhone: { type: String }, // Opcional
     applicantEmail: { type: String, required: true },
-    timeAtResidenceYears: { type: Number, required: true },
-    timeAtResidenceMonths: { type: Number, required: true },
-    residenceType: { type: String, required: true },
-    rentMortgage: { type: Number, required: true },
+    timeAtResidenceYears: { type: Number, required: true }, // Essencial para estabilidade
+    timeAtResidenceMonths: { type: Number, required: true }, // Essencial para estabilidade
+    residenceType: { type: String, required: true }, // Essencial (Own, Rent, Other)
+    rentMortgage: { type: Number, required: true }, // Essencial
 
-    // 2. Applicant Employment Information
+    // 2. Applicant Employment Information - Campos essenciais para comprovação de renda e estabilidade
     employerName: { type: String, required: true },
-    employerType: { type: String, required: true },
+    employerType: { type: String, required: true }, // Essencial (e.g., Full-time, Part-time, Self-employed)
     monthlyIncome: { type: Number, required: true },
     occupation: { type: String, required: true },
-    employerAddress1: { type: String, required: true },
-    employerAddress2: { type: String },
-    employerCity: { type: String, required: true },
-    employerState: { type: String, required: true },
-    employerZip: { type: String, required: true },
-    workPhone: { type: String },
-    timeOnJobYears: { type: Number, required: true },
-    timeOnJobMonths: { type: Number, required: true },
+    employerAddress1: { type: String, required: true }, // Essencial
+    employerAddress2: { type: String }, // Opcional
+    employerCity: { type: String, required: true }, // Essencial
+    employerState: { type: String, required: true }, // Essencial
+    employerZip: { type: String, required: true }, // Essencial
+    workPhone: { type: String }, // Opcional
+    timeOnJobYears: { type: Number, required: true }, // Essencial
+    timeOnJobMonths: { type: Number, required: true }, // Essencial
 
-    // 3. Co-Buyer (Optional) - Todos os campos podem ser opcionais se hasCoBuyer for false
+    // 3. Co-Buyer (Optional) - Campos opcionais por padrão, mas se 'hasCoBuyer' for true,
+    // a validação no frontend/backend os tornará obrigatórios condicionalmente.
     hasCoBuyer: { type: Boolean, default: false },
     coBuyerFirstName: { type: String },
     coBuyerMiddleInitial: { type: String, maxlength: 1 },
@@ -73,23 +74,23 @@ const FinancingApplicationSchema = new mongoose.Schema({
     coBuyerTimeOnJobYears: { type: Number },
     coBuyerTimeOnJobMonths: { type: Number },
 
-    // 4. Vehicle Information
-    vehicleToFinance: { type: String }, // Pode ser um ID ou apenas o nome/modelo
-    stockNumber: { type: String },
+    // 4. Vehicle Information - Campos essenciais para identificar o veículo a ser financiado
+    vehicleToFinance: { type: String }, // Opcional (pode ser gerado no backend)
+    stockNumber: { type: String }, // Opcional
     vehicleYear: { type: Number, required: true },
     vehicleMake: { type: String, required: true },
     vehicleModel: { type: String, required: true },
-    vehicleTrim: { type: String },
-    vehicleVin: { type: String, required: true },
-    vehicleMileage: { type: Number, required: true },
+    vehicleTrim: { type: String }, // Opcional
+    vehicleVin: { type: String, required: true }, // Essencial
+    vehicleMileage: { type: Number, required: true }, // Essencial
 
-    // 5. Additional Comments
+    // 5. Additional Comments - Opcional
     additionalComments: { type: String },
 
-    // 6. Acknowledgment and Consent
+    // 6. Acknowledgment and Consent - Essencial
     acknowledgmentConsent: { type: Boolean, required: true },
 
-    // 7. Text Message Consent
+    // 7. Text Message Consent - Opcional
     textMessageConsent: { type: Boolean, default: false },
 
     // Timestamp

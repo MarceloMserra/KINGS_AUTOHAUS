@@ -13,26 +13,23 @@ const passport = require('passport');
 const app = express();
 
 // ======================
-// 🧪 Verificação da URI do MongoDB
+// 🧪 MongoDB URI Verification
 // ======================
-console.log('✅ URI carregada do .env:', process.env.MONGO_URI);
+console.log('✅ URI loaded from .env:', process.env.MONGO_URI);
 if (!process.env.MONGO_URI.startsWith('mongodb+srv://')) {
-    console.error('❌ URI inválida detectada! Use mongodb+srv:// no .env');
+    console.error('❌ Invalid URI detected! Please use mongodb+srv:// in .env');
     process.exit(1);
 }
 
 // ======================
-// 🔗 Conexão com MongoDB Atlas
+// 🔗 MongoDB Atlas Connection
 // ======================
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => console.log('🟢 Conectado ao MongoDB Atlas!'))
-.catch(err => console.error('❌ Erro ao conectar ao MongoDB Atlas:\n', err));
+mongoose.connect(process.env.MONGO_URI)
+.then(() => console.log('🟢 Connected to MongoDB Atlas!'))
+.catch(err => console.error('❌ Error connecting to MongoDB Atlas:\n', err));
 
 // ======================
-// 🔧 Configuração do Handlebars com Helpers Melhorados
+// 🔧 Handlebars Configuration with Enhanced Helpers
 // ======================
 app.engine('hbs', exphbs.engine({
     extname: 'hbs',
@@ -55,19 +52,19 @@ app.engine('hbs', exphbs.engine({
         },
         lookup: (obj, field) => obj[field],
         add: (a, b) => a + b,
-        // Helper para formatar números com vírgulas
+        // Helper to format numbers with commas
         numberWithCommas: (num) => {
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         },
-        // Helper para converter para uppercase
+        // Helper to convert to uppercase
         uppercase: (str) => str ? str.toUpperCase() : '',
-        // Helper para converter para lowercase
+        // Helper to convert to lowercase
         lowercase: (str) => str ? str.toLowerCase() : '',
-        // Helper para capitalizar primeira letra
+        // Helper to capitalize first letter
         capitalize: (str) => str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : '',
-        // Helper para verificar se array contém valor
+        // Helper to check if array contains value
         includes: (array, value) => array && array.includes(value),
-        // Helper para formatar data
+        // Helper to format date
         formatDate: (date) => {
             if (!date) return '';
             return new Date(date).toLocaleDateString('en-US', {
@@ -76,17 +73,17 @@ app.engine('hbs', exphbs.engine({
                 day: 'numeric'
             });
         },
-        // Helper para calcular pagamento mensal estimado
+        // Helper to calculate estimated monthly payment
         calculateMonthlyPayment: (price, downPayment = 0, rate = 4.9, term = 60) => {
             const principal = price - downPayment;
             const monthlyRate = (rate / 100) / 12;
             const monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, term)) / (Math.pow(1 + monthlyRate, term) - 1);
             return Math.round(monthlyPayment).toLocaleString();
         },
-        // Helper para verificar se é o primeiro ou último item
+        // Helper to check if it's the first or last item
         isFirst: (index) => index === 0,
         isLast: (index, array) => index === array.length - 1,
-        // Helper para obter iniciais do nome
+        // Helper to get name initials
         getInitials: (firstName, lastName) => {
             return (firstName ? firstName.charAt(0) : '') + (lastName ? lastName.charAt(0) : '');
         }
@@ -96,15 +93,15 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 // ======================
-// 🔧 Middlewares principais
+// 🔧 Main Middlewares
 // ======================
 app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
-app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.json({ limit: '10mb' })); // Necessary to parse JSON from the frontend
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ======================
-// 🧠 Sessão e Flash Messages
+// 🧠 Session and Flash Messages
 // ======================
 app.use(session({
     secret: process.env.SESSION_SECRET || 'kingsautohaus2024',
@@ -125,7 +122,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // ======================
-// 🌍 Variáveis Globais e Middleware de Mensagens
+// 🌍 Global Variables and Message Middleware
 // ======================
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
@@ -157,22 +154,53 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // ======================
-// 🌐 Route Configuration
+// 🌐 Route Configuration - CORRECTED ORDER
 // ======================
 const admin = require('./routes/admin');
-const usuarios = require('./routes/usuarios');
 const gas = require('./routes/gas_index');
 const electric = require('./routes/electric_index');
-const financing = require('./routes/financing');
-const contact = require('./routes/contact'); // NEW CONTACT ROUTE
+const usuarios = require('./routes/usuarios'); // Move usuarios import here
 
-// Route middlewares
+// CORRECTED: Only include financing if the file exists
+let financing;
+try {
+    financing = require('./routes/financing');
+    console.log('✅ Financing routes loaded successfully');
+} catch (error) {
+    console.log('⚠️ Financing routes not found - skipping');
+    financing = null;
+}
+
+// CORRECTED: Only include contact if the file exists
+let contact;
+try {
+    contact = require('./routes/contact');
+    console.log('✅ Contact routes loaded successfully');
+} catch (error) {
+    console.log('⚠️ Contact routes not found - skipping');
+    contact = null;
+}
+
+// Route middlewares - IMPORTANT ORDER
+// Routes with specific prefixes should come first
 app.use('/admin', admin);
-app.use('/', usuarios);
 app.use('/gas', gas);
 app.use('/electric', electric);
-app.use('/', financing);
-app.use('/', contact); // ADDED CONTACT ROUTE
+
+// Routes that might handle root paths or more generic paths should come after specific ones
+if (financing) {
+    app.use('/', financing);
+}
+
+// IMPORTANT: The 'contact' route should come BEFORE 'usuarios' if it has specific POST routes
+// that might be caught by a more generic GET '/' in 'usuarios'.
+if (contact) {
+    app.use('/', contact); // This will mount the routes from contact.js, including /send-message
+}
+
+// IMPORTANT: 'usuarios' should be the last of the root-level routes to avoid conflicts
+// as it often contains a catch-all '/' route for the homepage.
+app.use('/', usuarios); 
 
 // ======================
 // 📝 API Routes for AJAX requests
@@ -192,6 +220,34 @@ app.get('/api/models/:brand', async (req, res) => {
         console.error('API models error:', error);
         res.status(500).json({ error: 'Unable to fetch models' });
     }
+});
+
+// ======================
+// 📊 Health Check Endpoint
+// ======================
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        environment: process.env.NODE_ENV || 'development'
+    });
+});
+
+// ======================
+// 🎯 Security Headers (Basic)
+// ======================
+app.use((req, res, next) => {
+    // Basic security headers
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    
+    // Remove powered by header
+    res.removeHeader('X-Powered-By');
+    
+    next();
 });
 
 // ======================
@@ -229,34 +285,6 @@ app.use((err, req, res, next) => {
 });
 
 // ======================
-// 🎯 Security Headers (Basic)
-// ======================
-app.use((req, res, next) => {
-    // Basic security headers
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('X-Frame-Options', 'DENY');
-    res.setHeader('X-XSS-Protection', '1; mode=block');
-    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-    
-    // Remove powered by header
-    res.removeHeader('X-Powered-By');
-    
-    next();
-});
-
-// ======================
-// 📊 Health Check Endpoint
-// ======================
-app.get('/health', (req, res) => {
-    res.status(200).json({
-        status: 'OK',
-        timestamp: new Date().toISOString(),
-        uptime: process.uptime(),
-        environment: process.env.NODE_ENV || 'development'
-    });
-});
-
-// ======================
 // 🚀 Server Configuration
 // ======================
 const PORT = process.env.PORT || 3000;
@@ -275,6 +303,6 @@ if (require.main === module) {
 }
 
 // ======================
-// 🚀 Exportação
+// 🚀 Exportation
 // ======================
 module.exports = app;

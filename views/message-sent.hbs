@@ -1,0 +1,149 @@
+<!-- views/message-sent.hbs -->
+<section class="message-sent-section">
+    <!-- Overlay para escurecer a imagem de fundo e melhorar a legibilidade do texto -->
+    <div class="background-overlay"></div>
+    
+    <div class="container content-wrapper">
+        <div class="message-card">
+            <i class="fas fa-check-circle text-green-500 text-6xl mb-6 animate-bounce"></i>
+            <h1 class="text-4xl md:text-5xl font-bold text-green-400 mb-4">Thank You!</h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
+                Your message has been sent successfully.
+                Our team will review your inquiry and get back to you within 24 business hours.
+            </p>
+            <a href="/" class="return-home-btn">
+                Return to Homepage
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Estilos para a seção principal com imagem de fundo */
+    .message-sent-section {
+        position: relative; /* Necessário para o overlay */
+        min-height: calc(100vh - 120px); /* Ajusta a altura para preencher a tela menos o header */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #ffffff; /* Cor do texto padrão */
+        overflow: hidden; /* Garante que a imagem de fundo não vaze */
+
+        /* Imagem de fundo do carro - AGORA USANDO images/obrigado.png */
+        background-image: url('/images/obrigado.png'); /* Substituído para a sua imagem */
+        background-size: cover; /* Cobre toda a área */
+        background-position: center; /* Centraliza a imagem */
+        background-attachment: fixed; /* Efeito parallax suave */
+    }
+
+    /* Overlay para escurecer a imagem e garantir legibilidade */
+    .background-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Preto com 70% de opacidade */
+        z-index: 1; /* Fica abaixo do conteúdo */
+    }
+
+    /* Wrapper para o conteúdo (mensagem e botão) */
+    .content-wrapper {
+        position: relative;
+        z-index: 2; /* Fica acima do overlay */
+        padding: 20px;
+        max-width: 800px; /* Limita a largura do conteúdo para melhor leitura */
+        margin-top: 50px; /* Espaçamento do topo, se necessário */
+        margin-bottom: 50px; /* Espaçamento da base, se necessário */
+    }
+
+    /* Estilo do card da mensagem */
+    .message-card {
+        background-color: rgba(26, 26, 26, 0.9); /* Fundo escuro semi-transparente */
+        padding: 40px;
+        border-radius: 15px; /* Cantos arredondados */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra mais pronunciada */
+        border: 1px solid #05FC04; /* Borda verde */
+        animation: fadeInScale 0.8s ease-out forwards; /* Animação de entrada */
+    }
+
+    /* Animação para o ícone de check */
+    .animate-bounce {
+        animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(-25%);
+            animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+        }
+        50% {
+            transform: translateY(0);
+            animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        }
+    }
+
+    /* Animação de entrada para o card */
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Estilo do botão "Return to Homepage" */
+    .return-home-btn {
+        display: inline-block;
+        background-color: #05FC04; /* Verde principal */
+        color: #000000; /* Texto preto para contraste */
+        font-weight: bold;
+        padding: 12px 30px;
+        border-radius: 50px; /* Botão arredondado */
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 15px rgba(5, 252, 4, 0.4); /* Sombra verde */
+    }
+
+    .return-home-btn:hover {
+        background-color: #04D803; /* Verde mais escuro no hover */
+        transform: translateY(-3px) scale(1.02); /* Pequeno lift e escala */
+        box-shadow: 0 8px 20px rgba(5, 252, 4, 0.6); /* Sombra mais intensa */
+        color: #000000; /* Garante que a cor do texto não mude no hover */
+        text-decoration: none; /* Remove sublinhado no hover */
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        .message-card {
+            padding: 30px;
+            margin: 20px; /* Adiciona margem em telas menores */
+        }
+        .message-card h1 {
+            font-size: 3rem;
+        }
+        .message-card p {
+            font-size: 1rem;
+        }
+        .return-home-btn {
+            padding: 10px 25px;
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .message-card {
+            padding: 20px;
+        }
+        .message-card h1 {
+            font-size: 2.5rem;
+        }
+        .message-card p {
+            font-size: 0.9rem;
+        }
+    }
+</style>

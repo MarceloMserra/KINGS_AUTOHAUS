@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="/css/home.css">
     <!-- NOVO: Link para financing.css - para a página de financiamento -->
     <link rel="stylesheet" href="/css/financing.css">
+    <!-- NOVO: Link para login.css - para a página de login -->
+    <link rel="stylesheet" href="/css/login.css">
 
     {{!-- Icons --}}
     <script src="https://kit.fontawesome.com/f7b393d83e.js" crossorigin="anonymous"></script>
@@ -26,15 +28,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> <!-- Adicionado Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         xintegrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
+    <!-- CSS personalizado para o cabeçalho fixo e transições -->
+    <style>
+        /* Garante que a seção de navegação seja fixa no topo */
+        #navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
+            /* As transições para 'hidden' são definidas no CSS injetado no final do body */
+        }
+
+        /* Ajuste para o conteúdo da página não ficar por baixo do cabeçalho fixo */
+        /* Este padding será ajustado dinamicamente pelo JavaScript, mas é um bom valor inicial */
+        body {
+            padding-top: 120px; /* Ajuste este valor de acordo com a altura total do seu cabeçalho */
+        }
+    </style>
 </head>
 
 <body>
+
+    <!-- Top Bar - Geralmente permanece visível, mas pode ser ajustada se necessário -->
+    <div class="top-bar bg-gray-900 text-white text-xs py-2 px-4 flex justify-between items-center z-50 relative">
+        <div class="flex space-x-3">
+            <a href="https://www.facebook.com/kingsautohaus" target="_blank" class="hover:text-green-500"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.google.com/maps/search/?api=1&query=1278%20Washington%20St,%20Holliston%20MA%2001746" target="_blank" class="hover:text-green-500"><i class="fab fa-google-plus-g"></i></a>
+            <a href="https://www.instagram.com/kingsautous/" target="_blank" class="hover:text-green-500"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div>
+            <span class="mr-4"><i class="fas fa-map-marker-alt mr-1"></i>1278 Washington St, Holliston MA 01746</span>
+            <span><i class="fas fa-phone mr-1"></i>+1 (774)523-7860</span>
+        </div>
+    </div>
 
     <!-- Main Navbar -->
     <section id="navigation">
@@ -111,91 +145,303 @@
     <script src="/javascripts/ev_cars.js"></script>
     <script src="/javascripts/gas_cars.js"></script>
 
+    <!-- ============================================ -->
+    <!-- SCRIPT ÚNICO CORRIGIDO - HEADER E MOBILE MENU -->
+    <!-- ============================================ -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const navigationSection = document.getElementById('navigation');
             const backToTopBtn = document.getElementById('backToTop');
             const body = document.body;
-            let headerHeight = navigationSection.offsetHeight; // Altura inicial do cabeçalho
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('#navbarNavDropdown');
+            
+            let headerHeight = navigationSection ? navigationSection.offsetHeight : 120;
+            let isMenuOpen = false;
+            let lastScrollTop = 0;
+            let isHovering = false; // Controla o estado de hover
+
+            // Função para detectar se é dispositivo móvel
+            function isMobileDevice() {
+                // A breakpoint de 991.98px é a padrão do Bootstrap para 'lg'
+                return window.innerWidth <= 991.98;
+            }
 
             // Função para ajustar o padding-top do body
             function adjustBodyPadding() {
-                // Ajusta o padding do body com base na altura do cabeçalho
-                // Isso evita que o conteúdo fique escondido sob o cabeçalho fixo
-                body.style.paddingTop = `${headerHeight}px`;
+                if (navigationSection) {
+                    // Pega a altura atual do cabeçalho (pode variar se houver animações ou responsividade)
+                    const currentHeaderHeight = navigationSection.offsetHeight;
+                    body.style.paddingTop = `${currentHeaderHeight}px`;
+                }
             }
 
             // Função para mostrar o cabeçalho
             function showHeader() {
-                navigationSection.classList.remove('hidden');
-                navigationSection.style.pointerEvents = 'auto'; // Habilita interações
+                if (navigationSection) {
+                    navigationSection.classList.remove('hidden');
+                    navigationSection.style.pointerEvents = 'auto'; // Reabilita cliques e interações
+                }
             }
 
-            // Função para esconder o cabeçalho
+            // Função para esconder o cabeçalho (só no desktop e quando não estiver hover)
             function hideHeader() {
-                navigationSection.classList.add('hidden');
-                navigationSection.style.pointerEvents = 'none'; // Desabilita interações
+                if (navigationSection && !isMobileDevice() && !isHovering) {
+                    navigationSection.classList.add('hidden');
+                    navigationSection.style.pointerEvents = 'none'; // Desabilita cliques e interações quando escondido
+                }
             }
 
-            // Função para lidar com o scroll
+            // Função para lidar com o scroll - CORRIGIDA
             function handleScroll() {
                 const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
-                if (currentScrollTop === 0) {
-                    // Se estiver no topo da página, o cabeçalho sempre aparece
-                    showHeader();
-                    backToTopBtn.classList.remove('visible'); // Esconde o botão "Voltar ao Topo"
+                if (isMobileDevice()) {
+                    // MOBILE: O cabeçalho permanece sempre visível no mobile
+                    if (navigationSection) {
+                        navigationSection.classList.remove('hidden'); // Garante que esteja visível
+                        navigationSection.style.pointerEvents = 'auto'; // Garante que esteja clicável
+                    }
+                    
+                    // Fecha o menu se estiver aberto ao fazer scroll para baixo
+                    if (isMenuOpen && currentScrollTop > lastScrollTop) {
+                        closeMenu();
+                    }
+                    
+                    // Botão back to top (visibilidade)
+                    if (backToTopBtn) {
+                        if (currentScrollTop === 0) {
+                            backToTopBtn.classList.remove('visible');
+                        } else {
+                            backToTopBtn.classList.add('visible');
+                        }
+                    }
                 } else {
-                    // Se não estiver no topo, o cabeçalho fica escondido por padrão
-                    hideHeader();
-                    backToTopBtn.classList.add('visible'); // Mostra o botão "Voltar ao Topo"
+                    // DESKTOP: Comportamento dinâmico
+                    if (currentScrollTop === 0) { // No topo da página
+                        showHeader();
+                        if (backToTopBtn) backToTopBtn.classList.remove('visible');
+                    } else { // Não está no topo
+                        if (currentScrollTop > lastScrollTop) { // Rolando para baixo
+                            if (!isHovering) { // Apenas esconde se não estiver com o mouse em cima
+                                hideHeader();
+                            }
+                        } else { // Rolando para cima
+                            showHeader();
+                        }
+                        if (backToTopBtn) backToTopBtn.classList.add('visible');
+                    }
                 }
 
-                adjustBodyPadding(); // Ajusta o padding do body a cada scroll
+                lastScrollTop = currentScrollTop;
+                adjustBodyPadding(); // Mantém o padding do body ajustado dinamicamente
             }
 
-            // Event Listener para quando o mouse entra na área do cabeçalho
-            navigationSection.addEventListener('mouseenter', function() {
-                showHeader();
-            });
+            // Função para abrir o menu (MOBILE APENAS)
+            function openMenu() {
+                if (!isMobileDevice() || !navbarCollapse) return;
+                
+                navbarCollapse.classList.add('show');
+                if (navbarToggler) navbarToggler.setAttribute('aria-expanded', 'true');
+                isMenuOpen = true;
+            }
 
-            // Event Listener para quando o mouse sai da área do cabeçalho
-            navigationSection.addEventListener('mouseleave', function() {
-                // Esconde o cabeçalho apenas se não estiver no topo da página
-                if (window.scrollY > 0) {
-                    hideHeader();
+            // Função para fechar o menu (MOBILE APENAS)
+            function closeMenu() {
+                if (!isMobileDevice() || !navbarCollapse) return;
+                
+                navbarCollapse.classList.remove('show');
+                if (navbarToggler) navbarToggler.setAttribute('aria-expanded', 'false');
+                isMenuOpen = false;
+            }
+
+            // Event listener para o botão hamburger (MOBILE APENAS)
+            if (navbarToggler) {
+                navbarToggler.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    if (!isMobileDevice()) return; // Ação apenas no mobile
+                    
+                    if (isMenuOpen) {
+                        closeMenu();
+                    } else {
+                        openMenu();
+                    }
+                });
+            }
+
+            // Fecha o menu ao clicar fora dele (MOBILE APENAS)
+            document.addEventListener('click', function(e) {
+                if (!isMobileDevice() || !navigationSection) return;
+                
+                const clickedInsideNav = navigationSection.contains(e.target);
+                
+                if (!clickedInsideNav && isMenuOpen) {
+                    closeMenu();
                 }
             });
 
-            // Adiciona event listeners de scroll
-            window.addEventListener('scroll', handleScroll);
-
-            // Ajusta o padding e o estado inicial ao carregar a página
-            window.addEventListener('load', function() {
-                headerHeight = navigationSection.offsetHeight; // Recalcula a altura após o carregamento completo
-                adjustBodyPadding();
-                handleScroll(); // Define o estado inicial do navbar e botão "Voltar ao Topo"
+            // Fecha o menu ao clicar em um link do menu (MOBILE APENAS)
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (isMobileDevice() && isMenuOpen) {
+                        setTimeout(() => {
+                            closeMenu();
+                        }, 100); // Pequeno atraso para garantir que o link seja clicado antes de fechar
+                    }
+                });
             });
 
-            // Ajusta o padding ao redimensionar a janela
+            // Event Listeners para desktop - CORRIGIDOS (lógica de hover)
+            if (navigationSection) {
+                navigationSection.addEventListener('mouseenter', function() {
+                    if (!isMobileDevice()) {
+                        isHovering = true;
+                        showHeader(); // Sempre mostra ao passar o mouse no desktop
+                    }
+                });
+
+                navigationSection.addEventListener('mouseleave', function() {
+                    if (!isMobileDevice()) {
+                        isHovering = false;
+                        // Só esconde se não estiver no topo da página
+                        if (window.scrollY > 0) {
+                            hideHeader();
+                        }
+                    }
+                });
+            }
+
+            // Adiciona event listeners de scroll com throttling para performance
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        handleScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            // Ajusta o comportamento ao redimensionar a janela
             window.addEventListener('resize', function() {
-                headerHeight = navigationSection.offsetHeight; // Recalcula a altura ao redimensionar
-                adjustBodyPadding();
-                handleScroll(); // Reajusta o estado do cabeçalho e botão
+                if (navigationSection) {
+                    headerHeight = navigationSection.offsetHeight; // Recalcula a altura do cabeçalho
+                }
+                adjustBodyPadding(); // Reajusta o padding do body
+                
+                // Se redimensionar para desktop e o menu mobile estiver aberto, fecha
+                if (!isMobileDevice() && isMenuOpen) {
+                    closeMenu();
+                }
+                
+                handleScroll(); // Reavalia a visibilidade do cabeçalho
             });
 
-            // Função para voltar ao topo
+            // Configuração inicial ao carregar a página
+            window.addEventListener('load', function() {
+                if (navigationSection) {
+                    headerHeight = navigationSection.offsetHeight;
+                }
+                adjustBodyPadding();
+                handleScroll(); // Define o estado inicial do cabeçalho
+            });
+
+            // Função global para voltar ao topo (chamada pelo botão)
             window.scrollToTop = function() {
+                if (isMobileDevice() && isMenuOpen) {
+                    closeMenu(); // Fecha o menu mobile ao voltar ao topo
+                }
+                
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
                 });
             };
 
-            // Executa uma vez para definir o estado inicial
+            // Executa uma vez para definir o estado inicial (caso a página recarregue já scrollada)
             handleScroll();
         });
+
+        // CSS para corrigir as animações - INJETADO AUTOMATICAMENTE
+        // Este bloco de CSS é importante para a funcionalidade do header
+        const headerCSS = document.createElement('style');
+        headerCSS.textContent = `
+        /* Corrige o problema de piscar do header */
+        #navigation {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            /* will-change: auto; é removido se não for estritamente necessário para otimização */
+        }
+
+        #navigation.hidden {
+            transform: translateY(-100%); /* Move o cabeçalho para cima para escondê-lo */
+            opacity: 0;
+            pointer-events: none; /* Desabilita interações quando escondido */
+        }
+
+        /* Mobile específico: garante que o cabeçalho esteja sempre visível e com interações */
+        @media (max-width: 991.98px) {
+            #navigation {
+                transform: translateY(0) !important; /* Sempre visível */
+                opacity: 1 !important; /* Sempre opaco */
+                pointer-events: auto !important; /* Sempre clicável */
+                transition: none; /* Remove transições no mobile para evitar comportamentos inesperados */
+            }
+            
+            /* Estilos para o menu colapsado no mobile (já presentes no seu código) */
+            .navbar-collapse {
+                background-color: #000000;
+                border-top: 1px solid #1a1a1a;
+                padding: 15px;
+                border-radius: 0 0 10px 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 12px 15px !important;
+                margin: 5px 0;
+                border-radius: 5px;
+                transition: background-color 0.2s ease;
+            }
+            
+            .navbar-nav .nav-link:hover {
+                background-color: rgba(5, 252, 4, 0.1);
+            }
+            
+            .navbar-toggler {
+                border: 2px solid #05FC04;
+                border-radius: 5px;
+                padding: 8px;
+                background-color: transparent;
+                transition: all 0.3s ease;
+            }
+            
+            .navbar-toggler:hover,
+            .navbar-toggler:focus {
+                background-color: rgba(5, 252, 4, 0.1);
+                border-color: #04D803;
+                box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
+                outline: none;
+            }
+        }
+
+        /* Desktop específico: garante que o toggler esteja escondido e o menu visível */
+        @media (min-width: 992px) {
+            .navbar-toggler {
+                display: none !important;
+            }
+            
+            .navbar-collapse {
+                display: flex !important; /* Garante que o menu esteja flexível no desktop */
+            }
+        }
+        `;
+        document.head.appendChild(headerCSS);
     </script>
+
 </body>
 
 </html>
