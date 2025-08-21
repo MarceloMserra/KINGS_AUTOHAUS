@@ -235,16 +235,64 @@
                 adjustBodyPadding(); // Mantém o padding do body ajustado dinamicamente
             }
 
-            // Event listener para o botão hamburger (usa o toggle do Bootstrap)
+            // Função para abrir o menu mobile
+            function openMenu() {
+                if (!isMobileDevice() || !navbarCollapse) return;
+                
+                navbarCollapse.classList.add('show');
+                if (navbarToggler) navbarToggler.setAttribute('aria-expanded', 'true');
+                isMenuOpen = true;
+            }
+
+            // Função para fechar o menu mobile
+            function closeMenu() {
+                if (!isMobileDevice() || !navbarCollapse) return;
+                
+                navbarCollapse.classList.remove('show');
+                if (navbarToggler) navbarToggler.setAttribute('aria-expanded', 'false');
+                isMenuOpen = false;
+            }
+
+            // Event listener para o botão hamburger
             if (navbarToggler) {
                 navbarToggler.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation(); // Impede que o clique "suba" e feche o menu imediatamente
                     
-                    // O Bootstrap já lida com a classe 'show' e 'aria-expanded'
-                    // A lógica de fechar ao clicar fora é do Bootstrap também
+                    if (!isMobileDevice()) return;
+                    
+                    if (isMenuOpen) {
+                        closeMenu();
+                    } else {
+                        openMenu();
+                    }
                 });
             }
+
+            // Fecha o menu ao clicar fora dele (apenas no mobile)
+            document.addEventListener('click', function(e) {
+                if (!isMobileDevice() || !navigationSection) return;
+                
+                const clickedInsideNav = navigationSection.contains(e.target);
+                
+                if (!clickedInsideNav && isMenuOpen) {
+                    closeMenu();
+                }
+            });
+
+            // Fecha o menu ao clicar em um link do menu (apenas no mobile)
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (isMobileDevice() && isMenuOpen) {
+                        // Pequeno atraso para permitir que o navegador processe o clique no link
+                        // antes de fechar o menu, especialmente para âncoras internas.
+                        setTimeout(() => {
+                            closeMenu();
+                        }, 100); 
+                    }
+                });
+            });
 
             // Event Listeners para desktop (lógica de hover do cabeçalho)
             if (navigationSection) {
@@ -286,8 +334,8 @@
                 adjustBodyPadding(); // Reajusta o padding do body
                 
                 // Se redimensionar para desktop e o menu mobile estiver aberto, fecha
-                if (!isMobileDevice() && navbarCollapse.classList.contains('show')) {
-                    $(navbarCollapse).collapse('hide');
+                if (!isMobileDevice() && isMenuOpen) {
+                    closeMenu();
                 }
                 
                 handleScroll(); // Reavalia a visibilidade do cabeçalho
@@ -304,9 +352,8 @@
 
             // Função global para voltar ao topo (chamada pelo botão)
             window.scrollToTop = function() {
-                // Se o menu mobile estiver aberto, fecha antes de rolar
-                if (isMobileDevice() && navbarCollapse.classList.contains('show')) {
-                    $(navbarCollapse).collapse('hide');
+                if (isMobileDevice() && isMenuOpen) {
+                    closeMenu(); // Fecha o menu mobile ao voltar ao topo
                 }
                 
                 window.scrollTo({
@@ -318,6 +365,7 @@
             // Executa uma vez para definir o estado inicial (caso a página recarregue já scrollada)
             handleScroll();
         });
+
         // O bloco de CSS injetado foi movido para premium-theme.css para melhor organização.
         // Ele não é mais necessário aqui.
     </script>

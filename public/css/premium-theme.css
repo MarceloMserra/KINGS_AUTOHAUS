@@ -108,9 +108,52 @@ body {
 }
 
 /* Ajusta a cor do ícone do toggler para ser visível no fundo preto */
+/* Removido background-image padrão do Bootstrap e adicionado customização */
 .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+    width: 24px; /* Largura do ícone */
+    height: 18px; /* Altura do ícone */
+    position: relative;
+    display: block; /* Garante que o span seja um bloco */
+    background: transparent; /* Começa transparente */
+    border-radius: 1px; /* Cantos arredondados para as barras */
+    transition: all 0.3s ease; /* Transição para a animação */
 }
+
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px; /* Espessura das barras */
+    left: 0;
+    background: #05FC04; /* Cor das barras */
+    transition: all 0.3s ease;
+    border-radius: 1px;
+}
+
+.navbar-toggler-icon::before {
+    top: -6px; /* Posição da barra superior */
+}
+
+.navbar-toggler-icon::after {
+    bottom: -6px; /* Posição da barra inferior */
+}
+
+/* Animação do ícone hamburger quando expandido */
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+    background: transparent; /* Barra do meio desaparece */
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+    transform: rotate(45deg); /* Gira para formar um 'X' */
+    top: 0; /* Move para o centro */
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+    transform: rotate(-45deg); /* Gira para formar um 'X' */
+    bottom: 0; /* Move para o centro */
+}
+
 
 /* Estilos para esconder o cabeçalho no scroll - CORRIGIDO */
 #navigation {
