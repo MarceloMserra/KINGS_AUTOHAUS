@@ -108,15 +108,15 @@ body {
 }
 
 /* Ajusta a cor do ícone do toggler para ser visível no fundo preto */
-/* Removido background-image padrão do Bootstrap e adicionado customização */
+/* Corrigido: Agora o ícone do hambúrguer é customizado com ::before e ::after */
 .navbar-toggler-icon {
     width: 24px; /* Largura do ícone */
-    height: 18px; /* Altura do ícone */
+    height: 2px; /* A barra do meio */
+    background-color: #05FC04; /* Cor da barra do meio */
     position: relative;
-    display: block; /* Garante que o span seja um bloco */
-    background: transparent; /* Começa transparente */
-    border-radius: 1px; /* Cantos arredondados para as barras */
-    transition: all 0.3s ease; /* Transição para a animação */
+    display: block;
+    border-radius: 1px;
+    transition: all 0.3s ease;
 }
 
 .navbar-toggler-icon::before,
@@ -141,7 +141,7 @@ body {
 
 /* Animação do ícone hamburger quando expandido */
 .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
-    background: transparent; /* Barra do meio desaparece */
+    background-color: transparent; /* Barra do meio desaparece */
 }
 
 .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {

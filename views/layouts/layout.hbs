@@ -259,12 +259,8 @@
                     e.preventDefault();
                     e.stopPropagation(); // Impede que o clique "suba" e feche o menu imediatamente
                     
-                    if (!isMobileDevice()) return;
-                    
-                    if (isMenuOpen) {
-                        closeMenu();
-                    } else {
-                        openMenu();
+                    if (isMobileDevice()) { // Só alterna o menu no mobile
+                        $(navbarCollapse).collapse('toggle'); // Usa o método collapse do Bootstrap
                     }
                 });
             }
@@ -275,8 +271,8 @@
                 
                 const clickedInsideNav = navigationSection.contains(e.target);
                 
-                if (!clickedInsideNav && isMenuOpen) {
-                    closeMenu();
+                if (!clickedInsideNav && $(navbarCollapse).hasClass('show')) {
+                    $(navbarCollapse).collapse('hide');
                 }
             });
 
@@ -284,11 +280,11 @@
             const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
             navLinks.forEach(link => {
                 link.addEventListener('click', function() {
-                    if (isMobileDevice() && isMenuOpen) {
+                    if (isMobileDevice() && $(navbarCollapse).hasClass('show')) {
                         // Pequeno atraso para permitir que o navegador processe o clique no link
                         // antes de fechar o menu, especialmente para âncoras internas.
                         setTimeout(() => {
-                            closeMenu();
+                            $(navbarCollapse).collapse('hide');
                         }, 100); 
                     }
                 });
@@ -334,8 +330,8 @@
                 adjustBodyPadding(); // Reajusta o padding do body
                 
                 // Se redimensionar para desktop e o menu mobile estiver aberto, fecha
-                if (!isMobileDevice() && isMenuOpen) {
-                    closeMenu();
+                if (!isMobileDevice() && $(navbarCollapse).hasClass('show')) {
+                    $(navbarCollapse).collapse('hide');
                 }
                 
                 handleScroll(); // Reavalia a visibilidade do cabeçalho
@@ -352,8 +348,8 @@
 
             // Função global para voltar ao topo (chamada pelo botão)
             window.scrollToTop = function() {
-                if (isMobileDevice() && isMenuOpen) {
-                    closeMenu(); // Fecha o menu mobile ao voltar ao topo
+                if (isMobileDevice() && $(navbarCollapse).hasClass('show')) {
+                    $(navbarCollapse).collapse('hide'); // Fecha o menu mobile ao voltar ao topo
                 }
                 
                 window.scrollTo({
@@ -365,9 +361,6 @@
             // Executa uma vez para definir o estado inicial (caso a página recarregue já scrollada)
             handleScroll();
         });
-
-        // O bloco de CSS injetado foi movido para premium-theme.css para melhor organização.
-        // Ele não é mais necessário aqui.
     </script>
 
 </body>
