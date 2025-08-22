@@ -5,6 +5,7 @@
     body {
         background-color: #000000; /* Ensure body background is black */
         color: #ffffff; /* Default text color for contrast */
+        overflow-x: hidden; /* Esconde a barra de rolagem horizontal globalmente */
     }
 
     .container {
@@ -41,14 +42,14 @@
         border-radius: 10px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         padding: 20px;
-        overflow-x: auto; /* Ensure horizontal scroll for smaller screens if needed */
+        /* Removido overflow-x: auto aqui para evitar barra de rolagem interna desnecessária no mobile */
     }
 
     .table {
         color: #ffffff; /* White text for table content */
         border-color: #333333; /* Darker border for table cells */
         width: 100%; /* Ensure table takes full width of its container */
-        min-width: 800px; /* Minimum width to prevent excessive squishing on smaller screens */
+        min-width: 800px; /* Minimum width to prevent excessive squishing on larger screens */
     }
 
     .table thead th {
@@ -191,6 +192,9 @@
 
     /* Responsive adjustments for the table */
     @media (max-width: 991.98px) { /* Tablets and smaller */
+        .table {
+            min-width: unset !important; /* Remove min-width para mobile */
+        }
         .table thead {
             display: none !important; /* Hide table headers on small screens */
         }
@@ -221,6 +225,7 @@
             align-items: center !important; /* Vertically align label and content */
             padding-top: 8px !important; /* Adjust padding for better spacing */
             padding-bottom: 8px !important;
+            word-break: break-word; /* Permite quebra de palavras longas */
         }
         .table td::before {
             content: attr(data-label) !important; /* Use data-label for content */
