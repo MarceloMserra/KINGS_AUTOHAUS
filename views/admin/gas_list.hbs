@@ -198,7 +198,7 @@
         .table thead {
             display: none !important; /* Hide table headers on small screens */
         }
-        .table tbody, .table tr, .table td {
+        .table tbody, .table tr {
             display: block !important; /* Make table elements behave like block-level elements */
             width: 100% !important;
         }
@@ -209,23 +209,28 @@
             overflow: hidden !important;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
             background-color: #1a1a1a !important; /* Ensure background color for mobile cards */
+            padding: 15px !important; /* Adiciona padding ao card inteiro */
+            display: flex !important; /* Transforma a linha em flex container */
+            flex-wrap: wrap !important; /* Permite quebra de linha para os itens */
+            align-items: flex-start !important; /* Alinha itens ao topo */
         }
         .table tr:hover {
             transform: none !important; /* Remove lift effect on mobile cards to avoid weird behavior */
             box-shadow: 0 6px 18px rgba(5, 252, 4, 0.3) !important; /* Keep subtle green glow on hover */
         }
         .table td {
-            text-align: right !important;
-            padding-left: 50% !important; /* Space for pseudo-element labels */
-            position: relative !important;
+            text-align: left !important; /* Alinha texto à esquerda para melhor leitura */
+            padding-left: 0 !important; /* Remove padding-left */
+            position: static !important; /* Remove relative positioning */
             border: none !important; /* Remove cell borders */
             color: #ffffff !important; /* Ensure text color is white */
-            display: flex !important; /* Use flexbox for alignment of label and content */
-            justify-content: space-between !important; /* Space out label and content */
-            align-items: center !important; /* Vertically align label and content */
-            padding-top: 8px !important; /* Adjust padding for better spacing */
-            padding-bottom: 8px !important;
+            display: flex !important; /* Use flexbox para alinhar label e conteúdo */
+            justify-content: flex-start !important; /* Alinha label e conteúdo à esquerda */
+            align-items: center !important; /* Vertically align label e conteúdo */
+            padding-top: 4px !important; /* Ajusta padding para melhor espaçamento */
+            padding-bottom: 4px !important;
             word-break: break-word; /* Permite quebra de palavras longas */
+            width: 100% !important; /* Ocupa a largura total por padrão */
         }
         .table td::before {
             content: attr(data-label) !important; /* Use data-label for content */
@@ -235,18 +240,86 @@
             font-weight: bold !important;
             color: #05FC04 !important; /* Green label */
             margin-right: 10px !important; /* Space between label and content */
+            flex-shrink: 0 !important; /* Evita que o label encolha */
         }
-        .table td:first-child { /* Image column */
+
+        /* Coluna da Imagem */
+        .table td:first-child {
             display: flex !important;
-            flex-direction: column !important;
+            flex-direction: row !important; /* Imagem e texto na mesma linha */
             align-items: center !important;
-            padding: 15px !important;
+            padding: 0 !important; /* Remove padding extra */
+            width: 100% !important; /* Ocupa a largura total do card */
+            margin-bottom: 10px !important; /* Espaço abaixo da imagem/título */
+            border-bottom: 1px solid #333333 !important; /* Separador */
+            padding-bottom: 10px !important;
+        }
+        .table td:first-child .image-wrapper { /* Novo wrapper para a imagem e small text */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 15px !important; /* Espaço entre imagem e detalhes */
         }
         .table td:first-child::before {
-            content: attr(data-label) !important;
-            display: block !important; /* Ensure label is on its own line */
-            margin-bottom: 10px !important;
+            content: none !important; /* Remove o label "Image" duplicado */
         }
+        .table td:first-child img {
+            width: 100px !important; /* Tamanho da imagem */
+            height: auto !important;
+            margin: 0 !important; /* Remove margem automática */
+            flex-shrink: 0 !important; /* Evita que a imagem encolha */
+        }
+        .table td:first-child small.text-muted {
+            text-align: center !important;
+            margin-top: 5px !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+            width: 100% !important; /* Garante que o texto ocupe a largura */
+        }
+        /* Conteúdo do veículo (ano, marca, modelo) ao lado da imagem */
+        .table td:nth-child(2) { /* Coluna "Vehicle" */
+            flex-grow: 1 !important; /* Permite que ocupe o espaço restante */
+            padding-left: 15px !important; /* Adiciona padding para alinhar com outros textos */
+            border-left: 1px solid #333333 !important; /* Separador visual */
+            height: 100% !important; /* Ocupa a altura total disponível */
+            align-items: flex-start !important; /* Alinha o texto ao topo */
+            flex-direction: column !important; /* Empilha o texto do veículo */
+            justify-content: center !important; /* Centraliza verticalmente o texto do veículo */
+        }
+        .table td:nth-child(2) strong {
+            font-size: 1.1rem !important; /* Ajusta tamanho do título do veículo */
+            margin-bottom: 5px !important;
+            display: block !important;
+        }
+        .table td:nth-child(2) small {
+            font-size: 0.9rem !important; /* Ajusta tamanho do trim */
+            display: block !important;
+        }
+        .table td:nth-child(2)::before {
+            content: none !important; /* Remove o label "Vehicle" duplicado */
+        }
+
+
+        /* Outras colunas de dados */
+        .table td:nth-child(3), /* Price */
+        .table td:nth-child(4), /* Stock # / VIN */
+        .table td:nth-child(5) { /* Status */
+            width: 50% !important; /* Distribui a largura entre 2 colunas */
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+            justify-content: space-between !important;
+            flex-wrap: nowrap !important; /* Evita que o label e o valor quebrem linha */
+        }
+        .table td:nth-child(3)::before,
+        .table td:nth-child(4)::before,
+        .table td:nth-child(5)::before {
+            width: auto !important;
+            margin-right: 5px !important;
+        }
+        .table td:nth-child(3) {
+            border-right: 1px solid #333333 !important; /* Separador entre preço e stock */
+        }
+
+        /* Coluna de Ações */
         .table td:last-child { /* Actions column */
             text-align: center !important;
             display: flex !important;
@@ -254,6 +327,7 @@
             align-items: center !important;
             padding: 15px !important;
             border-top: 1px solid #333333 !important;
+            width: 100% !important; /* Ocupa a largura total */
         }
         .table .action-buttons {
             flex-direction: row !important; /* Buttons side-by-side on mobile */
@@ -266,15 +340,10 @@
             flex-grow: 1 !important; /* Distribute space */
         }
         .table img {
-            width: 120px !important; /* Larger image on mobile card */
-            height: auto !important;
-            margin: 0 auto 10px auto !important;
-            display: block !important;
+            /* Já definido na regra td:first-child img */
         }
         .table small.text-muted {
-            text-align: center !important;
-            margin-top: 5px !important;
-            color: rgba(255, 255, 255, 0.7) !important; /* Ensure visibility */
+            /* Já definido na regra td:first-child small.text-muted */
         }
     }
 
@@ -288,6 +357,16 @@
         }
         .table .action-buttons {
             flex-direction: column !important; /* Stack buttons again on very small screens */
+        }
+        .table td:nth-child(3), /* Price */
+        .table td:nth-child(4), /* Stock # / VIN */
+        .table td:nth-child(5) { /* Status */
+            width: 100% !important; /* Cada um ocupa a largura total */
+            border-right: none !important; /* Remove borda direita */
+            border-bottom: 1px solid #333333 !important; /* Adiciona borda inferior */
+        }
+        .table td:last-child {
+            border-bottom: none !important; /* Remove borda inferior do último item */
         }
     }
 </style>
@@ -318,14 +397,16 @@
                 {{#each list}}
                 <tr>
                     <td data-label="Image">
-                        {{#if this.image.length}}
-                            <img src="{{this.image.[0]}}" alt="{{this.title}}">
-                            {{#if (gt this.image.length 1)}}
-                                <small class="text-muted">(+{{subtract this.image.length 1}} photos)</small>
+                        <div class="image-wrapper">
+                            {{#if this.image.length}}
+                                <img src="{{this.image.[0]}}" alt="{{this.title}}">
+                                {{#if (gt this.image.length 1)}}
+                                    <small class="text-muted">(+{{subtract this.image.length 1}} photos)</small>
+                                {{/if}}
+                            {{else}}
+                                <i class="fas fa-car fa-2x text-muted"></i>
                             {{/if}}
-                        {{else}}
-                            <i class="fas fa-car fa-2x text-muted"></i>
-                        {{/if}}
+                        </div>
                     </td>
                     <td data-label="Vehicle">
                         <strong>{{this.year}} {{this.brand}} {{this.t2}}</strong>
