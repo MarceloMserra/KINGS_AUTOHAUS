@@ -192,97 +192,97 @@
     /* Responsive adjustments for the table */
     @media (max-width: 991.98px) { /* Tablets and smaller */
         .table thead {
-            display: none; /* Hide table headers on small screens */
+            display: none !important; /* Hide table headers on small screens */
         }
         .table tbody, .table tr, .table td {
-            display: block; /* Make table elements behave like block-level elements */
-            width: 100%;
+            display: block !important; /* Make table elements behave like block-level elements */
+            width: 100% !important;
         }
         .table tr {
-            margin-bottom: 15px;
-            border: 1px solid #333333;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            background-color: #1a1a1a; /* Ensure background color for mobile cards */
+            margin-bottom: 15px !important;
+            border: 1px solid #333333 !important;
+            border-radius: 10px !important;
+            overflow: hidden !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+            background-color: #1a1a1a !important; /* Ensure background color for mobile cards */
         }
         .table tr:hover {
-            transform: none; /* Remove lift effect on mobile cards to avoid weird behavior */
-            box-shadow: 0 6px 18px rgba(5, 252, 4, 0.3); /* Keep subtle green glow on hover */
+            transform: none !important; /* Remove lift effect on mobile cards to avoid weird behavior */
+            box-shadow: 0 6px 18px rgba(5, 252, 4, 0.3) !important; /* Keep subtle green glow on hover */
         }
         .table td {
-            text-align: right;
-            padding-left: 50%; /* Space for pseudo-element labels */
-            position: relative;
-            border: none; /* Remove cell borders */
-            color: #ffffff; /* Ensure text color is white */
-            display: flex; /* Use flexbox for alignment of label and content */
-            justify-content: space-between; /* Space out label and content */
-            align-items: center; /* Vertically align label and content */
-            padding-top: 8px; /* Adjust padding for better spacing */
-            padding-bottom: 8px;
+            text-align: right !important;
+            padding-left: 50% !important; /* Space for pseudo-element labels */
+            position: relative !important;
+            border: none !important; /* Remove cell borders */
+            color: #ffffff !important; /* Ensure text color is white */
+            display: flex !important; /* Use flexbox for alignment of label and content */
+            justify-content: space-between !important; /* Space out label and content */
+            align-items: center !important; /* Vertically align label and content */
+            padding-top: 8px !important; /* Adjust padding for better spacing */
+            padding-bottom: 8px !important;
         }
         .table td::before {
-            content: attr(data-label); /* Use data-label for content */
-            position: static; /* Change to static to flow with content */
-            width: auto; /* Auto width for label */
-            text-align: left;
-            font-weight: bold;
-            color: #05FC04; /* Green label */
-            margin-right: 10px; /* Space between label and content */
+            content: attr(data-label) !important; /* Use data-label for content */
+            position: static !important; /* Change to static to flow with content */
+            width: auto !important; /* Auto width for label */
+            text-align: left !important;
+            font-weight: bold !important;
+            color: #05FC04 !important; /* Green label */
+            margin-right: 10px !important; /* Space between label and content */
         }
         .table td:first-child { /* Image column */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 15px;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            padding: 15px !important;
         }
         .table td:first-child::before {
-            content: attr(data-label);
-            display: block; /* Ensure label is on its own line */
-            margin-bottom: 10px;
+            content: attr(data-label) !important;
+            display: block !important; /* Ensure label is on its own line */
+            margin-bottom: 10px !important;
         }
         .table td:last-child { /* Actions column */
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            border-top: 1px solid #333333;
+            text-align: center !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 15px !important;
+            border-top: 1px solid #333333 !important;
         }
         .table .action-buttons {
-            flex-direction: row; /* Buttons side-by-side on mobile */
-            gap: 10px;
-            width: 100%;
-            justify-content: center;
+            flex-direction: row !important; /* Buttons side-by-side on mobile */
+            gap: 10px !important;
+            width: 100% !important;
+            justify-content: center !important;
         }
         .table .btn-action {
-            width: auto; /* Allow buttons to size content */
-            flex-grow: 1; /* Distribute space */
+            width: auto !important; /* Allow buttons to size content */
+            flex-grow: 1 !important; /* Distribute space */
         }
         .table img {
-            width: 120px; /* Larger image on mobile card */
-            height: auto;
-            margin: 0 auto 10px auto;
-            display: block;
+            width: 120px !important; /* Larger image on mobile card */
+            height: auto !important;
+            margin: 0 auto 10px auto !important;
+            display: block !important;
         }
         .table small.text-muted {
-            text-align: center;
-            margin-top: 5px;
+            text-align: center !important;
+            margin-top: 5px !important;
             color: rgba(255, 255, 255, 0.7) !important; /* Ensure visibility */
         }
     }
 
     @media (max-width: 767.98px) { /* Smaller phones */
         .container {
-            padding-left: 15px;
-            padding-right: 15px;
+            padding-left: 15px !important;
+            padding-right: 15px !important;
         }
         h3.section-title-admin {
-            font-size: 2rem;
+            font-size: 2rem !important;
         }
         .table .action-buttons {
-            flex-direction: column; /* Stack buttons again on very small screens */
+            flex-direction: column !important; /* Stack buttons again on very small screens */
         }
     }
 </style>
