@@ -107,6 +107,84 @@ body {
     transform: translateY(-2px); /* LEVE ELEVAÇÃO no hover */
 }
 
+/* Estilos para o botão de Login */
+.menu-horizontal .nav-item .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 10px; /* Ajuste o padding para centralizar */
+    min-width: 80px; /* Garante largura mínima para centralizar o texto */
+    /* Estilos padrão do botão de Login */
+    background-color: transparent; /* Fundo transparente */
+    border-color: #05FC04 !important; /* Borda verde */
+    color: #05FC04 !important; /* Texto verde */
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    /* Adicionado para centralizar o botão de login */
+    margin-left: 0; /* Garante que não há margem extra que o desloque */
+    margin-right: auto; /* Empurra para a esquerda se necessário */
+}
+
+.menu-horizontal .nav-item .btn:hover {
+    background-color: #05FC04 !important; /* Fundo verde no hover */
+    border-color: #05FC04 !important; /* Borda verde no hover */
+    color: #000000 !important; /* Texto preto no hover */
+    transform: translateY(-2px); /* Leve elevação no hover */
+    box-shadow: 0 4px 15px rgba(5, 252, 4, 0.4); /* Sombra verde */
+}
+
+/* Informações de Contato e Redes Sociais no cabeçalho */
+.navbar-contact-info {
+    display: flex;
+    align-items: center;
+    /* Corrigindo alinhamento e cores */
+    margin-left: auto; /* Empurra para a direita no desktop */
+    margin-right: 30px; /* Margem direita para não colar na borda */
+}
+
+.navbar-contact-info .contact-info {
+    font-size: 0.8rem;
+    color: #ffffff; /* Letras brancas */
+    margin-right: 15px; /* Espaçamento entre os itens de contato */
+    display: flex;
+    align-items: center;
+}
+
+.navbar-contact-info .contact-info i {
+    color: #05FC04; /* Ícones verdes */
+    margin-right: 5px;
+    font-size: 1rem;
+}
+
+.navbar-contact-info .social-icons a {
+    margin: 0 5px;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+/* Cores específicas para os ícones das redes sociais na Top Bar e Main Navbar */
+.top-bar .fab.fa-facebook-f,
+.navbar-contact-info .social-icons a .fab.fa-facebook-f {
+    color: #3b5998; /* Facebook Blue */
+}
+.top-bar .fab.fa-google-plus-g,
+.navbar-contact-info .social-icons a .fab.fa-google-plus-g {
+    color: #db4437; /* Google Red */
+}
+.top-bar .fab.fa-instagram,
+.navbar-contact-info .social-icons a .fab.fa-instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1rem; /* Adjust font size if needed */
+}
+
+.navbar-contact-info .social-icons a:hover {
+    transform: scale(1.2); /* Pequeno zoom no hover */
+}
+
+
 /* MOBILE MENU CORRECTIONS */
 @media (max-width: 991.98px) { /* Tablets and smaller desktops */
     .navbar-toggler {
@@ -262,6 +340,12 @@ body {
         margin: 8px 0;
         text-align: center;
         font-size: 0.9rem;
+        color: #ffffff; /* Letras brancas */
+    }
+    
+    .navbar-contact-info .contact-info i {
+        color: #05FC04; /* Ícone verde */
+        margin-right: 5px;
     }
     
     .navbar-contact-info .social-icons {
@@ -271,6 +355,27 @@ body {
     .navbar-contact-info .social-icons a {
         margin: 0 10px;
         font-size: 1.3rem;
+        /* Cores das redes sociais */
+        transition: color 0.3s ease; /* Transição para o hover */
+    }
+
+    /* Cores específicas para os ícones das redes sociais */
+    .navbar-contact-info .social-icons a .fa-facebook-f {
+        color: #3b5998; /* Facebook Blue */
+    }
+    .navbar-contact-info .social-icons a .fa-google-plus-g {
+        color: #db4437; /* Google Red */
+    }
+    .navbar-contact-info .social-icons a .fa-instagram {
+        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 1.3rem; /* Adjust font size if needed */
+    }
+    
+    /* Hover para ícones sociais - mantém a cor original */
+    .navbar-contact-info .social-icons a:hover {
+        transform: scale(1.1); /* Pequeno zoom no hover */
     }
 }
 
