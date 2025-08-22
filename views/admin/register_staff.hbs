@@ -41,17 +41,16 @@
     }
 
     .form-control {
-        background-color: #0d0d0d; /* Very dark input background */
-        color: #ffffff;
-        border: 1px solid #05FC04; /* Green border - UPDATED GREEN */
-        border-radius: 8px; /* Slightly less rounded than login for forms */
-        padding: 10px 15px;
-        font-size: 1rem;
-        box-sizing: border-box;
+        background-color: #0d0d0d !important;
+        color: #ffffff !important;
+        border: 1px solid #05FC04 !important;
+        border-radius: 8px !important;
+        padding: 10px 15px !important;
+        transition: all 0.3s ease !important;
     }
 
     .form-control::placeholder {
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.5) !important;
     }
 
     .form-control:focus {
@@ -144,6 +143,18 @@
         color: #ffffff;
         font-weight: normal;
     }
+
+    .admin-privilege-warning {
+        background-color: rgba(255, 193, 7, 0.1); /* Amarelo claro para aviso */
+        border-left: 5px solid #ffc107; /* Borda amarela */
+        padding: 15px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        color: #ffc107; /* Texto amarelo */
+        font-size: 0.9em;
+        text-align: left;
+    }
 </style>
 
 <div class="container mt-4 mb-4">
@@ -187,8 +198,12 @@
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="isAdmin" name="isAdmin" {{#if isAdmin}}checked{{/if}}>
                         <label class="form-check-label" for="isAdmin">
-                            Grant Administrator Access (Can manage cars)
+                            Grant Administrator Access (Can manage users)
                         </label>
+                    </div>
+                    <!-- NEW: Warning message for admin privileges -->
+                    <div class="admin-privilege-warning">
+                        <strong>Atenção:</strong> Marcar esta opção concederá privilégios de administrador a este usuário, permitindo-lhe criar e gerenciar outros usuários. Se o objetivo é apenas permitir o gerenciamento de carros (adicionar, editar, excluir), **NÃO** marque esta opção.
                     </div>
                 </div>
             </div>
