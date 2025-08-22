@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
-// Configurado para aceitar até 10 arquivos no campo 'imagesupld'
+// Configurado para aceitar múltiplos arquivos no campo 'imagesupld' (sem limite)
 const upload = multer({ storage: storage });
 
 // ============================ ROTAS DE ADMIN ============================
@@ -69,8 +69,8 @@ router.get('/addelectric', (req, res) => {
     res.render("admin/electric_form", { layout: 'layout_list' });
 });
 
-// Rota POST para adicionar carro elétrico com upload de múltiplas imagens
-router.post('/addelectric', upload.array('imagesupld', 10), async function (req, res) { // 'imagesupld' e limite de 10
+// Rota POST para adicionar carro elétrico com upload de múltiplas imagens (sem limite)
+router.post('/addelectric', upload.array('imagesupld'), async function (req, res) { // LIMITE DE 10 REMOVIDO
     try {
         let imageUrls = [];
         if (req.files && req.files.length > 0) {
@@ -122,8 +122,8 @@ router.get('/editelectric/:id', async function (req, res) {
     }
 });
 
-// Rota PUT para atualizar carro elétrico com upload de múltiplas imagens
-router.put('/editelectric/:id', upload.array('imagesupld', 10), async function (req, res) {
+// Rota PUT para atualizar carro elétrico com upload de múltiplas imagens (sem limite)
+router.put('/editelectric/:id', upload.array('imagesupld'), async function (req, res) { // LIMITE DE 10 REMOVIDO
     try {
         let electricCar = await ElectricModel.findById(req.params.id);
         if (!electricCar) {
@@ -180,8 +180,8 @@ router.get('/addgas', (req, res) => {
     res.render("admin/gas_form", { layout: 'layout_list' });
 });
 
-// Rota POST para adicionar carro a gasolina com upload de múltiplas imagens
-router.post('/addgas', upload.array('imagesupld', 10), async function (req, res) {
+// Rota POST para adicionar carro a gasolina com upload de múltiplas imagens (sem limite)
+router.post('/addgas', upload.array('imagesupld'), async function (req, res) { // LIMITE DE 10 REMOVIDO
     try {
         let imageUrls = [];
         if (req.files && req.files.length > 0) {
@@ -239,8 +239,8 @@ router.get('/editgas/:id', async function (req, res) {
     }
 });
 
-// Rota PUT para atualizar carro a gasolina com upload de múltiplas imagens
-router.put('/editgas/:id', upload.array('imagesupld', 10), async function (req, res) {
+// Rota PUT para atualizar carro a gasolina com upload de múltiplas imagens (sem limite)
+router.put('/editgas/:id', upload.array('imagesupld'), async function (req, res) { // LIMITE DE 10 REMOVIDO
     try {
         let gasCar = await GasModel.findById(req.params.id);
         if (!gasCar) {
