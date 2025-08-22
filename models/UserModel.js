@@ -18,6 +18,10 @@ const UsuarioSchema = new Schema({
   data: {
     type: Date,
     default: Date.now
+  },
+  isAdmin: { // Adicionando o campo isAdmin
+    type: Boolean,
+    default: false // Por padrão, um usuário não é admin
   }
 });
 

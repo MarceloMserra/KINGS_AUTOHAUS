@@ -6,7 +6,8 @@ const ElectricModel = require("../models/ElectricModel");
 const GasModel = require('../models/GasModel');
 const ServiceModel = require('../models/ServiceModel');
 const CustomerModel = require('../models/CustomerModel');
-const UserModel = require("../models/UserModel");
+const UserModel = require("../models/UserModel"); // Importa o modelo de usuário
+const bcrypt = require('bcryptjs'); // Para criptografar senhas
 const sendEmail = require("../utils/mailer");
 
 // Função auxiliar para converter strings com vírgula para números com ponto
@@ -17,6 +18,28 @@ function convertToNumber(value) {
     return parseFloat(value); // Converte diretamente se já for ponto ou número
 }
 
+// Middleware para verificar se o usuário está autenticado
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    req.flash('error_msg', 'Please log in to view this resource.'); // Mensagem de erro para o usuário
+    res.redirect('/login'); // Redireciona para a página de login
+}
+
+// Middleware para verificar se o usuário autenticado é um administrador
+function ensureAdmin(req, res, next) {
+    if (req.isAuthenticated() && req.user.isAdmin) {
+        return next();
+    }
+    req.flash('error_msg', 'You do not have permission to access this page.');
+    res.redirect('/admin'); // Redireciona para o painel admin ou outra página
+}
+
+// Aplicar o middleware 'ensureAuthenticated' a TODAS as rotas definidas neste router.
+// Isso significa que qualquer rota abaixo só será acessível se o usuário estiver logado.
+router.use(ensureAuthenticated);
+
 // 🏠 Página inicial do painel admin (após login)
 router.get('/', function (req, res) {
     console.log("🔐 Entrou na rota /admin - user:", req.user);
@@ -24,6 +47,10 @@ router.get('/', function (req, res) {
 });
 
 // 🔐 Redirecionamento do botão de login para o controller de usuário
+// Esta rota não precisa de autenticação pois ela apenas redireciona para o login real.
+// No entanto, como o 'router.use(ensureAuthenticated)' está acima, esta rota também será protegida.
+// Se você quiser que esta rota seja acessível sem login (o que não faz sentido aqui, pois é um POST de redirecionamento),
+// ela precisaria ser definida ANTES do router.use(ensureAuthenticated).
 router.post("/login", (req, res) => {
     res.redirect("/usuarios/login");
 });
@@ -317,6 +344,65 @@ router.post('/uploadimage', upload.single('imageupld'), (req, res) => {
     } else {
         req.flash('error_msg', "Nenhum arquivo enviado ou erro no upload.");
         res.render('admin/images_upload', { img: { err: "Nenhum arquivo enviado ou erro no upload." }, layout: 'layout_list' });
+    }
+});
+
+// ============================ ROTAS DE REGISTRO DE FUNCIONÁRIOS ============================
+// Proteger estas rotas apenas para administradores
+router.get('/register-staff', ensureAdmin, (req, res) => {
+    res.render('admin/register_staff', { layout: 'layout_list' });
+});
+
+router.post('/register-staff', ensureAdmin, async (req, res) => {
+    const { nome, email, senha, senha2, isAdmin } = req.body;
+    let errors = [];
+
+    // Validação de campos
+    if (!nome || !email || !senha || !senha2) {
+        errors.push({ text: 'Por favor, preencha todos os campos.' });
+    }
+    if (senha !== senha2) {
+        errors.push({ text: 'As senhas não coincidem.' });
+    }
+    if (senha.length < 6) {
+        errors.push({ text: 'A senha deve ter pelo menos 6 caracteres.' });
+    }
+
+    if (errors.length > 0) {
+        res.render('admin/register_staff', {
+            layout: 'layout_list',
+            errors: errors,
+            nome: nome,
+            email: email,
+            isAdmin: isAdmin // Mantém o estado do checkbox
+        });
+    } else {
+        try {
+            const usuarioExistente = await UserModel.findOne({ email: email });
+            if (usuarioExistente) {
+                req.flash('error_msg', 'Já existe uma conta com este e-mail.');
+                res.redirect('/admin/register-staff');
+            } else {
+                const novoUsuario = new UserModel({
+                    nome: nome,
+                    email: email,
+                    senha: senha, // A senha será criptografada antes de salvar
+                    isAdmin: isAdmin === 'on' ? true : false // Define isAdmin baseado no checkbox
+                });
+
+                // Criptografar senha
+                const salt = await bcrypt.genSalt(10);
+                novoUsuario.senha = await bcrypt.hash(novoUsuario.senha, salt);
+
+                await novoUsuario.save();
+                req.flash('success_msg', `Usuário ${nome} registrado com sucesso!`);
+                res.redirect('/admin/gas'); // Redireciona para a lista de carros após o registro
+            }
+        } catch (err) {
+            console.error("Erro ao registrar funcionário:", err);
+            req.flash('error_msg', 'Erro ao registrar funcionário: ' + err.message);
+            res.render('admin/register_staff', { layout: 'layout_list', error: err.message, nome: nome, email: email, isAdmin: isAdmin });
+        }
     }
 });
 

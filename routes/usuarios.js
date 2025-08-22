@@ -120,6 +120,63 @@ router.get('/login', (req, res) => {
     res.render('login', { layout: 'layout_list' }); // Usa layout_list.hbs como layout
 });
 
+// ✅ Rota de registro (GET) - Exibe o formulário de registro
+router.get('/register', (req, res) => {
+    res.render('register', { layout: 'layout_list' });
+});
+
+// ✅ Rota de registro (POST) - Processa o formulário de registro
+router.post('/register', async (req, res) => {
+    const { nome, email, senha, senha2 } = req.body;
+    let errors = [];
+
+    // Validação de campos
+    if (!nome || !email || !senha || !senha2) {
+        errors.push({ text: 'Por favor, preencha todos os campos.' });
+    }
+    if (senha !== senha2) {
+        errors.push({ text: 'As senhas não coincidem.' });
+    }
+    if (senha.length < 6) {
+        errors.push({ text: 'A senha deve ter pelo menos 6 caracteres.' });
+    }
+
+    if (errors.length > 0) {
+        res.render('register', {
+            layout: 'layout_list',
+            errors: errors,
+            nome: nome,
+            email: email
+        });
+    } else {
+        try {
+            const usuarioExistente = await Usuario.findOne({ email: email });
+            if (usuarioExistente) {
+                req.flash('error_msg', 'Já existe uma conta com este e-mail.');
+                res.redirect('/register');
+            } else {
+                const novoUsuario = new Usuario({
+                    nome: nome,
+                    email: email,
+                    senha: senha // A senha será criptografada antes de salvar
+                });
+
+                // Criptografar senha
+                const salt = await bcrypt.genSalt(10);
+                novoUsuario.senha = await bcrypt.hash(novoUsuario.senha, salt);
+
+                await novoUsuario.save();
+                req.flash('success_msg', 'Você está registrado e pode fazer login!');
+                res.redirect('/login');
+            }
+        } catch (err) {
+            console.error("Erro ao registrar usuário:", err);
+            req.flash('error_msg', 'Erro ao registrar usuário: ' + err.message);
+            res.redirect('/register');
+        }
+    }
+});
+
 
 // ✅ Página de erro de login (GET)
 router.get('/loginerror', (req, res) => {
