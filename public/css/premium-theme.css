@@ -107,314 +107,130 @@ body {
     transform: translateY(-2px); /* LEVE ELEVAÇÃO no hover */
 }
 
-/* Ajusta a cor do ícone do toggler para ser visível no fundo preto */
-/* Corrigido: Agora o ícone do hambúrguer é customizado com ::before e ::after */
-.navbar-toggler-icon {
-    width: 24px; /* Largura do ícone */
-    height: 2px; /* A barra do meio */
-    background-color: #05FC04; /* Cor da barra do meio */
-    position: relative;
-    display: block;
-    border-radius: 1px;
-    transition: all 0.3s ease;
-}
-
-.navbar-toggler-icon::before,
-.navbar-toggler-icon::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px; /* Espessura das barras */
-    left: 0;
-    background: #05FC04; /* Cor das barras */
-    transition: all 0.3s ease;
-    border-radius: 1px;
-}
-
-.navbar-toggler-icon::before {
-    top: -6px; /* Posição da barra superior */
-}
-
-.navbar-toggler-icon::after {
-    bottom: -6px; /* Posição da barra inferior */
-}
-
-/* Animação do ícone hamburger quando expandido */
-.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
-    background-color: transparent; /* Barra do meio desaparece */
-}
-
-.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
-    transform: rotate(45deg); /* Gira para formar um 'X' */
-    top: 0; /* Move para o centro */
-}
-
-.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
-    transform: rotate(-45deg); /* Gira para formar um 'X' */
-    bottom: 0; /* Move para o centro */
-}
-
-
-/* Estilos para esconder o cabeçalho no scroll - CORRIGIDO */
-#navigation {
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Adiciona transição para opacidade */
-    display: block; /* FORÇAR DISPLAY */
-    visibility: visible; /* FORÇAR VISIBILIDADE */
-}
-
-#navigation.hidden {
-    transform: translateY(-100%);
-    opacity: 0; /* Esconde completamente */
-    pointer-events: none; /* Impede interações quando escondido */
-}
-
-/* Botão "Voltar ao Topo" - Estilo elegante */
-.back-to-top-btn {
-    position: fixed;
-    bottom: 90px; /* ACIMA do botão de mensagem */
-    right: 20px;
-    background: linear-gradient(45deg, #05FC04, #04D803);
-    color: #000000;
-    border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(5, 252, 4, 0.4);
-    z-index: 1001; /* ACIMA do botão de mensagem */
-    opacity: 0; /* Começa oculto */
-    visibility: hidden; /* Começa oculto */
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-}
-
-.back-to-top-btn.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.back-to-top-btn:hover {
-    background: linear-gradient(45deg, #04D803, #03C602);
-    transform: scale(1.1) translateY(-3px);
-    box-shadow: 0 6px 20px rgba(5, 252, 4, 0.6);
-}
-
-/* Styles for the navbar when the page is scrolled */
-#main-navbar.scrolled {
-    padding: 15px 0; /* MANTÉM o mesmo padding */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    top: 0;
-}
-
-#main-navbar.scrolled .navbar-brand img {
-    height: 90px; /* MANTÉM o mesmo tamanho da logo */
-}
-
-/* Estilos para as informações de contato e redes sociais no cabeçalho */
-.navbar-contact-info {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    margin-left: auto; /* Empurra para a direita */
-}
-
-.navbar-contact-info .contact-info {
-    margin-right: 20px; /* Espaçamento entre telefone e redes sociais */
-    white-space: nowrap; /* Evita quebra de linha */
-}
-
-.navbar-contact-info .contact-info i {
-    color: #05FC04; /* Ícone verde */
-    margin-right: 5px;
-}
-
-.navbar-contact-info .social-icons a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: color 0.3s ease;
-    margin-left: 15px; /* Espaçamento entre ícones sociais */
-    font-size: 1.2rem;
-}
-
-.navbar-contact-info .social-icons a:hover {
-    color: #05FC04; /* Verde no hover */
-}
-
-/* Centraliza o botão de Login */
-.menu-horizontal .nav-item .btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 6px 10px; /* Ajuste o padding para centralizar */
-    min-width: 80px; /* Garante largura mínima para centralizar o texto */
-}
-
-
-/* Media queries for responsiveness - TOTALMENTE RESPONSIVO */
-@media (min-width: 992px) { /* Desktop e telas maiores */
-    .navbar-toggler {
-        display: none; /* Garante que o toggler esteja escondido em desktop */
-    }
-    .navbar-collapse {
-        display: flex !important; /* Garante que o menu esteja visível em desktop */
-        flex-basis: auto;
-    }
-}
-
-/* RESPONSIVIDADE COMPLETA - DESKTOP MENORES */
-@media (max-width: 1400px) and (min-width: 1201px) {
-    #main-navbar .navbar-brand img {
-        height: 85px; /* Logo ligeiramente menor */
-    }
-    #main-navbar .navbar-brand {
-        margin-left: 25px !important;
-    }
-    .menu-horizontal {
-        margin-left: 25px !important;
-    }
-    .menu-horizontal .nav-item {
-        margin: 0 7px;
-    }
-    #main-navbar .nav-link {
-        font-size: 0.53rem;
-        padding: 5px 9px;
-    }
-    .navbar-contact-info {
-        font-size: 0.85rem;
-    }
-    .navbar-contact-info .contact-info {
-        margin-right: 15px;
-    }
-    .navbar-contact-info .social-icons a {
-        margin-left: 10px;
-        font-size: 1.1rem;
-    }
-}
-
-@media (max-width: 1200px) and (min-width: 992px) { /* Large desktops / smaller laptops */
-    #main-navbar {
-        padding: 10px 0; /* Reduz padding para telas menores */
-    }
-    #main-navbar .navbar-brand img {
-        height: 80px; /* Logo um pouco menor */
-    }
-    #main-navbar .navbar-brand {
-        margin-left: 20px !important;
-    }
-    .menu-horizontal {
-        margin-left: 20px !important;
-    }
-    .menu-horizontal .nav-item {
-        margin: 0 6px; /* Menos espaçamento */
-    }
-    #main-navbar .nav-link {
-        font-size: 0.5rem; /* 50% MENOR - proporcional */
-        padding: 5px 8px;
-    }
-    .navbar-contact-info {
-        font-size: 0.8rem;
-    }
-    .navbar-contact-info .contact-info {
-        margin-right: 10px;
-    }
-    .navbar-contact-info .social-icons a {
-        margin-left: 8px;
-        font-size: 1rem;
-    }
-}
-
-/* RESPONSIVIDADE COMPLETA - TABLETS E MOBILE */
+/* MOBILE MENU CORRECTIONS */
 @media (max-width: 991.98px) { /* Tablets and smaller desktops */
-    #main-navbar {
-        top: 0; /* Navbar starts at the top */
-        padding: 15px 0; /* Padding ajustado para mobile */
-        flex-direction: column; /* Mantém layout vertical */
-        align-items: center; /* CENTRALIZA EM MOBILE para melhor UX */
-        justify-content: center; /* Centraliza o conteúdo */
-        min-height: auto; /* Remove altura mínima em mobile */
-    }
-    #main-navbar .navbar-brand {
-        width: 100%; /* Logo ocupa a largura total */
-        text-align: center; /* CENTRALIZA a logo em mobile */
-        margin: 0 !important; /* Remove margens */
-        margin-bottom: 15px !important; /* Mais espaço entre logo e menu no mobile */
-    }
-    #main-navbar .navbar-brand img {
-        height: 80px; /* Logo menor para mobile */
-    }
-    
-    /* Container centralizado no mobile */
-    #nav-container {
-        padding: 0 20px !important; /* Padding lateral reduzido */
-        justify-content: center; /* Centraliza tudo */
-        align-items: center; /* CENTRALIZA para mobile */
-        text-align: center !important;
-    }
-
     .navbar-toggler {
         display: block; /* Mostra o toggler em mobile */
         position: absolute; /* Posiciona o toggler */
         right: 20px;
         top: 30px;
-        border: 1px solid #05FC04; /* Borda verde */
+        border: none; /* REMOVIDO: Borda que criava o quadrado preto */
+        background-color: transparent; /* REMOVIDO: Fundo que criava o quadrado preto */
+        padding: 8px 10px; /* Mantém o padding para área de clique */
         border-radius: 5px;
-        padding: 8px;
+        transition: all 0.3s ease;
     }
     
-    /* Menu continua centralizado no mobile */
-    .menu-horizontal {
-        flex-direction: column !important;
-        align-items: center !important; /* CENTRALIZADO no mobile */
-        padding: 15px 0;
-        width: 100%; /* Ocupa a largura total */
-        margin: 0 !important; /* Remove margem esquerda no mobile */
-    }
-    .menu-horizontal .nav-item {
-        margin: 5px 0; /* Espaçamento vertical */
-    }
-    #main-navbar .nav-link {
-        font-size: 0.5rem; /* 50% MENOR - mantém proporção */
-        padding: 6px 12px; /* Padding maior para touch */
-        border-radius: 5px; /* Bordas arredondadas para mobile */
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        background-color: rgba(5, 252, 4, 0.1); /* Fundo sutil no hover */
+        border-color: transparent; /* Garante que a borda não apareça */
+        box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
+        outline: none;
     }
     
-    /* Ensure nav items stack properly on mobile */
-    .navbar-collapse {
-        background-color: #000000;
-        border-top: 1px solid #1a1a1a;
-        padding: 15px;
+    /* Ícone do hamburger personalizado */
+    .navbar-toggler-icon {
+        width: 24px; /* Largura do ícone */
+        height: 2px; /* A barra do meio */
+        background-color: #05FC04; /* Cor da barra do meio */
+        position: relative;
+        display: block;
+        border-radius: 1px;
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-toggler-icon::before,
+    .navbar-toggler-icon::after {
+        content: '';
         position: absolute;
         width: 100%;
+        height: 2px; /* Espessura das barras */
         left: 0;
-        top: 100%;
+        background: #05FC04; /* Cor das barras */
+        transition: all 0.3s ease;
+        border-radius: 1px;
+    }
+    
+    .navbar-toggler-icon::before {
+        top: -6px; /* Posição da barra superior */
+    }
+    
+    .navbar-toggler-icon::after {
+        bottom: -6px; /* Posição da barra inferior */
+    }
+    
+    /* Animação do ícone hamburger quando expandido */
+    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+        background-color: transparent; /* Barra do meio desaparece */
+    }
+    
+    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+        transform: rotate(45deg); /* Gira para formar um 'X' */
+        top: 0; /* Move para o centro */
+    }
+    
+    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+        transform: rotate(-45deg); /* Gira para formar um 'X' */
+        bottom: 0; /* Move para o centro */
+    }
+
+    /* Navbar collapse styles for mobile */
+    #main-navbar {
+        flex-direction: row; /* Volta a ser row para alinhar logo e toggler */
+        justify-content: space-between;
+        align-items: center;
+        min-height: auto;
+        padding: 15px 20px; /* Ajusta padding para mobile */
+    }
+
+    #main-navbar .navbar-brand {
+        margin: 0 !important;
+        text-align: left;
+    }
+
+    #main-navbar .navbar-brand img {
+        height: 60px; /* Logo menor para mobile */
+    }
+
+    #nav-container {
+        padding: 0 !important;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .navbar-collapse {
+        position: absolute;
+        top: 100%; /* Abre abaixo da navbar */
+        left: 0;
+        width: 100%;
+        background-color: #000000;
+        border-top: 1px solid #1a1a1a;
         border-radius: 0 0 15px 15px;
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         z-index: 1000;
+        padding: 0; /* Remove padding extra aqui, será nos itens */
+        display: none; /* Escondido por padrão, Bootstrap gerencia 'show' */
+        flex-direction: column; /* Itens do menu empilhados */
+        align-items: center;
     }
-    
-    /* Animação suave para abertura do menu */
-    .navbar-collapse.collapsing {
-        transition: height 0.35s ease;
-    }
-    
     .navbar-collapse.show {
+        display: flex; /* Mostra o menu colapsado */
         animation: slideDownMenu 0.3s ease-out;
     }
     
-    /* Links do menu com melhor espaçamento */
     .menu-horizontal {
         flex-direction: column !important;
         align-items: center !important;
         padding: 20px 0;
         margin: 0 !important;
+        width: 100%;
     }
     
     .menu-horizontal .nav-item {
         margin: 8px 0;
-        width: 100%;
+        width: 90%; /* Ocupa mais largura */
         text-align: center;
     }
     
@@ -423,7 +239,7 @@ body {
         border-radius: 8px;
         transition: all 0.3s ease;
         display: block;
-        width: 90%;
+        width: 100%; /* Ocupa a largura do item */
         margin: 0 auto;
     }
     
@@ -433,13 +249,13 @@ body {
         box-shadow: 0 4px 15px rgba(5, 252, 4, 0.2);
     }
     
-    /* Informações de contato no mobile */
     .navbar-contact-info {
         flex-direction: column;
         align-items: center;
         margin: 20px 0 10px 0;
         padding-top: 20px;
         border-top: 1px solid #333;
+        width: 100%;
     }
     
     .navbar-contact-info .contact-info {
@@ -456,79 +272,13 @@ body {
         margin: 0 10px;
         font-size: 1.3rem;
     }
-    
-    /* Botão toggler melhorado */
-    .navbar-toggler {
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        border: 2px solid #05FC04;
-        background-color: transparent;
-        padding: 8px 10px;
-        border-radius: 5px;
-        transition: all 0.3s ease;
-    }
-    
-    .navbar-toggler:hover,
-    .navbar-toggler:focus {
-        background-color: rgba(5, 252, 4, 0.1);
-        border-color: #04D803;
-        box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
-        outline: none;
-    }
-    
-    /* Ícone do hamburger personalizado */
-    .navbar-toggler-icon {
-        width: 24px;
-        height: 18px;
-        background-image: none !important;
-        position: relative;
-        background: #05FC04;
-        border-radius: 1px;
-    }
-    
-    .navbar-toggler-icon::before,
-    .navbar-toggler-icon::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        left: 0;
-        background: #05FC04;
-        transition: all 0.3s ease;
-        border-radius: 1px;
-    }
-    
-    .navbar-toggler-icon::before {
-        top: -6px;
-    }
-    
-    .navbar-toggler-icon::after {
-        bottom: -6px;
-    }
-    
-    /* Animação do ícone hamburger */
-    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
-        background: transparent;
-    }
-    
-    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
-        transform: rotate(45deg);
-        top: 0;
-    }
-    
-    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
-        transform: rotate(-45deg);
-        bottom: 0;
-    }
 }
 
 /* Animação para abertura do menu */
 @keyframes slideDownMenu {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-10px); /* Ajuste para descer um pouco menos */
     }
     to {
         opacity: 1;
