@@ -43,25 +43,34 @@
         body {
             background-color: #000000; /* Absolute black fallback background */
             color: #ffffff; /* Default text color for contrast */
-            /* Removed background-image and related properties to allow child templates to define their own */
-            background-repeat: no-repeat; /* Keep these for consistency, but they won't apply without image */
+            background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
             background-position: center;
-            /* Use flexbox for body to manage vertical space */
-            display: flex;
-            flex-direction: column; /* Stack header and body content vertically */
-            min-height: 100vh; /* Ensure body takes full viewport height */
+            /* O padding-top será ajustado dinamicamente via JS ou definido aqui para compensar o cabeçalho fixo */
+            padding-top: 90px; /* Ajuste este valor para a altura do seu cabeçalho */
+            display: flex; /* Usar flexbox para body */
+            flex-direction: column; /* Conteúdo empilhado verticalmente */
+            min-height: 100vh; /* Garante que o body ocupe a altura total da viewport */
         }
         .simple-header {
-            background-color: #000000;
+            background-color: #000000; /* Fundo preto para o cabeçalho */
             padding: 20px;
             text-align: center;
-            border-bottom: 1px solid #1a1a1a; /* Subtle line to separate */
-            flex-shrink: 0; /* Prevent header from shrinking */
+            border-bottom: 1px solid #1a1a1a; /* Linha sutil para separar */
+            flex-shrink: 0; /* Evita que o cabeçalho encolha */
+            
+            /* Torna o cabeçalho fixo no topo */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1050; /* Garante que o cabeçalho fique acima de outros elementos */
         }
         .simple-header img {
-            height: 50px; /* Logo size */
+            height: 50px; /* Tamanho da logo */
+            /* filter: drop-shadow(0 0 5px rgba(5, 252, 4, 0.5)); REMOVIDO: Este filtro pode ser aplicado na logo principal se necessário */
+            /* background-color: transparent; REMOVIDO: JPEGs não suportam transparência. O fundo do cabeçalho já é preto. */
         }
         .simple-header h3 {
             color: #ffffff;

@@ -1,32 +1,25 @@
 const nodemailer = require("nodemailer");
+require('dotenv').config(); // Garante que as variáveis de ambiente sejam carregadas
 
-async function sendEmail(clientEmail) {
-
-    var htmlTemp = '<h4>Dear Customer, Vehicle service is now completed. Visit the garage to drive your vehicle back</h4>'
-
+// A função sendEmail agora aceita um objeto mailOptions completo
+async function sendEmail(mailOptions) {
+    // Configura o transporter usando as variáveis de ambiente
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        service: 'gmail', // Ou o serviço de e-mail que você usa
         auth: {
-            user: 'xxxx@gmail.com',
-            pass: 'xxxx'
+            user: process.env.EMAIL_USER, // Seu e-mail do .env
+            pass: process.env.EMAIL_PASS  // Sua senha/app password do .env
         }
     });
-
-    var mailOptions = {
-        from: "xxxx@gmail.com",
-        to: clientEmail,
-        subject: "Autorizz Service Update",
-        html: htmlTemp
-    };
 
     try {
         let info = await transporter.sendMail(mailOptions);
         console.log("Mailer Response - ", info.response);
+        return true; // Retorna true em caso de sucesso
     } catch (error) {
-        console.log(error);
-        return false
+        console.error("❌ Erro ao enviar e-mail:", error);
+        return false; // Retorna false em caso de erro
     }
-    return true;
 }
 
 module.exports = sendEmail;

@@ -126,7 +126,8 @@ body {
     margin-right: auto; /* Empurra para a esquerda se necessário */
 }
 
-.menu-horizontal .nav-item .btn:hover {
+.menu-horizontal .nav-item .btn:hover,
+.menu-horizontal .nav-item .btn:focus { /* Adicionado :focus para acessibilidade */
     background-color: #05FC04 !important; /* Fundo verde no hover */
     border-color: #05FC04 !important; /* Borda verde no hover */
     color: #000000 !important; /* Texto preto no hover */

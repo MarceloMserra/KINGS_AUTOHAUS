@@ -87,6 +87,12 @@ app.engine('hbs', exphbs.engine({
         getInitials: (firstName, lastName) => {
             return (firstName ? firstName.charAt(0) : '') + (lastName ? lastName.charAt(0) : '');
         }
+    },
+    // NOVO: Configuração para permitir acesso a propriedades não-próprias (prototype access)
+    // Isso resolve o erro "Access has been denied to resolve the property because it is not an "own property" of its parent."
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true
     }
 }));
 app.set('view engine', 'hbs');

@@ -88,11 +88,25 @@
         <!-- View All Cars button -->
         <a href="/admin/gas" class="btn btn-dark">View All Cars</a><br>
 
-        <!-- NEW: Register Staff User button - CORRIGIDO -->
+        {{#if user.isAdmin}}
+        <!-- Register Staff User button - Visível apenas para administradores -->
         <a href="/admin/register-staff" class="btn btn-dark">Register Staff User</a><br>
+
+        <!-- NEW: View All Users button - Visível apenas para administradores -->
+        <a href="/admin/users" class="btn btn-dark">View All Users</a><br>
+        {{/if}}
 
         <!-- Logout button -->
         <a href="/logout" class="btn btn-danger mt-4">Logout</a><br>
 
     </div>
 </div>
+
+<script>
+    // Script para depuração: Verifique o valor de user.isAdmin no console do navegador
+    document.addEventListener('DOMContentLoaded', function() {
+        // Removido o helper 'json' pois não é nativo do Handlebars e estava causando erro.
+        // Vamos logar apenas a propriedade isAdmin diretamente.
+        console.log('user.isAdmin in admin_index.hbs:', {{{user.isAdmin}}});
+    });
+</script>

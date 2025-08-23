@@ -1,236 +1,99 @@
 <!-- This file will be rendered inside the {{{body}}} of the layout_list.hbs -->
 
 <style>
-    /* BACKGROUND IMAGE FIX - Adding login.png background */
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        background-image: url('/images/login.png') !important;
-        background-repeat: no-repeat !important;
-        background-attachment: fixed !important;
-        background-size: cover !important;
-        background-position: center !important;
-        background-color: #000000 !important;
-    }
-
-    /* Main container for the login error page */
-    .login-page-container {
+    body {
+        background-image: url('/images/login.png'); /* Usar o mesmo background do login */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        min-height: 100vh; /* Occupy full viewport height */
-        width: 100%;
+        min-height: 100vh;
         padding: 20px;
-        box-sizing: border-box;
-        background: rgba(0, 0, 0, 0.7); /* Dark overlay for better readability */
     }
 
-    /* REMOVED: Logo styling - no more logo display */
-
-    /* Login form container (reused for error display) */
-    .loginForm {
-        background-color: rgba(26, 26, 26, 0.95); /* More opaque background */
-        padding: 50px; /* More padding */
-        border-radius: 20px; /* More rounded corners */
-        box-shadow: 0 0 40px rgba(5, 252, 4, 0.4); /* Stronger green glow shadow */
-        max-width: 480px; /* Slightly wider form */
+    .login-error-container {
+        background-color: rgba(0, 0, 0, 0.8);
+        border: 1px solid #dc3545; /* Borda vermelha para erro */
+        border-radius: 15px;
+        box-shadow: 0 0 25px rgba(220, 53, 69, 0.4); /* Sombra vermelha */
+        padding: 40px;
+        max-width: 400px;
         width: 100%;
         text-align: center;
-        border: 1px solid #333333; /* Subtle border */
-        display: flex; /* Use flexbox for internal alignment */
-        flex-direction: column;
-        align-items: center;
-        backdrop-filter: blur(10px); /* Glass effect */
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
 
-    /* Login title */
-    .loginForm .title {
-        color: #05FC04; /* Green title */
-        font-size: 2.8rem; /* Larger title */
+    .login-error-container h2 {
+        color: #dc3545; /* Título vermelho */
+        font-size: 2.5rem;
         font-weight: bold;
         margin-bottom: 30px;
-        letter-spacing: 1px; /* Add some letter spacing */
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
     }
 
-    /* Horizontal rule below title */
-    .loginForm hr {
-        border-top: 3px solid #05FC04; /* Thicker green line */
-        width: 100px; /* Wider line */
-        margin: 20px auto;
-        border-radius: 5px;
-    }
-
-    /* Input fields container */
-    .input {
+    .btn-back-to-login {
+        background-color: #05FC04 !important;
+        border-color: #05FC04 !important;
+        color: #000000 !important;
+        font-weight: bold !important;
+        padding: 12px 30px !important;
+        border-radius: 8px !important;
+        font-size: 1.1rem !important;
+        transition: all 0.3s ease !important;
         width: 100%;
-        margin-bottom: 30px; /* More space below inputs */
+        margin-top: 20px;
     }
 
-    .form-group.userid {
-        margin-bottom: 25px; /* Spacing between inputs */
+    .btn-back-to-login:hover {
+        background-color: #04D803 !important;
+        border-color: #04D803 !important;
+        color: #ffffff !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4) !important;
     }
 
-    /* Input field styling */
-    .form-control {
-        background-color: rgba(13, 13, 13, 0.9); /* More opaque input background */
+    .text-muted {
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    .alert-danger {
+        background-color: rgba(220, 53, 69, 0.8);
         color: #ffffff;
-        border: 1px solid #05FC04; /* Green border */
-        border-radius: 30px; /* More rounded corners */
-        padding: 15px 25px; /* More padding */
-        font-size: 1.1rem; /* Larger font size */
-        width: 100%; /* Ensure full width */
-        box-sizing: border-box; /* Include padding in width */
-        transition: all 0.3s ease;
-    }
-
-    .form-control::placeholder {
-        color: rgba(255, 255, 255, 0.5); /* Lighter placeholder text */
-    }
-
-    .form-control:focus {
-        background-color: rgba(42, 42, 42, 0.95);
-        border-color: #05FC04;
-        box-shadow: 0 0 0 0.3rem rgba(5, 252, 4, 0.3); /* Stronger green focus glow */
-        color: #ffffff;
-        outline: none;
-        transform: scale(1.02);
-    }
-
-    /* Login button styling */
-    .loginButton button {
-        /* Custom button styles, avoiding Bootstrap btn classes for full control */
-        background: linear-gradient(45deg, #05FC04, #04D803); /* Gradient background */
-        border: 2px solid #05FC04; /* Green border */
-        color: #000000; /* Black text */
+        border-color: #dc3545;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 15px;
         font-weight: bold;
-        padding: 15px 60px; /* More padding */
-        border-radius: 30px; /* More rounded corners */
-        font-size: 1.2rem; /* Larger font size */
-        cursor: pointer;
-        transition: all 0.3s ease;
-        width: 100%; /* Full width button */
-        max-width: 250px; /* Max width for the button */
-        margin-top: 20px; /* Space above button */
-        box-sizing: border-box;
-        text-transform: uppercase;
-        letter-spacing: 1px;
     }
 
-    .loginButton button:hover {
-        background: linear-gradient(45deg, #04D803, #03C602); /* Darker gradient on hover */
-        border-color: #04D803;
-        color: #ffffff; /* White text on hover */
-        transform: translateY(-3px) scale(1.05); /* Lift and scale effect */
-        box-shadow: 0 8px 25px rgba(5, 252, 4, 0.5); /* Green glow on hover */
-    }
-
-    .loginButton button:active {
-        transform: translateY(0); /* Press effect */
-        box-shadow: 0 2px 10px rgba(5, 252, 4, 0.3);
-    }
-
-    /* Error alert specific styles */
-    .erroralert {
-        background-color: rgba(220, 53, 69, 0.9); /* More opaque red background for error */
-        color: #ffffff;
-        border: 2px solid #dc3545;
-        border-radius: 10px;
-        padding: 15px 20px;
-        margin-bottom: 20px;
+    .forgot-password-link {
+        color: #05FC04;
         font-weight: bold;
-        text-align: center;
-        animation: shake 0.5s ease-in-out;
-        backdrop-filter: blur(5px);
+        text-decoration: none;
+        transition: color 0.3s ease;
     }
 
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        75% { transform: translateX(5px); }
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .loginForm {
-            padding: 30px;
-            max-width: 90%;
-        }
-        
-        .loginForm .title {
-            font-size: 2.2rem;
-        }
-        
-        .form-control {
-            padding: 12px 20px;
-            font-size: 1rem;
-        }
-        
-        .loginButton button {
-            padding: 12px 40px;
-            font-size: 1.1rem;
-        }
-        
-        .erroralert {
-            padding: 12px 15px;
-            font-size: 0.9rem;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .login-page-container {
-            padding: 10px;
-        }
-        
-        .loginForm {
-            padding: 25px;
-        }
-        
-        .loginForm .title {
-            font-size: 2rem;
-        }
+    .forgot-password-link:hover {
+        color: #04D803;
+        text-decoration: underline;
     }
 </style>
 
-<div class="login-page-container">
-    <!-- REMOVED: Logo image -->
+<div class="login-error-container">
+    <h2>Login Failed</h2>
+    <hr style="border-top: 2px solid #dc3545; width: 80px; margin: 15px auto 30px auto; border-radius: 5px;">
 
-    <form action="/login" method="POST">
-        <div class="loginForm">
-            <h2 class="title">
-                Login
-                <hr>
-            </h2>
-            <div class="input">
-                <!-- Error Alert -->
-                {{#if error}}
-                <div class="alert alert-danger erroralert" role="alert">
-                    {{error}}
-                </div>
-                {{else if error_msg}}
-                <div class="alert alert-danger erroralert" role="alert">
-                    {{error_msg}}
-                </div>
-                {{else}}
-                <div class="alert alert-danger erroralert" role="alert">
-                    Invalid username or password. Please try again.
-                </div>
-                {{/if}}
+    {{#if error_msg}}
+        <div class="alert alert-danger">{{error_msg}}</div>
+    {{else}}
+        <div class="alert alert-danger">Invalid username or password. Please try again.</div>
+    {{/if}}
 
-                <div class="form-group userid">
-                    <input type="email" name="email" class="form-control" placeholder="Email" autocomplete="off" required>
-                </div>
-
-                <div class="form-group userid">
-                    <input type="password" name="senha" class="form-control" placeholder="Password" autocomplete="off" required>
-                </div>
-
-                <div class="loginButton">
-                    <button id="l" type="submit">LOGIN</button>
-                </div>
-            </div>
-        </div>
-    </form>
+    <a href="/login" class="btn btn-back-to-login">Back to Login</a>
+    <p class="mt-3 text-muted">
+        Forgot your password? <a href="/forgot-password" class="forgot-password-link">Reset here</a>
+    </p>
 </div>

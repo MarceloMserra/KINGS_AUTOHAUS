@@ -19,11 +19,12 @@ const UsuarioSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  isAdmin: { // Adicionando o campo isAdmin
+  isAdmin: {
     type: Boolean,
-    default: false // Por padrão, um usuário não é admin
-  }
+    default: false
+  },
+  resetPasswordToken: String, // Novo campo para o token de redefinição de senha
+  resetPasswordExpires: Date // Novo campo para a data de expiração do token
 });
 
-// Agora exporta o model corretamente!
 module.exports = mongoose.model("usuarios", UsuarioSchema);
