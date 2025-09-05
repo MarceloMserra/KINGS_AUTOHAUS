@@ -1,536 +1,515 @@
-<!-- Premium Vehicle Inventory with 404-style Background -->
-
-<style>
-    /* Full black background with premium car image */
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        background-color: #000000;
-        color: #ffffff;
-        overflow-x: hidden;
-    }
-
-    body {
-        /* Same background style as 404 page */
-        background-image: url('/images/fotocapa2.png');
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
-        background-position: center;
-        min-height: 100vh;
-    }
-
-    .inventory-container {
-        min-height: 100vh;
-        padding: 40px 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* Main title styling */
-    .inventory-title {
-        color: #05FC04;
-        font-size: 4rem;
-        font-weight: bold;
-        margin-bottom: 10px;
-        text-shadow: 0 0 20px rgba(5, 252, 4, 0.3);
-        text-align: center;
-    }
-
-    .inventory-subtitle {
-        color: #ffffff;
-        font-size: 1.5rem;
-        margin-bottom: 40px;
-        text-align: center;
-        font-weight: 300;
-    }
-
-    /* Transparent black card styling - same as 404 */
-    .inventory-card {
-        background-color: rgba(0, 0, 0, 0.85);
-        border: 1px solid #333333;
-        border-radius: 15px;
-        padding: 30px;
-        max-width: 1400px;
-        width: 100%;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        margin-bottom: 30px;
-    }
-
-    /* Filter section styling - same card style */
-    .filter-card {
-        background-color: rgba(0, 0, 0, 0.9);
-        border: 1px solid #05FC04;
-        border-radius: 15px;
-        padding: 25px;
-        margin-bottom: 30px;
-        box-shadow: 0 10px 30px rgba(5, 252, 4, 0.2);
-    }
-
-    .filter-title {
-        background-color: #05FC04;
-        color: #000000;
-        text-align: center;
-        padding: 12px;
-        margin: -25px -25px 20px -25px;
-        border-radius: 15px 15px 0 0;
-        font-weight: bold;
-        font-size: 1.2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .filter-title i {
-        margin-right: 10px;
-    }
-
-    .filter-group {
-        margin-bottom: 15px;
-    }
-
-    .filter-group label {
-        display: block;
-        color: #ffffff;
-        font-weight: 500;
-        font-size: 0.9rem;
-        margin-bottom: 5px;
-    }
-
-    .filter-group select {
-        width: 100%;
-        padding: 10px 15px;
-        border: 1px solid #05FC04;
-        border-radius: 8px;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: #ffffff;
-        font-size: 0.9rem;
-    }
-
-    .filter-group select:focus {
-        border-color: #05FC04;
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(5, 252, 4, 0.2);
-    }
-
-    .filter-group select option {
-        background-color: #000000;
-        color: #ffffff;
-    }
-
-    .filter-buttons {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .btn-filter {
-        background-color: #05FC04;
-        border: none;
-        color: #000000;
-        padding: 12px 30px;
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 1rem;
-    }
-
-    .btn-filter:hover {
-        background-color: #04D803;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4);
-    }
-
-    .btn-clear {
-        background-color: #666666;
-        border: none;
-        color: #ffffff;
-        padding: 12px 30px;
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        text-decoration: none;
-        font-size: 1rem;
-    }
-
-    .btn-clear:hover {
-        background-color: #888888;
-        color: #ffffff;
-        text-decoration: none;
-    }
-
-    /* Vehicle LIST styling - one below the other */
-    .vehicles-list {
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-        margin-top: 30px;
-    }
-
-    .vehicle-card {
-        background-color: rgba(0, 0, 0, 0.8);
-        border: 1px solid #333333;
-        border-radius: 15px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        display: flex;
-        flex-direction: row;
-        min-height: 250px;
-    }
-
-    .vehicle-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(5, 252, 4, 0.2);
-        border-color: #05FC04;
-    }
-
-    .vehicle-image-container {
-        flex: 0 0 350px;
-        max-width: 350px;
-        height: 250px;
-        position: relative;
-        overflow: hidden;
-        background-color: #0a0a0a;
-    }
-
-    .vehicle-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .vehicle-content {
-        flex: 1;
-        padding: 25px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .vehicle-title {
-        color: #05FC04;
-        font-size: 2rem;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .vehicle-subtitle {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 1.2rem;
-        margin-bottom: 15px;
-    }
-
-    .vehicle-specs {
-        list-style: none;
-        padding: 0;
-        margin: 15px 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px 20px;
-    }
-
-    .vehicle-specs li {
-        color: rgba(255, 255, 255, 0.9);
-        display: flex;
-        align-items: center;
-        font-size: 1rem;
-        white-space: nowrap;
-    }
-
-    .vehicle-specs i {
-        color: #05FC04;
-        margin-right: 8px;
-        width: 20px;
-        text-align: center;
-    }
-
-    .vehicle-specs strong {
-        color: #ffffff;
-    }
-
-    .vehicle-bottom {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px dashed #333333;
-    }
-
-    .vehicle-price {
-        color: #05FC04;
-        font-size: 2.5rem;
-        font-weight: bold;
-    }
-
-    .vehicle-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: flex-end;
-    }
-
-    .vehicle-btn {
-        background-color: #333333;
-        border: none;
-        color: #ffffff;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: bold;
-    }
-
-    .vehicle-btn:hover {
-        background-color: #555555;
-        color: #ffffff;
-        text-decoration: none;
-        transform: translateY(-2px);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .vehicle-btn.primary {
-        background-color: #05FC04;
-        color: #000000;
-    }
-
-    .vehicle-btn.primary:hover {
-        background-color: #04D803;
-        color: #ffffff;
-    }
-
-    /* Badges on vehicle images */
-    .vehicle-badge {
-        position: absolute;
-        top: 10px;
-        padding: 5px 10px;
-        border-radius: 15px;
-        font-size: 0.75rem;
-        font-weight: bold;
-        z-index: 5;
-    }
-
-    .badge-photos {
-        background-color: #05FC04;
-        color: #000000;
-        right: 10px;
-    }
-
-    .badge-featured {
-        background-color: #ffc107;
-        color: #000000;
-        left: 10px;
-    }
-
-    /* Pagination styling */
-    .pagination-section {
-        background-color: rgba(0, 0, 0, 0.8);
-        border: 1px solid #333333;
-        border-radius: 10px;
-        padding: 20px;
-        margin-top: 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .pagination-info {
-        color: #ffffff;
-        font-size: 1rem;
-    }
-
-    .pagination-nav {
-        display: flex;
-        gap: 10px;
-    }
-
-    .pagination-btn {
-        background-color: #333333;
-        border: none;
-        color: #ffffff;
-        padding: 10px 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .pagination-btn:hover:not(.disabled) {
-        background-color: #05FC04;
-        color: #000000;
-        text-decoration: none;
-    }
-
-    .pagination-btn.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-
-    /* No results styling */
-    .no-results {
-        text-align: center;
-        padding: 60px 20px;
-        color: rgba(255, 255, 255, 0.8);
-    }
-
-    .no-results i {
-        font-size: 4rem;
-        color: #666666;
-        margin-bottom: 20px;
-        display: block;
-    }
-
-    .no-results h3 {
-        color: #05FC04;
-        margin-bottom: 15px;
-        font-size: 2rem;
-    }
-
-    .no-results p {
-        font-size: 1.1rem;
-        margin-bottom: 30px;
-    }
-
-    .quick-search-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .quick-link {
-        background-color: rgba(5, 252, 4, 0.1);
-        border: 1px solid #05FC04;
-        color: #05FC04;
-        padding: 10px 20px;
-        border-radius: 8px;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .quick-link:hover {
-        background-color: #05FC04;
-        color: #000000;
-        text-decoration: none;
-    }
-
-    /* Responsive design */
-    @media (max-width: 768px) {
-        .inventory-title {
-            font-size: 2.5rem;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Full black background with premium car image */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
         }
-        
-        .inventory-subtitle {
-            font-size: 1.2rem;
+
+        body {
+            /* Same background style as 404 page */
+            background-image: url('/images/fotocapa2.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
         }
-        
-        .inventory-card {
-            padding: 20px;
-        }
-        
-        .filter-card {
-            padding: 15px;
-        }
-        
-        .vehicles-list {
-            gap: 20px;
-        }
-        
-        .vehicle-card {
-            flex-direction: column;
-            min-height: auto;
-        }
-        
-        .vehicle-image-container {
-            flex: none;
-            max-width: 100%;
-            height: 250px;
-        }
-        
-        .vehicle-content {
-            padding: 20px;
-        }
-        
-        .vehicle-title {
-            font-size: 1.5rem;
-        }
-        
-        .vehicle-specs {
-            flex-direction: column;
-            gap: 5px;
-        }
-        
-        .vehicle-bottom {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 15px;
-        }
-        
-        .vehicle-actions {
-            width: 100%;
-            justify-content: flex-start;
-        }
-        
-        .vehicle-actions .vehicle-btn {
-            flex: 1;
-        }
-        
-        .filter-buttons {
+
+        .inventory-container {
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
             flex-direction: column;
             align-items: center;
         }
-        
-        .pagination-section {
-            flex-direction: column;
+
+        /* Main title styling */
+        .inventory-title {
+            color: #05FC04;
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(5, 252, 4, 0.3);
             text-align: center;
         }
-        
-        .vehicle-actions {
+
+        .inventory-subtitle {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        /* Transparent black card styling - same as 404 */
+        .inventory-card {
+            background-color: rgba(0, 0, 0, 0.85);
+            border: 1px solid #333333;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 1400px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+        }
+
+        /* Filter section styling - same card style */
+        .filter-card {
+            background-color: rgba(0, 0, 0, 0.9);
+            border: 1px solid #05FC04;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(5, 252, 4, 0.2);
+        }
+
+        .filter-title {
+            background-color: #05FC04;
+            color: #000000;
+            text-align: center;
+            padding: 12px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 15px 15px 0 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
             justify-content: center;
         }
-    }
 
-    @media (max-width: 480px) {
-        .inventory-container {
-            padding: 20px 10px;
+        .filter-title i {
+            margin-right: 10px;
+        }
+
+        .filter-group {
+            margin-bottom: 15px;
+        }
+
+        .filter-group label {
+            display: block;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 12px 15px; /* Aumenta o padding para mais espaço vertical */
+            height: auto; /* Permite que a altura se ajuste ao conteúdo */
+            border: 1px solid #05FC04;
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            font-size: 0.9rem;
         }
         
-        .inventory-title {
+        .filter-group select option {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-filter {
+            background-color: #05FC04;
+            border: none;
+            color: #000000;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .btn-filter:hover {
+            background-color: #04D803;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4);
+        }
+
+        .btn-clear {
+            background-color: #666666;
+            border: none;
+            color: #ffffff;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .btn-clear:hover {
+            background-color: #888888;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        /* Vehicle LIST styling - one below the other */
+        .vehicles-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .vehicle-card {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #333333;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: row;
+            min-height: 250px;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(5, 252, 4, 0.2);
+            border-color: #05FC04;
+        }
+
+        .vehicle-image-container {
+            flex: 0 0 350px;
+            max-width: 350px;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            background-color: #0a0a0a;
+        }
+
+        .vehicle-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .vehicle-content {
+            flex: 1;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .vehicle-title {
+            color: #05FC04;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .vehicle-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .vehicle-specs {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+        }
+
+        .vehicle-specs li {
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+
+        .vehicle-specs i {
+            color: #05FC04;
+            margin-right: 8px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .vehicle-specs strong {
+            color: #ffffff;
+        }
+
+        .vehicle-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #333333;
+        }
+
+        .vehicle-price {
+            color: #05FC04;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .vehicle-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .vehicle-btn {
+            background-color: #333333;
+            border: none;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+
+        .vehicle-btn:hover {
+            background-color: #555555;
+            color: #ffffff;
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .vehicle-btn.primary {
+            background-color: #05FC04;
+            color: #000000;
+        }
+
+        .vehicle-btn.primary:hover {
+            background-color: #04D803;
+            color: #ffffff;
+        }
+
+        /* Badges on vehicle images */
+        .vehicle-badge {
+            position: absolute;
+            top: 10px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 5;
+        }
+
+        .badge-photos {
+            background-color: #05FC04;
+            color: #000000;
+            right: 10px;
+        }
+
+        .badge-featured {
+            background-color: #ffc107;
+            color: #000000;
+            left: 10px;
+        }
+
+        /* Pagination styling */
+        .pagination-section {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #333333;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .pagination-info {
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .pagination-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .pagination-btn {
+            background-color: #333333;
+            border: none;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .pagination-btn:hover:not(.disabled) {
+            background-color: #05FC04;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .pagination-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* No results styling */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            color: #666666;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .no-results h3 {
+            color: #05FC04;
+            margin-bottom: 15px;
             font-size: 2rem;
         }
-        
-        .filter-card, .inventory-card {
-            margin: 0 -10px;
-            border-radius: 0;
+
+        .no-results p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
         }
-    }
-</style>
+
+        .quick-search-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            background-color: rgba(5, 252, 4, 0.1);
+            border: 1px solid #05FC04;
+            color: #05FC04;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quick-link:hover {
+            background-color: #05FC04;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        /* Price Range Slider */
+        .price-range-slider {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 15px;
+        }
+
+        .range-inputs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #05FC04;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 5px;
+            background: #666;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+            border-radius: 5px;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: #05FC04;
+            border: 2px solid #000;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .range-slider::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            background: #05FC04;
+            border: 2px solid #000;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        /* New filter grid layout */
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .filter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 576px) {
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
 
 <div class="inventory-container">
     <!-- Main Title -->
@@ -545,95 +524,89 @@
         </div>
         
         <form id="filterForm" method="GET" action="/gas">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="filter-group">
-                        <label for="year">Year</label>
-                        <select class="form-control" id="year" name="year">
-                            <option value="">Any</option>
-                            {{#each (range 2024 2010)}}
-                                <option value="{{this}}" {{#if (eq ../currentFilters.year this)}}selected{{/if}}>{{this}}</option>
+            <div class="filter-grid">
+                <!-- Dynamic Year Filter -->
+                <div class="filter-group">
+                    <label for="year">Year</label>
+                    <select class="form-control" id="year" name="year">
+                        <option value="">Any</option>
+                        {{#if filters.yearRange}}
+                            {{#each (range filters.yearRange.maxYear filters.yearRange.minYear)}}
+                                <option value="{{this}}" {{#if (eq ../currentFilters.year (toString this))}}selected{{/if}}>{{this}}</option>
                             {{/each}}
-                        </select>
-                    </div>
+                        {{/if}}
+                    </select>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="filter-group">
-                        <label for="make">Make</label>
-                        <select class="form-control" id="make" name="make">
-                            <option value="">Any</option>
-                            {{#each filters.brands}}
-                                <option value="{{this}}" {{#if (eq ../currentFilters.make this)}}selected{{/if}}>{{this}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
+                <!-- Dynamic Make Filter -->
+                <div class="filter-group">
+                    <label for="make">Make</label>
+                    <select class="form-control" id="make" name="make">
+                        <option value="">Any</option>
+                        {{#each filters.brands}}
+                            <option value="{{this}}" {{#if (eq ../currentFilters.make this)}}selected{{/if}}>{{this}}</option>
+                        {{/each}}
+                    </select>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="filter-group">
-                        <label for="model">Model</label>
-                        <select class="form-control" id="model" name="model">
-                            <option value="">Any</option>
-                        </select>
-                    </div>
+                <!-- Dynamic Model Filter -->
+                <div class="filter-group">
+                    <label for="model">Model</label>
+                    <select class="form-control" id="model" name="model">
+                        <option value="">Any</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="filter-group">
-                        <label for="priceRange">Price Range</label>
-                        <select class="form-control" id="priceRange" name="priceRange">
-                            <option value="">Any</option>
-                            <option value="0-25000" {{#if (eq currentFilters.priceRange "0-25000")}}selected{{/if}}>Under $25,000</option>
-                            <option value="25000-50000" {{#if (eq currentFilters.priceRange "25000-50000")}}selected{{/if}}>$25,000 - $50,000</option>
-                            <option value="50000-75000" {{#if (eq currentFilters.priceRange "50000-75000")}}selected{{/if}}>$50,000 - $75,000</option>
-                            <option value="75000-100000" {{#if (eq currentFilters.priceRange "75000-100000")}}selected{{/if}}>$75,000 - $100,000</option>
-                            <option value="100000-999999" {{#if (eq currentFilters.priceRange "100000-999999")}}selected{{/if}}>$100,000+</option>
-                        </select>
-                    </div>
+                <!-- Dynamic Body Type Filter -->
+                <div class="filter-group">
+                    <label for="bodyType">Body Type</label>
+                    <select class="form-control" id="bodyType" name="bodyType">
+                        <option value="">Any</option>
+                        {{#each filters.bodyTypes}}
+                            <option value="{{this}}" {{#if (eq ../currentFilters.bodyType this)}}selected{{/if}}>{{this}}</option>
+                        {{/each}}
+                    </select>
                 </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="filter-group">
-                        <label for="bodyType">Body Type</label>
-                        <select class="form-control" id="bodyType" name="bodyType">
-                            <option value="">Any</option>
-                            <option value="Sedan" {{#if (eq currentFilters.bodyType "Sedan")}}selected{{/if}}>Sedan</option>
-                            <option value="SUV" {{#if (eq currentFilters.bodyType "SUV")}}selected{{/if}}>SUV</option>
-                            <option value="Coupe" {{#if (eq currentFilters.bodyType "Coupe")}}selected{{/if}}>Coupe</option>
-                            <option value="Convertible" {{#if (eq currentFilters.bodyType "Convertible")}}selected{{/if}}>Convertible</option>
-                        </select>
-                    </div>
+                <!-- Dynamic Transmission Filter -->
+                <div class="filter-group">
+                    <label for="transmission">Transmission</label>
+                    <select class="form-control" id="transmission" name="transmission">
+                        <option value="">Any</option>
+                        {{#each filters.transmissions}}
+                            <option value="{{this}}" {{#if (eq ../currentFilters.transmission this)}}selected{{/if}}>{{this}}</option>
+                        {{/each}}
+                    </select>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="filter-group">
-                        <label for="transmission">Transmission</label>
-                        <select class="form-control" id="transmission" name="transmission">
-                            <option value="">Any</option>
-                            <option value="Automatic" {{#if (eq currentFilters.transmission "Automatic")}}selected{{/if}}>Automatic</option>
-                            <option value="Manual" {{#if (eq currentFilters.transmission "Manual")}}selected{{/if}}>Manual</option>
-                        </select>
-                    </div>
+                <!-- Dynamic Drivetrain Filter -->
+                <div class="filter-group">
+                    <label for="drivetrain">Drivetrain</label>
+                    <select class="form-control" id="drivetrain" name="drivetrain">
+                        <option value="">Any</option>
+                        {{#each filters.drivetrains}}
+                            <option value="{{this}}" {{#if (eq ../currentFilters.drivetrains this)}}selected{{/if}}>{{this}}</option>
+                        {{/each}}
+                    </select>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="filter-group">
-                        <label for="sortBy">Sort By</label>
-                        <select class="form-control" id="sortBy" name="sortBy">
-                            <option value="date-desc" {{#if (eq currentFilters.sortBy "date-desc")}}selected{{/if}}>Newest First</option>
-                            <option value="price-asc" {{#if (eq currentFilters.sortBy "price-asc")}}selected{{/if}}>Price: Low to High</option>
-                            <option value="price-desc" {{#if (eq currentFilters.sortBy "price-desc")}}selected{{/if}}>Price: High to Low</option>
-                            <option value="year-desc" {{#if (eq currentFilters.sortBy "year-desc")}}selected{{/if}}>Year: Newest</option>
-                        </select>
-                    </div>
+                <!-- Dynamic Cylinders Filter -->
+                <div class="filter-group">
+                    <label for="cyl">Cylinders</label>
+                    <select class="form-control" id="cyl" name="cyl">
+                        <option value="">Any</option>
+                        {{#each filters.cyls}}
+                            <option value="{{this}}" {{#if (eq ../currentFilters.cyl (toString this))}}selected{{/if}}>{{this}}</option>
+                        {{/each}}
+                    </select>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="filter-group">
-                        <label for="perPage">Show</label>
-                        <select class="form-control" id="perPage" name="perPage">
-                            <option value="12" {{#if (eq currentFilters.perPage "12")}}selected{{/if}}>12 per page</option>
-                            <option value="24" {{#if (eq currentFilters.perPage "24")}}selected{{/if}}>24 per page</option>
-                            <option value="48" {{#if (eq currentFilters.perPage "48")}}selected{{/if}}>48 per page</option>
-                        </select>
-                    </div>
+                <!-- Sort By -->
+                <div class="filter-group">
+                    <label for="sortBy">Sort By</label>
+                    <select class="form-control" id="sortBy" name="sortBy">
+                        <option value="date-desc" {{#if (eq currentFilters.sortBy "date-desc")}}selected{{/if}}>Newest First</option>
+                        <option value="price-asc" {{#if (eq currentFilters.sortBy "price-asc")}}selected{{/if}}>Price: Low to High</option>
+                        <option value="price-desc" {{#if (eq currentFilters.sortBy "price-desc")}}selected{{/if}}>Price: High to Low</option>
+                        <option value="year-desc" {{#if (eq currentFilters.sortBy "year-desc")}}selected{{/if}}>Year: Newest</option>
+                        <option value="year-asc" {{#if (eq currentFilters.sortBy "year-asc")}}selected{{/if}}>Year: Oldest</option>
+                        <option value="mileage-asc" {{#if (eq currentFilters.sortBy "mileage-asc")}}selected{{/if}}>Mileage: Low to High</option>
+                        <option value="mileage-desc" {{#if (eq currentFilters.sortBy "mileage-desc")}}selected{{/if}}>Mileage: High to Low</option>
+                    </select>
                 </div>
             </div>
             
@@ -1029,3 +1002,5 @@
         });
     });
 </script>
+</body>
+</html>

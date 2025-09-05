@@ -14,6 +14,8 @@ router.get('/', async (req, res) => {
       priceRange,
       bodyType,
       transmission,
+      drivetrain,
+      cyl,
       sort = 'date-desc',
       page = 1,
       perPage = 12,
@@ -59,6 +61,16 @@ router.get('/', async (req, res) => {
     // Transmission filter
     if (transmission && transmission !== '') {
       filters.transmission = new RegExp(transmission, 'i');
+    }
+    
+    // Drivetrain filter
+    if (drivetrain && drivetrain !== '') {
+      filters.drivetrain = new RegExp(drivetrain, 'i');
+    }
+
+    // Cylinders filter
+    if (cyl && cyl !== '') {
+      filters.cyl = parseInt(cyl);
     }
 
     // Text search across multiple fields
@@ -120,8 +132,11 @@ router.get('/', async (req, res) => {
       // Options for dynamic filters
       Promise.all([
         GasModel.distinct('brand', { status: 'available' }),
-        GasModel.distinct('transmission', { status: 'available' }),
+        GasModel.distinct('t2', { status: 'available' }),
         GasModel.distinct('body', { status: 'available' }),
+        GasModel.distinct('transmission', { status: 'available' }),
+        GasModel.distinct('drivetrain', { status: 'available' }),
+        GasModel.distinct('cyl', { status: 'available' }),
         GasModel.aggregate([
           { $match: { status: 'available' } },
           { $group: {
@@ -135,7 +150,7 @@ router.get('/', async (req, res) => {
       ])
     ]);
 
-    const [brands, transmissions, bodyTypes, priceYearRanges] = filterOptions;
+    const [brands, allModels, bodyTypes, transmissions, drivetrains, cyls, priceYearRanges] = filterOptions;
 
     // Calculate total pages
     const totalPages = Math.ceil(totalCount / vehiclesPerPage);
@@ -170,6 +185,17 @@ router.get('/', async (req, res) => {
       .filter((value, index, self) => self.indexOf(value) === index) // Remove duplicates
       .sort();
 
+    // Generate dynamic price ranges
+    const minPrice = priceYearRanges[0] ? priceYearRanges[0].minPrice : 0;
+    const maxPrice = priceYearRanges[0] ? priceYearRanges[0].maxPrice : 200000;
+    const priceRanges = [
+      { label: `Under $${(minPrice + 25000).toLocaleString('en-US')}`, value: `${minPrice}-${minPrice + 25000}` },
+      { label: `$${(minPrice + 25000).toLocaleString('en-US')} - $${(minPrice + 50000).toLocaleString('en-US')}`, value: `${minPrice + 25000}-${minPrice + 50000}` },
+      { label: `$${(minPrice + 50000).toLocaleString('en-US')} - $${(minPrice + 75000).toLocaleString('en-US')}`, value: `${minPrice + 50000}-${minPrice + 75000}` },
+      { label: `$${(minPrice + 75000).toLocaleString('en-US')} - $${(minPrice + 100000).toLocaleString('en-US')}`, value: `${minPrice + 75000}-${minPrice + 100000}` },
+      { label: `$${(minPrice + 100000).toLocaleString('en-US')}+`, value: `${minPrice + 100000}-999999` }
+    ];
+
     res.render('gas_index', {
       title: 'Premium Vehicle Collection - KINGS AUTOHAUS',
       vehicles,
@@ -185,8 +211,11 @@ router.get('/', async (req, res) => {
         brands: brands.sort(),
         transmissions: transmissions.sort(),
         bodyTypes: cleanBodyTypes,
+        drivetrains: drivetrains.sort(),
+        cyls: cyls.sort((a,b) => a-b),
+        priceRanges: priceRanges,
         priceRange: priceYearRanges[0] || { minPrice: 0, maxPrice: 200000 },
-        yearRange: priceYearRanges[0] || { minYear: 2010, maxYear: new Date().getFullYear() }
+        yearRange: priceYearRanges[0] || { minYear: new Date().getFullYear(), maxYear: new Date().getFullYear() }
       },
       modelsByBrand: JSON.stringify(modelsByBrand),
       currentFilters: req.query,
