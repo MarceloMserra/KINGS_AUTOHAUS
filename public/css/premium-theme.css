@@ -34,7 +34,7 @@ body {
 /* Logo alinhada à esquerda no topo */
 #main-navbar .navbar-brand {
     margin: 0 !important; /* Remove todas as margens */
-    text-align: left; /* ALINHAMENTO À ESQUERDA */
+    text-align: left; /* ALINAMENTO À ESQUERDA */
     margin-bottom: 10px !important; /* Espaço entre logo e menu */
     margin-left: 30px !important; /* MARGEM À ESQUERDA para não colar na borda */
 }
@@ -186,7 +186,7 @@ body {
 }
 
 
-/* MOBILE MENU CORRECTIONS */
+/* MOBILE MENU CORREÇÕES */
 @media (max-width: 991.98px) { /* Tablets and smaller desktops */
     .navbar-toggler {
         display: block; /* Mostra o toggler em mobile */
@@ -424,4 +424,22 @@ body {
         opacity: 1 !important;
         pointer-events: auto !important;
     }
+}
+/* Estilos para o menu suspenso */
+.dropdown-menu {
+    background-color: #0d0d0d !important; /* Fundo preto */
+    border: 1px solid #1a1a1a !important; /* Borda sutil */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4) !important;
+    border-radius: 8px !important;
+}
+
+.dropdown-item {
+    color: #ffffff !important; /* Texto branco padrão */
+    transition: all 0.2s ease-in-out !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: #05FC04 !important; /* Fundo verde no hover */
+    color: #000000 !important; /* Texto preto no hover */
 }

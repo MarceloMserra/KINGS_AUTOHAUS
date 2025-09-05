@@ -25,10 +25,8 @@ router.get('/', async (req, res) => {
         // Processa as marcas e suas contagens para o filtro "Fazer" (Make)
         const brandsMap = new Map();
         allCars.forEach(car => {
-            // AGORA USANDO O CAMPO 'brand' DIRETAMENTE DO MODELO
             const brand = car.brand;
             if (brand) {
-                // Converte a marca para Capitalize a primeira letra para exibição consistente
                 const formattedBrand = brand.charAt(0).toUpperCase() + brand.slice(1).toLowerCase();
                 brandsMap.set(formattedBrand, (brandsMap.get(formattedBrand) || 0) + 1);
             }
@@ -37,36 +35,31 @@ router.get('/', async (req, res) => {
         const carBrands = Array.from(brandsMap.entries()).map(([name, count]) => ({
             name: name,
             count: count
-        })).sort((a, b) => a.name.localeCompare(b.name)); // Ordena por nome da marca
+        })).sort((a, b) => a.name.localeCompare(b.name));
 
-        // Prepara os dados para o filtro de modelo (por marca)
         const modelsByBrand = {};
         carBrands.forEach(brand => {
             modelsByBrand[brand.name] = allCars
-                // Filtra carros pela marca exata (agora usando o campo 'brand' do modelo)
                 .filter(car => (car.brand && car.brand.toLowerCase() === brand.name.toLowerCase()))
-                .map(car => car.t2 || car.title) // Usa t2 como modelo, ou o título completo
-                .filter((value, index, self) => self.indexOf(value) === index) // Remove duplicatas
-                .sort(); // Ordena os modelos
+                .map(car => car.t2 || car.title)
+                .filter((value, index, self) => self.indexOf(value) === index)
+                .sort();
         });
 
-        // ✅ NOVA LÓGICA PARA FEATURED VEHICLES
-        // Busca carros em destaque - prioriza carros mais recentes e com imagens
         const featuredCarsQuery = await GasModel.find({
-            image: { $exists: true, $ne: [], $not: { $size: 0 } } // Apenas carros com imagens
+            image: { $exists: true, $ne: [], $not: { $size: 0 } }
         })
         .sort({
-            date: -1, // Ordena por data mais recente primeiro
-            price: -1  // Depois por preço mais alto (carros premium)
+            date: -1,
+            price: -1
         })
-        .limit(12) // Pega até 12 carros para o carrossel
+        .limit(12)
         .lean();
 
-        // Se não houver carros suficientes com imagens, complementa com outros carros
         let latestCars = featuredCarsQuery;
         if (latestCars.length < 6) {
             const additionalCars = await GasModel.find({
-                _id: { $nin: latestCars.map(car => car._id) } // Exclui os já selecionados
+                _id: { $nin: latestCars.map(car => car._id) }
             })
             .sort({ date: -1, price: -1 })
             .limit(12 - latestCars.length)
@@ -75,7 +68,6 @@ router.get('/', async (req, res) => {
             latestCars = [...latestCars, ...additionalCars];
         }
 
-        // Adiciona carros elétricos em destaque se necessário
         if (latestCars.length < 8) {
             const electricFeatured = await ElectricModel.find({
                 image: { $exists: true, $ne: [], $not: { $size: 0 } }
@@ -87,28 +79,25 @@ router.get('/', async (req, res) => {
             latestCars = [...latestCars, ...electricFeatured];
         }
 
-        // Ordena os carros em destaque de forma alternada para variedade
         latestCars = latestCars.sort((a, b) => {
-            // Prioriza carros com mais imagens e mais recentes
             const scoreA = (a.image?.length || 0) * 10 + (a.price || 0) / 10000;
             const scoreB = (b.image?.length || 0) * 10 + (b.price || 0) / 10000;
             return scoreB - scoreA;
-        }).slice(0, 10); // Limita a 10 carros em destaque
+        }).slice(0, 10);
 
         console.log(`🚗 Loaded ${latestCars.length} featured cars for homepage carousel`);
 
         res.render('home', {
-            layout: 'layout', // Usar o layout principal para a home page pública
-            carBrands: carBrands, // Marcas com contagens para o filtro "Fazer"
-            modelsByBrand: JSON.stringify(modelsByBrand), // Modelos por marca para JS (stringified)
-            latestCars: latestCars, // Carros para a seção de carrossel Featured Vehicles
-            // Você pode adicionar outras variáveis aqui para a seção "Sobre a Empresa" se precisar
+            layout: 'layout',
+            carBrands: carBrands,
+            modelsByBrand: JSON.stringify(modelsByBrand),
+            latestCars: latestCars,
         });
     } catch (err) {
         console.error("❌ Error fetching homepage data:", err);
         req.flash('error_msg', 'Could not load homepage content at this time.');
-        res.render('home', { 
-            layout: 'layout', 
+        res.render('home', {
+            layout: 'layout',
             error: 'Could not load content.',
             carBrands: [],
             modelsByBrand: JSON.stringify({}),
@@ -119,7 +108,7 @@ router.get('/', async (req, res) => {
 
 // ✅ Página de login (GET)
 router.get('/login', (req, res) => {
-    res.render('login', { layout: 'layout_list' }); // Usa layout_list.hbs como layout
+    res.render('login', { layout: 'layout_list' });
 });
 
 // ✅ Rota de registro (GET) - Exibe o formulário de registro
@@ -132,15 +121,14 @@ router.post('/register', async (req, res) => {
     const { nome, email, senha, senha2 } = req.body;
     let errors = [];
 
-    // Validação de campos
     if (!nome || !email || !senha || !senha2) {
-        errors.push({ text: 'Please fill in all fields.' }); // Traduzido
+        errors.push({ text: 'Please fill in all fields.' });
     }
     if (senha !== senha2) {
-        errors.push({ text: 'Passwords do not match.' }); // Traduzido
+        errors.push({ text: 'Passwords do not match.' });
     }
     if (senha.length < 6) {
-        errors.push({ text: 'Password must be at least 6 characters long.' }); // Traduzido
+        errors.push({ text: 'Password must be at least 6 characters long.' });
     }
 
     if (errors.length > 0) {
@@ -154,31 +142,29 @@ router.post('/register', async (req, res) => {
         try {
             const usuarioExistente = await Usuario.findOne({ email: email });
             if (usuarioExistente) {
-                req.flash('error_msg', 'An account with this email already exists.'); // Traduzido
+                req.flash('error_msg', 'An account with this email already exists.');
                 res.redirect('/register');
             } else {
                 const novoUsuario = new Usuario({
                     nome: nome,
                     email: email,
-                    senha: senha // A senha será criptografada antes de salvar
+                    senha: senha
                 });
 
-                // Criptografar senha
                 const salt = await bcrypt.genSalt(10);
                 novoUsuario.senha = await bcrypt.hash(novoUsuario.senha, salt);
 
                 await novoUsuario.save();
-                req.flash('success_msg', 'You are now registered and can log in!'); // Traduzido
+                req.flash('success_msg', 'You are now registered and can log in!');
                 res.redirect('/login');
             }
         } catch (err) {
-            console.error("❌ Error registering user:", err); // Traduzido
-            req.flash('error_msg', 'Error registering user: ' + err.message); // Traduzido
+            console.error("❌ Error registering user:", err);
+            req.flash('error_msg', 'Error registering user: ' + err.message);
             res.redirect('/register');
         }
     }
 });
-
 
 // ✅ Página de erro de login (GET)
 router.get('/loginerror', (req, res) => {
@@ -190,8 +176,8 @@ router.post('/login', (req, res, next) => {
     console.log("🛂 Attempting login with:", req.body);
 
     passport.authenticate('local', {
-        successRedirect: '/admin', // ao logar com sucesso
-        failureRedirect: '/loginerror', // ao falhar, redireciona para a rota correta
+        successRedirect: '/admin',
+        failureRedirect: '/loginerror',
         failureFlash: true
     })(req, res, next);
 });
@@ -200,10 +186,10 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res, next) => {
     req.logout(function(err) {
         if (err) {
-            console.error("Error logging out:", err); // Traduzido
+            console.error("Error logging out:", err);
             return next(err);
         }
-        req.flash('success_msg', 'You are logged out!'); // Traduzido
+        req.flash('success_msg', 'You are logged out!');
         res.redirect('/login');
     });
 });
@@ -223,7 +209,7 @@ router.post('/forgot-password', async (req, res) => {
     let errors = [];
 
     if (!email) {
-        errors.push({ text: 'Please enter your email.' }); // Traduzido
+        errors.push({ text: 'Please enter your email.' });
     }
 
     if (errors.length > 0) {
@@ -237,18 +223,16 @@ router.post('/forgot-password', async (req, res) => {
             const usuario = await Usuario.findOne({ email: email });
 
             if (!usuario) {
-                req.flash('error_msg', 'No user with that email found.'); // Traduzido
+                req.flash('error_msg', 'No user with that email found.');
                 return res.redirect('/forgot-password');
             }
 
-            // Gerar um token único e temporário
             const token = crypto.randomBytes(20).toString('hex');
             usuario.resetPasswordToken = token;
-            usuario.resetPasswordExpires = Date.now() + 3600000; // 1 hora de validade
+            usuario.resetPasswordExpires = Date.now() + 3600000;
 
             await usuario.save();
 
-            // Enviar e-mail com o link de redefinição
             const resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${token}`;
             const emailContent = `
                 <p>You are receiving this email because you (or someone else) has requested the reset of the password for your account.</p>
@@ -258,19 +242,19 @@ router.post('/forgot-password', async (req, res) => {
             `;
 
             const mailOptions = {
-                from: process.env.EMAIL_USER, // Seu e-mail configurado no .env
+                from: process.env.EMAIL_USER,
                 to: usuario.email,
-                subject: 'KINGS AUTOHAUS - Password Reset', // Traduzido
+                subject: 'KINGS AUTOHAUS - Password Reset',
                 html: emailContent
             };
 
-            await sendEmail(mailOptions); // Usando sua função sendEmail
-            req.flash('success_msg', 'An email with password reset instructions has been sent to you.'); // Traduzido
+            await sendEmail(mailOptions);
+            req.flash('success_msg', 'An email with password reset instructions has been sent to you.');
             res.redirect('/forgot-password');
 
         } catch (err) {
-            console.error("❌ Error requesting password reset:", err); // Traduzido
-            req.flash('error_msg', 'Error processing your request: ' + err.message); // Traduzido
+            console.error("❌ Error requesting password reset:", err);
+            req.flash('error_msg', 'Error processing your request: ' + err.message);
             res.redirect('/forgot-password');
         }
     }
@@ -281,22 +265,22 @@ router.get('/reset-password/:token', async (req, res) => {
     try {
         const usuario = await Usuario.findOne({
             resetPasswordToken: req.params.token,
-            resetPasswordExpires: { $gt: Date.now() } // Token não expirou
+            resetPasswordExpires: { $gt: Date.now() }
         });
 
         if (!usuario) {
-            req.flash('error_msg', 'Password reset token is invalid or has expired.'); // Traduzido
+            req.flash('error_msg', 'Password reset token is invalid or has expired.');
             return res.redirect('/forgot-password');
         }
 
         res.render('reset_password', {
             layout: 'layout_list',
-            token: req.params.token // Passa o token para o template
+            token: req.params.token
         });
 
     } catch (err) {
-        console.error("❌ Error verifying reset token:", err); // Traduzido
-        req.flash('error_msg', 'Error processing your request.'); // Traduzido
+        console.error("❌ Error verifying reset token:", err);
+        req.flash('error_msg', 'Error processing your request.');
         res.redirect('/forgot-password');
     }
 });
@@ -307,20 +291,20 @@ router.post('/reset-password/:token', async (req, res) => {
     let errors = [];
 
     if (!senha || !senha2) {
-        errors.push({ text: 'Please fill in both password fields.' }); // Traduzido
+        errors.push({ text: 'Please fill in both password fields.' });
     }
     if (senha !== senha2) {
-        errors.push({ text: 'Passwords do not match.' }); // Traduzido
+        errors.push({ text: 'Passwords do not match.' });
     }
     if (senha.length < 6) {
-        errors.push({ text: 'Password must be at least 6 characters long.' }); // Traduzido
+        errors.push({ text: 'Password must be at least 6 characters long.' });
     }
 
     if (errors.length > 0) {
         return res.render('reset_password', {
             layout: 'layout_list',
             errors: errors,
-            token: req.params.token // Garante que o token seja passado de volta em caso de erro
+            token: req.params.token
         });
     }
 
@@ -331,25 +315,34 @@ router.post('/reset-password/:token', async (req, res) => {
         });
 
         if (!usuario) {
-            req.flash('error_msg', 'Password reset token is invalid or has expired.'); // Traduzido
+            req.flash('error_msg', 'Password reset token is invalid or has expired.');
             return res.redirect('/forgot-password');
         }
 
-        // Criptografar a nova senha
         const salt = await bcrypt.genSalt(10);
         usuario.senha = await bcrypt.hash(senha, salt);
-        usuario.resetPasswordToken = undefined; // Limpa o token
-        usuario.resetPasswordExpires = undefined; // Limpa a expiração
+        usuario.resetPasswordToken = undefined;
+        usuario.resetPasswordExpires = undefined;
 
         await usuario.save();
-        req.flash('success_msg', 'Your password has been reset successfully! You can log in now.'); // Traduzido
+        req.flash('success_msg', 'Your password has been reset successfully! You can log in now.');
         res.redirect('/login');
 
     } catch (err) {
-        console.error("❌ Error resetting password:", err); // Traduzido
-        req.flash('error_msg', 'Error resetting your password: ' + err.message); // Traduzido
-        res.redirect('/reset-password/' + req.params.token); // Redireciona de volta com o token
+        console.error("❌ Error resetting password:", err);
+        req.flash('error_msg', 'Error resetting your password: ' + err.message);
+        res.redirect('/reset-password/' + req.params.token);
     }
+});
+
+// ✅ Página de Política de Privacidade (GET)
+router.get('/privacy', (req, res) => {
+    res.render('privacy', { layout: 'layout' });
+});
+
+// ✅ Página da Calculadora de Financiamento (GET)
+router.get('/loan-calculator', (req, res) => {
+    res.render('loan_calculator', { layout: 'layout' });
 });
 
 

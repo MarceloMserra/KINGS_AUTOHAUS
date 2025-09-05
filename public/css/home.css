@@ -666,69 +666,180 @@ html, body {
     box-shadow: 0 8px 20px rgba(5, 252, 4, 0.6);
 }
 
-/* Modal styling */
-.modal-content {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    border: 1px solid #333333;
-    border-radius: 10px;
-}
-
-.modal-header {
-    border-bottom: 1px solid #333333;
-}
-
-.modal-title {
-    color: #05FC04;
-}
-
-.modal-footer {
-    border-top: 1px solid #333333;
-}
-
-.modal-body .form-control {
-    background-color: #0d0d0d;
-    color: #ffffff;
-    border: 1px solid #05FC04;
-}
-
-.modal-body .form-control:focus {
-    border-color: #05FC04;
-    box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
-    background-color: #000000;
-    color: #ffffff;
-}
-
-.modal-body .form-control::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.modal-footer .btn-primary {
-    background-color: #05FC04;
-    border-color: #05FC04;
-    color: #000000;
-}
-
-.modal-footer .btn-primary:hover {
-    background-color: #04D803;
-    border-color: #04D803;
-    color: #ffffff;
-}
-
-.modal-footer .btn-secondary {
-    background-color: #333333;
-    border-color: #333333;
-    color: #ffffff;
-}
-
-.modal-footer .btn-secondary:hover {
-    background-color: #555555;
-    border-color: #555555;
-}
-
 /* ==========================================
-   RESPONSIVE DESIGN
+   MODAL STYLING - ESTILO IGUAL AO LOGIN
    ========================================== */
+
+/* Modal com fundo escuro e borda verde */
+#messageModal .modal-content {
+    background: rgba(26, 26, 26, 0.95) !important; /* Fundo escuro semi-transparente */
+    backdrop-filter: blur(10px) !important;
+    border: 2px solid #05FC04 !important; /* Borda verde característica */
+    border-radius: 20px !important;
+    box-shadow: 0 15px 40px rgba(5, 252, 4, 0.2) !important;
+}
+
+/* Modal header com estilo escuro */
+#messageModal .modal-header {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(5, 252, 4, 0.2) !important;
+    padding: 25px 30px !important;
+}
+
+/* Título do modal em verde */
+#messageModal .modal-title {
+    color: #05FC04 !important;
+    font-size: 2rem !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    width: 100% !important;
+    text-shadow: 0 0 10px rgba(5, 252, 4, 0.3) !important;
+}
+
+/* Botão de fechar (X) */
+#messageModal .close {
+    color: #ffffff !important;
+    opacity: 0.8 !important;
+    font-size: 1.5rem !important;
+    transition: all 0.3s ease !important;
+}
+
+#messageModal .close:hover {
+    color: #05FC04 !important;
+    opacity: 1 !important;
+}
+
+/* Modal body */
+#messageModal .modal-body {
+    background: transparent !important;
+    padding: 30px !important;
+}
+
+/* Labels dos campos */
+#messageModal .form-group label {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    margin-bottom: 8px !important;
+    font-size: 0.95rem !important;
+}
+
+/* Campos de input e textarea com fundo escuro */
+#messageModal .form-control {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid rgba(5, 252, 4, 0.3) !important;
+    color: #ffffff !important;
+    padding: 12px 15px !important;
+    border-radius: 10px !important;
+    transition: all 0.3s ease !important;
+}
+
+#messageModal .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+
+#messageModal .form-control:focus {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    border-color: #05FC04 !important;
+    box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25) !important;
+    color: #ffffff !important;
+    outline: none !important;
+}
+
+/* Texto de ajuda */
+#messageModal .form-text {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 0.85rem !important;
+}
+
+/* Checkbox de consentimento */
+#messageModal .form-check-label {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+}
+
+#messageModal .form-check-label a {
+    color: #05FC04 !important;
+    text-decoration: underline !important;
+}
+
+#messageModal .form-check-label a:hover {
+    color: #04D803 !important;
+}
+
+#messageModal .form-check-input:checked {
+    background-color: #05FC04 !important;
+    border-color: #05FC04 !important;
+}
+
+/* Modal footer */
+#messageModal .modal-footer {
+    background: transparent !important;
+    border-top: 1px solid rgba(5, 252, 4, 0.2) !important;
+    padding: 20px 30px !important;
+}
+
+/* Botão Close (secundário) */
+#messageModal .btn-secondary {
+    background-color: rgba(51, 51, 51, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    padding: 10px 25px !important;
+    border-radius: 25px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+}
+
+#messageModal .btn-secondary:hover {
+    background-color: rgba(68, 68, 68, 0.9) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Botão Send Message (primário) - Verde vibrante como no login */
+#messageModal .btn-primary {
+    background: #05FC04 !important;
+    border: none !important;
+    color: #000000 !important;
+    padding: 12px 30px !important;
+    border-radius: 25px !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(5, 252, 4, 0.3) !important;
+}
+
+#messageModal .btn-primary:hover {
+    background: #04D803 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(5, 252, 4, 0.5) !important;
+}
+
+#messageModal .btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.5) !important;
+}
+
+/* Overlay de fundo do modal */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Animação de entrada do modal */
+#messageModal .modal-dialog {
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translate(-50%, -60%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
 
 /* ==========================================
    RESPONSIVE DESIGN - CARROSSEL OTIMIZADO

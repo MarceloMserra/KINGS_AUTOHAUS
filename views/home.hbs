@@ -52,7 +52,7 @@
                 </a>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
-                <a href="https://www.google.com/maps/search/?api=1&query=123+Auto+Street,+Car+City,+State,+ZIP+12345" target="_blank" class="hero-card-link fade-in-up delay-2">
+                <a href="https://www.google.com/maps/search/?api=1&query=1278+Washington+St,+Holliston+MA+01746" target="_blank" class="hero-card-link fade-in-up delay-2">
                     <div class="hero-card">
                         <img src="/images/rota.jpg" alt="Get Directions" class="hero-card-image">
                         <div class="hero-card-text-content">
@@ -217,9 +217,9 @@
     <i class="fas fa-comments"></i>
 </button>
 
-<!-- Message Modal -->
+<!-- Message Modal - ATUALIZADO COM ESTILO IGUAL AO LOGIN -->
 <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="messageModalLabel">Send Us a Message</h5>
@@ -246,6 +246,14 @@
                     <div class="form-group">
                         <label for="contactMessage">Message</label>
                         <textarea class="form-control" id="contactMessage" name="message" rows="3" placeholder="Your message..." required></textarea>
+                    </div>
+                    
+                    <!-- NOVO: Acknowledgment and Consent Checkbox -->
+                    <div class="form-group form-check mt-3">
+                        <input type="checkbox" class="form-check-input" id="consentCheckbox" required>
+                        <label class="form-check-label" for="consentCheckbox">
+                            By checking this box I hereby consent to receive customer care text messages and/or phone calls from or on behalf of KINGS AUTOHAUS or their employees to the mobile phone number I provided above. By opting in, I understand that message and data rates may apply. This acknowledgement constitutes my written consent to receive text messages to my cell phone and phone calls, including communications sent using an auto-dialer or pre-recorded message. You may withdraw your consent at any time by texting "STOP" or "HELP" for help. See our <a href="/privacy" target="_blank">Privacy Policy</a> for more information.
+                        </label>
                     </div>
                 </form>
             </div>
@@ -599,24 +607,28 @@ class InfiniteCarousel {
         const contactForm = document.getElementById('contactForm');
         const sendMessageButton = document.getElementById('sendMessageButton');
         const messageModal = document.getElementById('messageModal');
+        const consentCheckbox = document.getElementById('consentCheckbox');
 
-        if (sendMessageButton && contactForm) {
-            sendMessageButton.addEventListener('click', async function(event) { // Adicionado 'event' como parâmetro
-                // Previne o envio padrão do formulário
+
+        if (sendMessageButton && contactForm && consentCheckbox) {
+            sendMessageButton.addEventListener('click', async function(event) {
                 event.preventDefault();
 
-                // Validação básica do formulário
                 if (!contactForm.checkValidity()) {
-                    contactForm.classList.add('was-validated'); // Adiciona classes de validação do Bootstrap
+                    contactForm.classList.add('was-validated');
+                    return;
+                }
+
+                if (!consentCheckbox.checked) {
+                    alert('You must consent to the terms to send a message.');
                     return;
                 }
 
                 const name = document.getElementById('contactName').value;
                 const email = document.getElementById('contactEmail').value;
-                const phone = document.getElementById('contactPhone').value; // Novo campo de telefone
+                const phone = document.getElementById('contactPhone').value;
                 const message = document.getElementById('contactMessage').value;
 
-                // Objeto com os dados a serem enviados
                 const formData = {
                     name: name,
                     email: email,
@@ -624,13 +636,11 @@ class InfiniteCarousel {
                     message: message
                 };
 
-                // Exibe uma mensagem de carregamento/sucesso
                 const originalButtonText = sendMessageButton.innerHTML;
                 sendMessageButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
                 sendMessageButton.disabled = true;
 
                 try {
-                    // Endpoint para enviar o e-mail
                     const response = await fetch('/send-message', {
                         method: 'POST',
                         headers: {
@@ -640,18 +650,16 @@ class InfiniteCarousel {
                     });
 
                     if (response.ok) {
-                        const result = await response.json(); // Espera uma resposta JSON
+                        const result = await response.json();
                         if (result.redirect) {
-                            window.location.href = result.redirect; // Redireciona para a URL fornecida pelo backend
+                            window.location.href = result.redirect;
                         } else {
-                            // Fallback caso o backend não envie um redirecionamento
                             alert('Your message has been sent successfully!');
                             $(messageModal).modal('hide');
                             contactForm.reset();
                             contactForm.classList.remove('was-validated');
                         }
                     } else {
-                        // Erro ao enviar a mensagem
                         const errorData = await response.json();
                         alert(`Error sending message: ${errorData.message || response.statusText}`);
                     }

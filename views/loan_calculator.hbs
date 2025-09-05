@@ -1,0 +1,206 @@
+<style>
+    /* Estilos para a página da calculadora de financiamento */
+    body {
+        background-color: #000000;
+        color: #ffffff;
+    }
+    
+    .calculator-container {
+        padding: 50px 20px;
+        max-width: 700px;
+        margin: 0 auto;
+        /* Ajuste para mover o conteúdo para baixo, garantindo que não seja tampado pelo cabeçalho */
+        margin-top: 20vh;
+        margin-bottom: 50px;
+    }
+
+    .calculator-card {
+        background-color: #1a1a1a;
+        border: 1px solid #05FC04;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(5, 252, 4, 0.2);
+    }
+    
+    .calculator-card h1 {
+        color: #05FC04;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+    .form-control {
+        background-color: #0d0d0d;
+        color: #ffffff;
+        border: 1px solid #05FC04;
+        border-radius: 8px;
+        padding: 10px 15px;
+    }
+    
+    .form-control:focus {
+        background-color: #2a2a2a;
+        border-color: #05FC04;
+        box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25);
+    }
+
+    .result-box {
+        background-color: #0d0d0d;
+        border: 1px solid #05FC04;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        margin-top: 30px;
+    }
+    
+    .result-box h3 {
+        color: #ffffff;
+        font-size: 1.5rem;
+    }
+    
+    .result-box h2 {
+        color: #05FC04;
+        font-size: 3rem;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+    
+    .btn-submit-loan {
+        background-color: #05FC04;
+        border-color: #05FC04;
+        color: #000000;
+        font-weight: bold;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        display: block;
+        width: 100%;
+    }
+    
+    .btn-submit-loan:hover {
+        background-color: #04D803;
+        border-color: #04D803;
+        color: #ffffff;
+    }
+
+    /* NOVO: Estilo para o botão de Apply Now */
+    .btn-apply-now {
+        background: transparent;
+        border: 2px solid #05FC04;
+        color: #05FC04;
+        padding: 15px 40px;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        display: block;
+        width: 100%;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .btn-apply-now:hover {
+        background-color: #05FC04;
+        color: #000000;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(5, 252, 4, 0.4);
+        text-decoration: none;
+    }
+
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        .calculator-card {
+            padding: 20px;
+        }
+        .calculator-card h1 {
+            font-size: 2rem;
+        }
+        .calculator-container {
+            margin-top: 15vh;
+        }
+    }
+</style>
+
+<div class="calculator-container">
+    <div class="calculator-card">
+        <h1>Loan Calculator</h1>
+        
+        <div class="form-group">
+            <label for="price">Vehicle Price ($)</label>
+            <input type="number" class="form-control" id="price" value="35000">
+        </div>
+        
+        <div class="form-group">
+            <label for="downPayment">Down Payment ($)</label>
+            <input type="number" class="form-control" id="downPayment" value="5000">
+        </div>
+        
+        <div class="form-group">
+            <label for="term">Loan Term (months)</label>
+            <!-- Alterado de <select> para <input type="number"> -->
+            <input type="number" class="form-control" id="term" value="60">
+        </div>
+        
+        <div class="form-group">
+            <label for="rate">Interest Rate (%)</label>
+            <input type="number" class="form-control" id="rate" step="0.1" value="4.9">
+        </div>
+        
+        <button onclick="calculatePayment()" class="btn btn-submit-loan">Calculate</button>
+        
+        <div class="result-box" id="resultBox">
+            <h3>Estimated Monthly Payment</h3>
+            <h2 id="monthlyPayment">$0.00</h2>
+        </div>
+        
+        <!-- NOVO: Botão para a página de financiamento -->
+        <a href="/financing" class="btn-apply-now">Apply for Financing</a>
+
+    </div>
+</div>
+
+<script>
+    function calculatePayment() {
+        const price = parseFloat(document.getElementById('price').value);
+        const downPayment = parseFloat(document.getElementById('downPayment').value);
+        const term = parseInt(document.getElementById('term').value);
+        const rate = parseFloat(document.getElementById('rate').value);
+
+        if (price > 0 && term > 0 && rate >= 0) {
+            const principal = price - downPayment;
+            const monthlyRate = (rate / 100) / 12;
+
+            let monthlyPayment;
+            if (monthlyRate === 0) {
+                monthlyPayment = principal / term;
+            } else {
+                monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, term)) / (Math.pow(1 + monthlyRate, term) - 1);
+            }
+            
+            // Exibir o resultado
+            const formattedPayment = monthlyPayment.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            document.getElementById('monthlyPayment').innerText = formattedPayment;
+
+        } else {
+            document.getElementById('monthlyPayment').innerText = '$0.00';
+        }
+    }
+
+    // Calcular o pagamento inicial ao carregar a página
+    window.onload = calculatePayment;
+
+    // Recalcular ao mudar os valores
+    document.getElementById('price').addEventListener('input', calculatePayment);
+    document.getElementById('downPayment').addEventListener('input', calculatePayment);
+    document.getElementById('term').addEventListener('input', calculatePayment); // Alterado de 'change' para 'input'
+    document.getElementById('rate').addEventListener('input', calculatePayment);
+</script>

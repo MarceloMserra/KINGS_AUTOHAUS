@@ -1,10 +1,16 @@
 /* 
-   financing.css - Estilos específicos para a página de financiamento
+   financing.css - VERSÃO CORRIGIDA para resolver conflitos
    Este arquivo deve ser salvo em: /public/css/financing.css
+   IMPORTANTE: Este CSS deve ser carregado DEPOIS do premium-theme.css
 */
 
+/* RESET ESPECÍFICO PARA PÁGINA DE FINANCIAMENTO - Sobrescreve outros CSSs */
+.financing-container * {
+    box-sizing: border-box;
+}
+
 /* Estilos específicos para o formulário de financiamento */
-.form-control {
+.financing-container .form-control {
     background-color: #0d0d0d !important;
     color: #ffffff !important;
     border: 1px solid #05FC04 !important;
@@ -13,33 +19,154 @@
     transition: all 0.3s ease !important;
 }
 
-.form-control:focus {
+.financing-container .form-control:focus {
     border-color: #04D803 !important;
     box-shadow: 0 0 0 0.2rem rgba(5, 252, 4, 0.25) !important;
     background-color: #000000 !important;
     color: #ffffff !important;
 }
 
-.form-control::placeholder {
+.financing-container .form-control::placeholder {
     color: rgba(255, 255, 255, 0.5) !important;
 }
 
-.form-group label {
+.financing-container .form-group label {
     color: rgba(255, 255, 255, 0.9) !important;
     font-weight: bold !important;
     margin-bottom: 5px !important;
 }
 
-.form-check-label {
-    color: rgba(255, 255, 255, 0.8) !important;
+/* CORREÇÃO ESPECÍFICA PARA CHECKBOXES - Reseta todos os conflitos */
+.financing-container .form-check {
+    margin-bottom: 20px !important;
+    display: flex !important;
+    align-items: flex-start !important; /* Alinha no topo */
+    padding: 15px !important;
+    background-color: rgba(5, 252, 4, 0.05) !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(5, 252, 4, 0.2) !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    /* RESET para prevenir conflitos */
+    text-align: left !important;
+    justify-content: flex-start !important;
+}
+
+.financing-container .form-check:hover {
+    background-color: rgba(5, 252, 4, 0.1) !important;
+    border-color: rgba(5, 252, 4, 0.4) !important;
+}
+
+/* CHECKBOX INPUT - Posicionamento fixo e resetado */
+.financing-container .form-check-input {
+    /* RESET COMPLETO - Sobrescreve premium-theme.css */
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0 !important; /* REMOVE TODA MARGEM */
+    margin-right: 15px !important; /* Apenas margem direita */
+    margin-top: 0 !important; /* FORÇA margin-top 0 */
+    padding: 0 !important;
+    
+    /* Posicionamento */
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    
+    /* Flexbox reset */
+    flex-shrink: 0 !important;
+    align-self: flex-start !important; /* Alinha no topo do container */
+    
+    /* Estilo visual */
+    accent-color: #05FC04 !important;
     cursor: pointer !important;
+    z-index: 10 !important;
+    
+    /* Reset aparência */
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    border: 2px solid #05FC04 !important;
+    border-radius: 4px !important;
+    background-color: transparent !important;
+    display: inline-block !important;
+    vertical-align: top !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease !important;
+    
+    /* FORÇA o alinhamento */
+    float: none !important;
+    transform: none !important;
 }
 
-.form-check-input {
-    margin-top: 0.3rem !important;
+/* Checkbox quando marcado */
+.financing-container .form-check-input:checked {
+    background-color: #05FC04 !important;
+    border-color: #05FC04 !important;
 }
 
-.btn-primary {
+.financing-container .form-check-input:checked::before {
+    content: '\2713' !important;
+    display: block !important;
+    color: #000000 !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+    text-align: center !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* LABEL - Alinhamento corrigido */
+.financing-container .form-check-label {
+    color: rgba(255, 255, 255, 0.9) !important;
+    cursor: pointer !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    flex-grow: 1 !important;
+    user-select: none !important;
+    padding-left: 0 !important;
+    text-align: justify !important;
+    
+    /* RESET de posicionamento */
+    margin: 0 !important;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    
+    /* FORÇA alinhamento à esquerda */
+    display: block !important;
+    width: 100% !important;
+}
+
+/* Estilos específicos para a seção de consentimento */
+.financing-container .consent-section {
+    background-color: rgba(5, 252, 4, 0.03) !important;
+    border: 1px solid rgba(5, 252, 4, 0.3) !important;
+    border-radius: 12px !important;
+    padding: 25px !important;
+    margin-top: 30px !important;
+}
+
+.financing-container .consent-text {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 0 !important;
+    text-align: justify !important;
+}
+
+.financing-container .consent-title {
+    font-weight: bold !important;
+    color: #05FC04 !important;
+    margin-bottom: 10px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* BOTÕES - Reset de estilos conflitantes */
+.financing-container .btn-primary {
     background-color: #05FC04 !important;
     border-color: #05FC04 !important;
     color: #000000 !important;
@@ -48,80 +175,69 @@
     padding: 12px 30px !important;
 }
 
-.btn-primary:hover {
+.financing-container .btn-primary:hover {
     background-color: #04D803 !important;
     border-color: #04D803 !important;
     color: #ffffff !important;
     transform: translateY(-2px) !important;
 }
 
-.card {
+/* CORREÇÕES PARA OUTROS ELEMENTOS DO PREMIUM-THEME */
+.financing-container .card {
     border: 1px solid #05FC04 !important;
     background-color: #1a1a1a !important;
 }
 
-.text-success {
+.financing-container .text-success {
     color: #05FC04 !important;
 }
 
-.section-title::after {
-    background-color: #05FC04 !important;
-}
-
-small.form-text.text-muted {
+.financing-container small.form-text.text-muted {
     color: rgba(255, 255, 255, 0.6) !important;
 }
 
-#coBuyerInfo {
+/* CO-BUYER SECTION */
+.financing-container #coBuyerInfo,
+.financing-container .co-buyer-section {
     border-left: 3px solid #05FC04 !important;
     padding-left: 20px !important;
     margin-left: 10px !important;
     transition: all 0.5s ease !important;
 }
 
-.co-buyer-toggle {
-    background-color: #2a2a2a !important;
-    padding: 20px !important;
-    border-radius: 8px !important;
-    margin-bottom: 20px !important;
-    border: 1px solid #333 !important;
-    text-align: center !important;
+/* RESPONSIVIDADE CORRIGIDA */
+@media (max-width: 768px) {
+    .financing-container .consent-text {
+        font-size: 0.9rem !important;
+    }
+    
+    .financing-container .form-check {
+        padding: 12px !important;
+        flex-direction: row !important; /* FORÇA layout horizontal */
+        align-items: flex-start !important;
+    }
+    
+    .financing-container .form-check-input {
+        width: 18px !important;
+        height: 18px !important;
+        margin-right: 12px !important;
+        margin-top: 2px !important; /* Pequeno ajuste para mobile */
+    }
+    
+    .financing-container .form-check-label {
+        font-size: 0.9rem !important;
+    }
 }
 
-.btn-outline-success {
-    color: #05FC04 !important;
-    border-color: #05FC04 !important;
-    background-color: transparent !important;
-    transition: all 0.3s ease !important;
+/* FORÇA RESET de qualquer estilo conflitante */
+.financing-container .form-check-input:not(.sr-only) {
+    position: relative !important;
+    z-index: auto !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
 }
 
-.btn-outline-success:hover {
-    color: #000 !important;
-    background-color: #05FC04 !important;
-    border-color: #05FC04 !important;
-}
-
-.btn-outline-danger {
-    color: #dc3545 !important;
-    border-color: #dc3545 !important;
-    background-color: transparent !important;
-    transition: all 0.3s ease !important;
-}
-
-.btn-outline-danger:hover {
-    color: #fff !important;
-    background-color: #dc3545 !important;
-    border-color: #dc3545 !important;
-}
-
-.fade-in-up {
-    animation: fadeInUp 0.6s ease-out !important;
-}
-
-.delay-1 {
-    animation-delay: 0.2s !important;
-}
-
+/* ANIMAÇÕES SUAVES */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -131,4 +247,36 @@ small.form-text.text-muted {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.financing-container .fade-in-up {
+    animation: fadeInUp 0.6s ease-out !important;
+}
+
+.financing-container .delay-1 {
+    animation-delay: 0.2s !important;
+}
+
+/* OVERRIDE FINAL - Garante que nada interfira */
+.financing-container .form-check * {
+    box-sizing: border-box !important;
+}
+
+/* Remove qualquer float que possa estar interferindo */
+.financing-container .form-check-input,
+.financing-container .form-check-label {
+    float: none !important;
+    clear: none !important;
+}
+
+/* GARANTIA MÁXIMA - Se ainda houver problemas */
+.financing-container .form-check-input[type="checkbox"] {
+    position: relative !important;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    transform: none !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
 }

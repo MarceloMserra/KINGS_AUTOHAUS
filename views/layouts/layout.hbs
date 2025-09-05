@@ -17,6 +17,11 @@
     <link rel="stylesheet" href="/css/financing.css">
     <!-- NOVO: Link para login.css - para a página de login -->
     <link rel="stylesheet" href="/css/login.css">
+    <!-- NOVO: Link para privacy.css - para a página de privacidade -->
+    <link rel="stylesheet" href="/css/privacy.css">
+    <!-- NOVO: Link para loan_calculator.css - para a calculadora de financiamento -->
+    <link rel="stylesheet" href="/css/loan_calculator.css">
+
 
     {{!-- Icons --}}
     <script src="https://kit.fontawesome.com/f7b393d83e.js" crossorigin="anonymous"></script>
@@ -43,21 +48,19 @@
             left: 0;
             right: 0;
             width: 100%;
-            z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
-            /* As transições para 'hidden' são definidas no CSS injetado no final do body */
+            z-index: 1000;
         }
 
         /* Ajuste para o conteúdo da página não ficar por baixo do cabeçalho fixo */
-        /* Este padding será ajustado dinamicamente pelo JavaScript, mas é um bom valor inicial */
         body {
-            padding-top: 120px; /* Ajuste este valor de acordo com a altura total do seu cabeçalho */
+            padding-top: 120px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Top Bar - Geralmente permanece visível, mas pode ser ajustada se necessário -->
+    <!-- Top Bar -->
     <div class="top-bar bg-gray-900 text-white text-xs py-2 px-4 flex justify-between items-center z-50 relative">
         <div class="flex space-x-3">
             <a href="https://www.facebook.com/kingsautohaus" target="_blank" class="hover:text-green-500"><i class="fab fa-facebook-f"></i></a>
@@ -73,7 +76,7 @@
     <!-- Main Navbar -->
     <section id="navigation">
         <div class="container-fluid" id="nav-container">
-            <nav class="navbar navbar-expand-lg" id="main-navbar"> 
+            <nav class="navbar navbar-expand-lg" id="main-navbar">
                 <!-- Logo GRANDE à esquerda -->
                 <a class="navbar-brand" href="/">
                     <img src="/images/kings_autohaus_logo.jpeg" alt="KINGS AUTOHAUS Logo">
@@ -91,12 +94,29 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/gas">Inventory</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/financing">Financing</a>
+                        
+                        <!-- Dropdown de Financing -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="financingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Financing
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="financingDropdown">
+                                <a class="dropdown-item" href="/financing">Apply Online</a>
+                                <a class="dropdown-item" href="/loan-calculator">Loan Calculator</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/#about-us">About Us</a>
+                        
+                        <!-- Dropdown de Our Store -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ourStoreDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Our Store
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="ourStoreDropdown">
+                                <a class="dropdown-item" href="/#about-us">About Us</a>
+                                <a class="dropdown-item" href="/privacy">Privacy Policy</a>
+                            </div>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="/#contact-info">Contact</a>
                         </li>

@@ -131,7 +131,7 @@
     .form-check {
         margin-bottom: 20px;
         display: flex; /* Usa flexbox para alinhamento */
-        align-items: center; /* Alinha itens verticalmente ao centro */
+        align-items: flex-start; /* Alinha itens ao topo */
         padding: 15px;
         background-color: rgba(5, 252, 4, 0.05);
         border-radius: 8px;
@@ -149,7 +149,7 @@
         width: 20px;
         height: 20px;
         margin-right: 15px;
-        margin-top: 0; /* Remove margin-top default do Bootstrap */
+        margin-top: 3px; /* Pequeno ajuste para alinhar com o texto */
         accent-color: #05FC04; /* Muda a cor do checkbox (moderno) */
         cursor: pointer;
         flex-shrink: 0; /* Evita que o checkbox encolha */
@@ -163,7 +163,7 @@
         border-radius: 4px;
         background-color: transparent;
         display: inline-block;
-        vertical-align: middle;
+        vertical-align: top;
         transition: background-color 0.2s ease, border-color 0.2s ease;
     }
 
@@ -190,10 +190,11 @@
         color: rgba(255, 255, 255, 0.9);
         cursor: pointer;
         font-size: 1rem;
-        line-height: 1.4;
+        line-height: 1.5;
         flex-grow: 1;
         user-select: none;
         padding-left: 0; /* Remove padding-left padrão do Bootstrap */
+        text-align: justify;
     }
 
     /* Estilo para labels de campos obrigatórios do co-comprador */
@@ -207,6 +208,30 @@
         content: " *";
         color: #05FC04;
         font-weight: bold;
+    }
+
+    /* Estilo específico para a seção de consentimento */
+    .consent-section {
+        background-color: rgba(5, 252, 4, 0.03);
+        border: 1px solid rgba(5, 252, 4, 0.3);
+        border-radius: 12px;
+        padding: 25px;
+        margin-top: 30px;
+    }
+
+    .consent-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 0;
+        text-align: justify;
+    }
+
+    .consent-title {
+        font-weight: bold;
+        color: #05FC04;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     
     /* Estilos para mensagens de alerta (sucesso/erro) */
@@ -251,6 +276,10 @@
         .form-check-input {
             width: 18px;
             height: 18px;
+        }
+
+        .consent-text {
+            font-size: 0.9rem;
         }
     }
 </style>
@@ -739,7 +768,7 @@
                     <input type="text" class="form-control" name="stockNumber" placeholder="Dealership Stock #">
                 </div>
 
-                <!-- Co-Buyer Section - COMPLETELY CORRECTED NO ONCLICK -->
+                <!-- Co-Buyer Section -->
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="hasCoBuyer" name="hasCoBuyer" value="true">
                     <label class="form-check-label" for="hasCoBuyer">
@@ -1060,34 +1089,42 @@
                     </div>
                 </div>
 
-                <!-- Consent Section - NORMAL CHECKBOXES NO ONCLICK -->
-                <div class="section-header">
-                    <i class="fas fa-shield-alt"></i> Acknowledgment & Consent
-                </div>
+                <!-- Consent Section - Updated with Detailed Text -->
+                <div class="consent-section">
+                    <div class="section-header">
+                        <i class="fas fa-shield-alt"></i> Acknowledgment & Consent
+                    </div>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="acknowledgmentConsent" name="acknowledgmentConsent" value="true" required>
-                    <label class="form-check-label" for="acknowledgmentConsent">
-                        <span class="required-field">I acknowledge and agree to the terms and conditions</span>
-                    </label>
-                </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="acknowledgmentConsent" name="acknowledgmentConsent" value="true" required>
+                        <label class="form-check-label" for="acknowledgmentConsent">
+                            <div class="consent-title">Acknowledgment and Consent:</div>
+                            <div class="consent-text">
+                                I certify that the above information is complete and accurate to the best of my knowledge. Creditors receiving this application will retain the application whether or not it is approved. Creditors may rely on this application in deciding whether to grant the requested credit. False statements may subject me to criminal penalties. I authorize the creditors to obtain credit reports about me on an ongoing basis during this credit transaction and to check my credit and employment history on an ongoing basis during the term of the credit transaction. If this application is approved, I authorize the creditor to give credit information about me to its affiliates.
+                            </div>
+                        </label>
+                    </div>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="creditCheckConsent" name="creditCheckConsent" value="true" required>
-                    <label class="form-check-label" for="creditCheckConsent">
-                        <span class="required-field">I consent to credit check and background verification</span>
-                    </label>
-                </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="creditCheckConsent" name="creditCheckConsent" value="true" required>
+                        <label class="form-check-label" for="creditCheckConsent">
+                            <span class="required-field">I consent to credit check and background verification</span>
+                        </label>
+                    </div>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="textMessageConsent" name="textMessageConsent" value="true">
-                    <label class="form-check-label" for="textMessageConsent">
-                        I consent to receive text messages regarding my application
-                    </label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="textMessageConsent" name="textMessageConsent" value="true">
+                        <label class="form-check-label" for="textMessageConsent">
+                            <div class="consent-title">Acknowledgment and Consent:</div>
+                            <div class="consent-text">
+                                By checking this box I hereby consent to receive customer care text messages and/or phone calls from or on behalf of Clinton Motorcars or their employees to the mobile phone number I provided above. By opting in, I understand that message and data rates may apply. This acknowledgement constitutes my written consent to receive text messages to my cell phone and phone calls, including communications sent using an auto-dialer or pre-recorded message. You may withdraw your consent at any time by texting "STOP" or "HELP" for help. See our https://clintonmotorcars.com/privacy for more information.
+                            </div>
+                        </label>
+                    </div>
                 </div>
 
                 <!-- Additional Comments (Optional) -->
-                <div class="form-group">
+                <div class="form-group" style="margin-top: 30px;">
                     <label>Additional Comments (Optional)</label>
                     <textarea class="form-control" name="additionalComments" rows="3" placeholder="Any additional information you'd like to provide..."></textarea>
                 </div>
