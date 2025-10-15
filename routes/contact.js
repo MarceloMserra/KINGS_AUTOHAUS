@@ -21,7 +21,9 @@ if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
 // Email configuration (you'll need to set these in your .env file)
 // IMPORTANTE: Use as variáveis de ambiente para o email e senha
 const transporter = nodemailer.createTransport({
-    service: 'gmail', // Serviço Gmail
+    host: process.env.MAIL_HOST,         // <-- LINHA ADICIONADA
+    port: process.env.MAIL_PORT,         // <-- LINHA ADICIONADA
+    secure: true,                        // <-- LINHA ADICIONADA (true para a porta 465)
     auth: {
         user: process.env.EMAIL_USER, // Seu email (contact@kingsautohaus.com) do .env
         pass: process.env.EMAIL_PASS  // Sua senha de aplicativo do .env
