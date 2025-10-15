@@ -23,7 +23,7 @@ if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
 const transporter = nodemailer.createTransport({
     host: process.env.MAIL_HOST,         // <-- LINHA ADICIONADA
     port: process.env.MAIL_PORT,         // <-- LINHA ADICIONADA
-    secure: true,                        // <-- LINHA ADICIONADA (true para a porta 465)
+    secure: false,                        // <-- LINHA ADICIONADA (false para a porta 587 muito importante)
     auth: {
         user: process.env.EMAIL_USER, // Seu email (contact@kingsautohaus.com) do .env
         pass: process.env.EMAIL_PASS  // Sua senha de aplicativo do .env
