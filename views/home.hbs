@@ -1,33 +1,23 @@
-<!-- This file will be rendered inside the {{{body}}} of the layout.hbs -->
-
-<!-- Hero Section with Video Background -->
 <section class="hero-section">
-    <!-- Video de fundo -->
     <video class="hero-video" autoplay muted loop playsinline>
         <source src="/images/tesla.mp4" type="video/mp4">
-        <!-- Fallback para browsers que não suportam MP4 -->
         <img src="/images/capa.png" alt="KINGS AUTOHAUS Background" class="hero-image">
     </video>
     
-    <!-- Logo centralizada sobre o vídeo -->
     <div class="hero-logo-container">
         <img src="/images/kings_autohaus_logo.jpeg" alt="Kings Autohaus Logo" class="hero-logo">
     </div>
     
-    <!-- Controle de áudio do vídeo -->
     <button class="video-audio-control" id="audioToggle" aria-label="Toggle Audio">
         <i class="fas fa-volume-mute"></i>
     </button>
     
     <div class="hero-overlay">
-        <!-- Conteúdo inicial vazio - apenas o vídeo -->
-    </div>
+        </div>
 </section>
 
-<!-- Cards e Filtros movidos para abaixo da seção inicial - CENTRALIZADOS -->
 <section class="hero-cards-filter-section fade-in-up">
     <div class="container">
-        <!-- Hero Cards Container (with images and text) - CENTRALIZADO -->
         <div class="hero-cards-container row justify-content-center align-items-stretch mb-5">
             <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
                 <a href="/financing" class="hero-card-link fade-in-up">
@@ -64,7 +54,6 @@
             </div>
         </div>
 
-        <!-- FILTRO CENTRALIZADO -->
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10 col-sm-12">
                 <div class="filter-bar fade-in-up delay-3">
@@ -94,7 +83,6 @@
     </div>
 </section>
 
-<!-- Featured Vehicles Section - CARROSSEL COM BOTÃO CORRIGIDO -->
 <section id="featured-vehicles" class="featured-vehicles-section fade-in-up delay-4">
     <div class="container">
         <h2 class="section-title">Featured Vehicles</h2>
@@ -125,25 +113,20 @@
                 {{/each}}
             </div>
 
-            <!-- Controle de navegação - BOTÃO DIREITO CORRIGIDO -->
             <button class="carousel-next" onclick="moveCarousel(1)" aria-label="Next">
                 <i class="fas fa-chevron-right"></i>
             </button>
         </div>
 
-        <!-- Indicadores -->
         <div class="carousel-indicators" id="carouselIndicators">
-            <!-- Será populado dinamicamente pelo JavaScript -->
-        </div>
+            </div>
 
-        <!-- Botão View All -->
         <div class="view-all-container">
             <a href="/gas" class="view-all-btn">View All Featured Vehicles</a>
         </div>
     </div>
 </section>
 
-<!-- About Us Section -->
 <section id="about-us" class="fade-in-up delay-5">
     <div class="background-image-overlay"></div>
     <div class="container content-wrapper">
@@ -160,18 +143,15 @@
     </div>
 </section>
 
-<!-- Testimonials Section -->
 <section id="testimonials" class="fade-in-up delay-5">
     <div class="container">
         <h2 class="section-title text-center text-white">What Our Customers Say</h2>
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <!-- Testimonial 1 -->
                 <blockquote class="blockquote text-white mb-4">
                     <p class="mb-0">"KINGS AUTOHAUS exceeded my expectations! I found my dream car with impeccable and transparent service. I highly recommend them!"</p>
                     <footer class="blockquote-footer text-muted">John Doe, <cite title="Satisfied Customer">Satisfied Customer</cite></footer>
                 </blockquote>
-                <!-- Testimonial 2 -->
                 <blockquote class="blockquote text-white">
                     <p class="mb-0">"Easy and no-pressure buying process. The team was very helpful and found the perfect payment plan for me. Impeccable car!"</p>
                     <footer class="blockquote-footer text-muted">Jane Smith, <cite title="KINGS AUTOHAUS Client">KINGS AUTOHAUS Client</cite></footer>
@@ -181,7 +161,6 @@
     </div>
 </section>
 
-<!-- Financing Call to Action Section -->
 <section id="financing-cta" class="py-5 text-center bg-dark fade-in-up delay-5">
     <div class="container">
         <h2 class="section-title text-white">Ready to Drive Your Dream Car?</h2>
@@ -190,7 +169,6 @@
     </div>
 </section>
 
-<!-- Contact Information Section -->
 <section id="contact-info" class="fade-in-up delay-5">
     <div class="container">
         <h3>Contact Us</h3>
@@ -212,23 +190,20 @@
     </div>
 </section>
 
-<!-- Floating Message Button -->
 <button class="floating-message-btn" data-toggle="modal" data-target="#messageModal">
     <i class="fas fa-comments"></i>
 </button>
 
-<!-- Message Modal - ATUALIZADO COM ESTILO IGUAL AO LOGIN -->
 <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="messageModalLabel">Send Us a Message</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Formulário de mensagem ATUALIZADO com campo de telefone -->
                 <form id="contactForm">
                     <div class="form-group">
                         <label for="contactName">Name</label>
@@ -248,7 +223,6 @@
                         <textarea class="form-control" id="contactMessage" name="message" rows="3" placeholder="Your message..." required></textarea>
                     </div>
                     
-                    <!-- NOVO: Acknowledgment and Consent Checkbox -->
                     <div class="form-group form-check mt-3">
                         <input type="checkbox" class="form-check-input" id="consentCheckbox" required>
                         <label class="form-check-label" for="consentCheckbox">
@@ -265,7 +239,6 @@
     </div>
 </div>
 
-<!-- JavaScript for dynamic Model filter, Audio Control, and Infinite Carousel -->
 <script>
     // Controle de áudio do vídeo
     document.addEventListener('DOMContentLoaded', function() {
@@ -611,16 +584,29 @@ class InfiniteCarousel {
 
 
         if (sendMessageButton && contactForm && consentCheckbox) {
+            
+            let isSubmitting = false; // <-- NOSSA TRAVA DE SEGURANÇA FOI ADICIONADA AQUI
+
             sendMessageButton.addEventListener('click', async function(event) {
                 event.preventDefault();
 
+                // Se já estiver enviando, não faz nada
+                if (isSubmitting) {
+                    console.log('Form submission already in progress.');
+                    return;
+                }
+                
+                isSubmitting = true; // <-- ATIVA A TRAVA
+
                 if (!contactForm.checkValidity()) {
                     contactForm.classList.add('was-validated');
+                    isSubmitting = false; // <-- DESATIVA A TRAVA SE HOUVER ERRO DE VALIDAÇÃO
                     return;
                 }
 
                 if (!consentCheckbox.checked) {
                     alert('You must consent to the terms to send a message.');
+                    isSubmitting = false; // <-- DESATIVA A TRAVA SE HOUVER ERRO DE CONSENTIMENTO
                     return;
                 }
 
@@ -669,6 +655,7 @@ class InfiniteCarousel {
                 } finally {
                     sendMessageButton.innerHTML = originalButtonText;
                     sendMessageButton.disabled = false;
+                    isSubmitting = false; // <-- DESATIVA A TRAVA NO FINAL DE TUDO
                 }
             });
         }
