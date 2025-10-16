@@ -305,7 +305,7 @@ router.put('/editgas/:id', upload.array('imagesupld'), async function (req, res)
 });
 
 router.get('/deletegas/:id', async function (req, res) {
-    await GasModel.findByIdAndRemove(req.params.id);
+    await GasModel.findByIdAndDelete(req.params.id);
     req.flash('success_msg', 'Gas car deleted successfully!');
     res.redirect('/admin/gas');
 });
