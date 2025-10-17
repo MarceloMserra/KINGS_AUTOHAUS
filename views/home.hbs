@@ -42,7 +42,7 @@
                 </a>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
-                <a href="https://www.google.com/maps/search/?api=1&query=1278+Washington+St,+Holliston+MA+01746" target="_blank" class="hero-card-link fade-in-up delay-2">
+                <a href="https://www.google.com/maps/search/?api=1&query=1286+Washington+Street+MA+01746" target="_blank" class="hero-card-link fade-in-up delay-2">
                     <div class="hero-card">
                         <img src="/images/rota.jpg" alt="Get Directions" class="hero-card-image">
                         <div class="hero-card-text-content">
@@ -169,11 +169,13 @@
     </div>
 </section>
 
+<!-- SEÇÃO DE CONTATO COM HTML CORRIGIDO -->
 <section id="contact-info" class="fade-in-up delay-5">
     <div class="container">
         <h3>Contact Us</h3>
         <div class="row justify-content-center">
 
+            <!-- Item 1: Endereço -->
             <div class="col-lg-3 col-md-6 contact-detail mb-4">
                 <i class="fas fa-map-marker-alt"></i>
                 <div>
@@ -182,6 +184,7 @@
                 </div>
             </div>
 
+            <!-- Item 2: Telefone Fixo -->
             <div class="col-lg-3 col-md-6 contact-detail mb-4">
                 <i class="fas fa-phone-alt"></i>
                 <div>
@@ -190,6 +193,7 @@
                 </div>
             </div>
 
+            <!-- Item 3: Telefone Celular -->
             <div class="col-lg-3 col-md-6 contact-detail mb-4">
                 <i class="fas fa-mobile-alt"></i>
                 <div>
@@ -198,6 +202,7 @@
                 </div>
             </div>
 
+            <!-- Item 4: Email -->
             <div class="col-lg-3 col-md-6 contact-detail mb-4">
                 <i class="fas fa-envelope"></i>
                 <div>
@@ -261,11 +266,10 @@
 </div>
 
 <script>
-    // Controle de áudio do vídeo
+    // SEU CÓDIGO JAVASCRIPT ORIGINAL VEM AQUI (SEM MUDANÇAS)
     document.addEventListener('DOMContentLoaded', function() {
         const audioToggle = document.getElementById('audioToggle');
         const heroVideo = document.querySelector('.hero-video');
-        
         if (audioToggle && heroVideo) {
             audioToggle.addEventListener('click', function() {
                 if (heroVideo.muted) {
@@ -280,8 +284,6 @@
             });
         }
     });
-
-    // Converts the JSON string of modelsByBrand back to a JavaScript object
     let modelsByBrand = {};
     try {
         const modelsByBrandString = '{{{modelsByBrand}}}';
@@ -290,15 +292,11 @@
         console.error("Error parsing models by brand JSON:", e);
         modelsByBrand = {};
     }
-
     const makeFilter = document.getElementById('makeFilter');
     const modelFilter = document.getElementById('modelFilter');
-
-    // Function to populate the model dropdown
     function populateModelFilter(selectedBrand) {
-        modelFilter.innerHTML = '<option value="">Model</option>'; // Clear previous options
-        modelFilter.disabled = true; // Disable model filter by default
-
+        modelFilter.innerHTML = '<option value="">Model</option>';
+        modelFilter.disabled = true;
         if (selectedBrand && modelsByBrand[selectedBrand]) {
             modelsByBrand[selectedBrand].forEach(model => {
                 const option = document.createElement('option');
@@ -306,347 +304,272 @@
                 option.textContent = model;
                 modelFilter.appendChild(option);
             });
-            modelFilter.disabled = false; // Enable if models exist
+            modelFilter.disabled = false;
         }
     }
-
-    // Event listener for the make filter
     makeFilter.addEventListener('change', function() {
         populateModelFilter(this.value);
     });
-
-    // Logic to pre-select filters if there are URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const initialMake = urlParams.get('make');
     const initialModel = urlParams.get('model');
-
     if (initialMake) {
         makeFilter.value = initialMake;
         populateModelFilter(initialMake);
-
         if (initialModel) {
             setTimeout(() => {
                 modelFilter.value = initialModel;
             }, 100);
         }
     }
-
-    // Scroll Reveal Effect JavaScript
     const fadeInElements = document.querySelectorAll('.fade-in-up');
-
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
-                observer.unobserve(entry.target); // Stop observing once revealed
+                observer.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.1 // Trigger when 10% of the element is visible
+        threshold: 0.1
     });
-
     fadeInElements.forEach(element => {
         observer.observe(element);
     });
-
-// ============================================
-// INFINITE CAROUSEL CLASS - CORRIGIDO
-// ============================================
-class InfiniteCarousel {
-    constructor(selector) {
-        this.carousel = document.querySelector(selector);
-        if (!this.carousel) return;
-        
-        this.carouselInner = this.carousel.querySelector('.featured-carousel-inner');
-        this.items = Array.from(this.carousel.querySelectorAll('.featured-car-item'));
-        this.originalItems = [...this.items];
-        this.currentIndex = 0;
-        this.itemWidth = 0;
-        this.visibleItems = 1;
-        this.totalItems = this.originalItems.length;
-        this.isTransitioning = false;
-        this.autoPlayInterval = null;
-        this.autoPlayDelay = 2000; // 2 segundos
-
-        if (this.totalItems > 0) {
-            this.init();
+    class InfiniteCarousel {
+        constructor(selector) {
+            this.carousel = document.querySelector(selector);
+            if (!this.carousel) return;
+            this.carouselInner = this.carousel.querySelector('.featured-carousel-inner');
+            this.items = Array.from(this.carousel.querySelectorAll('.featured-car-item'));
+            this.originalItems = [...this.items];
+            this.currentIndex = 0;
+            this.itemWidth = 0;
+            this.visibleItems = 1;
+            this.totalItems = this.originalItems.length;
+            this.isTransitioning = false;
+            this.autoPlayInterval = null;
+            this.autoPlayDelay = 2000;
+            if (this.totalItems > 0) {
+                this.init();
+            }
         }
-    }
-
-    init() {
-        this.calculateDimensions();
-        this.createClones();
-        this.createIndicators();
-        this.setInitialPosition();
-        this.bindEvents();
-        this.startAutoPlay();
-        this.updateActiveStates();
-    }
-
-    calculateDimensions() {
-        const containerWidth = this.carousel.offsetWidth;
-        const item = this.items[0];
-        if (!item) return;
-
-        this.itemWidth = item.offsetWidth + parseInt(window.getComputedStyle(item).marginRight);
-        
-        // CONTROLE DE QUANTOS CARROS APARECEM POR TELA
-        if (window.innerWidth >= 1400) {
-            this.visibleItems = 4; // Desktop grande: 4 carros
-        } else if (window.innerWidth >= 1200) {
-            this.visibleItems = 4; // Desktop padrão: 4 carros
-        } else if (window.innerWidth >= 992) {
-            this.visibleItems = 3; // Laptop: 3 carros
-        } else if (window.innerWidth >= 768) {
-            this.visibleItems = 2; // Tablet: 2 carros
-        } else {
-            this.visibleItems = 1; // Mobile: 1 carro
+        init() {
+            this.calculateDimensions();
+            this.createClones();
+            this.createIndicators();
+            this.setInitialPosition();
+            this.bindEvents();
+            this.startAutoPlay();
+            this.updateActiveStates();
         }
-    }
-
-    createClones() {
-        this.carouselInner.innerHTML = '';
-        
-        const clonesNeeded = Math.max(this.visibleItems, 3);
-        
-        for (let i = 0; i < clonesNeeded; i++) {
-            const cloneIndex = this.totalItems - clonesNeeded + i;
-            const clone = this.originalItems[cloneIndex].cloneNode(true);
-            clone.classList.add('clone');
-            this.carouselInner.appendChild(clone);
+        calculateDimensions() {
+            const containerWidth = this.carousel.offsetWidth;
+            const item = this.items[0];
+            if (!item) return;
+            this.itemWidth = item.offsetWidth + parseInt(window.getComputedStyle(item).marginRight);
+            if (window.innerWidth >= 1400) {
+                this.visibleItems = 4;
+            } else if (window.innerWidth >= 1200) {
+                this.visibleItems = 4;
+            } else if (window.innerWidth >= 992) {
+                this.visibleItems = 3;
+            } else if (window.innerWidth >= 768) {
+                this.visibleItems = 2;
+            } else {
+                this.visibleItems = 1;
+            }
         }
-        
-        this.originalItems.forEach(item => {
-            const clone = item.cloneNode(true);
-            clone.classList.add('clone');
-            this.carouselInner.appendChild(clone);
-        });
-        
-        for (let i = 0; i < clonesNeeded; i++) {
-            const clone = this.originalItems[i].cloneNode(true);
-            clone.classList.add('clone');
-            this.carouselInner.appendChild(clone);
+        createClones() {
+            this.carouselInner.innerHTML = '';
+            const clonesNeeded = Math.max(this.visibleItems, 3);
+            for (let i = 0; i < clonesNeeded; i++) {
+                const cloneIndex = this.totalItems - clonesNeeded + i;
+                const clone = this.originalItems[cloneIndex].cloneNode(true);
+                clone.classList.add('clone');
+                this.carouselInner.appendChild(clone);
+            }
+            this.originalItems.forEach(item => {
+                const clone = item.cloneNode(true);
+                clone.classList.add('clone');
+                this.carouselInner.appendChild(clone);
+            });
+            for (let i = 0; i < clonesNeeded; i++) {
+                const clone = this.originalItems[i].cloneNode(true);
+                clone.classList.add('clone');
+                this.carouselInner.appendChild(clone);
+            }
+            this.items = Array.from(this.carouselInner.querySelectorAll('.featured-car-item'));
+            this.clonesAtStart = clonesNeeded;
         }
-        
-        this.items = Array.from(this.carouselInner.querySelectorAll('.featured-car-item'));
-        this.clonesAtStart = clonesNeeded;
-    }
-
-    createIndicators() {
-        const indicatorsContainer = document.getElementById('carouselIndicators');
-        if (!indicatorsContainer) return;
-
-        indicatorsContainer.innerHTML = '';
-        
-        for (let i = 0; i < this.totalItems; i++) {
-            const indicator = document.createElement('div');
-            indicator.classList.add('indicator');
-            if (i === 0) indicator.classList.add('active');
-            indicator.addEventListener('click', () => this.goToSlide(i));
-            indicatorsContainer.appendChild(indicator);
+        createIndicators() {
+            const indicatorsContainer = document.getElementById('carouselIndicators');
+            if (!indicatorsContainer) return;
+            indicatorsContainer.innerHTML = '';
+            for (let i = 0; i < this.totalItems; i++) {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                if (i === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => this.goToSlide(i));
+                indicatorsContainer.appendChild(indicator);
+            }
+            this.indicators = Array.from(indicatorsContainer.querySelectorAll('.indicator'));
         }
-        
-        this.indicators = Array.from(indicatorsContainer.querySelectorAll('.indicator'));
-    }
-
-    setInitialPosition() {
-        const initialOffset = -this.clonesAtStart * this.itemWidth;
-        this.carouselInner.style.transform = `translateX(${initialOffset}px)`;
-        this.carouselInner.style.transition = 'none';
-    }
-
-    updateActiveStates() {
-        this.items.forEach(item => item.classList.remove('active'));
-        
-        const activeIndex = this.clonesAtStart + this.currentIndex;
-        if (this.items[activeIndex]) {
-            this.items[activeIndex].classList.add('active');
+        setInitialPosition() {
+            const initialOffset = -this.clonesAtStart * this.itemWidth;
+            this.carouselInner.style.transform = `translateX(${initialOffset}px)`;
+            this.carouselInner.style.transition = 'none';
         }
-        
-        if (this.indicators) {
-            this.indicators.forEach((indicator, index) => {
-                indicator.classList.toggle('active', index === this.currentIndex);
+        updateActiveStates() {
+            this.items.forEach(item => item.classList.remove('active'));
+            const activeIndex = this.clonesAtStart + this.currentIndex;
+            if (this.items[activeIndex]) {
+                this.items[activeIndex].classList.add('active');
+            }
+            if (this.indicators) {
+                this.indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === this.currentIndex);
+                });
+            }
+        }
+        move(direction) {
+            if (this.isTransitioning) return;
+            this.isTransitioning = true;
+            this.stopAutoPlay();
+            this.currentIndex += direction;
+            const offset = -(this.clonesAtStart + this.currentIndex) * this.itemWidth;
+            this.carouselInner.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            this.carouselInner.style.transform = `translateX(${offset}px)`;
+            setTimeout(() => {
+                this.handleInfiniteLoop();
+                this.updateActiveStates();
+                this.isTransitioning = false;
+                this.startAutoPlay();
+            }, 500);
+        }
+        handleInfiniteLoop() {
+            if (this.currentIndex >= this.totalItems) {
+                this.currentIndex = 0;
+                const offset = -this.clonesAtStart * this.itemWidth;
+                this.carouselInner.style.transition = 'none';
+                this.carouselInner.style.transform = `translateX(${offset}px)`;
+            } else if (this.currentIndex < 0) {
+                this.currentIndex = this.totalItems - 1;
+                const offset = -(this.clonesAtStart + this.currentIndex) * this.itemWidth;
+                this.carouselInner.style.transition = 'none';
+                this.carouselInner.style.transform = `translateX(${offset}px)`;
+            }
+        }
+        goToSlide(index) {
+            if (this.isTransitioning || index === this.currentIndex) return;
+            const direction = index > this.currentIndex ? 1 : -1;
+            const steps = Math.abs(index - this.currentIndex);
+            for (let i = 0; i < steps; i++) {
+                setTimeout(() => this.move(direction), i * 100);
+            }
+        }
+        startAutoPlay() {
+            this.stopAutoPlay();
+            this.autoPlayInterval = setInterval(() => {
+                this.move(1);
+            }, this.autoPlayDelay);
+        }
+        stopAutoPlay() {
+            if (this.autoPlayInterval) {
+                clearInterval(this.autoPlayInterval);
+                this.autoPlayInterval = null;
+            }
+        }
+        bindEvents() {
+            this.carousel.addEventListener('mouseenter', () => this.stopAutoPlay());
+            this.carousel.addEventListener('mouseleave', () => this.startAutoPlay());
+            let startX = 0;
+            let isDown = false;
+            this.carousel.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDown = true;
+                this.stopAutoPlay();
+            });
+            this.carousel.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+            });
+            this.carousel.addEventListener('touchend', (e) => {
+                if (!isDown) return;
+                isDown = false;
+                const endX = e.changedTouches[0].clientX;
+                const diffX = startX - endX;
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        this.move(1);
+                    } else {
+                        this.move(-1);
+                    }
+                }
+                this.startAutoPlay();
+            });
+            window.addEventListener('resize', () => {
+                clearTimeout(this.resizeTimeout);
+                this.resizeTimeout = setTimeout(() => {
+                    this.calculateDimensions();
+                    this.createClones();
+                    this.setInitialPosition();
+                    this.updateActiveStates();
+                }, 250);
             });
         }
-    }
-
-    move(direction) {
-        if (this.isTransitioning) return;
-        
-        this.isTransitioning = true;
-        this.stopAutoPlay();
-        
-        this.currentIndex += direction;
-        const offset = -(this.clonesAtStart + this.currentIndex) * this.itemWidth;
-        
-        this.carouselInner.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        this.carouselInner.style.transform = `translateX(${offset}px)`;
-        
-        setTimeout(() => {
-            this.handleInfiniteLoop();
-            this.updateActiveStates();
-            this.isTransitioning = false;
-            this.startAutoPlay();
-        }, 500);
-    }
-
-    handleInfiniteLoop() {
-        if (this.currentIndex >= this.totalItems) {
-            this.currentIndex = 0;
-            const offset = -this.clonesAtStart * this.itemWidth;
-            this.carouselInner.style.transition = 'none';
-            this.carouselInner.style.transform = `translateX(${offset}px)`;
-        } else if (this.currentIndex < 0) {
-            this.currentIndex = this.totalItems - 1;
-            const offset = -(this.clonesAtStart + this.currentIndex) * this.itemWidth;
-            this.carouselInner.style.transition = 'none';
-            this.carouselInner.style.transform = `translateX(${offset}px)`;
-        }
-    }
-
-    goToSlide(index) {
-        if (this.isTransitioning || index === this.currentIndex) return;
-        
-        const direction = index > this.currentIndex ? 1 : -1;
-        const steps = Math.abs(index - this.currentIndex);
-        
-        for (let i = 0; i < steps; i++) {
-            setTimeout(() => this.move(direction), i * 100);
-        }
-    }
-
-    startAutoPlay() {
-        this.stopAutoPlay();
-        this.autoPlayInterval = setInterval(() => {
-            this.move(1);
-        }, this.autoPlayDelay);
-    }
-
-    stopAutoPlay() {
-        if (this.autoPlayInterval) {
-            clearInterval(this.autoPlayInterval);
-            this.autoPlayInterval = null;
-        }
-    }
-
-    bindEvents() {
-        this.carousel.addEventListener('mouseenter', () => this.stopAutoPlay());
-        this.carousel.addEventListener('mouseleave', () => this.startAutoPlay());
-        
-        let startX = 0;
-        let isDown = false;
-        
-        this.carousel.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            isDown = true;
+        destroy() {
             this.stopAutoPlay();
-        });
-        
-        this.carousel.addEventListener('touchmove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-        });
-        
-        this.carousel.addEventListener('touchend', (e) => {
-            if (!isDown) return;
-            isDown = false;
-            
-            const endX = e.changedTouches[0].clientX;
-            const diffX = startX - endX;
-            
-            if (Math.abs(diffX) > 50) {
-                if (diffX > 0) {
-                    this.move(1);
-                } else {
-                    this.move(-1);
-                }
+            if (this.resizeTimeout) {
+                clearTimeout(this.resizeTimeout);
             }
-            
-            this.startAutoPlay();
-        });
-        
-        window.addEventListener('resize', () => {
-            clearTimeout(this.resizeTimeout);
-            this.resizeTimeout = setTimeout(() => {
-                this.calculateDimensions();
-                this.createClones();
-                this.setInitialPosition();
-                this.updateActiveStates();
-            }, 250);
-        });
-    }
-
-    destroy() {
-        this.stopAutoPlay();
-        if (this.resizeTimeout) {
-            clearTimeout(this.resizeTimeout);
         }
     }
-}
-
-    // Funções globais para os botões
     function moveCarousel(direction) {
         if (window.featuredCarousel) {
             window.featuredCarousel.move(direction);
         }
     }
-
-    // Inicializa o carrossel quando o DOM estiver pronto
     document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             window.featuredCarousel = new InfiniteCarousel('.featured-carousel-wrapper');
         }, 100);
-
-        // Lógica para o formulário de contato do modal
         const contactForm = document.getElementById('contactForm');
         const sendMessageButton = document.getElementById('sendMessageButton');
         const messageModal = document.getElementById('messageModal');
         const consentCheckbox = document.getElementById('consentCheckbox');
-
-
         if (sendMessageButton && contactForm && consentCheckbox) {
-            
-            let isSubmitting = false; // <-- NOSSA TRAVA DE SEGURANÇA FOI ADICIONADA AQUI
-
+            let isSubmitting = false;
             sendMessageButton.addEventListener('click', async function(event) {
                 event.preventDefault();
-
-                // Se já estiver enviando, não faz nada
                 if (isSubmitting) {
                     console.log('Form submission already in progress.');
                     return;
                 }
-                
-                isSubmitting = true; // <-- ATIVA A TRAVA
-
+                isSubmitting = true;
                 if (!contactForm.checkValidity()) {
                     contactForm.classList.add('was-validated');
-                    isSubmitting = false; // <-- DESATIVA A TRAVA SE HOUVER ERRO DE VALIDAÇÃO
+                    isSubmitting = false;
                     return;
                 }
-
                 if (!consentCheckbox.checked) {
                     alert('You must consent to the terms to send a message.');
-                    isSubmitting = false; // <-- DESATIVA A TRAVA SE HOUVER ERRO DE CONSENTIMENTO
+                    isSubmitting = false;
                     return;
                 }
-
                 const name = document.getElementById('contactName').value;
                 const email = document.getElementById('contactEmail').value;
                 const phone = document.getElementById('contactPhone').value;
                 const message = document.getElementById('contactMessage').value;
-
                 const formData = {
                     name: name,
                     email: email,
                     phone: phone,
                     message: message
                 };
-
                 const originalButtonText = sendMessageButton.innerHTML;
                 sendMessageButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
                 sendMessageButton.disabled = true;
-
                 try {
                     const response = await fetch('/send-message', {
                         method: 'POST',
@@ -655,7 +578,6 @@ class InfiniteCarousel {
                         },
                         body: JSON.stringify(formData)
                     });
-
                     if (response.ok) {
                         const result = await response.json();
                         if (result.redirect) {
@@ -676,7 +598,7 @@ class InfiniteCarousel {
                 } finally {
                     sendMessageButton.innerHTML = originalButtonText;
                     sendMessageButton.disabled = false;
-                    isSubmitting = false; // <-- DESATIVA A TRAVA NO FINAL DE TUDO
+                    isSubmitting = false;
                 }
             });
         }

@@ -628,10 +628,6 @@ html, body {
     font-weight: 500;
 }
 
-#contact-info .contact-detail {
-    margin-bottom: 20px;
-}
-
 .contact-detail i {
     color: #05FC04;
     margin-right: 10px;
@@ -845,165 +841,108 @@ html, body {
    RESPONSIVE DESIGN - CARROSSEL OTIMIZADO
    ========================================== */
 
-/* Desktop Grande (1400px+) - 4 carros visíveis */
 @media (min-width: 1400px) {
-    .featured-carousel-wrapper {
-        max-width: 1400px;
-    }
-    .featured-car-item {
-        width: 320px; /* 4 carros + margens = ~1400px */
-    }
-    .carousel-next {
-        right: -80px;
-    }
+    .featured-carousel-wrapper { max-width: 1400px; }
+    .featured-car-item { width: 320px; }
+    .carousel-next { right: -80px; }
 }
-
-/* Desktop Padrão (1200px-1399px) - 4 carros visíveis */
 @media (max-width: 1399px) and (min-width: 1200px) {
-    .featured-carousel-wrapper {
-        max-width: 1200px;
-    }
-    .featured-car-item {
-        width: 280px; /* 4 carros menores */
-        margin-right: 15px;
-    }
-    .carousel-next {
-        right: -70px;
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
-    }
+    .featured-carousel-wrapper { max-width: 1200px; }
+    .featured-car-item { width: 280px; margin-right: 15px; }
+    .carousel-next { right: -70px; width: 50px; height: 50px; font-size: 1.2rem; }
 }
-
-/* Laptop/Tablet Grande (992px-1199px) - 3 carros visíveis */
 @media (max-width: 1199px) and (min-width: 992px) {
-    .featured-carousel-wrapper {
-        max-width: 900px;
-    }
-    .featured-car-item {
-        width: 280px; /* 3 carros */
-        margin-right: 15px;
-    }
-    .carousel-next {
-        right: -60px;
-        width: 45px;
-        height: 45px;
-        font-size: 1.1rem;
-    }
+    .featured-carousel-wrapper { max-width: 900px; }
+    .featured-car-item { width: 280px; margin-right: 15px; }
+    .carousel-next { right: -60px; width: 45px; height: 45px; font-size: 1.1rem; }
 }
-
-/* Tablet (768px-991px) - 2 carros visíveis */
 @media (max-width: 991px) and (min-width: 768px) {
-    .featured-carousel-wrapper {
-        max-width: 600px;
-    }
-    .featured-car-item {
-        width: 280px; /* 2 carros */
-        margin-right: 20px;
-    }
-    .featured-car-card {
-        height: 380px;
-    }
-    .carousel-next {
-        right: -50px;
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-    }
+    .featured-carousel-wrapper { max-width: 600px; }
+    .featured-car-item { width: 280px; margin-right: 20px; }
+    .featured-car-card { height: 380px; }
+    .carousel-next { right: -50px; width: 40px; height: 40px; font-size: 1rem; }
 }
-
-/* Mobile Grande (576px-767px) - 1 carro visível */
 @media (max-width: 767px) and (min-width: 576px) {
-    .featured-carousel-wrapper {
-        max-width: 350px;
-    }
-    .featured-car-item {
-        width: 320px; /* 1 carro */
-        margin-right: 15px;
-    }
-    .featured-car-card {
-        height: 360px;
-    }
-    .car-content {
-        padding: 15px;
-    }
-    .car-title {
-        font-size: 1.2rem;
-    }
-    .car-price {
-        font-size: 1.4rem;
-    }
-    .carousel-next {
-        right: -45px;
-        width: 35px;
-        height: 35px;
-        font-size: 0.9rem;
-    }
+    .featured-carousel-wrapper { max-width: 350px; }
+    .featured-car-item { width: 320px; margin-right: 15px; }
+    .featured-car-card { height: 360px; }
+    .car-content { padding: 15px; }
+    .car-title { font-size: 1.2rem; }
+    .car-price { font-size: 1.4rem; }
+    .carousel-next { right: -45px; width: 35px; height: 35px; font-size: 0.9rem; }
 }
-
-/* Mobile Pequeno (<576px) - 1 carro visível */
 @media (max-width: 575px) {
-    .featured-carousel-wrapper {
-        max-width: 300px;
-    }
-    .featured-car-item {
-        width: 280px; /* 1 carro menor */
-        margin-right: 10px;
-    }
-    .featured-car-card {
-        height: 340px;
-    }
-    .car-image-wrapper {
-        height: 160px;
-    }
-    .car-content {
-        padding: 12px;
-    }
-    .car-title {
-        font-size: 1.1rem;
-    }
-    .car-price {
-        font-size: 1.2rem;
-    }
-    .view-details-btn {
-        padding: 8px 15px;
-        font-size: 0.8rem;
-    }
-    .carousel-next {
-        right: -40px;
-        width: 32px;
-        height: 32px;
-        font-size: 0.8rem;
-    }
+    .featured-carousel-wrapper { max-width: 300px; }
+    .featured-car-item { width: 280px; margin-right: 10px; }
+    .featured-car-card { height: 340px; }
+    .car-image-wrapper { height: 160px; }
+    .car-content { padding: 12px; }
+    .car-title { font-size: 1.1rem; }
+    .car-price { font-size: 1.2rem; }
+    .view-details-btn { padding: 8px 15px; font-size: 0.8rem; }
+    .carousel-next { right: -40px; width: 32px; height: 32px; font-size: 0.8rem; }
 }
 
-/* Animações suaves */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .fade-in-up {
     animation: fadeInUp 0.6s ease-out;
 }
 
-/* Additional responsive adjustments */
 @media (max-width: 768px) {
-    .section-title::after {
-        width: 60px;
-        height: 3px;
-    }
+    .section-title::after { width: 60px; height: 3px; }
 }
 
 @media (max-width: 576px) {
-    .section-title::after {
-        width: 50px;
-        height: 2px;
-    }
+    .section-title::after { width: 50px; height: 2px; }
+}
+
+/* ================================================= */
+/* ADIÇÃO: CORREÇÃO DE CORES E ALINHAMENTO DE CONTATO */
+/* ================================================= */
+
+#contact-info .contact-detail {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+#contact-info .contact-detail i {
+    font-size: 1.8rem;
+    margin-bottom: 15px; 
+}
+
+#contact-info .contact-detail div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contact-info .contact-detail strong {
+    color: #aaaaaa; 
+    font-size: 0.9rem;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+}
+
+#contact-info .contact-detail p,
+#contact-info .contact-detail p a {
+    color: #ffffff !important; 
+    text-decoration: none !important; 
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    margin: 0;
+    line-height: 1.4;
+}
+
+#contact-info .contact-detail p a:hover {
+    color: #05FC04 !important;
 }

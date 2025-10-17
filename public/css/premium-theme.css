@@ -443,3 +443,19 @@ body {
     background-color: #05FC04 !important; /* Fundo verde no hover */
     color: #000000 !important; /* Texto preto no hover */
 }
+
+/* ========================================= */
+/* ADIÇÃO: CORREÇÃO DE CORES PARA LINKS DO MENU */
+/* ========================================= */
+
+.top-bar a,
+.navbar-contact-info .contact-info a {
+    color: #ffffff !important; /* Força a cor branca nos links */
+    text-decoration: none !important; /* Remove o sublinhado */
+    transition: color 0.3s ease;
+}
+
+.top-bar a:hover,
+.navbar-contact-info .contact-info a:hover {
+    color: #05FC04 !important; /* Cor verde no hover */
+}
