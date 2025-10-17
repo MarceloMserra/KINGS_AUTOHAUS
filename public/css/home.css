@@ -1007,3 +1007,32 @@ html, body {
         height: 2px;
     }
 }
+/* Adicionar ao final de home.css para alinhar ícones e texto */
+#contact-info .contact-detail {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+#contact-info .contact-detail i {
+    font-size: 1.8rem; /* Ícone um pouco maior */
+    margin-right: 15px; /* Espaço entre ícone e texto */
+}
+
+#contact-info .contact-detail div p,
+#contact-info .contact-detail div strong {
+    margin: 0;
+    line-height: 1.4;
+}
+
+#contact-info .contact-detail div p a {
+    color: #ffffff; /* Cor do link */
+    text-decoration: none;
+}
+
+#contact-info .contact-detail div p a:hover {
+    color: #05FC04; /* Cor do link no hover */
+    text-decoration: underline;
+}
