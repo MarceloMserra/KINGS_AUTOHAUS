@@ -22,6 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
+ 
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
@@ -50,13 +51,13 @@
 
 <body>
 
-    <!-- Top Bar -->
     <div class="top-bar bg-gray-900 text-white text-xs py-2 px-4 flex justify-between items-center z-50 relative">
         <div class="flex space-x-3">
             <a href="https://www.facebook.com/kingsautohaus" target="_blank" class="hover:text-green-500"><i class="fab fa-facebook-f"></i></a>
             <a href="https://www.google.com/maps/search/?api=1&query=1286+Washington+Street+MA+01746" target="_blank" class="hover:text-green-500"><i class="fab fa-google-plus-g"></i></a>
             <a href="https://www.instagram.com/kings.autohaus/" target="_blank" class="hover:text-green-500"><i class="fab fa-instagram"></i></a>
         </div>
+     
         <div>
             <span class="mr-4"><i class="fas fa-map-marker-alt mr-1"></i>1286 Washington Street MA 01746</span>
             <span class="mr-4"><i class="fas fa-phone-alt mr-1"></i>Office: <a href="tel:+15083065516">+1 (508) 306-5516</a></span>
@@ -64,64 +65,74 @@
         </div>
     </div>
 
-    <!-- Main Navbar -->
     <section id="navigation">
         <div class="container-fluid" id="nav-container">
+    
             <nav class="navbar navbar-expand-lg" id="main-navbar">
                 <a class="navbar-brand" href="/">
                     <img src="/images/kings_autohaus_logo.jpeg" alt="KINGS AUTOHAUS Logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav menu-horizontal">
+          
                         <li class="nav-item">
                             <a class="nav-link" href="/gas">Inventory</a>
                         </li>
                         <li class="nav-item dropdown">
+     
                             <a class="nav-link dropdown-toggle" href="#" id="financingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Financing
                             </a>
+         
                             <div class="dropdown-menu" aria-labelledby="financingDropdown">
                                 <a class="dropdown-item" href="/financing">Apply Online</a>
                                 <a class="dropdown-item" href="/loan-calculator">Loan Calculator</a>
+         
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="ourStoreDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" 
+                                href="#" id="ourStoreDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Our Store
                             </a>
                             <div class="dropdown-menu" aria-labelledby="ourStoreDropdown">
+    
                                 <a class="dropdown-item" href="/#about-us">About Us</a>
                                 <a class="dropdown-item" href="/privacy">Privacy Policy</a>
                             </div>
+      
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/#contact-info">Contact</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-light px-3 py-2" href="/login">
-                                Login
-                            </a>
-                        </li>
+   
+                        {{!-- O ITEM DE LISTA DO LOGIN FOI TOTALMENTE REMOVIDO DAQUI --}}
+                        
                     </ul>
                     <div class="navbar-contact-info ml-auto d-flex align-items-center">
+                
                         <span class="contact-info">
                             <i class="fas fa-map-marker-alt"></i> 1286 Washington Street MA 01746
                         </span>
                         <span class="contact-info">
+       
                             <i class="fas fa-phone-alt"></i> Office: <a href="tel:+15083065516">+1 (508) 306-5516</a>
                         </span>
                         <span class="contact-info mr-3">
+                      
                             <i class="fas fa-mobile-alt"></i> Mobile: <a href="tel:+17745237860">+1 (774) 523-7860</a>
                         </span>
                         <div class="social-icons">
                             <a href="https://www.facebook.com/kingsautohaus" target="_blank" class="mr-2"><i class="fab fa-facebook-f"></i></a>
+     
                             <a href="https://www.google.com/maps/search/?api=1&query=1286+Washington+Street+MA+01746" target="_blank" class="mr-2"><i class="fab fa-google-plus-g"></i></a>
                             <a href="https://www.instagram.com/kings.autohaus/" target="_blank" class="mr-2"><i class="fab fa-instagram"></i></a>
                         </div>
+               
                     </div>
                 </div>
             </nav>
@@ -130,13 +141,12 @@
 
     {{{body}}}
 
-    <!-- Botão de voltar ao topo - SEMPRE VISÍVEL -->
     <button id="backToTop" class="back-to-top-btn" onclick="scrollToTop()" aria-label="Back to Top">
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <!-- jQuery and Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         xintegrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
         crossorigin="anonymous"></script>
@@ -146,11 +156,9 @@
     <script src="/javascripts/ev_cars.js"></script>
     <script src="/javascripts/gas_cars.js"></script>
 
-    <!-- ============================================ -->
-    <!-- SCRIPT ÚNICO CORRIGIDO - HEADER E MOBILE MENU -->
-    <!-- ============================================ -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+        
             const navigationSection = document.getElementById('navigation');
             const backToTopBtn = document.getElementById('backToTop');
             const body = document.body;
@@ -158,7 +166,8 @@
             const navbarCollapse = document.querySelector('#navbarNavDropdown');
 
             let lastScrollTop = 0; // Variável para armazenar a última posição de scroll
-            let isHovering = false; // Controla o estado de hover no desktop
+            let isHovering = false;
+            // Controla o estado de hover no desktop
 
             // Função para detectar se é dispositivo móvel (breakpoint do Bootstrap)
             function isMobileDevice() {
@@ -184,6 +193,7 @@
             // Função para esconder o cabeçalho (apenas no desktop e quando não estiver com hover)
             function hideHeader() {
                 if (navigationSection && !isMobileDevice() && !isHovering) {
+   
                     // Esconde apenas se o menu mobile não estiver aberto
                     if (!navbarCollapse.classList.contains('show')) {
                         navigationSection.classList.add('hidden');
@@ -194,6 +204,7 @@
 
             // Função para lidar com o scroll
             function handleScroll() {
+               
                 const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
                 if (isMobileDevice()) {
@@ -205,11 +216,13 @@
 
                     // Fecha o menu se estiver aberto e o usuário rolar para baixo
                     if (navbarCollapse.classList.contains('show') && currentScrollTop > lastScrollTop) {
-                        $(navbarCollapse).collapse('hide'); // Usa o método collapse do Bootstrap
+                        $(navbarCollapse).collapse('hide');
+                        // Usa o método collapse do Bootstrap
                     }
 
                     // Lógica do botão "voltar ao topo" no mobile
                     if (backToTopBtn) {
+                        
                         if (currentScrollTop === 0) {
                             backToTopBtn.classList.remove('visible');
                         } else {
@@ -219,11 +232,13 @@
                 } else {
                     // No desktop, o cabeçalho se esconde/mostra
                     if (currentScrollTop === 0) { // No topo da página
+       
                         showHeader();
                         if (backToTopBtn) backToTopBtn.classList.remove('visible');
                     } else { // Não está no topo
                         if (currentScrollTop > lastScrollTop) { // Rolando para baixo
                             if (!isHovering) { // Esconde apenas se não estiver com o mouse em cima
+                 
                                 hideHeader();
                             }
                         } else { // Rolando para cima
@@ -240,7 +255,6 @@
             // Função para abrir o menu mobile
             function openMenu() {
                 if (!isMobileDevice() || !navbarCollapse) return;
-
                 navbarCollapse.classList.add('show');
                 if (navbarToggler) navbarToggler.setAttribute('aria-expanded', 'true');
                 isMenuOpen = true;
@@ -249,7 +263,6 @@
             // Função para fechar o menu mobile
             function closeMenu() {
                 if (!isMobileDevice() || !navbarCollapse) return;
-
                 navbarCollapse.classList.remove('show');
                 if (navbarToggler) navbarToggler.setAttribute('aria-expanded', 'false');
                 isMenuOpen = false;
@@ -259,11 +272,13 @@
             if (navbarToggler) {
                 navbarToggler.addEventListener('click', function (e) {
                     e.preventDefault();
-                    e.stopPropagation(); // Impede que o clique "suba" e feche o menu imediatamente
+                    e.stopPropagation(); 
+                    // Impede que o clique "suba" e feche o menu imediatamente
 
                     if (isMobileDevice()) { // Só alterna o menu no mobile
                         $(navbarCollapse).collapse('toggle'); // Usa o método collapse do Bootstrap
                     }
+          
                 });
             }
 
@@ -273,42 +288,45 @@
 
                 const clickedInsideNav = navigationSection.contains(e.target);
 
-                if (!clickedInsideNav && $(navbarCollapse).hasClass('show')) {
+                if 
+                    (!clickedInsideNav && $(navbarCollapse).hasClass('show')) {
                     $(navbarCollapse).collapse('hide');
                 }
             });
-
             // Fecha o menu ao clicar em um link do menu (apenas no mobile)
             const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
             navLinks.forEach(link => {
                 link.addEventListener('click', function () {
                     if (isMobileDevice() && $(navbarCollapse).hasClass('show')) {
                         // Pequeno atraso para permitir que o navegador processe o clique no link
+                   
                         // antes de fechar o menu, especialmente para âncoras internas.
                         setTimeout(() => {
                             $(navbarCollapse).collapse('hide');
                         }, 100);
+       
                     }
                 });
             });
-
             // Event Listeners para desktop (lógica de hover do cabeçalho)
             if (navigationSection) {
                 navigationSection.addEventListener('mouseenter', function () {
                     if (!isMobileDevice()) {
                         isHovering = true;
+          
                         showHeader(); // Sempre mostra ao passar o mouse no desktop
                     }
                 });
-
                 navigationSection.addEventListener('mouseleave', function () {
                     if (!isMobileDevice()) {
                         isHovering = false;
                         // Só esconde se não estiver no topo da página
+                
                         if (window.scrollY > 0) {
                             hideHeader();
                         }
                     }
+                
                 });
             }
 
@@ -319,16 +337,17 @@
                     requestAnimationFrame(function () {
                         handleScroll();
                         ticking = false;
+       
                     });
                     ticking = true;
                 }
             });
-
             // Ajusta o comportamento ao redimensionar a janela
             window.addEventListener('resize', function () {
                 if (navigationSection) {
                     headerHeight = navigationSection.offsetHeight; // Recalcula a altura do cabeçalho
                 }
+                
                 adjustBodyPadding(); // Reajusta o padding do body
 
                 // Se redimensionar para desktop e o menu mobile estiver aberto, fecha
@@ -336,22 +355,23 @@
                     $(navbarCollapse).collapse('hide');
                 }
 
+           
                 handleScroll(); // Reavalia a visibilidade do cabeçalho
             });
-
             // Configuração inicial ao carregar a página
             window.addEventListener('load', function () {
                 if (navigationSection) {
                     headerHeight = navigationSection.offsetHeight;
                 }
                 adjustBodyPadding();
+       
                 handleScroll(); // Define o estado inicial do cabeçalho
             });
-
             // Função global para voltar ao topo (chamada pelo botão)
             window.scrollToTop = function () {
                 if (isMobileDevice() && $(navbarCollapse).hasClass('show')) {
-                    $(navbarCollapse).collapse('hide'); // Fecha o menu mobile ao voltar ao topo
+                    $(navbarCollapse).collapse('hide');
+                    // Fecha o menu mobile ao voltar ao topo
                 }
 
                 window.scrollTo({
