@@ -413,16 +413,31 @@ router.get('/users', ensureAdmin, async (req, res) => {
     }
 });
 
-// ============================ NOVA ROTA: DELETAR USUÁRIO ============================
-router.get('/deleteuser/:id', ensureAdmin, async (req, res) => {
+// ============================ ROTA DELETAR USUÁRIO ATUALIZADA ============================
+// MODIFICADO: de GET para DELETE e retorna JSON
+router.delete('/deleteuser/:id', ensureAdmin, async (req, res) => {
     try {
-        await UserModel.findByIdAndRemove(req.params.id);
-        req.flash('success_msg', 'User deleted successfully!');
-        res.redirect('/admin/users');
+        const userId = req.params.id;
+        
+        // Proteção para não deletar o admin principal
+        const user = await UserModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        if (user.email === 'admin@admin.com') {
+            return res.status(403).json({ success: false, message: 'Cannot delete primary admin account!' });
+        }
+
+        await UserModel.findByIdAndDelete(userId);
+        
+        // Responde com sucesso para o script
+        res.json({ success: true, message: 'User deleted successfully' });
+
     } catch (err) {
         console.error("Error deleting user:", err);
-        req.flash('error_msg', 'Error deleting user: ' + err.message);
-        res.redirect('/admin/users');
+        // Responde com erro para o script
+        res.status(500).json({ success: false, message: 'Error deleting user: ' + err.message });
     }
 });
 

@@ -1,11 +1,9 @@
-<!-- This file will be rendered inside the {{{body}}} of the layout_list.hbs -->
-
 <style>
     /* Styles specific to the admin users list page */
     body {
-        background-color: #000000; /* Ensure body background is black */
-        color: #ffffff; /* Default text color for contrast */
-        overflow-x: hidden; /* Esconde a barra de rolagem horizontal globalmente */
+        background-color: #000000;
+        color: #ffffff;
+        overflow-x: hidden;
     }
 
     .container {
@@ -15,7 +13,7 @@
     }
 
     h3.section-title-admin {
-        color: #05FC04; /* Green title */
+        color: #05FC04;
         font-size: 2.5rem;
         font-weight: bold;
         margin-bottom: 30px;
@@ -37,22 +35,22 @@
     }
 
     .table-responsive {
-        background-color: #1a1a1a; /* Darker background for the table container */
+        background-color: #1a1a1a;
         border-radius: 10px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         padding: 20px;
     }
 
     .table {
-        color: #ffffff; /* White text for table content */
-        border-color: #333333; /* Darker border for table cells */
+        color: #ffffff;
+        border-color: #333333;
         width: 100%;
-        min-width: 600px; /* Minimum width for desktop table */
+        min-width: 600px;
     }
 
     .table thead th {
-        background-color: #0d0d0d; /* Even darker header background */
-        color: #05FC04; /* Green header text */
+        background-color: #0d0d0d;
+        color: #05FC04;
         border-color: #333333;
         font-weight: bold;
         font-size: 1.1rem;
@@ -224,7 +222,7 @@
             padding-bottom: 10px !important;
         }
         .table td:first-child::before {
-            content: none !important; /* Remove label for name in this specific layout */
+            content: none !important;
         }
         .table td:first-child strong {
             font-size: 1.1rem !important;
@@ -333,7 +331,9 @@
                         <div class="action-buttons">
                             {{!-- Ação de editar usuário (se necessário, pode ser implementada) --}}
                             {{!-- <a href="/admin/edituser/{{this._id}}" class="btn btn-info-admin btn-action">Edit</a> --}}
-                            <a href="/admin/deleteuser/{{this._id}}" class="btn btn-danger-admin btn-action" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+                            
+                            {{!-- MODIFICADO: Trocado <a> por <button> com classe e data-id --}}
+                            <button class="btn btn-danger-admin btn-action delete-btn" data-id="{{this._id}}">Delete</button>
                         </div>
                     </td>
                 </tr>
@@ -347,3 +347,47 @@
     </div>
     {{/if}}
 </div>
+
+{{!-- ADICIONADO: Script para lidar com a exclusão --}}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const userId = e.target.getAttribute('data-id');
+                const confirmed = window.confirm('Are you sure you want to delete this user?');
+
+                if (confirmed) {
+                    // *** A CORREÇÃO ESTÁ AQUI ***
+                    // Adicionado o prefixo "/admin" para corresponder à rota do servidor
+                    fetch(`/admin/deleteuser/${userId}`, {
+                        method: 'DELETE',
+                    })
+                    .then(response => {
+                        // Verifica se a resposta é JSON antes de tentar parsear
+                        const contentType = response.headers.get("content-type");
+                        if (contentType && contentType.indexOf("application/json") !== -1) {
+                            return response.json();
+                        } else {
+                            throw new Error('Server did not respond with JSON.');
+                        }
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message); // Mostra a mensagem de sucesso (ex: "User deleted")
+                            window.location.reload();
+                        } else {
+                            alert('Error: ' + data.message); // Mostra o erro (ex: "Cannot delete admin")
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Fetch Error:', err);
+                        // Esta é a mensagem de erro que você viu
+                        alert('A client-side error occurred. Check the console.');
+                    });
+                }
+            });
+        });
+    });
+</script>
