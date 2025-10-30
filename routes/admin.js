@@ -9,6 +9,7 @@ const CustomerModel = require('../models/CustomerModel');
 const UserModel = require("../models/UserModel"); // Importa o modelo de usuário
 const bcrypt = require('bcryptjs'); // Para criptografar senhas
 const sendEmail = require("../utils/mailer");
+const crypto = require('crypto'); // <-- ADICIONADO: Necessário para gerar o token
 
 // Função auxiliar para converter strings com vírgula para números com ponto
 function convertToNumber(value) {
@@ -414,7 +415,6 @@ router.get('/users', ensureAdmin, async (req, res) => {
 });
 
 // ============================ ROTA DELETAR USUÁRIO ATUALIZADA ============================
-// MODIFICADO: de GET para DELETE e retorna JSON
 router.delete('/deleteuser/:id', ensureAdmin, async (req, res) => {
     try {
         const userId = req.params.id;
@@ -438,6 +438,50 @@ router.delete('/deleteuser/:id', ensureAdmin, async (req, res) => {
         console.error("Error deleting user:", err);
         // Responde com erro para o script
         res.status(500).json({ success: false, message: 'Error deleting user: ' + err.message });
+    }
+});
+
+// ============================ ROTA ADICIONADA: ENVIAR LINK DE RESET ============================
+router.post('/send-reset-link', ensureAdmin, async (req, res) => {
+    try {
+        const { userId } = req.body;
+        const usuario = await UserModel.findById(userId);
+
+        if (!usuario) {
+            return res.status(404).json({ success: false, message: 'User not found.' });
+        }
+
+        // 1. Gerar Token (lógica copiada de usuarios.js)
+        const token = crypto.randomBytes(20).toString('hex');
+        usuario.resetPasswordToken = token;
+        usuario.resetPasswordExpires = Date.now() + 3600000; // 1 hora
+
+        await usuario.save();
+
+        // 2. Preparar e enviar e-mail
+        const resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${token}`;
+        const emailContent = `
+            <p>You are receiving this email because an admin from KINGS AUTOHAUS has triggered a password reset for your account.</p>
+            <p>Please click on the following link, or paste this into your browser to complete the process:</p>
+            <p><a href="${resetUrl}">${resetUrl}</a></p>
+            <p>If you did not request this, please contact your administrator.</p>
+        `;
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: usuario.email,
+            subject: 'KINGS AUTOHAUS - Staff Password Reset',
+            html: emailContent
+        };
+
+        await sendEmail(mailOptions);
+
+        // 3. Responder com sucesso para o script
+        res.json({ success: true, message: `Password reset link sent to ${usuario.email}!` });
+
+    } catch (err) {
+        console.error("Error sending reset link:", err);
+        res.status(500).json({ success: false, message: 'Server error: ' + err.message });
     }
 });
 
