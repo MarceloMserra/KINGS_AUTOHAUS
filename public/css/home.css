@@ -83,22 +83,19 @@ html, body {
     transform: scale(1.1);
 }
 
-/* Localize esta regra no seu home.css */
 .hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: transparent; /* MUDANÇA 1: Deixei o overlay transparente */
+    background: transparent; 
     z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    /* MUDANÇA 2: Removi o padding-top que empurrava o filtro para baixo */
-    /* padding-top: 380px; <-- REMOVIDO */
 }
 
 /* ==========================================
@@ -114,51 +111,81 @@ html, body {
 /* Hero Cards Container */
 .hero-cards-container {
     z-index: 2;
-    max-width: 1200px;
+    max-width: 1200px; 
     width: 100%;
-    margin-bottom: 50px;
     padding: 0 15px;
+    align-items: center; 
+    
+    /* MUDANÇA (REQUISIÇÃO 1): Itens centralizados com espaçamento */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px; /* <<<< MUDANÇA: Espaçamento reduzido para 5px */
 }
 
 .hero-card-link {
-    text-decoration: none;
+    /* MUDANÇA (REQUISIÇÃO 1): Remove o sublinhado padrão do link */
+    text-decoration: none !important; 
     color: inherit;
     display: block;
     height: 100%;
+    /* MUDANÇA: O wrapper <a> agora é o item flex, não precisa de 100% de largura */
+    transition: all 0.3s ease;
 }
 
+/* MUDANÇA: Adicionada regra de hover para garantir que o sublinhado não volte */
+.hero-card-link:hover {
+    text-decoration: none !important;
+}
+
+/* MUDANÇA: Esta é a nova lógica com clip-path */
 .hero-card {
     position: relative;
-    height: 180px;
+    width: 300px;
+    height: 350px;
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
     box-shadow: 0 8px 30px rgba(5, 252, 4, 0.2);
     backdrop-filter: blur(5px);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
     text-align: center;
     transition: all 0.4s ease-in-out;
+    
+    /* A MÁGICA: Recorta o card em forma de paralelogramo */
+    /* polygon(ponto superior-esquerdo, ponto superior-direito, ponto inferior-direito, ponto inferior-esquerdo) */
+    clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);
 }
 
+.hero-card-link:hover .hero-card {
+    transform: scale(1.03) translateY(-5px);
+    box-shadow: 0 15px 40px rgba(5, 252, 4, 0.5);
+    border-color: #05FC04;
+}
+
+/* Container da Imagem (removido) */
+/* .hero-image-container { ... } */
+
+/* A imagem agora está dentro do card */
 .hero-card-image {
     width: 100%;
-    height: 50%;
+    height: 60%; /* Ocupa 60% da altura do card */
     object-fit: cover;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    transition: transform 0.3s ease;
+    /* MUDANÇA: A imagem não precisa mais de scale ou skew */
+}
+
+.hero-card:hover .hero-card-image {
+    transform: scale(1.1); /* Zoom simples no hover */
 }
 
 .hero-card-text-content {
-    padding: 10px;
+    height: 40%; /* Ocupa os 40% restantes */
+    padding: 15px 30px; /* Padding para compensar o corte do clip-path */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%; 
 }
 
 .hero-card h3 {
@@ -168,6 +195,29 @@ html, body {
     margin-bottom: 5px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
     z-index: 2;
+
+    /* MUDANÇA (REQUISIÇÃO 3): Preparação para a linha verde */
+    position: relative;
+    padding-bottom: 5px; 
+}
+
+/* MUDANÇA (REQUISIÇÃO 3): Linha verde invisível por padrão */
+.hero-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%; /* Largura da linha */
+    height: 2px;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+/* MUDANÇA (REQUISIÇÃO 3): Mostra a linha verde no hover do link */
+/* MUDANÇA (REQUISIÇÃO 1): Esta é a linha verde que queremos que apareça */
+.hero-card-link:hover .hero-card h3::after {
+    background-color: #05FC04;
 }
 
 .hero-card p {
@@ -177,22 +227,19 @@ html, body {
     z-index: 2;
 }
 
-.hero-card:hover {
-    transform: scale(1.03) translateY(-5px);
-    box-shadow: 0 15px 40px rgba(5, 252, 4, 0.5);
-    border-color: #05FC04;
+/* Regra para o card do meio ficar maior */
+/* MUDANÇA: O seletor agora funciona com o <a> tendo a classe */
+.hero-card-middle .hero-card {
+    width: 330px;  /* Um pouco mais largo */
+    height: 380px; /* Um pouco mais alto */
+    transform: translateY(-10px); /* Levemente elevado */
+    z-index: 10; /* Fica na frente dos outros */
 }
 
-.hero-card-link:hover .hero-card {
-    transform: scale(1.03) translateY(-5px);
-    box-shadow: 0 18px 45px rgba(5, 252, 4, 0.6);
+.hero-card-middle .hero-card:hover {
+     transform: scale(1.03) translateY(-15px);
 }
 
-.hero-card-link:hover .hero-card h3,
-.hero-card-link:hover .hero-card p {
-    transform: none;
-    transition: none;
-}
 
 /* Filter Bar */
 .filter-bar {
@@ -840,7 +887,45 @@ html, body {
 }
 
 /* ==========================================
-   RESPONSIVE DESIGN - CARROSSEL OTIMIZADO
+   RESPONSIVE DESIGN PARA OS CARDS INICIAIS
+   ========================================== */
+
+@media (max-width: 991px) {
+    /* MUDANÇA: Como os cards agora são flex, eles vão quebrar a linha naturalmente. */
+    /* A regra de centralização já está no .hero-cards-container (justify-content: center) */
+    .hero-card {
+        margin: 0; /* O gap cuida do espaçamento */
+        width: 300px; 
+        height: 350px; 
+    }
+    .hero-card-middle .hero-card {
+        width: 300px; /* No tablet, o card do meio volta ao tamanho normal */
+        height: 350px;
+        transform: translateY(0); /* Remove a elevação */
+    }
+}
+
+
+@media (max-width: 767px) { /* Mobile */
+    .hero-card {
+        width: 280px; /* Mais estreito para celular */
+        height: 320px; 
+        /* MUDANÇA: O clip-path precisa ser menos inclinado em telas menores */
+        clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+    }
+    .hero-card-middle .hero-card {
+        width: 280px;
+        height: 320px;
+        transform: translateY(0);
+    }
+    .hero-card h3 { font-size: 1.3rem; }
+    .hero-card p { font-size: 0.8rem; }
+    .hero-card-text-content { padding: 8px 15px; } /* Ajusta o padding lateral */
+}
+
+
+/* ==========================================
+   RESPONSIVE DESIGN PARA O CARROSSEL DE VEÍCULOS
    ========================================== */
 
 @media (min-width: 1400px) {

@@ -1,131 +1,11 @@
 <style>
-    /* ADIÇÃO IMPORTANTE: 
-      Isso remove o padding-top de 120px que seu layout.hbs adiciona, 
-      permitindo que a imagem de fundo preencha a tela inteira nesta página.
+    /* Isto é IMPORTANTE: 
+      Seu layout.hbs força um padding de 120px.
+    Esta regra remove isso *apenas* para a home page,
+      permitindo que a imagem vá até o topo.
     */
     body {
         padding-top: 0 !important;
-    }
-
-    .filter-card {
-        background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
-        border: 1px solid #05FC04;
-        border-radius: 15px;
-        padding: 25px;
-        box-shadow: 0 10px 30px rgba(5, 252, 4, 0.2);
-        max-width: 1400px; 
-        margin-left: auto;
-        margin-right: auto;
-        
-        /* MUDANÇA: 
-          As propriedades de posicionamento top/transform foram removidas.
-          A centralização agora é feita pelo .hero-overlay (do home.css)
-        */
-        position: relative;
-        z-index: 10;
-    }
-    .filter-title {
-        background-color: #05FC04;
-        color: #000000;
-        text-align: center;
-        padding: 12px;
-        margin: -25px -25px 20px -25px;
-        border-radius: 15px 15px 0 0;
-        font-weight: bold;
-        font-size: 1.2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .filter-title i {
-        margin-right: 10px;
-    }
-    .filter-group {
-        margin-bottom: 15px;
-    }
-    .filter-group label {
-        display: block;
-        color: #ffffff;
-        font-weight: 500;
-        font-size: 0.9rem;
-        margin-bottom: 5px;
-    }
-    .filter-group select {
-        width: 100%;
-        padding: 12px 15px;
-        height: auto;
-        border: 1px solid #05FC04;
-        border-radius: 8px;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: #ffffff;
-        font-size: 0.9rem;
-    }
-    .filter-group select option {
-        background-color: #000000;
-        color: #ffffff;
-    }
-    .filter-buttons {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        margin-top: 20px;
-    }
-    .btn-filter {
-        background-color: #05FC04;
-        border: none;
-        color: #000000;
-        padding: 12px 30px;
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 1rem;
-    }
-    .btn-filter:hover {
-        background-color: #04D803;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(5, 252, 4, 0.4);
-    }
-    .btn-clear {
-        background-color: #666666;
-        border: none;
-        color: #ffffff;
-        padding: 12px 30px;
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        text-decoration: none;
-        font-size: 1rem;
-    }
-    .btn-clear:hover {
-        background-color: #888888;
-        color: #ffffff;
-        text-decoration: none;
-    }
-    .filter-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-    }
-    @media (max-width: 992px) {
-        .filter-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-    @media (max-width: 576px) {
-        .filter-grid {
-            grid-template-columns: 1fr;
-        }
-        .filter-card {
-            padding: 15px;
-        }
     }
 </style>
 
@@ -133,141 +13,53 @@
     <img src="/images/fotocapa2.png" alt="KINGS AUTOHAUS Background" class="hero-image">
     
     <div class="hero-overlay">
-        <div class="filter-card fade-in-up delay-3">
-            <div class="filter-title">
-                <i class="fas fa-filter"></i>
-                Filter Vehicles
-            </div>
-         
-            <form id="filterForm" method="GET" action="/gas">
-                <div class="filter-grid">
-                    <div class="filter-group">
-                        <label for="year">Year</label>
-                        <select class="form-control" id="year" name="year">
-                            <option value="">Any</option>
-                            {{#if filters.yearRange}}
-                                {{#each (range filters.yearRange.maxYear filters.yearRange.minYear)}}
-                                    <option value="{{this}}" {{#if (eq ../currentFilters.year (toString this))}}selected{{/if}}>{{this}}</option>
-                                {{/each}}
-                            {{/if}}
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="make">Make</label>
-                        <select class="form-control" id="make" name="make">
-                            <option value="">Any</option>
-                            {{#each filters.brands}}
-                                <option value="{{this}}" {{#if (eq ../currentFilters.make this)}}selected{{/if}}>{{this}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="model">Model</label>
-                        <select class="form-control" id="model" name="model">
-                            <option value="">Any</option>
-                            </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="bodyType">Body Type</label>
-                        <select class="form-control" id="bodyType" name="bodyType">
-                            <option value="">Any</option>
-                            {{#each filters.bodyTypes}}
-                                <option value="{{this}}" {{#if (eq ../currentFilters.bodyType this)}}selected{{/if}}>{{this}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="transmission">Transmission</label>
-                        <select class="form-control" id="transmission" name="transmission">
-                            <option value="">Any</option>
-                            {{#each filters.transmissions}}
-                                <option value="{{this}}" {{#if (eq ../currentFilters.transmission this)}}selected{{/if}}>{{this}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="drivetrain">Drivetrain</label>
-                        <select class="form-control" id="drivetrain" name="drivetrain">
-                            <option value="">Any</option>
-                            {{#each filters.drivetrains}}
-                                <option value="{{this}}" {{#if (eq ../currentFilters.drivetrains this)}}selected{{/if}}>{{this}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="cyl">Cylinders</label>
-                        <select class="form-control" id="cyl" name="cyl">
-                            <option value="">Any</option>
-                            {{#each filters.cyls}}
-                                <option value="{{this}}" {{#if (eq ../currentFilters.cyl (toString this))}}selected{{/if}}>{{this}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="sortBy">Sort By</label>
-                        <select class="form-control" id="sortBy" name="sortBy">
-                            <option value="date-desc" {{#if (eq currentFilters.sortBy "date-desc")}}selected{{/if}}>Newest First</option>
-                            <option value="price-asc" {{#if (eq currentFilters.sortBy "price-asc")}}selected{{/if}}>Price: Low to High</option>
-                            <option value="price-desc" {{#if (eq currentFilters.sortBy "price-desc")}}selected{{/if}}>Price: High to Low</option>
-                            <option value="year-desc" {{#if (eq currentFilters.sortBy "year-desc")}}selected{{/if}}>Year: Newest</option>
-                            <option value="year-asc" {{#if (eq currentFilters.sortBy "year-asc")}}selected{{/if}}>Year: Oldest</option>
-                            <option value="mileage-asc" {{#if (eq currentFilters.sortBy "mileage-asc")}}selected{{/if}}>Mileage: Low to High</option>
-                            <option value="mileage-desc" {{#if (eq currentFilters.sortBy "mileage-desc")}}selected{{/if}}>Mileage: High to Low</option>
-                        </select>
-                    </div>
-                </div>
+        
+        <div class="container">
+            {{!-- MUDANÇA: Removida a classe "row" e os "col-" foram removidos dos filhos --}}
+            <div class="hero-cards-container align-items-center mb-5">
                 
-                <div class="filter-buttons">
-                    <button type="submit" class="btn-filter">
-                        <i class="fas fa-search"></i> Apply Filters
-                    </button>
-                    <a href="/" class="btn-clear">
-                        <i class="fas fa-times"></i> Clear All
-                    </a>
-                </div>
-            </form>
-        </div>
-    </div>
-</section>
-
-<section class="hero-cards-filter-section fade-in-up">
-    <div class="container">
-        <div class="hero-cards-container row justify-content-center align-items-stretch mb-5">
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
+                {{!-- Card 1: Get Approved --}}
+                {{!-- MUDANÇA: Removida a DIV "wrapper" que estava em volta do <a> --}}
                 <a href="/financing" class="hero-card-link fade-in-up">
                     <div class="hero-card">
                         <img src="/images/approved.jpg" alt="Get Approved" class="hero-card-image">
                         <div class="hero-card-text-content">
                             <h3>Get Approved</h3>
-                            <p>Fast and easy pre-approval for your next vehicle.</p>
                         </div>
                     </div>
                 </a>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
-                <a href="/gas" class="hero-card-link fade-in-up delay-1">
+
+                {{!-- Card 2: Our Inventory (COM A CLASSE NOVA) --}}
+                {{!-- MUDANÇA: Removida a DIV "wrapper" e a classe "hero-card-middle" foi movida para o <a> --}}
+                <a href="/gas" class="hero-card-link fade-in-up delay-1 hero-card-middle">
                     <div class="hero-card">
                         <img src="/images/inventario.png" alt="Our Inventory" class="hero-card-image">
                         <div class="hero-card-text-content">
                             <h3>Our Inventory</h3>
-                            <p>Browse our extensive collection of luxury vehicles.</p>
                         </div>
                     </div>
                 </a>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
+
+                {{!-- Card 3: Get Directions --}}
+                {{!-- MUDANÇA: Removida a DIV "wrapper" que estava em volta do <a> --}}
                 <a href="https://www.google.com/maps/search/?api=1&query=1286+Washington+Street+MA+01746" target="_blank" class="hero-card-link fade-in-up delay-2">
                     <div class="hero-card">
                         <img src="/images/rota.jpg" alt="Get Directions" class="hero-card-image">
                         <div class="hero-card-text-content">
                             <h3>Get Directions</h3>
-                            <p>Find your way to our dealership with ease.</p>
                         </div>
                     </div>
                 </a>
-            </div>
+
+             </div>
         </div>
+
     </div>
+</section>
+
+{{!-- Esta seção agora só contém o conteúdo abaixo da dobra --}}
+<section class="hero-cards-filter-section fade-in-up">
+    {{!-- O container com os cards foi removido daqui --}}
 </section>
 
 <section id="featured-vehicles" class="featured-vehicles-section fade-in-up delay-4">
@@ -276,31 +68,31 @@
         
         <div class="featured-carousel-wrapper">
             <div class="featured-carousel-inner" id="featuredCarouselInner">
-                {{#each latestCars}}
+                 {{#each latestCars}}
                 <div class="featured-car-item {{#if @first}}active{{/if}}">
                     <div class="featured-car-card">
                         <div class="car-image-wrapper">
-                            {{#if this.image.length}}
+                             {{#if this.image.length}}
                                 <img src="{{this.image.[0]}}" alt="{{this.brand}} {{this.t2}}" class="car-image">
                                 {{#if (gt this.image.length 1)}}
-                                    <span class="photo-badge">{{this.image.length}} photos</span>
+                                     <span class="photo-badge">{{this.image.length}} photos</span>
                                 {{/if}}
                             {{else}}
-                                <img src="https://placehold.co/400x300/0a0a0a/05FC04?text=No+Image" alt="No Image" class="car-image">
+                                 <img src="https://placehold.co/400x300/0a0a0a/05FC04?text=No+Image" alt="No Image" class="car-image">
                             {{/if}}
                         </div>
                         <div class="car-content">
-                            <h5 class="car-title">{{this.brand}} {{this.t2}}</h5>
+                             <h5 class="car-title">{{this.brand}} {{this.t2}}</h5>
                             <p class="car-subtitle">{{this.year}} - {{this.mileage}} miles - {{this.transmission}}</p>
                             <p class="car-price">${{this.priceStr}}</p>
-                            <a href="/gas/details/{{this._id}}" class="view-details-btn">View Details</a>
+                             <a href="/gas/details/{{this._id}}" class="view-details-btn">View Details</a>
                         </div>
                     </div>
                 </div>
                 {{/each}}
             </div>
 
-            <button class="carousel-next" onclick="moveCarousel(1)" aria-label="Next">
+             <button class="carousel-next" onclick="moveCarousel(1)" aria-label="Next">
                 <i class="fas fa-chevron-right"></i>
             </button>
         </div>
@@ -310,7 +102,7 @@
 
         <div class="view-all-container">
             <a href="/gas" class="view-all-btn">View All Featured Vehicles</a>
-        </div>
+         </div>
     </div>
 </section>
 
@@ -333,7 +125,7 @@
 <section id="testimonials" class="fade-in-up delay-5">
     <div class="container">
         <h2 class="section-title text-center text-white">What Our Customers Say</h2>
-        <div class="row justify-content-center">
+         <div class="row justify-content-center">
             <div class="col-md-8">
                 <blockquote class="blockquote text-white mb-4">
                     <p class="mb-0">"KINGS AUTOHAUS exceeded my expectations! I found my dream car with impeccable and transparent service. I highly recommend them!"</p>
@@ -351,7 +143,7 @@
 <section id="financing-cta" class="py-5 text-center bg-dark fade-in-up delay-5">
     <div class="container">
         <h2 class="section-title text-white">Ready to Drive Your Dream Car?</h2>
-        <p class="lead text-white mb-4">Get pre-approved for financing quickly and easily!</p>
+         <p class="lead text-white mb-4">Get pre-approved for financing quickly and easily!</p>
         <a href="/financing" class="btn btn-primary btn-lg">Apply for Financing</a>
     </div>
 </section>
@@ -363,33 +155,33 @@
 
             <div class="col-lg-3 col-md-6 contact-detail mb-4">
                 <i class="fas fa-map-marker-alt"></i>
-                <div>
+                 <div>
                     <strong>Address</strong>
                     <p>1286 Washington Street MA 01746</p>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-6 contact-detail mb-4">
-                <i class="fas fa-phone-alt"></i>
+                 <i class="fas fa-phone-alt"></i>
                 <div>
                     <strong>Phone (Office)</strong>
                     <p><a href="tel:+15083065516">+1 (508) 306-5516</a></p>
                 </div>
-            </div>
+             </div>
 
             <div class="col-lg-3 col-md-6 contact-detail mb-4">
                 <i class="fas fa-mobile-alt"></i>
                 <div>
                     <strong>Phone (Mobile)</strong>
                     <p><a href="tel:+17745237860">+1 (774) 523-7860</a></p>
-                </div>
+                 </div>
             </div>
 
             <div class="col-lg-3 col-md-6 contact-detail mb-4">
                 <i class="fas fa-envelope"></i>
                 <div>
                     <strong>Email</strong>
-                    <p><a href="mailto:paul@kingsautohaus.net">paul@kingsautohaus.net</a></p>
+                     <p><a href="mailto:paul@kingsautohaus.net">paul@kingsautohaus.net</a></p>
                 </div>
             </div>
 
@@ -408,46 +200,47 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="messageModalLabel">Send Us a Message</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form id="contactForm">
                     <div class="form-group">
-                        <label for="contactName">Name</label>
+                         <label for="contactName">Name</label>
                         <input type="text" class="form-control" id="contactName" name="name" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
-                        <label for="contactEmail">Email address</label>
+                         <label for="contactEmail">Email address</label>
                         <input type="email" class="form-control" id="contactEmail" name="email" placeholder="name@example.com" required>
                     </div>
                     <div class="form-group">
-                        <label for="contactPhone">Phone Number (U.S. 10 digits)</label>
+                         <label for="contactPhone">Phone Number (U.S. 10 digits)</label>
                         <input type="tel" class="form-control" id="contactPhone" name="phone" placeholder="e.g., 123-456-7890" pattern="^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$" title="Please enter a valid 10-digit U.S. phone number (e.g., 123-456-7890)" required>
                         <small id="phoneHelp" class="form-text text-muted">Format: XXX-XXX-XXXX</small>
                     </div>
-                    <div class="form-group">
+                     <div class="form-group">
                         <label for="contactMessage">Message</label>
                         <textarea class="form-control" id="contactMessage" name="message" rows="3" placeholder="Your message..." required></textarea>
                     </div>
-                    
+                 
                     <div class="form-group form-check mt-3">
                         <input type="checkbox" class="form-check-input" id="consentCheckbox" required>
                         <label class="form-check-label" for="consentCheckbox">
-                            By checking this box I hereby consent to receive customer care text messages and/or phone calls from or on behalf of KINGS AUTOHAUS or their employees to the mobile phone number I provided above. By opting in, I understand that message and data rates may apply. This acknowledgement constitutes my written consent to receive text messages to my cell phone and phone calls, including communications sent using an auto-dialer or pre-recorded message. You may withdraw your consent at any time by texting "STOP" or "HELP" for help. See our <a href="/privacy" target="_blank">Privacy Policy</a> for more information.
+                             By checking this box I hereby consent to receive customer care text messages and/or phone calls from or on behalf of KINGS AUTOHAUS or their employees to the mobile phone number I provided above. By opting in, I understand that message and data rates may apply. This acknowledgement constitutes my written consent to receive text messages to my cell phone and phone calls, including communications sent using an auto-dialer or pre-recorded message. You may withdraw your consent at any time by texting "STOP" or "HELP" for help. See our <a href="/privacy" target="_blank">Privacy Policy</a> for more information.
                         </label>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" id="sendMessageButton">Send Message</button>
+                 <button type="submit" class="btn btn-primary" id="sendMessageButton">Send Message</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    // Scripts do Carrossel e do Modal de Contato (sem a lógica dos filtros)
     const fadeInElements = document.querySelectorAll('.fade-in-up');
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -458,7 +251,7 @@
         });
     }, {
         threshold: 0.1
-    });
+     });
     fadeInElements.forEach(element => {
         observer.observe(element);
     });
@@ -627,10 +420,12 @@
                 const endX = e.changedTouches[0].clientX;
                 const diffX = startX - endX;
                 if (Math.abs(diffX) > 50) {
+ 
                     if (diffX > 0) {
                         this.move(1);
                     } else {
                         this.move(-1);
+       
                     }
                 }
                 this.startAutoPlay();
@@ -641,6 +436,7 @@
                     this.calculateDimensions();
                     this.createClones();
                     this.setInitialPosition();
+ 
                     this.updateActiveStates();
                 }, 250);
             });
@@ -665,12 +461,14 @@
         const sendMessageButton = document.getElementById('sendMessageButton');
         const messageModal = document.getElementById('messageModal');
         const consentCheckbox = document.getElementById('consentCheckbox');
-        if (sendMessageButton && contactForm && consentCheckbox) {
+        if (sendMessageButton && contactForm 
+            && consentCheckbox) {
             let isSubmitting = false;
             sendMessageButton.addEventListener('click', async function(event) {
                 event.preventDefault();
                 if (isSubmitting) {
                     console.log('Form submission already in progress.');
+          
                     return;
                 }
                 isSubmitting = true;
@@ -693,7 +491,8 @@
                     email: email,
                     phone: phone,
                     message: message
-                };
+             
+                   };
                 const originalButtonText = sendMessageButton.innerHTML;
                 sendMessageButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
                 sendMessageButton.disabled = true;
@@ -701,7 +500,8 @@
                     const response = await fetch('/send-message', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json'
+                        
+                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(formData)
                     });
@@ -729,55 +529,6 @@
                 }
             });
         }
-
-        // --- INÍCIO DA LÓGICA DO FILTRO ADICIONADA ---
-        let modelsByBrand = {};
-        try {
-            const modelsByBrandString = '{{{modelsByBrand}}}';
-            modelsByBrand = JSON.parse(modelsByBrandString || '{}');
-        } catch (e) {
-            console.error("Error parsing models by brand JSON:", e);
-            modelsByBrand = {};
-        }
-
-        const makeFilter = document.getElementById('make');
-        const modelFilter = document.getElementById('model');
-
-        function populateModelFilter(selectedBrand) {
-            modelFilter.innerHTML = '<option value="">Any</option>';
-            modelFilter.disabled = true; // Desabilita por padrão
-            
-            if (selectedBrand && modelsByBrand[selectedBrand]) {
-                modelsByBrand[selectedBrand].forEach(model => {
-                    const option = document.createElement('option');
-                    option.value = model;
-                    option.textContent = model;
-                    
-                    // Tenta pré-selecionar o modelo se ele existir (útil se o usuário voltar para a home)
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const currentModel = urlParams.get('model');
-                    if (model === currentModel) {
-                        option.selected = true;
-                    }
-                    
-                    modelFilter.appendChild(option);
-                });
-                modelFilter.disabled = false; // Habilita se houver modelos
-            }
-        }
-
-        if (makeFilter) { // Verifica se o filtro de marca existe antes de adicionar o listener
-            makeFilter.addEventListener('change', function() {
-                populateModelFilter(this.value);
-            });
-        }
-
-        // Popula o filtro de modelo na carga inicial da página se uma marca já estiver selecionada
-        const initialMake = makeFilter ? makeFilter.value : null;
-        if (initialMake) {
-            populateModelFilter(initialMake);
-        }
-        // --- FIM DA LÓGICA DO FILTRO ---
-
+        
     });
 </script>
