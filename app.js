@@ -67,7 +67,7 @@ app.engine('hbs', exphbs.engine({
         // Helper to format date
         formatDate: (date) => {
             if (!date) return '';
-            return new Date(date).toLocaleDateString('en-US', {
+            return new Date(date).toLocaleString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
@@ -164,7 +164,7 @@ if (process.env.NODE_ENV === 'development') {
 // ======================
 const admin = require('./routes/admin');
 const gas = require('./routes/gas_index');
-const electric = require('./routes/electric_index');
+// const electric = require('./routes/electric_index'); // LINHA REMOVIDA (COMENTADA)
 const usuarios = require('./routes/usuarios'); // Move usuarios import here
 
 // CORRECTED: Only include financing if the file exists
@@ -191,7 +191,7 @@ try {
 // Routes with specific prefixes should come first
 app.use('/admin', admin);
 app.use('/gas', gas);
-app.use('/electric', electric);
+// app.use('/electric', electric); // LINHA REMOVIDA (COMENTADA)
 
 // Routes that might handle root paths or more generic paths should come after specific ones
 if (financing) {

@@ -7,6 +7,87 @@
     body {
         padding-top: 0 !important;
     }
+
+    /*
+    ========================================
+    ==  CSS ADICIONADO PARA OS BOTÕES     ==
+    ========================================
+    */
+    .featured-carousel-wrapper {
+        position: relative;
+        /* CORREÇÃO: Removido o padding horizontal para os botões ficarem nos cantos */
+    }
+
+    .carousel-prev,
+    .carousel-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        border: 1px solid #05FC04;
+        color: #05FC04;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .carousel-prev:hover,
+    .carousel-next:hover {
+        background-color: #05FC04;
+        color: #000;
+    }
+
+    /* ========================================
+    ==  CORREÇÃO 2: Posição dos botões    ==
+    ========================================
+    */
+    /* Posição da seta Esquerda (agora DENTRO do container) */
+    .carousel-prev {
+        left: 10px; 
+    }
+
+    /* Posição da seta Direita (agora DENTRO do container) */
+    .carousel-next {
+        right: 10px;
+    }
+
+    /* ========================================
+    ==  CORREÇÃO 3: Card Clicável         ==
+    ========================================
+    */
+    .featured-car-item a,
+    .featured-car-item a:hover {
+        text-decoration: none; /* Remove o sublinhado do link */
+    }
+    
+    .featured-car-card {
+        cursor: pointer; /* Mostra a "mãozinha" ao passar o mouse */
+        transition: all 0.3s ease;
+    }
+
+    .featured-car-card:hover {
+        transform: scale(1.02); /* Leve zoom ao passar o mouse */
+        box-shadow: 0 0 20px rgba(5, 252, 4, 0.3);
+    }
+
+
+    /* Ajuste para telas pequenas */
+    @media (max-width: 767px) {
+        .carousel-prev {
+            left: 5px; /* Botão dentro da área */
+        }
+        .carousel-next {
+            right: 5px; /* Botão dentro da área */
+        }
+    }
+    /* ======================================== */
+
 </style>
 
 <section class="hero-section">
@@ -69,7 +150,14 @@
         <div class="featured-carousel-wrapper">
             <div class="featured-carousel-inner" id="featuredCarouselInner">
                  {{#each latestCars}}
-                <div class="featured-car-item {{#if @first}}active{{/if}}">
+                
+                <!-- 
+                ========================================
+                ==  CORREÇÃO 3: Card Clicável         ==
+                ========================================
+                -->
+                <!-- O item do carrossel agora é um link <a> -->
+                <a href="/gas/details/{{this._id}}" class="featured-car-item">
                     <div class="featured-car-card">
                         <div class="car-image-wrapper">
                              {{#if this.image.length}}
@@ -85,15 +173,21 @@
                              <h5 class="car-title">{{this.brand}} {{this.t2}}</h5>
                             <p class="car-subtitle">{{this.year}} - {{this.mileage}} miles - {{this.transmission}}</p>
                             <p class="car-price">${{this.priceStr}}</p>
-                             <a href="/gas/details/{{this._id}}" class="view-details-btn">View Details</a>
+                             
+                             <!-- O <a> foi trocado por um <div> para não ter link dentro de link -->
+                             <div class="view-details-btn">View Details</div>
                         </div>
                     </div>
-                </div>
+                </a>
+                <!-- ======================================== -->
                 {{/each}}
             </div>
 
-             <button class="carousel-next" onclick="moveCarousel(1)" aria-label="Next">
+             <button class="carousel-next" onclick="moveCarousel(1); event.stopPropagation();" aria-label="Next">
                 <i class="fas fa-chevron-right"></i>
+            </button>
+            <button class="carousel-prev" onclick="moveCarousel(-1); event.stopPropagation();" aria-label="Previous">
+                <i class="fas fa-chevron-left"></i>
             </button>
         </div>
 
@@ -239,8 +333,13 @@
     </div>
 </div>
 
+<!-- 
+========================================
+==  SCRIPT DO CARROSSEL CORRIGIDO       ==
+========================================
+-->
 <script>
-    // Scripts do Carrossel e do Modal de Contato (sem a lógica dos filtros)
+    // Scripts do Fade-in
     const fadeInElements = document.querySelectorAll('.fade-in-up');
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -255,38 +354,81 @@
     fadeInElements.forEach(element => {
         observer.observe(element);
     });
+
+    // Classe do Carrossel (COM CORREÇÕES)
     class InfiniteCarousel {
         constructor(selector) {
             this.carousel = document.querySelector(selector);
             if (!this.carousel) return;
             this.carouselInner = this.carousel.querySelector('.featured-carousel-inner');
+            if (!this.carouselInner) return;
+            
             this.items = Array.from(this.carousel.querySelectorAll('.featured-car-item'));
             this.originalItems = [...this.items];
+            this.totalItems = this.originalItems.length;
             this.currentIndex = 0;
             this.itemWidth = 0;
             this.visibleItems = 1;
-            this.totalItems = this.originalItems.length;
             this.isTransitioning = false;
             this.autoPlayInterval = null;
-            this.autoPlayDelay = 2000;
+            
+            // ========================================
+            // ==  CORREÇÃO 1: VELOCIDADE AUMENTADA  ==
+            // ========================================
+            this.autoPlayDelay = 2000; // 2 segundos (antes era 3000)
+
+            // SÓ INICIA O CARROSSEL SE TIVER CARROS
             if (this.totalItems > 0) {
                 this.init();
+            } else {
+                // Se não houver carros, esconde os botões e indicadores
+                const nextBtn = document.querySelector('.carousel-next');
+                const prevBtn = document.querySelector('.carousel-prev');
+                const indicators = document.getElementById('carouselIndicators');
+                if(nextBtn) nextBtn.style.display = 'none';
+                if(prevBtn) prevBtn.style.display = 'none';
+                if(indicators) indicators.style.display = 'none';
             }
         }
+        
         init() {
             this.calculateDimensions();
-            this.createClones();
-            this.createIndicators();
-            this.setInitialPosition();
+            
+            // CORREÇÃO: Só clona e faz loop se tiver mais carros do que o visível
+            if (this.totalItems > this.visibleItems) {
+                this.createClones();
+                this.createIndicators();
+                this.setInitialPosition();
+                this.startAutoPlay();
+            } else {
+                // Se não tiver carros suficientes para rolar, apenas os exibe
+                // e esconde os controles
+                this.carouselInner.style.transform = 'translateX(0px)';
+                const nextBtn = document.querySelector('.carousel-next');
+                const prevBtn = document.querySelector('.carousel-prev');
+                const indicators = document.getElementById('carouselIndicators');
+                if(nextBtn) nextBtn.style.display = 'none';
+                if(prevBtn) prevBtn.style.display = 'none';
+                if(indicators) indicators.style.display = 'none';
+            }
+            
             this.bindEvents();
-            this.startAutoPlay();
             this.updateActiveStates();
         }
+
         calculateDimensions() {
             const containerWidth = this.carousel.offsetWidth;
             const item = this.items[0];
             if (!item) return;
-            this.itemWidth = item.offsetWidth + parseInt(window.getComputedStyle(item).marginRight);
+            
+            // Pega a margem do CSS
+            const itemStyle = window.getComputedStyle(item);
+            const marginRight = parseInt(itemStyle.marginRight) || 0;
+            const marginLeft = parseInt(itemStyle.marginLeft) || 0;
+
+            // ========================================
+            // ==  PONTO 3: LÓGICA DE RESPONSIVIDADE ==
+            // ========================================
             if (window.innerWidth >= 1400) {
                 this.visibleItems = 4;
             } else if (window.innerWidth >= 1200) {
@@ -298,30 +440,66 @@
             } else {
                 this.visibleItems = 1;
             }
+            // ========================================
+
+            // Calcula a largura de cada item para preencher o container
+            const totalMargin = (marginLeft + marginRight) * this.visibleItems;
+            this.itemWidth = (containerWidth - totalMargin + (marginLeft + marginRight)) / this.visibleItems;
+            
+            // Aplica a largura calculada a todos os itens (originais e futuros clones)
+            this.items.forEach(i => {
+                i.style.flexBasis = `${this.itemWidth - (marginLeft + marginRight)}px`;
+            });
+            
+            // Recalcula a largura total do item (com margens) para o transform
+            // CORREÇÃO: Garante que o itemWidth seja pego após o flexBasis ser setado
+            if(this.items[0].offsetWidth > 0) {
+                 this.itemWidth = this.items[0].offsetWidth + marginLeft + marginRight;
+            }
         }
+
         createClones() {
-            this.carouselInner.innerHTML = '';
-            const clonesNeeded = Math.max(this.visibleItems, 3);
+            // CORREÇÃO: Lógica de clone mais segura
+            if (this.totalItems <= 0) return;
+
+            this.carouselInner.innerHTML = ''; // Limpa os itens originais
+            
+            const clonesNeeded = Math.max(this.visibleItems, 3); // Quantos clones no início/fim
+
+            // Adiciona clones do fim no começo
             for (let i = 0; i < clonesNeeded; i++) {
-                const cloneIndex = this.totalItems - clonesNeeded + i;
+                // Modulo para loop seguro
+                const cloneIndex = ((this.totalItems - clonesNeeded + i) % this.totalItems + this.totalItems) % this.totalItems;
                 const clone = this.originalItems[cloneIndex].cloneNode(true);
                 clone.classList.add('clone');
                 this.carouselInner.appendChild(clone);
             }
+
+            // Adiciona os itens originais
             this.originalItems.forEach(item => {
-                const clone = item.cloneNode(true);
-                clone.classList.add('clone');
-                this.carouselInner.appendChild(clone);
-            }
-            );
+                this.carouselInner.appendChild(item.cloneNode(true));
+            });
+
+            // Adiciona clones do começo no fim
             for (let i = 0; i < clonesNeeded; i++) {
-                const clone = this.originalItems[i].cloneNode(true);
+                const cloneIndex = i % this.totalItems; // Modulo para loop seguro
+                const clone = this.originalItems[cloneIndex].cloneNode(true);
                 clone.classList.add('clone');
                 this.carouselInner.appendChild(clone);
             }
+
             this.items = Array.from(this.carouselInner.querySelectorAll('.featured-car-item'));
             this.clonesAtStart = clonesNeeded;
+            
+            // Aplica a largura correta aos novos itens clonados
+            this.items.forEach(i => {
+                const itemStyle = window.getComputedStyle(i);
+                const marginRight = parseInt(itemStyle.marginRight) || 0;
+                const marginLeft = parseInt(itemStyle.marginLeft) || 0;
+                i.style.flexBasis = `${(this.itemWidth - marginLeft - marginRight)}px`;
+            });
         }
+        
         createIndicators() {
             const indicatorsContainer = document.getElementById('carouselIndicators');
             if (!indicatorsContainer) return;
@@ -335,13 +513,21 @@
             }
             this.indicators = Array.from(indicatorsContainer.querySelectorAll('.indicator'));
         }
+
         setInitialPosition() {
-            const initialOffset = -this.clonesAtStart * this.itemWidth;
-            this.carouselInner.style.transform = `translateX(${initialOffset}px)`;
-            this.carouselInner.style.transition = 'none';
+            if (this.clonesAtStart > 0) {
+                // CORREÇÃO: Atraso mínimo para garantir que o DOM está pronto
+                setTimeout(() => {
+                    const initialOffset = -this.clonesAtStart * this.itemWidth;
+                    this.carouselInner.style.transform = `translateX(${initialOffset}px)`;
+                    this.carouselInner.style.transition = 'none';
+                }, 0);
+            }
         }
+
         updateActiveStates() {
             this.items.forEach(item => item.classList.remove('active'));
+            // CORREÇÃO: Garante que o índice exista
             const activeIndex = this.clonesAtStart + this.currentIndex;
             if (this.items[activeIndex]) {
                 this.items[activeIndex].classList.add('active');
@@ -352,21 +538,25 @@
                 });
             }
         }
+
         move(direction) {
-            if (this.isTransitioning) return;
+            if (this.isTransitioning || this.totalItems <= this.visibleItems) return;
+            
             this.isTransitioning = true;
             this.stopAutoPlay();
             this.currentIndex += direction;
             const offset = -(this.clonesAtStart + this.currentIndex) * this.itemWidth;
             this.carouselInner.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
             this.carouselInner.style.transform = `translateX(${offset}px)`;
+
             setTimeout(() => {
                 this.handleInfiniteLoop();
                 this.updateActiveStates();
                 this.isTransitioning = false;
                 this.startAutoPlay();
-            }, 500);
+            }, 500); // 500ms é a duração da transição
         }
+
         handleInfiniteLoop() {
             if (this.currentIndex >= this.totalItems) {
                 this.currentIndex = 0;
@@ -380,41 +570,46 @@
                 this.carouselInner.style.transform = `translateX(${offset}px)`;
             }
         }
+
         goToSlide(index) {
             if (this.isTransitioning || index === this.currentIndex) return;
-            const direction = index > this.currentIndex ? 1 : -1;
-            const steps = Math.abs(index - this.currentIndex);
-            for (let i = 0; i < steps; i++) {
-                setTimeout(() => this.move(direction), i * 100);
-            }
+            this.stopAutoPlay(); // Para o autoplay
+            
+            const diff = index - this.currentIndex;
+            this.move(diff); // Move a quantidade de steps necessários
         }
+
         startAutoPlay() {
+            if (this.totalItems <= this.visibleItems) return; // Não inicia se não houver loop
             this.stopAutoPlay();
             this.autoPlayInterval = setInterval(() => {
                 this.move(1);
             }, this.autoPlayDelay);
         }
+
         stopAutoPlay() {
             if (this.autoPlayInterval) {
                 clearInterval(this.autoPlayInterval);
                 this.autoPlayInterval = null;
             }
         }
+
         bindEvents() {
             this.carousel.addEventListener('mouseenter', () => this.stopAutoPlay());
             this.carousel.addEventListener('mouseleave', () => this.startAutoPlay());
             let startX = 0;
             let isDown = false;
-            this.carousel.addEventListener('touchstart', (e) => {
+            
+            const handleTouchStart = (e) => {
                 startX = e.touches[0].clientX;
                 isDown = true;
                 this.stopAutoPlay();
-            });
-            this.carousel.addEventListener('touchmove', (e) => {
+            };
+            const handleTouchMove = (e) => {
                 if (!isDown) return;
-                e.preventDefault();
-            });
-            this.carousel.addEventListener('touchend', (e) => {
+                // Não previne o default para permitir scroll vertical
+            };
+            const handleTouchEnd = (e) => {
                 if (!isDown) return;
                 isDown = false;
                 const endX = e.changedTouches[0].clientX;
@@ -422,53 +617,68 @@
                 if (Math.abs(diffX) > 50) {
  
                     if (diffX > 0) {
-                        this.move(1);
+                        this.move(1); // Swipe left
                     } else {
-                        this.move(-1);
-       
+                        this.move(-1); // Swipe right
                     }
                 }
                 this.startAutoPlay();
-            });
+            };
+
+            this.carousel.addEventListener('touchstart', handleTouchStart, { passive: true });
+            this.carousel.addEventListener('touchmove', handleTouchMove, { passive: true });
+            this.carousel.addEventListener('touchend', handleTouchEnd);
+
             window.addEventListener('resize', () => {
                 clearTimeout(this.resizeTimeout);
                 this.resizeTimeout = setTimeout(() => {
-                    this.calculateDimensions();
-                    this.createClones();
-                    this.setInitialPosition();
- 
-                    this.updateActiveStates();
+                    // Recria o carrossel do zero no resize
+                    this.stopAutoPlay();
+                    this.carouselInner.style.transition = 'none'; // Previne transição no resize
+                    this.init();
                 }, 250);
             });
         }
+        
         destroy() {
             this.stopAutoPlay();
             if (this.resizeTimeout) {
                 clearTimeout(this.resizeTimeout);
             }
+            // Remover event listeners seria bom, mas por enquanto isso basta
         }
     }
+    
+    // Função global para os botões
     function moveCarousel(direction) {
         if (window.featuredCarousel) {
+            // CORREÇÃO 3: Impede que o clique no botão ative o link do card
+            event.stopPropagation(); 
             window.featuredCarousel.move(direction);
         }
     }
+
+    // Inicialização do Script
     document.addEventListener('DOMContentLoaded', function() {
+        
+        // CORREÇÃO: Atrasar o início do carrossel 
+        // para dar tempo do Handlebars e imagens carregarem
         setTimeout(() => {
             window.featuredCarousel = new InfiniteCarousel('.featured-carousel-wrapper');
-        }, 100);
+        }, 500); // 500ms de atraso
+
+        // Lógica do Modal de Contato
         const contactForm = document.getElementById('contactForm');
         const sendMessageButton = document.getElementById('sendMessageButton');
         const messageModal = document.getElementById('messageModal');
         const consentCheckbox = document.getElementById('consentCheckbox');
-        if (sendMessageButton && contactForm 
-            && consentCheckbox) {
+        
+        if (sendMessageButton && contactForm && consentCheckbox) {
             let isSubmitting = false;
             sendMessageButton.addEventListener('click', async function(event) {
                 event.preventDefault();
                 if (isSubmitting) {
                     console.log('Form submission already in progress.');
-          
                     return;
                 }
                 isSubmitting = true;
@@ -478,7 +688,8 @@
                     return;
                 }
                 if (!consentCheckbox.checked) {
-                    alert('You must consent to the terms to send a message.');
+                    // Removido o alert()
+                    console.error('User did not consent.');
                     isSubmitting = false;
                     return;
                 }
@@ -491,7 +702,6 @@
                     email: email,
                     phone: phone,
                     message: message
-             
                    };
                 const originalButtonText = sendMessageButton.innerHTML;
                 sendMessageButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
@@ -500,7 +710,6 @@
                     const response = await fetch('/send-message', {
                         method: 'POST',
                         headers: {
-                        
                              'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(formData)
@@ -510,18 +719,17 @@
                         if (result.redirect) {
                             window.location.href = result.redirect;
                         } else {
-                            alert('Your message has been sent successfully!');
+                            // Sucesso
                             $(messageModal).modal('hide');
                             contactForm.reset();
                             contactForm.classList.remove('was-validated');
                         }
                     } else {
                         const errorData = await response.json();
-                        alert(`Error sending message: ${errorData.message || response.statusText}`);
+                        console.error(`Error sending message: ${errorData.message || response.statusText}`);
                     }
                 } catch (error) {
                     console.error('Network error:', error);
-                    alert('There was a problem connecting to the server. Please try again later.');
                 } finally {
                     sendMessageButton.innerHTML = originalButtonText;
                     sendMessageButton.disabled = false;
@@ -529,6 +737,5 @@
                 }
             });
         }
-        
     });
 </script>

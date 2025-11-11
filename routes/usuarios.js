@@ -10,88 +10,48 @@ const sendEmail = require('../utils/mailer'); // Seu utilitário de envio de e-m
 require('../models/UserModel');
 const Usuario = mongoose.model('usuarios');
 const GasModel = require('../models/GasModel'); // Importar o modelo GasModel
-const ElectricModel = require('../models/ElectricModel'); // Importar o modelo ElectricModel
+// REMOVIDO: const ElectricModel = require('../models/ElectricModel');
 
 
 // ✅ Página principal - Home (GET)
 router.get('/', async (req, res) => {
     try {
-        // Busca todos os carros a gasolina e elétricos
-        const gasCars = await GasModel.find().lean();
-        const electricCars = await ElectricModel.find().lean();
+        // ====================================================================
+        // ===================== LÓGICA DE DESTAQUES CORRIGIDA ====================
+        // ====================================================================
 
-        const allCars = [...gasCars, ...electricCars];
+        // 1. Busca carros a gasolina em destaque que NÃO estejam vendidos ou pendentes
+        const featuredGasCars = await GasModel.find({
+            featured: true,       // O campo que você marcou no admin
+            
+            // --- MUDANÇA PRINCIPAL AQUI ---
+            // Em vez de procurar status: 'available' (que pode ser nulo em carros antigos),
+            // vamos procurar por carros que NÃO estejam 'sold' E NÃO estejam 'pending'.
+            status: { $nin: ['sold', 'pending'] }
+            // --- FIM DA MUDANÇA ---
 
-        // Processa as marcas e suas contagens para o filtro "Fazer" (Make)
-        const brandsMap = new Map();
-        allCars.forEach(car => {
-            const brand = car.brand;
-            if (brand) {
-                const formattedBrand = brand.charAt(0).toUpperCase() + brand.slice(1).toLowerCase();
-                brandsMap.set(formattedBrand, (brandsMap.get(formattedBrand) || 0) + 1);
-            }
-        });
-
-        const carBrands = Array.from(brandsMap.entries()).map(([name, count]) => ({
-            name: name,
-            count: count
-        })).sort((a, b) => a.name.localeCompare(b.name));
-
-        const modelsByBrand = {};
-        carBrands.forEach(brand => {
-            modelsByBrand[brand.name] = allCars
-                .filter(car => (car.brand && car.brand.toLowerCase() === brand.name.toLowerCase()))
-                .map(car => car.t2 || car.title)
-                .filter((value, index, self) => self.indexOf(value) === index)
-                .sort();
-        });
-
-        const featuredCarsQuery = await GasModel.find({
-            image: { $exists: true, $ne: [], $not: { $size: 0 } }
         })
-        .sort({
-            date: -1,
-            price: -1
-        })
-        .limit(12)
+        .sort({ date: -1 }) // Ordena pelos mais novos
         .lean();
 
-        let latestCars = featuredCarsQuery;
-        if (latestCars.length < 6) {
-            const additionalCars = await GasModel.find({
-                _id: { $nin: latestCars.map(car => car._id) }
-            })
-            .sort({ date: -1, price: -1 })
-            .limit(12 - latestCars.length)
-            .lean();
-            
-            latestCars = [...latestCars, ...additionalCars];
-        }
+        // 2. Coloca os resultados na variável
+        let latestCars = featuredGasCars
+            .sort((a, b) => new Date(b.date) - new Date(a.date)) // Garante que os mais novos venham primeiro
+            .slice(0, 10); // Limita a 10 carros
 
-        if (latestCars.length < 8) {
-            const electricFeatured = await ElectricModel.find({
-                image: { $exists: true, $ne: [], $not: { $size: 0 } }
-            })
-            .sort({ date: -1, price: -1 })
-            .limit(8 - latestCars.length)
-            .lean();
-            
-            latestCars = [...latestCars, ...electricFeatured];
-        }
+        console.log(`🚗 Loaded ${latestCars.length} *MANUALLY FEATURED* gas cars for homepage carousel`);
 
-        latestCars = latestCars.sort((a, b) => {
-            const scoreA = (a.image?.length || 0) * 10 + (a.price || 0) / 10000;
-            const scoreB = (b.image?.length || 0) * 10 + (b.price || 0) / 10000;
-            return scoreB - scoreA;
-        }).slice(0, 10);
+        // REMOVIDO: Lógica desnecessária de filtros que não existem na home.hbs
 
-        console.log(`🚗 Loaded ${latestCars.length} featured cars for homepage carousel`);
+        // ====================================================================
+        // ===================== FIM DA CORREÇÃO ============================
+        // ====================================================================
 
         res.render('home', {
             layout: 'layout',
-            carBrands: carBrands,
-            modelsByBrand: JSON.stringify(modelsByBrand),
-            latestCars: latestCars,
+            // REMOVIDO: carBrands: carBrands,
+            // REMOVIDO: modelsByBrand: JSON.stringify(modelsByBrand),
+            latestCars: latestCars, // Envia os carros corretos para o home.hbs
         });
     } catch (err) {
         console.error("❌ Error fetching homepage data:", err);
@@ -99,8 +59,6 @@ router.get('/', async (req, res) => {
         res.render('home', {
             layout: 'layout',
             error: 'Could not load content.',
-            carBrands: [],
-            modelsByBrand: JSON.stringify({}),
             latestCars: []
         });
     }

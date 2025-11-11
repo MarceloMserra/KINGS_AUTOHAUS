@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 const multer = require('multer');
-const ElectricModel = require("../models/ElectricModel");
+// REMOVIDO: const ElectricModel = require("../models/ElectricModel");
 const GasModel = require('../models/GasModel');
 const ServiceModel = require('../models/ServiceModel');
 const CustomerModel = require('../models/CustomerModel');
@@ -88,111 +88,11 @@ router.get('/service/email/:mailid', async function (req, res) {
     res.redirect('/admin/service');
 });
 
-// ⚡ Carros elétricos
-router.get('/electric', async function (req, res) {
-    const electric_models = await ElectricModel.find().lean();
-    res.render("admin/electric_list", { list: electric_models, layout: 'layout_list' });
-});
 
-router.get('/addelectric', (req, res) => {
-    res.render("admin/electric_form", { layout: 'layout_list' });
-});
+// ====================================================================
+// ===================== ROTAS DE CARROS ELÉTRICOS REMOVIDAS =====================
+// ====================================================================
 
-router.post('/addelectric', upload.array('imagesupld'), async function (req, res) {
-    try {
-        let imageUrls = [];
-        if (req.files && req.files.length > 0) {
-            imageUrls = req.files.map(file => '/images/' + file.filename);
-        }
-
-        const electric = new ElectricModel({
-            brand: req.body.brand,
-            title: req.body.title,
-            t1: req.body.t1,
-            t2: req.body.t2,
-            year: convertToNumber(req.body.year),
-            price: convertToNumber(req.body.price),
-            priceStr: req.body.priceStr,
-            topspeed: convertToNumber(req.body.topspeed),
-            time60: convertToNumber(req.body.time60),
-            range: convertToNumber(req.body.range),
-            colour: req.body.colour,
-            interior: req.body.interior,
-            wheel: req.body.wheel,
-            description: req.body.description,
-            safety: req.body.safety,
-            rangedesc: req.body.rangedesc,
-            image: imageUrls
-        });
-        await electric.save();
-        req.flash('success_msg', 'Electric car added successfully!');
-        res.redirect('/admin/electric');
-    } catch (err) {
-        console.error("Error adding electric car:", err);
-        req.flash('error_msg', 'Error adding electric car: ' + err.message);
-        res.render("admin/electric_form", { layout: 'layout_list', error: err.message });
-    }
-});
-
-router.get('/editelectric/:id', async function (req, res) {
-    try {
-        const electricCar = await ElectricModel.findById(req.params.id).lean();
-        if (!electricCar) {
-            req.flash('error_msg', 'Electric car not found.');
-            return res.redirect('/admin/electric');
-        }
-        res.render('admin/electric_edit_form', { electricCar: electricCar, layout: 'layout_list' });
-    } catch (err) {
-        console.error("Error loading edit form for electric car:", err);
-        req.flash('error_msg', 'Error loading edit form: ' + err.message);
-        res.redirect('/admin/electric');
-    }
-});
-
-router.put('/editelectric/:id', upload.array('imagesupld'), async function (req, res) {
-    try {
-        let electricCar = await ElectricModel.findById(req.params.id);
-        if (!electricCar) {
-            req.flash('error_msg', 'Electric car not found for update.');
-            return res.redirect('/admin/electric');
-        }
-
-        electricCar.brand = req.body.brand;
-        electricCar.title = req.body.title;
-        electricCar.t1 = req.body.t1;
-        electricCar.t2 = req.body.t2;
-        electricCar.year = convertToNumber(req.body.year);
-        electricCar.price = convertToNumber(req.body.price);
-        electricCar.priceStr = req.body.priceStr;
-        electricCar.topspeed = convertToNumber(req.body.topspeed);
-        electricCar.time60 = convertToNumber(req.body.time60);
-        electricCar.range = convertToNumber(req.body.range);
-        electricCar.colour = req.body.colour;
-        electricCar.interior = req.body.interior;
-        electricCar.wheel = req.body.wheel;
-        electricCar.description = req.body.description;
-        electricCar.safety = req.body.safety;
-        electricCar.rangedesc = req.body.rangedesc;
-
-        if (req.files && req.files.length > 0) {
-            electricCar.image = req.files.map(file => '/images/' + file.filename);
-        }
-
-        await electricCar.save();
-        req.flash('success_msg', 'Electric car updated successfully!');
-        res.redirect('/admin/electric');
-    } catch (err) {
-        console.error("Error updating electric car:", err);
-        req.flash('error_msg', 'Error updating electric car: ' + err.message);
-        res.render("admin/electric_edit_form", { layout: 'layout_list', error: err.message, electricCar: req.body });
-    }
-});
-
-router.get('/deleteelectric/:id', async function (req, res) {
-    await ElectricModel.findByIdAndRemove(req.params.id);
-    req.flash('success_msg', 'Electric car deleted successfully!');
-    res.redirect('/admin/electric');
-});
 
 // ⛽ Carros a gasolina
 router.get('/gas', async function (req, res) {
@@ -204,12 +104,21 @@ router.get('/addgas', (req, res) => {
     res.render("admin/gas_form", { layout: 'layout_list' });
 });
 
+// ====================================================================
+// ===================== MUDANÇA #1 NESTA FUNÇÃO ======================
+// ====================================================================
 router.post('/addgas', upload.array('imagesupld'), async function (req, res) {
     try {
         let imageUrls = [];
         if (req.files && req.files.length > 0) {
             imageUrls = req.files.map(file => '/images/' + file.filename);
         }
+
+        // --- LINHA NOVA ADICIONADA ---
+        // Se o checkbox 'featured' foi marcado, o valor é "true". Se não, é undefined.
+        // Isso converte para um Booleano (true/false) para salvar no banco de dados.
+        const isFeatured = req.body.featured === 'true' ? true : false;
+        // --- FIM DA LINHA NOVA ---
 
         const gas = new GasModel({
             brand: req.body.brand,
@@ -233,7 +142,15 @@ router.post('/addgas', upload.array('imagesupld'), async function (req, res) {
             description: req.body.description,
             safety: req.body.safety,
             technology: req.body.technology,
-            image: imageUrls
+            image: imageUrls,
+            
+            // --- LINHA ADICIONADA NA CONVERSA ANTERIOR ---
+            featured: isFeatured, 
+            
+            // --- LINHA NOVA ADICIONADA AGORA ---
+            // Salva o status que veio do formulário
+            status: req.body.status
+            // --- FIM DA LINHA NOVA ---
         });
 
         await gas.save();
@@ -261,6 +178,9 @@ router.get('/editgas/:id', async function (req, res) {
     }
 });
 
+// ====================================================================
+// ===================== MUDANÇA #2 NESTA FUNÇÃO ======================
+// ====================================================================
 router.put('/editgas/:id', upload.array('imagesupld'), async function (req, res) {
     try {
         let gasCar = await GasModel.findById(req.params.id);
@@ -290,6 +210,14 @@ router.put('/editgas/:id', upload.array('imagesupld'), async function (req, res)
         gasCar.description = req.body.description;
         gasCar.safety = req.body.safety;
         gasCar.technology = req.body.technology;
+
+        // --- LINHA ADICIONADA NA CONVERSA ANTERIOR ---
+        gasCar.featured = req.body.featured === 'true' ? true : false;
+        
+        // --- LINHA NOVA ADICIONADA AGORA ---
+        // Salva o status que veio do formulário
+        gasCar.status = req.body.status;
+        // --- FIM DA LINHA NOVA ---
 
         if (req.files && req.files.length > 0) {
             gasCar.image = req.files.map(file => '/images/' + file.filename);
@@ -448,7 +376,7 @@ router.post('/send-reset-link', ensureAdmin, async (req, res) => {
         const usuario = await UserModel.findById(userId);
 
         if (!usuario) {
-            return res.status(404).json({ success: false, message: 'User not found.' });
+            return res.status(4404).json({ success: false, message: 'User not found.' });
         }
 
         // 1. Gerar Token (lógica copiada de usuarios.js)
